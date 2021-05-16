@@ -1,0 +1,221 @@
+.swipe-box-swipe{
+  height: 520rpx;
+}
+.swiper-item{
+  /* height: 400rpx; */
+  width: 100%;
+  height: 460rpx;
+}
+.swiper-item image{
+  display: inline-block;
+  width: 100%;
+  height: 460rpx;
+}
+.middel-box{
+  background: #efefef;
+  border-radius: 40rpx 40rpx 0 0;
+  padding: 30rpx;
+  margin-top: -28rpx;
+  position: relative;
+  z-index: 9;
+}
+.search-box{
+  display: flex;
+}
+.arrow-icon{
+  vertical-align: middle;
+  margin-top: -3rpx;
+}
+.search-box .van-search {
+  /* padding: 0; */
+  flex: 1;
+}
+.add-text-icon{
+  height: 108rpx;
+  line-height: 108rpx;
+  margin-top: -4rpx;
+}
+.address-city{
+  font-size: 32rpx;
+  line-height: 108rpx;
+}
+.map-icon{
+  height: 108rpx;
+  line-height: 108rpx;
+  width: 80rpx;
+  text-align: center;
+}
+.map-icon-cont{
+  display:inline-block;
+  margin-top:10rpx;
+  height:108rpx;
+  line-height:108rpx;
+  padding-top: 8rpx;
+}
+.recommend-person,.recommend-stores{
+  display: flex;
+  justify-content: space-around;
+}
+.recommend-person{
+  background: #fff;
+  border-radius: 12rpx;
+  padding:30rpx;
+  margin-top: 12rpx;
+  margin-bottom: 40rpx;
+}
+.per-info{
+  display: flex;
+  flex-direction: column;
+  padding-left: 45rpx;
+}
+.per-img{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.per-name{
+  font-size: 28rpx;
+}
+.first-price{
+  font-size: 45rpx;
+  color: #d4913a;
+}
+.sec-price{
+  font-size: 30rpx;
+  color: #ccc;
+  margin-left: 20rpx;
+  text-decoration:line-through;
+}
+.umbrella-circle{
+  justify-content: left;
+  margin: 16rpx 0;
+}
+.per-start{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+.go-spa button{
+  background: #d4913a;
+  color: #fff;
+  height: 60rpx;
+  width: 110rpx;
+  border: none;
+  border-radius: 30rpx;
+  padding: 0 12rpx;
+}
+.per-img image{
+  display:inline-block;
+  height:120rpx;
+  width:120rpx;
+  border-radius: 50%;
+}
+.dengdaikuang{
+  font-size: 24rpx;
+  border-radius: 20rpx;
+  padding: 6rpx 18rpx;
+  background: #f1ddc1;
+  color: #d4913a;
+}
+.recommend-stores{
+  background: #fff;
+  padding:20rpx;
+}
+.recommend-stores-botborder{
+  border-bottom:1rpx solid #dedede;
+  display: flex;
+  justify-content: space-between;
+  padding: 10rpx 0 20rpx;
+}
+.store-photo{
+  height: 120rpx;
+  width: 120rpx;
+}
+.store-photo-img{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+
+}
+.store-info{
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx 20rpx ;
+  
+}
+.store-name{
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.store-type{
+  font-size: 26rpx;
+  color: #999;
+  margin: 10rpx 0;
+}
+.store-num{
+  display: flex;
+}
+.store-num view:first-child{
+  background: #f5e5cf;
+  color: #ddbb8f;
+  font-size: 24rpx;
+  width: 150rpx;
+  padding:3rpx 12rpx;
+  border-radius: 20rpx;
+}
+.store-num view:last-child{
+  background: #f0cdc0;
+  color: #f78c5b;
+  font-size: 24rpx;
+  width: 120rpx;
+  margin-left: 12rpx;
+  padding:3rpx 12rpx;
+  border-radius: 20rpx;
+}
+.store-start{
+  width: 140rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 16rpx 0 20rpx;
+}
+.store-info{
+  flex:1;
+}
+.store-prace{
+  margin: 10rpx 0;
+}
+.store-prace text:first-child{
+  font-size: 46rpx;
+  font-weight: 500;
+  color: rgb(201, 133, 57);
+}
+.store-prace text:last-child{
+  font-size: 36rpx;
+  text-decoration-line: line-through;
+  margin-left: 18rpx;
+  color: #dedede;
+}
+.store-address{
+  color: #ccc;
+  font-size: 24rpx;
+}
+.store-juli{
+  font-size: 28rpx;
+  color: #999;
+}
+.store-shangci{
+  font-size: 22rpx;
+  color: #ccc;
+}
+.yuding button{
+  background: #d4913a;
+  color: #fff;
+  height: 60rpx;
+  width: 110rpx;
+  border: none;
+  border-radius: 30rpx;
+  padding: 0 12rpx;
+}

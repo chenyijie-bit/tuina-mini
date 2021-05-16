@@ -1,0 +1,12 @@
+<view style="padding-top:200rpx;">
+	<view style="text-align:center;">
+		<image class="store-img" src="{{logoImg}}"></image>
+	</view>
+	<view style="text-align:center;margin:20rpx 0;color:#999; font-size:26rpx;">为了更好地为您提供服务，请进行账号登录</view>
+	<button></button>
+	<view  class="go-login" bindtap="getUserProfile">
+		<image class="login-welogo" src="{{wechatLogo}}"></image>
+		微信快捷登录
+	</view>
+
+</view>

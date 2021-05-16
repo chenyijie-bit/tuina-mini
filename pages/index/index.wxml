@@ -1,0 +1,90 @@
+<!--index.wxml-->
+<!--  -->
+<view class="container">
+  <view class="swipe-box">
+    <swiper class="swipe-box-swipe" indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{images}}" wx:key="item">
+        <swiper-item>
+          <view class="swiper-item">
+            <image mode="widthFix" src="{{item}}"></image>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 搜索栏 -->
+  <view class="middel-box">
+    <view class="search-box">
+      <view class="add-text-icon">
+        <text class="address-city">深圳</text>
+        <van-icon class="arrow-icon" name="arrow" size="30rpx"/>
+      </view>
+      <van-search
+        value="{{ searchValue }}"
+        shape="round"
+        background="transparent"
+        placeholder="请输入门店名称"
+        style="flex:1;"
+      />
+      <view class="map-icon">
+        <van-icon class="map-icon-cont" name="shop-collect" color="#999" size="60rpx;"/>
+      </view>
+    </view>
+    <!-- 推荐人及店铺list -->
+    <view class="recommend-person">
+      <view class="per-img">
+        <image  src="{{personImg}}"></image>
+      </view>
+      <view class="per-info">
+        <text class="per-name">陈小于</text>
+        <view class="price">
+          <text class="first-price">￥123</text>
+          <text class="sec-price">￥456</text>
+        </view>
+        <van-icon class="umbrella-circle" name="umbrella-circle"/>
+        <view class="dengdaikuang">前面有2人，约等待20分钟</view>
+      </view>
+      <view class="per-start">
+        <block>
+          <van-button type="default" class="go-spa" bindtap="goToStaffInfo">点TA</van-button>
+        </block>
+      </view>
+    </view>
+    <block wx:for="storeList" wx:key="item">
+      <view class="recommend-stores">
+        <view class="recommend-stores-botborder">
+          <view class="store-photo">
+            <image mode="aspectFit" class="store-photo-img" src="../../assess/images/1.jpeg"></image>
+          </view>
+          <view class="store-info">
+            <view class="store-name">有一手推拿店</view>
+            <view class="store-type">全身推拿+火罐/刮痧</view>
+            <view class="store-num">
+              <view>一人正在推拿</view>
+              <view>老用户优惠</view>
+            </view>
+            <view class="store-prace">
+              <text>￥123</text>
+              <text>￥456</text>
+            </view>
+            <view class="store-address">
+              <van-icon name="location" />
+              <text>广东省深圳市龙岗岩区吉华</text>
+            </view>
+          </view>
+          <view class="store-start">
+            <view>
+              <view class="store-juli">3.6公里</view>
+              <text class="store-shangci">上次光临</text>
+            </view>
+            <view class="store-start-but">
+              <van-button type="default" class="yuding" bindtap="goToStoreInfo">预定</van-button>
+            </view>
+          </view>
+        </view>
+        
+      </view>
+    </block>
+  </view>
+</view>

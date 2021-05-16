@@ -1,0 +1,22 @@
+.store-img{
+	display: inline-block;
+	width: 300rpx;
+	height: 200rpx;
+	margin: 0 auto;
+}
+.go-login{
+	height: 90rpx;
+	width: 100%;
+	border-radius: 18rpx;
+	background: rgb(14, 172, 53);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+}
+.go-login .login-welogo{
+	display: inline-block;
+	height: 38rpx;
+	width: 38rpx;
+	margin-right: 12rpx;
+}

@@ -1,0 +1,45 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/order/index",
+    "pages/me/index",
+    "pages/salesclerk/index",
+    "pages/storeInfo/index"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于计算到门店的距离" 
+    }
+  },
+  "tabBar": {
+    "selectedColor":"#ce7017",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "点个高手",
+      "iconPath":"./assess/tabicons/shouye2.png",
+      "selectedIconPath":"./assess/tabicons/shouye.png"
+    }, {
+      "pagePath": "pages/order/index",
+      "text": "订单",
+      "iconPath":"./assess/tabicons/dingdan2.png",
+      "selectedIconPath":"./assess/tabicons/dingdan.png"
+    }, {
+      "pagePath": "pages/me/index",
+      "text": "我的",
+      "iconPath":"./assess/tabicons/me2.png",
+      "selectedIconPath":"./assess/tabicons/me.png"
+    }]
+  },
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle":"black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-search": "@vant/weapp/search/index"
+  }
+}
