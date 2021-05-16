@@ -1,3 +1,17 @@
-<view>
-	<text>店员详情页</text>
+<view class="contain-box">
+	<view class="sale-top-box">
+		<view class="sale-img"></view>
+		<view class="sale-info">
+			<text>陈小鱼</text>
+			<text>坂田店与天安云谷店</text>
+			<view>
+				<view class="dafen"></view>
+				<view class="congyenianxian"></view>
+			</view>
+			<view>无需等待，可立即开始</view>
+		</view>
+	</view>
+	<view class="sale-addr-box"></view>
+	<view class="sale-types-box"></view>
+	<view class="sale-pingjia-box"></view>
 </view>

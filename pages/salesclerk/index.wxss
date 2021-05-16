@@ -1,0 +1,7 @@
+.contain-box{
+	background:#efefef;
+}
+.sale-top-box{
+	display: flex;
+	margin-bottom: 20rpx;
+}
