@@ -10,8 +10,6 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log($api.getOpenid)
-        console.log(res.code)
         // 调用接口获取openid
         $api.getOpenid({code:res.code})
         .then(res => {
