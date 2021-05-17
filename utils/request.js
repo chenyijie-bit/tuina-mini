@@ -14,7 +14,8 @@ function request(method, url, data) {
         wx.request({
             url: baseURL + url,
             method: method,
-            data: method === POST ? JSON.stringify(data) : data,
+            // data: method === POST ? JSON.stringify(data) : data,
+            data: data,
             header: header,
             success(res) {
                 //请求成功
