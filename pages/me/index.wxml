@@ -1,2 +1,32 @@
 <!--pages/me/index.wxml-->
-<text>pages/me/index.wxml</text>
+<view class="me-box">
+  <view class="me-box-top">
+    <view class="user-logo">
+      <image src="{{avatarUrl}}"></image>
+    </view>
+    <view class="user-info">
+      <text class="name">陈生</text>
+      <text class="tel">13621312312</text>
+    </view>
+  </view>
+  <view class="me-box-middle">
+    <view class="middle-list">
+      <view class="item" bindtap="goToOrder">
+        <image src="../../assess/images/1.jpeg"></image>
+        <text>订单</text>
+      </view>
+      <view class="item">
+        <image src="../../assess/images/1.jpeg"></image>
+        <text>优惠券</text>
+      </view>
+      <view class="item">
+        <image src="../../assess/images/1.jpeg"></image>
+        <text>邀请好友</text>
+      </view>
+      <view class="item">
+        <image src="../../assess/images/1.jpeg"></image>
+        <text>我的收藏</text>
+      </view>
+    </view>
+  </view>
+</view>

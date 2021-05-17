@@ -5,7 +5,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-
+		avatarUrl:''
 	},
 
 	/**
@@ -16,9 +16,19 @@ Page({
 			wx.navigateTo({
 			  url: '../loginPage/index',
 			})
+		}else{
+			let userInfo = wx.getStorageSync('userInfo')
+			console.log(userInfo)
+			this.setData({
+				avatarUrl :userInfo.avatarUrl
+			})
 		}
 	},
-
+	goToOrder(){
+		wx.switchTab({
+			url: '../order/index',
+		})
+	},
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
