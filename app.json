@@ -4,7 +4,8 @@
     "pages/order/index",
     "pages/me/index",
     "pages/salesclerk/index",
-    "pages/storeInfo/index"
+    "pages/storeInfo/index",
+    "pages/achievement/index"
   ],
   "permission": {
     "scope.userLocation": {
@@ -12,6 +13,7 @@
     }
   },
   "tabBar": {
+    "custom": true,
     "selectedColor":"#ce7017",
     "list": [{
       "pagePath": "pages/index/index",
@@ -26,6 +28,11 @@
     }, {
       "pagePath": "pages/me/index",
       "text": "我的",
+      "iconPath":"./assess/tabicons/me2.png",
+      "selectedIconPath":"./assess/tabicons/me.png"
+    }, {
+      "pagePath": "pages/achievement/index",
+      "text": "我的业绩",
       "iconPath":"./assess/tabicons/me2.png",
       "selectedIconPath":"./assess/tabicons/me.png"
     }]
