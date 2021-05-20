@@ -21,12 +21,14 @@ Component({
         "text": "我的",
         "iconPath":"../assess/tabicons/me2.png",
         "selectedIconPath":"../assess/tabicons/me.png"
-      }, {
-        "pagePath": "../achievement/index",
-        "text": "我的业绩",
-        "iconPath":"../assess/tabicons/me2.png",
-        "selectedIconPath":"../assess/tabicons/me.png"
-      }],
+      } 
+      // ,{
+      //   "pagePath": "../achievement/index",
+      //   "text": "我的业绩",
+      //   "iconPath":"../assess/tabicons/me2.png",
+      //   "selectedIconPath":"../assess/tabicons/me.png"
+      // }
+    ],
       //员工角色tab栏
       list2: [
         // {
@@ -47,11 +49,12 @@ Component({
           "selectedIconPath":"../assess/tabicons/shouye.png"
         },
       {
-        "pagePath": "../me/index",
-        "text": "我的",
+        "pagePath": "../survey/index",
+        "text": "服务订单",
         "iconPath":"../assess/tabicons/me2.png",
         "selectedIconPath":"../assess/tabicons/me.png"
-      }, {
+      }, 
+      {
         "pagePath": "../achievement/index",
         "text": "我的业绩",
         "iconPath":"../assess/tabicons/me2.png",
@@ -62,7 +65,7 @@ Component({
   },
   attached() {
     const roleId = wx.getStorageSync('statu')
-    if (roleId == 20) {
+    if (roleId == 0) {
       this.setData({
         list: this.data.allList[0].list1
       })

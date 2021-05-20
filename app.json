@@ -5,7 +5,8 @@
     "pages/me/index",
     "pages/salesclerk/index",
     "pages/storeInfo/index",
-    "pages/achievement/index"
+    "pages/achievement/index",
+    "pages/survey/index"
   ],
   "permission": {
     "scope.userLocation": {
@@ -33,6 +34,11 @@
     }, {
       "pagePath": "pages/achievement/index",
       "text": "我的业绩",
+      "iconPath":"./assess/tabicons/me2.png",
+      "selectedIconPath":"./assess/tabicons/me.png"
+    }, {
+      "pagePath": "pages/survey/index",
+      "text": "服务订单",
       "iconPath":"./assess/tabicons/me2.png",
       "selectedIconPath":"./assess/tabicons/me.png"
     }]

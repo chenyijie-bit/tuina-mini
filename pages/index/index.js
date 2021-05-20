@@ -1,10 +1,23 @@
 Component({
+  data: {
+        canIUseGetUserProfile: false,
+        searchValue:'',
+        vertical: false,
+        autoplay: false,
+        interval: 2000,
+        duration: 500,
+        images:['../../assess/images/banner1.png','../../assess/images/2.jpeg','../../assess/images/3.jpeg'],
+        personImg:'../../assess/images/3.jpeg',
+        storeList:[
+          {},{},{}
+        ]
+      },
   pageLifetimes: {
     show() {
       if (typeof this.getTabBar === 'function' &&
         this.getTabBar()) {
         this.getTabBar().setData({
-          selected: 1
+          selected: 0
         })
       }
     }
