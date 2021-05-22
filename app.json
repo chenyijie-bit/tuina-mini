@@ -19,28 +19,28 @@
     "list": [{
       "pagePath": "pages/index/index",
       "text": "点个高手",
-      "iconPath":"./assess/tabicons/shouye2.png",
-      "selectedIconPath":"./assess/tabicons/shouye.png"
+      "iconPath":"./assess/tabicons/shouye.png",
+      "selectedIconPath":"./assess/tabicons/shouye2.png"
     }, {
       "pagePath": "pages/order/index",
       "text": "订单",
-      "iconPath":"./assess/tabicons/dingdan2.png",
-      "selectedIconPath":"./assess/tabicons/dingdan.png"
+      "iconPath":"./assess/tabicons/dingdan.png",
+      "selectedIconPath":"./assess/tabicons/dingdan2.png"
     }, {
       "pagePath": "pages/me/index",
       "text": "我的",
-      "iconPath":"./assess/tabicons/me2.png",
-      "selectedIconPath":"./assess/tabicons/me.png"
+      "iconPath":"./assess/tabicons/me.png",
+      "selectedIconPath":"./assess/tabicons/me2.png"
     }, {
       "pagePath": "pages/achievement/index",
       "text": "我的业绩",
-      "iconPath":"./assess/tabicons/me2.png",
-      "selectedIconPath":"./assess/tabicons/me.png"
+      "iconPath":"./assess/tabicons/me.png",
+      "selectedIconPath":"./assess/tabicons/me2.png"
     }, {
       "pagePath": "pages/survey/index",
       "text": "服务订单",
-      "iconPath":"./assess/tabicons/me2.png",
-      "selectedIconPath":"./assess/tabicons/me.png"
+      "iconPath":"./assess/tabicons/me.png",
+      "selectedIconPath":"./assess/tabicons/me2.png"
     }]
   },
   "window":{
@@ -53,6 +53,8 @@
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
     "van-icon": "@vant/weapp/icon/index",
-    "van-search": "@vant/weapp/search/index"
+    "van-search": "@vant/weapp/search/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index"
   }
 }

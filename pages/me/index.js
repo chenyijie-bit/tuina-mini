@@ -84,6 +84,9 @@
 // 	}
 // })
 Component({
+  data: {
+    avatarUrl:''
+  },
   pageLifetimes: {
     show() {
       if (typeof this.getTabBar === 'function' &&
@@ -92,6 +95,24 @@ Component({
           selected: 2
         })
       }
+      if(!wx.getStorageSync('userInfo')){
+        wx.navigateTo({
+          url: '../loginPage/index',
+        })
+      }else{
+        let userInfo = wx.getStorageSync('userInfo')
+        console.log(userInfo)
+        this.setData({
+          avatarUrl :userInfo.avatarUrl
+        })
+      }
     }
+  },
+  methods:{
+    goToOrder(){
+      wx.switchTab({
+        url: '../order/index',
+      })
+    },
   }
 })

@@ -74,6 +74,18 @@
 // 	}
 // })
 Component({
+  data: {
+    activeTab: 0,
+  },
+  methods:{
+    onChange(event) {
+      this.setData({
+        activeTab: event.detail.name,
+      });
+      console.log('onChange');
+    }
+    
+  },
   pageLifetimes: {
     show() {
       if (typeof this.getTabBar === 'function' &&

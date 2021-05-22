@@ -1,82 +1,52 @@
+let app = getApp()
 Component({
   data: {
     selected: 0,
-    color: "#000000",
+    color: "#a1a1a1",
     roleId: '',
-    selectedColor: "#1396DB",
-    allList: [{
-      //用户角色tab栏
-      list1: [{
-        "pagePath": "../index/index",
-        "text": "点个高手",
-        "iconPath":"../assess/tabicons/shouye2.png",
-        "selectedIconPath":"../assess/tabicons/shouye.png"
-      }, {
-        "pagePath": "../order/index",
-        "text": "订单",
-        "iconPath":"../assess/tabicons/dingdan2.png",
-        "selectedIconPath":"../assess/tabicons/dingdan.png"
-      }, {
-        "pagePath": "../me/index",
-        "text": "我的",
-        "iconPath":"../assess/tabicons/me2.png",
-        "selectedIconPath":"../assess/tabicons/me.png"
-      } 
-      // ,{
-      //   "pagePath": "../achievement/index",
-      //   "text": "我的业绩",
-      //   "iconPath":"../assess/tabicons/me2.png",
-      //   "selectedIconPath":"../assess/tabicons/me.png"
-      // }
-    ],
-      //员工角色tab栏
-      list2: [
-        // {
-        //   "pagePath": "../index/index",
-        //   "text": "点个高手",
-        //   "iconPath":"../assess/tabicons/shouye2.png",
-        //   "selectedIconPath":"../assess/tabicons/shouye.png"
-        // }, {
-        //   "pagePath": "../order/index",
-        //   "text": "订单",
-        //   "iconPath":"../assess/tabicons/dingdan2.png",
-        //   "selectedIconPath":"../assess/tabicons/dingdan.png"
-        // }, 
-        {
-          "pagePath": "../index/index",
-          "text": "点个高手",
-          "iconPath":"../assess/tabicons/shouye2.png",
-          "selectedIconPath":"../assess/tabicons/shouye.png"
-        },
-      {
-        "pagePath": "../survey/index",
-        "text": "服务订单",
-        "iconPath":"../assess/tabicons/me2.png",
-        "selectedIconPath":"../assess/tabicons/me.png"
-      }, 
-      {
-        "pagePath": "../achievement/index",
-        "text": "我的业绩",
-        "iconPath":"../assess/tabicons/me2.png",
-        "selectedIconPath":"../assess/tabicons/me.png"
-      }]
-    }],
-    list: []
+    statu:'',
+    selectedColor: "#BA9245",
   },
   attached() {
-    const roleId = wx.getStorageSync('statu')
-    if (roleId == 0) {
+    console.log(app.globalData.list);
+    if(app.globalData.list && app.globalData.list.length){
       this.setData({
-        list: this.data.allList[0].list1
-      })
-    }else{
-      this.setData({
-        list: this.data.allList[0].list2
+        list: app.globalData.list
       })
     }
+    // const roleId = wx.getStorageSync('statu')
+    // if (roleId == 0) {
+    //   this.setData({
+    //     statu: 0,
+    //     // list: this.data.allList[0].list1
+    //   })
+    // }else{
+    //   this.setData({
+    //     statu: 20,
+    //     // list: this.data.allList[0].list2
+    //   })
+    // }
+  },
+  observers: {
+    'app.globalData.statu': function(a, b) {
+      console.log(123123,a);
+      // 在 numberA 或者 numberB 被设置时，执行这个函数
+      let resList = this.data.statu === 0 ? this.data.allList[0].list1 : this.data.allList[0].list2
+      this.setData({
+        list: resList
+      })
+      // this.onLoad()
+    }
+  },
+  getTabBar(){
+    console.log(977)
   },
   methods: {
     switchTab(e) {
+      // this.setData({
+      //   statu: 20,
+      //   list: this.data.allList[0].list2
+      // })
       const data = e.currentTarget.dataset
       const url = data.path
       wx.switchTab({ url })

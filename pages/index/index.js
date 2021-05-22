@@ -1,3 +1,5 @@
+let app = getApp();
+const $api = require('../../utils/request').API;
 Component({
   data: {
         canIUseGetUserProfile: false,
@@ -7,7 +9,9 @@ Component({
         interval: 2000,
         duration: 500,
         images:['../../assess/images/banner1.png','../../assess/images/2.jpeg','../../assess/images/3.jpeg'],
-        personImg:'../../assess/images/3.jpeg',
+        personImg:'../../assess/images/123.jpeg',
+        positionIcon:'../../assess/images/position-icon.png',
+        waitIcon:'../../assess/images/waiticon.png',
         storeList:[
           {},{},{}
         ]
@@ -20,6 +24,55 @@ Component({
           selected: 0
         })
       }
+       // 登录
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          // 调用接口获取openid
+          $api.getOpenid({code:res.code})
+          .then(res => {
+            //请求成功
+            if(res.data && res.data.app_err && res.data.app_err.data 
+              && res.data.app_err.data.openid){
+                app.globalData.openid = res.data.app_err.data.openid || ''
+            }
+            // 获取首页数据
+            $api.getHomeData({openid:res.data.app_err.data.openid}).then(
+              res=>{
+                console.log(res);
+              }
+            )
+          })
+          .catch(err => {
+            console.log(err);
+             //请求失败
+          })
+        }
+      })
+      
+    }
+  },
+  methods:{
+    changeStatu(){
+      let datass = this.getTabBar().data.list
+      let datassres = this.getTabBar().data.allList
+      if(wx.getStorageSync('statu') == 0){
+        // app.globalData.statu = 20
+        // this.setData({
+        //   datass:datassres[1],
+        //   statu: 20
+        // })
+        wx.setStorageSync('statu', 20)
+      }else{
+        // app.globalData.statu = 0
+        // this.setData({
+        //   datass:datassres[0],
+        //   statu: 0
+        // })
+        wx.setStorageSync('statu', 0)
+      }
+      // this.onLoad()
+      console.log(datass)
     }
   }
 })
