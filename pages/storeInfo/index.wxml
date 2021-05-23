@@ -1,3 +1,67 @@
-<view>
-	店铺详情页
+<view class="store-info">
+	<view class="store-img">
+		<image mode="widthFix" src="../../assess/images/store-img.jpeg"></image>
+	</view>
+	<view class="store-sales">
+		<view class="swiper-tab">
+			<view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">手艺人</view>
+			<view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">服务评价</view>
+		</view>
+
+		<!-- 切换tab组件 -->
+		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+				<swiper-item>
+					<!-- 推荐人及店铺list -->
+					<view class="recommend-person">
+						<view class="per-img">
+							<image mode="aspectFit" src="{{personImg}}"></image>
+							<view class="per-info">
+								<text class="per-name">陈小于</text>
+								<view class="price">
+									<text class="first-price">￥123</text>
+									<text class="sec-price">￥456</text>
+								</view>
+								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
+								<view class="dengdaikuang">前面有2人，约等待20分钟</view>
+							</view>
+						</view>
+						<view class="per-start">
+							<block>
+								<van-button type="default" class="go-spa" bindtap="goToStaffInfo">点TA</van-button>
+							</block>
+						</view>
+					</view>
+
+
+					<!-- 推荐人及店铺list -->
+					<view class="recommend-person">
+						<view class="per-img">
+							<image mode="aspectFit" src="{{personImg}}"></image>
+							<view class="per-info">
+								<text class="per-name">陈小于</text>
+								<view class="price">
+									<text class="first-price">￥123</text>
+									<text class="sec-price">￥456</text>
+								</view>
+								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
+								<view class="dengdaikuang">前面有2人，约等待20分钟</view>
+							</view>
+						</view>
+						<view class="per-start">
+							<block>
+								<van-button type="default" class="go-spa" bindtap="goToStaffInfo">点TA</van-button>
+							</block>
+						</view>
+					</view>
+				</swiper-item>
+				<swiper-item>
+						<!-- <view style="color:#ccc;">暂无数据</view> -->
+						<van-empty
+							class="custom-image"
+							image="https://img01.yzcdn.cn/vant/custom-empty-image.png"
+							description="暂无数据"
+						/>
+				</swiper-item>
+		</swiper>
+	</view>
 </view>

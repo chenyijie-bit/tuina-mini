@@ -73,6 +73,16 @@ Component({
       }
       // this.onLoad()
       console.log(datass)
+    },
+    goToStaffInfo(){
+      wx.navigateTo({
+        url: '../salesclerk/index',
+      })
+    },
+    goToStoreInfo(){
+      wx.navigateTo({
+        url: '../storeInfo/index',
+      })
     }
   }
 })

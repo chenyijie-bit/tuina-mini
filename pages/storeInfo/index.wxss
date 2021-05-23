@@ -1,0 +1,127 @@
+page{
+  background: rgb(247, 248, 249);
+}
+.swiper-tab{
+  width: 100%;
+  line-height: 88rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 155rpx;
+  box-sizing: border-box;
+  margin-bottom: 32rpx;
+  border-bottom: 1px solid rgb(224, 224, 224);
+}
+.swiper-tab-list{  
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #282828;
+  opacity: 0.8;
+}
+.on{ 
+  color: #BA9245;
+  border-bottom: 4rpx solid #BA9245;
+}
+.swiper-box{ 
+  display: block; 
+  height: 100%; 
+  width: 100%; 
+  overflow: hidden; 
+  padding: 0 36rpx;
+  box-sizing: border-box;
+}
+.swiper-box view{
+  text-align: center;
+}
+.store-img image{
+  width: 100%;
+}
+.recommend-person,.recommend-stores{
+  display: flex;
+  justify-content: space-between;
+}
+.recommend-person{
+  background: #fff;
+  border-radius: 12rpx;
+  padding:34rpx 40rpx;
+  margin-top: 12rpx;
+  margin-bottom: 30rpx;
+}
+.per-info{
+  display: flex;
+  flex-direction: column;
+  padding-left: 45rpx;
+  padding-top: 6rpx;
+}
+.per-info .wait-icon{
+  display: inline-block;
+  height: 38rpx;
+  width: 38rpx;
+  margin: 4rpx 0 20rpx;
+}
+.per-img{
+  /* width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%; */
+  overflow: hidden;
+  display: flex;
+}
+.per-name{
+  font-size: 30rpx;
+  color: #282828;
+  text-align: left;
+}
+.first-price{
+  font-size: 48rpx;
+  color: #BA9245;
+  margin-left: -10rpx;
+}
+.price{
+  margin-top: 6rpx;
+}
+.sec-price{
+  font-size: 36rpx;
+  color: #ccc;
+  margin-left: 20rpx;
+  text-decoration:line-through;
+}
+.umbrella-circle{
+  justify-content: left;
+  margin: 16rpx 0;
+}
+.per-start{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+.go-spa button{
+  /* background: rgb(187, 145, 69); */
+  font-size: 24rpx;
+  margin-top: -48rpx;
+  background: #BA9245;
+  color: #fff;
+  height: 52rpx;
+  width: 100rpx;
+  border: none;
+  border-radius: 30rpx;
+  padding: 0 12rpx;
+  letter-spacing: 4rpx;
+}
+.per-img image{
+  display:inline-block;
+  height:120rpx;
+  width:120rpx;
+  border-radius: 50%;
+}
+.dengdaikuang{
+  font-size: 18rpx;
+  border-radius: 20rpx;
+  padding: 6rpx 18rpx;
+  background: #f8f3eb;
+  color: #BA9245;
+  font-weight: bold;
+}
+.van-empty__image,.van-empty__image image{
+  height: 100rpx !important;
+  width: 100rpx !important;
+}

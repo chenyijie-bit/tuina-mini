@@ -4,9 +4,39 @@ Page({
    * 页面的初始数据
    */
   data: {
-	
+    rate:5,
+    typeRadio:'1',
+    showPopup:false,
+    hasPhoneNumber:false
   },
-
+  onChange(event) {
+    console.log(event);
+    this.setData({
+      typeRadio: event.detail,
+    });
+  },
+  changeType(data){
+    this.setData({
+      typeRadio: data.currentTarget.dataset.type
+    });
+  },
+  getNumberNow(){
+    if(!this.data.showPopup){
+      this.setData({
+        showPopup:true
+      })
+    }
+  },
+  onClose(){
+    this.setData({
+      showPopup:false
+    })
+  },
+  getPhoneNumber (e) {
+    console.log(e)
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
