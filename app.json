@@ -55,6 +55,11 @@
     "van-icon": "@vant/weapp/icon/index",
     "van-search": "@vant/weapp/search/index",
     "van-tab": "@vant/weapp/tab/index",
-    "van-tabs": "@vant/weapp/tabs/index"
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-rate": "@vant/weapp/rate/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-popup": "@vant/weapp/popup/index"
   }
 }

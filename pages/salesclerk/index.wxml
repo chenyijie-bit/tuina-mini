@@ -1,17 +1,121 @@
 <view class="contain-box">
 	<view class="sale-top-box">
-		<view class="sale-img"></view>
-		<view class="sale-info">
-			<text>陈小鱼</text>
-			<text>坂田店与天安云谷店</text>
-			<view>
-				<view class="dafen"></view>
-				<view class="congyenianxian"></view>
+		<view class="sale-box-bottom-border">
+			<view class="sale-img">
+				<image src="../../assess/images/123.jpeg"></image>
 			</view>
-			<view>无需等待，可立即开始</view>
+			<view class="sale-info">
+				<view class="name">陈小鱼</view>
+				<view class="store-addr">坂田店与天安云谷店</view>
+				<view>
+					<view class="dafen">
+						<van-rate value="{{ rate }}" color="#EDBB40" void-color="#EDBB40" readonly size="14"/>
+						<view class="rate-num">4.8分</view>
+						<view class="work-age">从业12年</view>
+					</view>
+					<view class="congyenianxian"></view>
+				</view>
+				<view class="wait-info">无需等待，可立即开始</view>
+			</view>
+		</view>
+		<view class="flag-box">
+			<view class="flag">擅长项目</view>
+			<view class="flag-info">按摩，艾灸，经络调理，脏腑调理，推拿从业十余年擅长调理颈肩腰腿疼痛，风湿关节炎，脾胃脏腑病症，妇科炎症等</view>
 		</view>
 	</view>
-	<view class="sale-addr-box"></view>
-	<view class="sale-types-box"></view>
+	<view class="sale-addr-box">
+		<view class="location">
+			<image mode="aspectFit" src="../../assess/images/position-icon.png"></image>
+		</view>
+		<view class="location-text">
+			<view>广东省深圳市龙岗区吉华路181号</view>
+			<view>距您1220米</view>
+		</view>
+	</view>
+	<!-- 服务项目 -->
+	<view class="sale-types-box">
+		<van-radio-group value="{{ typeRadio }}" bind:change="onChange">
+			<view class="type-title">服务项目价格</view>
+			<view class="type-item"  bindtap="changeType" data-type="1">
+				<view class="type-item-name">
+					全身推拿+火罐/刮痧
+				<view class="time-money-box">
+					<text class="time">(30分钟/</text>
+					<text class="item-prace">￥68</text>
+					<text class="time">)</text>
+				</view>
+				</view>
+				<van-radio name="1" checked-color="#BA9245"></van-radio>
+			</view>
+			<view class="type-item"  bindtap="changeType" data-type="2">
+				<view class="type-item-name">
+					全身推拿+火罐/刮痧
+					<view class="time-money-box">
+						<text class="time">(60分钟/</text>
+						<text class="item-prace">￥98</text>
+						<text class="time">)</text>
+					</view>
+				</view>
+				<van-radio name="2" checked-color="#BA9245"></van-radio>
+			</view>
+			<view class="type-item"  bindtap="changeType" data-type="3">
+				<view class="type-item-name">
+					胃肠道功能调理+艾灸
+				<view class="time-money-box">
+					<text class="time">(60分钟/</text>
+					<text class="item-prace">￥168</text>
+					<text class="time">)</text>
+				</view>
+				</view>
+				<van-radio name="3" checked-color="#BA9245"></van-radio>
+			</view>
+			<view class="type-item" bindtap="changeType" data-type="4">
+				<view class="type-item-name">
+					深度推拿调理+火罐/刮痧/精油
+				<view class="time-money-box">
+					<text class="time">(90分钟/</text>
+					<text class="item-prace">￥218</text>
+					<text class="time">)</text>
+				</view>
+				</view>
+				<van-radio name="4" checked-color="#BA9245"></van-radio>
+			</view>
+		</van-radio-group>
+	</view>
 	<view class="sale-pingjia-box"></view>
+	<view class="bottom-but">
+		<view class="bottom-but-left">
+			立即取号，无需等待
+		</view>
+		<view class="dubble-but">
+			<button wx:if="!hasPhoneNumber" class="bottom-but-mid" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">预约</button>
+			<view wx:else class="bottom-but-mid">
+				预约
+			</view>
+			<button wx:if="!hasPhoneNumber" class="bottom-but-right" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即取号</button>
+			<view wx:else class="bottom-but-right" bindtap="getNumberNow">
+				立即取号
+			</view>
+		</view>
+	</view>
+	<van-popup
+		show="{{ showPopup }}"
+		position="bottom"
+		custom-style="height: 40%;"
+		bind:close="onClose"
+	>
+	<view class="pop-dangqianpaidui">当前排队人数：1</view>
+	<view class="pop-container">
+				<van-button class="ripple-but">
+					<view>立即</view>
+					<view>取号</view>
+				</van-button>
+        <view class="pulse"></view>
+        <view class="pulse1"></view>
+        <view class="pulse2"></view>
+        <view class="pulse3"></view>
+        <view class="pulse4"></view>
+        <!-- <view class="pulse5"></view> -->
+    </view>
+	</van-popup>
 </view>
