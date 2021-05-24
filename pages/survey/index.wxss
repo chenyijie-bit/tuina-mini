@@ -1,0 +1,113 @@
+/* pages/order/index.wxss */
+page{
+	background: rgba(247, 248, 249, 1);
+	height: 120%;
+  }
+  .van-tabs__wrap{
+	position: fixed;
+	width: 100% !important;
+  }
+  .van-tabs__nav .van-ellipsis{
+	font-size: 30rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #282828;
+	opacity: 0.8;
+  }
+  .van-tab--active .van-ellipsis{
+	font-weight: bold;
+	color: #BA9245;
+  }
+  .van-tabs__nav .van-tabs__line{
+	background-color: #BA9245;
+	width: 140rpx !important;
+	height: 6rpx !important;
+  }
+  .daifuwu-box{
+	padding: 18rpx;
+	padding-top: 0;
+	padding-bottom: 200rpx;
+	/* padding-top: 110rpx; */
+  }
+  .order-item{
+	background: #fff;
+	padding: 30rpx 0;
+	border-radius: 24rpx;
+  }
+  .order-item-title{
+	font-size: 30rpx;
+	font-family: PingFang SC;
+	font-weight: bold;
+	color: #282828;
+	padding-left: 30rpx;
+	padding-bottom: 25rpx;
+	border-bottom: 1rpx solid rgb(224, 224, 224);
+	margin-bottom: 60rpx;
+  }
+  .order-item-info{
+	display: flex;
+	justify-content: space-between;
+	padding: 0 80rpx 50rpx;
+	align-items: center;
+	border-bottom:  1rpx solid rgb(224, 224, 224);
+  }
+  .order-item-info  view{
+	text-align: center;
+  }
+  .order-item-info .top{
+	font-size: 36rpx;
+	font-family: PingFang SC;
+	font-weight: bold;
+	color: #282828;
+	margin-bottom: 14rpx;
+  }
+  .order-item-info .bot{
+	font-size: 24rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #282828;
+	opacity: 0.8;
+  }
+  .order-item-addr{
+	padding: 30rpx;
+	font-size: 24rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #282828;
+	opacity: 0.8;
+	display: flex;
+	justify-content: space-between;
+	border-bottom:  1rpx solid rgb(224, 224, 224);
+  }
+  .order-item-type{
+	padding: 50rpx 80rpx 0;
+  }
+  .order-item-type .type-title{
+	display: inline-block;
+	width: 126rpx;
+	margin-bottom: 50rpx;
+	font-size: 30rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #282828;
+	text-align-last:justify;
+	text-align:justify;
+  }
+  .order-item-type .type-ans{
+	font-size: 30rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #BA9245;
+	margin-left: 20rpx;
+	letter-spacing: 4rpx;
+  }
+  .order-item-but  button{
+	display: block;
+	height: 70rpx;
+	line-height: 70rpx;
+	width: 650rpx;
+	background: #BA9245;
+	color: #fff;
+	border: none;
+	margin: 0 auto;
+  }

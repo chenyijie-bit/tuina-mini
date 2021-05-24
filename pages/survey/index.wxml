@@ -1,3 +1,81 @@
-<view>
-服务订单
-</view>
+<!--pages/order/index.wxml-->
+<van-tabs
+    active="{{ activeTab }}"
+    bind:change="onChange"
+  >
+    <van-tab title="待服务">
+		<view class="zhanwei-110" style="height:110rpx"></view>
+		<scroll-view
+		scroll-y
+		refresher-enabled="{{true}}"
+		refresher-threshold="{{100}}"
+		refresher-default-style="black"
+		refresher-background="#f7f8f9"
+		refresher-triggered="{{triggered}}"
+		bindrefresherpulling="onPulling"
+		bindrefresherrefresh="onRefresh"
+		bindrefresherrestore="onRestore"
+		bindrefresherabort="onAbort"
+		>
+
+
+		<view class="daifuwu-box">
+			<view class="order-item">
+			<view class="order-item-title">
+				正在叫号
+			</view>
+			<view class="order-item-info">
+				<view class="num">
+				<view class="top">007</view>
+				<view class="bot">排队号码</view>
+				</view>
+				<view class="peo-num">
+				<view class="top">10</view>
+				<view class="bot">排队人数</view>
+				</view>
+				<view class="time">
+				<view class="top">10</view>
+				<view class="bot">预计等待/分钟</view>
+				</view>
+			</view>
+			<view class="order-item-addr">
+				<view>深圳市阿善动阿斯区坂田店</view>
+				<view>距您1222米</view>
+			</view>
+			<view class="order-item-type">
+				<view>
+				<text class="type-title">技师</text>:
+				<text class="type-ans">小鱼</text>
+				</view>
+				<view>
+				<text class="type-title">技师</text>:
+				<text class="type-ans">小鱼</text>
+				</view>
+				<view>
+				<text class="type-title">项目</text>:
+				<text class="type-ans">2021/05/31 08:12</text>
+				</view>
+				<view>
+				<text class="type-title">合计</text>:
+				<text class="type-ans">124元</text>
+				</view>
+				<view>
+				<text class="type-title">取号时间</text>:
+				<text class="type-ans">2021/05/31 08:12</text>
+				</view>
+			</view>
+			<view class="order-item-but">
+				<van-button>取消排号</van-button>
+			</view>
+			</view>
+		</view>
+
+	</scroll-view>	
+    </van-tab>
+    <van-tab title="已完成">
+      <van-empty image="network" description="描述文字" />
+    </van-tab>
+    <van-tab title="过号/取消">
+      <van-empty image="search" description="描述文字" />
+    </van-tab>
+  </van-tabs>

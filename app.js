@@ -2,6 +2,7 @@
 const $api = require('./utils/request').API;
 App({
   onLaunch() {
+    wx.setStorageSync('statu', 0)
     // 展示本地存储能力
     const statu = wx.getStorageSync('statu') || []
     if(statu == 20){
@@ -67,7 +68,7 @@ App({
         "selectedIconPath":"../assess/tabicons/me2.png"
       }, 
       {
-        "pagePath": "../achievement/index",
+        "pagePath": "../drag/index",
         "text": "我的业绩",
         "iconPath":"../assess/tabicons/me.png",
         "selectedIconPath":"../assess/tabicons/me2.png"
