@@ -196,6 +196,9 @@ page{
 	border-radius: 0 !important;
 	border: none;
 }
+.bottom-but-right::after,.bottom-but-mid::after{
+	border: none;
+}
 .bottom-but-right{
 	width: 200rpx;
 	background-color: #D8A63A;
@@ -214,7 +217,6 @@ page{
 	font-family: PingFang SC;
 	font-weight: 500;
 	color: #282828;
-	opacity: 0.8;
 }
 .bottom-but-left{
 	flex:1;

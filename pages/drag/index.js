@@ -3,7 +3,6 @@ const app = getApp()
 
 Page({
   data: {
-    pageStatus:'',
     optionsListData:[],
     movableViewPosition:{
         x:0,
@@ -15,6 +14,7 @@ Page({
         }
     },
     scrollPosition:{
+      //每个数据的高度 已经加上了marginbottom
         everyOptionCell:136,
         top:0,
         scrollTop:0,
@@ -33,15 +33,30 @@ Page({
     flag:0,
     show_assistant:true,
     animation_flag:'',
-    page:0,
+    // page:0,
     has_next:true,
     isShow: false,
     move_type:'',
     user:{
         headimgurl:'https://avatars2.githubusercontent.com/u/24517605?s=460&v=4',
         expected_birth_week:'拖拽排序+左滑删除'
-    },
-    navigationBarTitle:''
+    }
+  },
+  onLoad: function (options) {
+    var systemInfo= wx.getSystemInfoSync();
+    // 开始加载页面
+    var scrollViewHeight = systemInfo.windowHeight;
+    var scrollViewWidth = systemInfo.windowWidth;
+    this.setData({
+        'scrollPosition.scrollViewWidth':scrollViewWidth,
+        'scrollPosition.scrollViewHeight':scrollViewHeight,
+        'scrollPosition.windowViewHeight':systemInfo.windowHeight,
+    });
+  },
+  onShow: function () {
+    // 页面显示
+    var that=this;
+    that.getData();
   },
   longpressfuc:function(e){
     console.log("longpressfuc");
@@ -54,38 +69,12 @@ Page({
           is_complete:true
         }
     };
+    // console.log(movableViewPosition.data.is_complete);
     this.setData({
       movableViewPosition:movableViewPosition
     })
     this.scrollTouchStart(e);
-
   },
-  bindscroll:function (event) {
-        var scrollTop = event.detail.scrollTop;
-        this.setData({
-            'scrollPosition.scrollTop':scrollTop
-        })
-        if(scrollTop >= 61){
-          if(this.data.navigationBarTitle != '拖拽排序+左滑删除'){
-            wx.setNavigationBarTitle({
-              title: '拖拽排序+左滑删除'
-            })
-            this.setData({
-              navigationBarTitle:'拖拽排序+左滑删除'
-            })
-          }
-          
-        }else{
-          if(this.data.navigationBarTitle != ''){
-            wx.setNavigationBarTitle({
-              title: ''
-            })
-            this.setData({
-              navigationBarTitle:''
-            })
-          }
-        }
-    },
     getOptionInfo:function (id) {
         for(var i=0,j=this.data.optionsListData.length;i<j;i++){
             var optionData= this.data.optionsListData[i];
@@ -98,8 +87,10 @@ Page({
     },
     getPositionDomByXY:function (potions) {
         var y = potions.y-this.data.scrollPosition.top+this.data.scrollPosition.scrollTop-81;
+        console.log('y',y);
         var optionsListData = this.data.optionsListData;
         var everyOptionCell = this.data.scrollPosition.everyOptionCell;
+        console.log('everyOptionCell',everyOptionCell);
         for(var i=0,j=optionsListData.length;i<j;i++){
             if(y>=i*everyOptionCell&&y<(i+1)*everyOptionCell){
                 return optionsListData[i];
@@ -108,6 +99,7 @@ Page({
         return optionsListData[0];
     },
     draggleTouch:function (event) {
+      // console.log('draggleTouch')
         var touchType = event.type;
         switch(touchType){
             case "touchstart":
@@ -130,8 +122,8 @@ Page({
         }
         // console.log("firstTouchPosition:",firstTouchPosition);
         var domData = that.getPositionDomByXY(firstTouchPosition);
+        console.log('domData',domData)
         domData.show_delet = false;
-
         // 排序时禁止已完成card移动------start--------
         if(that.data.move_type != 'reset_status' && domData.is_complete){
           that.setData({
@@ -306,25 +298,11 @@ Page({
         }
         return optionsList;
     },
-    onLoad: function (options) {
-        var systemInfo= wx.getSystemInfoSync();
-        // 开始加载页面
-        var scrollViewHeight = systemInfo.windowHeight;
-        var scrollViewWidth = systemInfo.windowWidth;
-        this.setData({
-            'scrollPosition.scrollViewWidth':scrollViewWidth,
-            'scrollPosition.scrollViewHeight':scrollViewHeight,
-            'scrollPosition.windowViewHeight':systemInfo.windowHeight,
-        });
-        this.setData({
-          img_path:''
-        })
-        //{{img_path}}
-    },
+    
     getData:function(){
         var that=this;
         var optionsList = [
-            {"id":1,"title":"拖拽测试-1","desc":"长按左侧图标拖拽排序，左滑删除","address":"北京市朝阳区北京市朝阳区","icon_type":1,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false},
+            {"id":1,"title":"拖拽测试-1","desc":"长按左侧图标拖拽排序，左滑删除","address":"北京市朝阳区北京市朝阳区","icon_type":1,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false,latitude:39,longitude:116},
             {"id":2,"title":"拖拽测试-2","desc":"长按左侧图标拖拽排序，左滑删除","address":"北京市朝阳区北京市朝阳区","icon_type":2,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false},
             {"id":3,"title":"拖拽测试-3","desc":"长按左侧图标拖拽排序，左滑删除","address":"北京市朝阳区北京市朝阳区","icon_type":3,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false},
             {"id":4,"title":"拖拽测试-4","desc":"长按左侧图标拖拽排序，左滑删除","address":"北京市朝阳区北京市朝阳区","icon_type":4,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false},
@@ -336,15 +314,10 @@ Page({
             {"id":10,"title":"拖拽测试-10","desc":"长按左侧图标拖拽排序，左滑删除","address":"北京市朝阳区北京市朝阳区","icon_type":3,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false}
             ];
         that.setData({
-          pageStatus:'ok',
           optionsListData:optionsList,
           has_next:false,
           move_type:''
         })
-    },
-    pageInit:function(){
-        // 优先使用全局变量中位置信息，没有则重新请求位置信息
-        var that =this;
     },
     scrolltolower:function(){
       var that =this;
@@ -416,7 +389,6 @@ Page({
           scrollPosition:scrollPosition
         })
       }
-      
       //将当前坐标进行保存以进行下一次计算
       // this.data.lastX = currentX;
       // this.data.lastY = currentY;
@@ -459,52 +431,6 @@ Page({
         show_assistant:!that.data.show_assistant
       })
     },
-    completedown:function(e){
-      var that=this;
-      var flag=e.currentTarget.dataset.flag;
-      var id=e.currentTarget.dataset.id;
-      that.data.move_type = 'reset_status';
-      if(that.data.animation_flag != ''){//阻止重复点击
-        return false;
-      }
-      var optionsListData=that.data.optionsListData;
-      var move_num=parseInt(optionsListData.length) - parseInt(flag) -1;
-      var scroll_num=0;
-      if(move_num >= 3){
-        scroll_num=482;
-      }else{
-        scroll_num=e.changedTouches[0].clientY + 135*move_num;
-      }
-      
-      that.setData({
-        animation_flag:flag
-      })
-      that.scrollTouchStart(e);
-      // console.log(e);
-      // setTimeout(function(){
-        var point_move=setInterval(function(){
-          if(e.changedTouches[0].clientY <= scroll_num){
-            e.changedTouches[0].clientY+=30;
-            e.changedTouches[0].pageY+=30;
-            that.scrollTouchMove(e);
-          }else{
-            clearInterval(point_move);
-            that.setData({
-              animation_flag:''
-            })
-            that.scrollTouchEnd(e);
-
-            var n=parseInt(optionsListData.length -1);
-            var relation_id = optionsListData[n].id;
-            that.updateList(id,'reset_status',relation_id);
-            // console.log('end');
-            return false;
-          }
-        },10)
-      // },100)
-      
-      
-    },
     completeup:function(e){
       var that=this;
       var flag=e.currentTarget.dataset.flag;
@@ -526,7 +452,6 @@ Page({
         animation_flag:flag
       })
       that.scrollTouchStart(e);
-      // console.log(e);
       // setTimeout(function(){
         var point_move=setInterval(function(){
           if(e.changedTouches[0].clientY >= scroll_num){
@@ -549,18 +474,8 @@ Page({
       // },100)
     },
     updateList:function(id,operate,relation_id){
-      // wx.showLoading({
-      //   mask:true
-      // });
       var that=this;
       var ajaxData={};
-      
-    },
-    deletItem:function(e){
-      var that=this;
-      var id=e.currentTarget.dataset.id;
-      that.data.deletItem_id = id;
-      that.showdialog();
     },
     confirmEvent:function(){
       var that=this;
@@ -582,59 +497,7 @@ Page({
         isShow: false
       })
     },
-    goUrl:function(e){
-      var that=this;
-      var url=e.currentTarget.dataset.url;
-      var id=e.currentTarget.dataset.id;
-      var index=e.currentTarget.dataset.index;
-      var optionsListData=that.data.optionsListData;
-      var status=parseInt(e.currentTarget.dataset.status);
-      
-      if(status == 0){//已完成card，不支持跳转
-        return false;
-      }else{
-        if(url && url != null){
-          if(optionsListData[index].is_extend && !optionsListData[index].readed){
-            wx.request({
-              url: api.domain + '/v1/user_todo/'+id+'/readed/',
-              method: 'GET',
-              header: {
-                Authorization: 'Bearer ' + app.globalData.jwt_token
-              },
-              success: res => {
-                // console.log(res);
-                wx.navigateTo({ url: url+'&id='+id});
-              }
-            })
-          }else{
-            wx.navigateTo({ url: url+'&id='+id});
-          }
-          
-        }
-      }
-    },
-    htouchmove:function(e){
-        // console.log(e);
-    },
-    onShow: function () {
-        // 页面显示
-        // console.log("onShow");
-        var that=this;
-        // if(app.globalData.refresh_list){
-        //   app.globalData.refresh_list = false;
-        //   that.setData({
-        //     page:0
-        //   })
-        //   that.getData();
-        // }
-        // app.globalData.refresh_list = false;
-        that.setData({
-          page:0
-        })
-        that.getData();
-        that.pageInit();
-        // app.globalData.setBookbuild = 1;
-    },
+    
     toggleDelet:function(e){
       var that=this,
           optionsListData=that.data.optionsListData,
@@ -664,20 +527,5 @@ Page({
           address: optionsListData[index].address
         })
       }
-    },
-    onReady: function () {
-        // 页面渲染完成
-        // console.log("onReady");
-    },
-    onHide: function () {
-
-        // 页面隐藏
-        // console.log("onHide");
-    },
-    onUnload: function () {
-        // 页面关闭
-        // console.log("onUnload");
-    },
-  
-  
+    }
 })
