@@ -104,18 +104,57 @@
 		custom-style="height: 40%;"
 		bind:close="onClose"
 	>
-	<view class="pop-dangqianpaidui">当前排队人数：1</view>
-	<view class="pop-container">
-				<van-button class="ripple-but">
-					<view>立即</view>
-					<view>取号</view>
-				</van-button>
-        <view class="pulse"></view>
-        <view class="pulse1"></view>
-        <view class="pulse2"></view>
-        <view class="pulse3"></view>
-        <view class="pulse4"></view>
-        <!-- <view class="pulse5"></view> -->
-    </view>
+		<view class="pop-dangqianpaidui">当前排队人数：1</view>
+		<view class="pop-container">
+					<van-button class="ripple-but">
+						<view>立即</view>
+						<view>取号</view>
+					</van-button>
+			<view class="pulse"></view>
+			<view class="pulse1"></view>
+			<view class="pulse2"></view>
+			<view class="pulse3"></view>
+			<view class="pulse4"></view>
+			<!-- <view class="pulse5"></view> -->
+		</view>
+	</van-popup>
+	<!-- 预约时间段控件 -->
+	<van-popup class="yuyuekongjian" show="true"
+		position="bottom"
+		custom-style="height: 80%;"
+		bind:close="onClose">
+		<view class="yuyuepop-title">请选择预约时间段</view>
+		<view class="yuyuebutton-box">
+			<van-button class="yuyuekongjian-button">08:00</van-button>
+			<van-button class="yuyuekongjian-button">08:30</van-button>
+			<van-button class="yuyuekongjian-button">09:00</van-button>
+			<van-button class="yuyuekongjian-button">09:30</van-button>
+			<van-button class="yuyuekongjian-button">10:00</van-button>
+			<van-button class="yuyuekongjian-button">10:30</van-button>
+			<van-button class="yuyuekongjian-button">11:00</van-button>
+			<van-button class="yuyuekongjian-button">11:30</van-button>
+			<van-button class="yuyuekongjian-button">12:00</van-button>
+			<van-button class="yuyuekongjian-button">12:30</van-button>
+			<van-button class="yuyuekongjian-button">13:00</van-button>
+			<van-button class="yuyuekongjian-button">13:30</van-button>
+			<van-button class="yuyuekongjian-button">14:00</van-button>
+			<van-button class="yuyuekongjian-button">14:30</van-button>
+			<van-button class="yuyuekongjian-button">15:00</van-button>
+			<van-button class="yuyuekongjian-button">15:30</van-button>
+			<van-button class="yuyuekongjian-button">16:00</van-button>
+			<van-button class="yuyuekongjian-button">16:30</van-button>
+			<van-button class="yuyuekongjian-button">17:00</van-button>
+			<van-button class="yuyuekongjian-button">17:30</van-button>
+			<van-button class="yuyuekongjian-button">18:00</van-button>
+			<van-button class="yuyuekongjian-button">18:30</van-button>
+			<van-button class="yuyuekongjian-button">19:00</van-button>
+			<van-button class="yuyuekongjian-button">19:30</van-button>
+			<van-button class="yuyuekongjian-button">20:00</van-button>
+			<van-button class="yuyuekongjian-button">20:30</van-button>
+			<van-button class="yuyuekongjian-button">21:00</van-button>
+			<van-button class="yuyuekongjian-button">21:30</van-button>
+			<van-button class="yuyuekongjian-button">22:00</van-button>
+			<van-button class="yuyuekongjian-button" style="visibility: hidden">22:00</van-button>
+		</view>
 	</van-popup>
 </view>

@@ -75,6 +75,32 @@ Page({
     })
     this.scrollTouchStart(e);
   },
+  bindscroll:function (event) {
+    var scrollTop = event.detail.scrollTop;
+    this.setData({
+        'scrollPosition.scrollTop':scrollTop
+    })
+    // if(scrollTop >= 61){
+    //   if(this.data.navigationBarTitle != '拖拽排序+左滑删除'){
+    //     wx.setNavigationBarTitle({
+    //       title: '拖拽排序+左滑删除'
+    //     })
+    //     this.setData({
+    //       navigationBarTitle:'拖拽排序+左滑删除'
+    //     })
+    //   }
+      
+    // }else{
+    //   if(this.data.navigationBarTitle != ''){
+    //     wx.setNavigationBarTitle({
+    //       title: ''
+    //     })
+    //     this.setData({
+    //       navigationBarTitle:''
+    //     })
+    //   }
+    // }
+  },
     getOptionInfo:function (id) {
         for(var i=0,j=this.data.optionsListData.length;i<j;i++){
             var optionData= this.data.optionsListData[i];
@@ -90,7 +116,6 @@ Page({
         console.log('y',y);
         var optionsListData = this.data.optionsListData;
         var everyOptionCell = this.data.scrollPosition.everyOptionCell;
-        console.log('everyOptionCell',everyOptionCell);
         for(var i=0,j=optionsListData.length;i<j;i++){
             if(y>=i*everyOptionCell&&y<(i+1)*everyOptionCell){
                 return optionsListData[i];
@@ -122,7 +147,6 @@ Page({
         }
         // console.log("firstTouchPosition:",firstTouchPosition);
         var domData = that.getPositionDomByXY(firstTouchPosition);
-        console.log('domData',domData)
         domData.show_delet = false;
         // 排序时禁止已完成card移动------start--------
         if(that.data.move_type != 'reset_status' && domData.is_complete){
@@ -140,13 +164,10 @@ Page({
           return false;
         }
         // 排序时禁止已完成card移动------end--------
-
         // console.log("domData:",domData);
-
         //movable-area滑块位置处理
         var movableX = 0;
         var movableY = firstTouchPosition.y-that.data.scrollPosition.top-that.data.scrollPosition.everyOptionCell/2;
-
         that.setData({
             movableViewPosition:{
                 x:movableX,

@@ -25,9 +25,8 @@
 		</movable-view>
 	</movable-area>
 	<!-- 页面card -->
-	<!-- bindscroll="bindscroll"  -->
 	<scroll-view class="edit_row_holder" scroll-y="{{scrollPosition.scrollY}}"
-				 style="height: {{scrollPosition.scrollViewHeight}}px;" bindscrolltolower="scrolltolower">
+				 style="height: {{scrollPosition.scrollViewHeight}}px;" bindscroll="bindscroll" bindscrolltolower="scrolltolower">
 		<!-- 用户信息 start -->
 		<view class="user-info-box">
 			<image src="{{user.headimgurl}}" mode="aspectFill" class="user-headimg" wx:if="{{user.headimgurl}}"></image>
