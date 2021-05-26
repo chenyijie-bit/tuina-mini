@@ -4,7 +4,7 @@ const PUT = 'PUT';
 const FORM = 'FORM';
 const DELETE = 'DELETE';
 
-const baseURL = 'http://47.105.194.199/api/v2';
+const baseURL = 'https://www.giacomo.top/api/v2';
 
 function request(method, url, data) {
     return new Promise(function(resolve, reject) {
