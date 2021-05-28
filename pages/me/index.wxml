@@ -4,9 +4,10 @@
     <view class="user-logo">
       <image src="{{avatarUrl}}"></image>
     </view>
-    <view class="user-info">
-      <text class="name">陈生</text>
-      <text class="tel">13621312312</text>
+    <view class="user-info" bindtap="goToLogin">
+      <text wx:if="{{nickName}}" class="name">{{nickName}}</text>
+      <text wx:else class="name">{{nickNameCopy}}</text>
+      <text wx:if="{{tel}}" class="tel" >{{tel}}</text>
     </view>
   </view>
   <view class="me-box-middle">

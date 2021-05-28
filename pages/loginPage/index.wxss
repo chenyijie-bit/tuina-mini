@@ -5,14 +5,17 @@
 	margin: 0 auto;
 }
 .go-login{
-	height: 90rpx;
-	width: 100%;
-	border-radius: 18rpx;
-	background: rgb(14, 172, 53);
+	height: 80rpx;
+	line-height: 80rpx;
+	width: 95%;
+	border-radius: 10rpx;
+	background: #43bf2a;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: #fff;
+	margin: 0 auto;
+	font-size: 32rpx;
 }
 .go-login .login-welogo{
 	display: inline-block;

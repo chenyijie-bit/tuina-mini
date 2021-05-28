@@ -21,7 +21,6 @@ function request(method, url, data) {
                 //请求成功
                 //判断状态码---errCode状态根据后端定义来判断
                 // if (res.data.errCode == 0) {
-                    console.log('success');
                     resolve(res);
                 // } else {
                 //     //其他异常
@@ -30,7 +29,6 @@ function request(method, url, data) {
             },
             fail(err) {
                 //请求失败
-                console.log('err');
                 reject(err)
             }
         })

@@ -34,20 +34,18 @@ Component({
           $api.getOpenid({code:res.code})
           .then(res => {
             //请求成功
-            console.log(res)
             if(res.data  && res.data.data 
               && res.data.data.openid){
                 app.globalData.openid = res.data.data.openid || ''
+                wx.setStorageSync('statu', res.data.data.is_worker)
             }
             // 获取首页数据
             $api.getHomeData({openid:res.data.data.openid}).then(
               res=>{
-                console.log(res);
               }
             )
           })
           .catch(err => {
-            console.log(err);
              //请求失败
           })
         }
@@ -62,7 +60,6 @@ Component({
       let _this = this;
       wx.getSetting({
         success: (res) => {
-          console.log(res);
           // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
           // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
           // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
@@ -108,7 +105,6 @@ Component({
             _this.geo();
           }
           else {
-            console.log('授权成功')
             //调用wx.getLocation的API
             _this.geo();
           }
@@ -117,7 +113,6 @@ Component({
     },        
     // 获取定位城市
     geo: function () {
-      console.log('geo');
       var _this = this;
       wx.getLocation({
         type: 'wgs84',
@@ -131,7 +126,6 @@ Component({
           //   data: {},
           //   header: { 'Content-Type': 'application/json' },
           //   success: function (ops) {
-          //     console.log('定位城市：', ops.data.result.addressComponent.city)
           //   },
           //   fail: function (resq) {
           //     wx.showModal({
@@ -203,7 +197,6 @@ Component({
         wx.setStorageSync('statu', 0)
       }
       // this.onLoad()
-      console.log(datass)
     },
     goToStaffInfo(){
       wx.navigateTo({
@@ -271,7 +264,6 @@ Component({
 //           //   }
 //           // })
 //         } else {
-//           console.log('登录失败！' + res.errMsg)
 //         }
 //       }
 //     })
@@ -287,7 +279,6 @@ Component({
 //       lang: "zh_CN",
 //       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 //       success: (res) => {
-//         console.log(res);
 //       }
 //     })
 //   },
@@ -296,7 +287,6 @@ Component({
 //     wx.getUserProfile({
 //       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 //       success: (res) => {
-//         console.log(res)
 //         this.setData({
 //           userInfo: res.userInfo,
 //           hasUserInfo: true

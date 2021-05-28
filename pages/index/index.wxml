@@ -18,7 +18,7 @@
     <view class="search-box">
       <view class="add-text-icon">
         <text class="address-city">深圳</text>
-        <van-icon class="arrow-icon" name="arrow" size="30rpx"/>
+        <!-- <van-icon class="arrow-icon" name="arrow" size="30rpx"/> -->
       </view>
       <van-search
         value="{{ searchValue }}"

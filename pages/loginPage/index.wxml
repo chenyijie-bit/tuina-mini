@@ -1,6 +1,7 @@
 <view style="padding-top:200rpx;">
 	<view style="text-align:center;">
-		<image class="store-img" src="{{logoImg}}"></image>
+		<!-- src="{{logoImg}}" -->
+		<image class="store-img"></image>
 	</view>
 	<view style="text-align:center;margin:20rpx 0;color:#999; font-size:26rpx;">为了更好地为您提供服务，请进行账号登录</view>
 	<button></button>

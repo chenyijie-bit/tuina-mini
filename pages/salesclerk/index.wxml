@@ -123,7 +123,7 @@
 		position="bottom"
 		custom-style="height: 80%;"
 		bind:close="onClose">
-		<view class="yuyuepop-title">请选择预约时间段</view>
+		<view class="yuyuepop-title">请选择预约开始时间</view>
 		<view class="yuyuebutton-box">
 			<van-button class="yuyuekongjian-button">08:00</van-button>
 			<van-button class="yuyuekongjian-button">08:30</van-button>
@@ -156,5 +156,8 @@
 			<van-button class="yuyuekongjian-button">22:00</van-button>
 			<van-button class="yuyuekongjian-button" style="visibility: hidden">22:00</van-button>
 		</view>
+		<view class="position-but">
+			<van-button class="position-but-ok">确认选择</van-button>
+		</view>	
 	</van-popup>
 </view>

@@ -59,7 +59,6 @@ Page({
     that.getData();
   },
   longpressfuc:function(e){
-    console.log("longpressfuc");
     var movableViewPosition={
         x:0,
         y:0,
@@ -113,7 +112,6 @@ Page({
     },
     getPositionDomByXY:function (potions) {
         var y = potions.y-this.data.scrollPosition.top+this.data.scrollPosition.scrollTop-81;
-        console.log('y',y);
         var optionsListData = this.data.optionsListData;
         var everyOptionCell = this.data.scrollPosition.everyOptionCell;
         for(var i=0,j=optionsListData.length;i<j;i++){
@@ -125,9 +123,11 @@ Page({
     },
     draggleTouch:function (event) {
       // console.log('draggleTouch')
+      // console.log(event)
         var touchType = event.type;
         switch(touchType){
             case "touchstart":
+              console.log("touchstart");
                 this.scrollTouchStart(event);
                 break;
             case "touchmove":
@@ -191,11 +191,8 @@ Page({
         var secInfo = that.getOptionInfo(id);
         secInfo.selectPosition =  event.changedTouches[0].clientY;
         secInfo.selectClass = "dragSelected";
-
         that.data.optionsListData[secInfo.selectIndex].selectClass = "dragSelected";
-
         var optionsListData = that.data.optionsListData;
-
         that.setData({
             'scrollPosition.scrollY':false,
             selectItemInfo:secInfo,
@@ -204,7 +201,6 @@ Page({
         })
     },
     scrollTouchMove:function (event) {//频繁setdata导致性能问题，页面拖动卡顿
-        // console.log('移动');
         var that=this;
         var selectItemInfo = that.data.selectItemInfo;
         var selectPosition = selectItemInfo.selectPosition;
@@ -451,48 +447,6 @@ Page({
       that.setData({
         show_assistant:!that.data.show_assistant
       })
-    },
-    completeup:function(e){
-      var that=this;
-      var flag=e.currentTarget.dataset.flag;
-      var id=e.currentTarget.dataset.id;
-      that.data.move_type = 'reset_status';
-      if(that.data.animation_flag != ''){//阻止重复点击
-        return false;
-      }
-      var optionsListData=that.data.optionsListData;
-      var move_num=parseInt(flag);
-      var scroll_num=0;
-      if(move_num >= 3){
-        scroll_num=0;
-      }else{
-        scroll_num=e.changedTouches[0].clientY - 135*move_num;
-      }
-      
-      that.setData({
-        animation_flag:flag
-      })
-      that.scrollTouchStart(e);
-      // setTimeout(function(){
-        var point_move=setInterval(function(){
-          if(e.changedTouches[0].clientY >= scroll_num){
-            e.changedTouches[0].clientY-=30;
-            e.changedTouches[0].pageY-=30;
-            that.scrollTouchMove(e);
-          }else{
-            clearInterval(point_move);
-            that.setData({
-              animation_flag:''
-            })
-            that.scrollTouchEnd(e);
-
-            var relation_id = optionsListData[0].id;
-            that.updateList(id,'reset_status',relation_id);
-            // console.log('end');
-            return false;
-          }
-        },10)
-      // },100)
     },
     updateList:function(id,operate,relation_id){
       var that=this;
