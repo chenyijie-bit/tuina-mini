@@ -45,6 +45,13 @@ Page({
     console.log(e)
     console.log(e.detail.iv)
     console.log(e.detail.encryptedData)
+    $api.getTelNumber({
+      iv:e.detail.iv,
+      encryptedData:e.detail.encryptedData,
+      cloudIDL:e.detail.cloudID
+    }).then(res=>{
+
+    })
   },
   
 

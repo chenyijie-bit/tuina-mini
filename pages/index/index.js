@@ -41,10 +41,13 @@ Component({
        // 登录
       wx.login({
         success: res => {
+          console.log(res);
+          app.globalData.code = res.code
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 调用接口获取openid
           $api.getOpenid({code:res.code})
           .then(res => {
+            console.log(res);
             //请求成功
             if(res.data  && res.data.data 
               && res.data.data.openid){

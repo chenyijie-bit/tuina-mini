@@ -41,8 +41,9 @@ const API = {
     //获取店铺信息
     getShopData: (data) => request(POST, `/shop/show`,data),
     //获取店员信息
-    getWorkerData: (data) => request(POST, `/worker/show`,data)
-
+    getWorkerData: (data) => request(POST, `/worker/show`,data),
+    //获取手机号
+    getTelNumber: (data) => request(POST, `/user/wx-bind-mobile`,data)
 
 };
 module.exports = {
