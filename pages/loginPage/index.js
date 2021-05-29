@@ -35,15 +35,8 @@ Page({
           })
         }
         //拿到信息在登录一下
-        $api.getOpenid({
-          code:app.globalData.code,
-          cloudID:res.cloudID,
-          encryptedData:res.encryptedData,
-          iv:res.iv,
-          signature:res.signature,
-          rawData:res.rawData
-        }).then(res=>{
-        })
+        let reqObj = Object.assign({code:app.globalData.code},res.userInfo)
+        $api.getOpenid(reqObj).then(res=>{})
       }
     })
   },
