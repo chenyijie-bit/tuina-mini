@@ -41,13 +41,11 @@ Component({
        // 登录
       wx.login({
         success: res => {
-          console.log(res);
           app.globalData.code = res.code
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 调用接口获取openid
           $api.getOpenid({code:res.code})
           .then(res => {
-            console.log(res);
             //请求成功
             if(res.data  && res.data.data 
               && res.data.data.openid){
@@ -105,14 +103,14 @@ Component({
             //未授权
             wx.showModal({
               title: '请求授权当前位置',
-              content: '需要获取您的地理位置，请确认授权',
+              content: '需要获取您的地理位置以计算到门店距离，请确认授权',
               success: function (res) {
                 if (res.cancel) {
                   //取消授权
                   wx.showToast({
                     title: '将使用默认定位,若要开启定位重新进入小程序',
                     icon: 'none',
-                    duration: 4000
+                    duration: 2000
                   })
                 } else if (res.confirm) {
                   //确定授权，通过wx.openSetting发起授权请求
