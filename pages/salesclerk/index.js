@@ -42,9 +42,6 @@ Page({
     })
   },
   getPhoneNumber (e) {
-    console.log(e)
-    console.log(e.detail.iv)
-    console.log(e.detail.encryptedData)
     $api.getTelNumber({
       iv:e.detail.iv,
       encryptedData:e.detail.encryptedData,
