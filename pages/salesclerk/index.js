@@ -43,6 +43,7 @@ Page({
   },
   getPhoneNumber (e) {
     $api.getTelNumber({
+      openid:app.globalData.openId,
       iv:e.detail.iv,
       encryptedData:e.detail.encryptedData,
       cloudIDL:e.detail.cloudID
