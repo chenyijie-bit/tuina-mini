@@ -50,7 +50,7 @@
             </view>
           </view>
           <view class="order-item-but">
-            <van-button>取消排号</van-button>
+            <van-button bindtap="payment">取消排号 / 支付</van-button>
           </view>
         </view>
       </view>

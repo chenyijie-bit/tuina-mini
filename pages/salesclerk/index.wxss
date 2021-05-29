@@ -54,10 +54,10 @@ page{
 	font-weight: bold;
 	color: #BA9245;
 	margin-left: 20rpx;
-	border-right: 4rpx solid #D4D4D4;
 	padding-right: 20rpx;
 }
 .work-age{
+	border-left: 4rpx solid #D4D4D4;
 	padding: 0 18rpx;
 	height: 36rpx;
 	line-height: 36rpx;
