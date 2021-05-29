@@ -5,13 +5,13 @@
 				<image src="../../assess/images/123.jpeg"></image>
 			</view>
 			<view class="sale-info">
-				<view class="name">陈小鱼</view>
-				<view class="store-addr">坂田店与天安云谷店</view>
+				<view class="name">{{shopInfo.worker.name}}</view>
+				<view class="store-addr">{{shopInfo.shop.name}}</view>
 				<view>
 					<view class="dafen">
 						<van-rate value="{{ rate }}" color="#EDBB40" void-color="#EDBB40" readonly size="14"/>
-						<view class="rate-num">4.8分</view>
-						<view class="work-age">从业12年</view>
+						<view class="rate-num">5分</view>
+						<!-- <view class="work-age">从业12年</view> -->
 					</view>
 					<view class="congyenianxian"></view>
 				</view>
@@ -20,7 +20,7 @@
 		</view>
 		<view class="flag-box">
 			<view class="flag">擅长项目</view>
-			<view class="flag-info">按摩，艾灸，经络调理，脏腑调理，推拿从业十余年擅长调理颈肩腰腿疼痛，风湿关节炎，脾胃脏腑病症，妇科炎症等</view>
+			<view class="flag-info">按摩，艾灸，经络调理，脏腑调理，推拿从业多年擅长调理颈肩腰腿疼痛，风湿关节炎，脾胃脏腑病症，妇科炎症等</view>
 		</view>
 	</view>
 	<view class="sale-addr-box">
@@ -28,7 +28,7 @@
 			<image mode="aspectFit" src="../../assess/images/position-icon.png"></image>
 		</view>
 		<view class="location-text">
-			<view>广东省深圳市龙岗区吉华路181号</view>
+			<view>{{shopInfo.shop.address}}</view>
 			<view>距您1220米</view>
 		</view>
 	</view>
@@ -88,11 +88,11 @@
 			立即取号，无需等待
 		</view>
 		<view class="dubble-but">
-			<button wx:if="!hasPhoneNumber" class="bottom-but-mid" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">预约</button>
+			<button wx:if="!hasPhoneNumber" class="bottom-but-mid" open-type="getPhoneNumber" data-type="2" bindgetphonenumber="getPhoneNumber">预约</button>
 			<view wx:else class="bottom-but-mid">
 				预约
 			</view>
-			<button wx:if="!hasPhoneNumber" class="bottom-but-right" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即取号</button>
+			<button wx:if="!hasPhoneNumber" class="bottom-but-right" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即取号</button>
 			<view wx:else class="bottom-but-right" bindtap="getNumberNow">
 				立即取号
 			</view>

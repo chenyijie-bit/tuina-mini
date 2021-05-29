@@ -1,83 +1,49 @@
-// // pages/order/index.js
-// Page({
-
-// 	/**
-// 	 * 页面的初始数据
-// 	 */
-// 	data: {
-
-// 	},
-
-// 	/**
-// 	 * 生命周期函数--监听页面加载
-// 	 */
-// 	onLoad: function (options) {
-// 		if(!wx.getStorageSync('userInfo')){
-// 			wx.navigateTo({
-// 			  url: '../loginPage/index',
-// 			})
-// 		}
-// 	},
-
-// 	/**
-// 	 * 生命周期函数--监听页面初次渲染完成
-// 	 */
-// 	onReady: function () {
-
-// 	},
-
-// 	/**
-// 	 * 生命周期函数--监听页面显示
-// 	 */
-// 	onShow: function () {
-//     if (typeof this.getTabBar === 'function' &&
-//       this.getTabBar()) {
-//       this.getTabBar().setData({
-//         selected: 1
-//       })
-//     }
-//   },
-
-// 	/**
-// 	 * 生命周期函数--监听页面隐藏
-// 	 */
-// 	onHide: function () {
-
-// 	},
-
-// 	/**
-// 	 * 生命周期函数--监听页面卸载
-// 	 */
-// 	onUnload: function () {
-
-// 	},
-
-// 	/**
-// 	 * 页面相关事件处理函数--监听用户下拉动作
-// 	 */
-// 	onPullDownRefresh: function () {
-
-// 	},
-
-// 	/**
-// 	 * 页面上拉触底事件的处理函数
-// 	 */
-// 	onReachBottom: function () {
-
-// 	},
-
-// 	/**
-// 	 * 用户点击右上角分享
-// 	 */
-// 	onShareAppMessage: function () {
-
-// 	}
-// })
+let app = getApp();
+const $api = require('../../utils/request').API;
 Component({
   data: {
     activeTab: 0,
+    payData:{},
+    timeStamp:''
   },
   methods:{
+    // 支付
+    payment(){
+      $api.orderPaydata({
+        "openid": app.globalData.openId,
+        "queue_id": "73"
+      }).then(res=>{
+        console.log(res)
+        if(res.statusCode == 200 && res.data.code == 200){
+          this.setData({
+            payData:res.data.data.jsApiParams,
+            timeStamp:res.data.timestamp
+          })
+          let packageStr = `prepay_id=${this.data.payData.prepay_id}`
+          console.log(this.data.timeStamp+'');
+          wx.requestPayment(
+            {
+            "timeStamp":this.data.timeStamp+'',
+            "nonceStr": this.data.payData.nonce_str,
+            "package": packageStr,
+            "signType": "MD5",
+            "paySign": this.data.payData.sign,
+            "success":function(res){
+              console.log(res);
+            },
+            "fail":function(res){},
+            "complete":function(res){}
+            })
+        }else{
+          wx.showToast({
+            title: '调起支付出错，请重试',
+            icon:'error'
+          })
+        }
+      })
+      
+      
+    },
     onChange(event) {
       this.setData({
         activeTab: event.detail.name,

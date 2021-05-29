@@ -9,7 +9,8 @@ const baseURL = 'https://www.giacomo.top/api/v2';
 function request(method, url, data) {
     return new Promise(function(resolve, reject) {
         let header = {
-            'Content-Type': (method!='POST' ? 'application/json' : 'application/x-www-form-urlencoded'),
+            // 'Content-Type': (method!='POST' ? 'application/json' : 'application/x-www-form-urlencoded'),
+            'Content-Type': (method!='POST' ? 'application/json' : 'application/json'),
         };
         wx.request({
             url: baseURL + url,
@@ -43,7 +44,11 @@ const API = {
     //获取店员信息
     getWorkerData: (data) => request(POST, `/worker/show`,data),
     //获取手机号
-    getTelNumber: (data) => request(POST, `/user/wx-bind-mobile`,data)
+    getTelNumber: (data) => request(POST, `/user/wx-bind-mobile`,data),
+    //下单
+    orderSubmit: (data) => request(POST, `/order/submit`,data),
+    //支付
+    orderPaydata: (data) => request(POST, `/order/pay-data`,data),
 
 };
 module.exports = {

@@ -39,58 +39,88 @@ Component({
         })
       }
        // 登录
-      wx.login({
+       wx.login({
         success: res => {
           app.globalData.code = res.code
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 调用接口获取openid
-          $api.getOpenid({code:res.code})
-          .then(res => {
-            //请求成功
-            if(res.data  && res.data.data 
-              && res.data.data.openid){
-                app.globalData.openId = res.data.data.openid
-                app.globalData.openid = res.data.data.openid || ''
-                wx.setStorageSync('statu', res.data.data.is_worker)
-            }
-            // 获取首页数据
-            $api.getHomeData({openid:res.data.data.openid,shop_id:'1',worker_id:1}).then(
-              res=>{
-                if(res.statusCode ==200 && res.data && res.data.data){
-                  this.setData({
-                    loadingModelShow: false
-                  })
-                  let data = res.data.data
-                  let shops = data.shops || []
-                  for (let index = 0; index < shops.length; index++) {
-                    const element = shops[index];
-                    element.longitude ? '' : element.longitude = this.data.defaultAddressInfo.Long
-                    element.latitude ? '' : element.latitude = this.data.defaultAddressInfo.Lat
-                    element.distance =  $Distance(element.latitude,element.longitude,this.data.userAddressInfo.Lat,this.data.userAddressInfo.Long)
-                  }
-                  this.setData({
-                    storeList:data.shops,
-                    workerList: data.recommend
-                  })
-                }else{
-                  wx.showToast({
-                    title: res.msg,
-                    icon: 'error',
-                    duration: 4000
-                  })
-                }
-              }
-            )
-          })
-          .catch(err => {
-             //请求失败
-          })
+          console.log(app.globalData.openId);
+          if(!app.globalData.openId){
+            _this.getOpenid(res.code)
+          }
         }
       })
-      
+      wx.checkSession({
+        success () {
+          //session_key 未过期，并且在本生命周期一直有效
+          console.log(`12`);
+        },
+        fail () {
+          // session_key 已经失效，需要重新执行登录流程
+          // 登录
+       wx.login({
+        success: res => {
+          app.globalData.code = res.code
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          // 调用接口获取openid
+            if(!app.globalData.openId){
+              _this.getOpenid(res.code)
+            }
+          }
+        })
+        }
+      })
     }
   },
   methods:{
+    //获取openID
+    getOpenid(code){
+      $api.getOpenid({code})
+      .then(res => {
+        //请求成功
+        if(res.data  && res.data.data 
+          && res.data.data.openid){
+            app.globalData.openId = res.data.data.openid
+            app.globalData.openid = res.data.data.openid || ''
+            wx.setStorageSync('statu', res.data.data.is_worker)
+        }
+        //需要改动成真实数据
+        this.getHomeData(res.data.data.openid,1,1)
+      })
+      .catch(err => {
+          //请求失败
+      })
+    },
+    // 获取首页数据
+    getHomeData(openid,shop_id,worker_id){
+      $api.getHomeData({openid,shop_id,worker_id}).then(
+        res=>{
+          if(res.statusCode ==200 && res.data && res.data.data){
+            this.setData({
+              loadingModelShow: false
+            })
+            let data = res.data.data
+            let shops = data.shops || []
+            for (let index = 0; index < shops.length; index++) {
+              const element = shops[index];
+              element.longitude ? '' : element.longitude = this.data.defaultAddressInfo.Long
+              element.latitude ? '' : element.latitude = this.data.defaultAddressInfo.Lat
+              element.distance =  $Distance(element.latitude,element.longitude,this.data.userAddressInfo.Lat,this.data.userAddressInfo.Long)
+            }
+            this.setData({
+              storeList:data.shops,
+              workerList: data.recommend
+            })
+          }else{
+            wx.showToast({
+              title: res.msg,
+              icon: 'error',
+              duration: 4000
+            })
+          }
+        }
+      )
+    },
     //定位方法
     getUserLocation: function () {
       let _this = this;
