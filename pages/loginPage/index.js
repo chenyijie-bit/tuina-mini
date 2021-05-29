@@ -1,3 +1,5 @@
+let app = getApp();
+const $api = require('../../utils/request').API;
 Page({
 
   /**
@@ -32,6 +34,16 @@ Page({
             }
           })
         }
+        //拿到信息在登录一下
+        $api.getOpenid({
+          code:app.globalData.code,
+          cloudID:res.cloudID,
+          encryptedData:res.encryptedData,
+          iv:res.iv,
+          signature:res.signature,
+          rawData:res.rawData
+        }).then(res=>{
+        })
       }
     })
   },
