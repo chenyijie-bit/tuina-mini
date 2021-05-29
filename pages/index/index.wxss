@@ -1,3 +1,6 @@
+.container{
+  padding-bottom: 50rpx;
+}
 .swipe-box-swipe{
   height: 410rpx;
 }
@@ -141,7 +144,11 @@
 .recommend-stores{
   background: #fff;
   padding:40rpx;
+  padding-bottom: 0;
   border-radius: 12px 12px 0 0;
+}
+.recommend-stores:nth-last-child(1) .recommend-stores-botborder{
+  border:none;
 }
 .recommend-stores-botborder{
   width: 100%;
@@ -153,6 +160,7 @@
 .store-list-box{
   border-radius: 12rpx 12rpx 0 0 ;
   background: #fff;
+  padding-bottom: 120rpx;
 }
 .store-photo{
   height: 120rpx;
@@ -205,7 +213,7 @@
   border-radius: 20rpx;
 }
 .store-start{
-  width: 110rpx;
+  width: 120rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -233,7 +241,6 @@
 }
 .store-address{
   color: #282828;
-  height: 22rpx;
   line-height: 22rpx;
   opacity: 0.4;
   font-size: 18rpx;

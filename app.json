@@ -3,10 +3,10 @@
     "pages/index/index",
     "pages/order/index",
     "pages/me/index",
-    "pages/salesclerk/index",
-    "pages/storeInfo/index",
     "pages/achievement/index",
     "pages/survey/index",
+    "pages/salesclerk/index",
+    "pages/storeInfo/index",
     "pages/drag/index"
   ],
   "permission": {
@@ -33,13 +33,13 @@
       "iconPath":"./assess/tabicons/me.png",
       "selectedIconPath":"./assess/tabicons/me2.png"
     }, {
-      "pagePath": "pages/drag/index",
-      "text": "我的业绩",
+      "pagePath": "pages/survey/index",
+      "text": "服务订单",
       "iconPath":"./assess/tabicons/me.png",
       "selectedIconPath":"./assess/tabicons/me2.png"
     }, {
-      "pagePath": "pages/survey/index",
-      "text": "服务订单",
+      "pagePath": "pages/achievement/index",
+      "text": "我的业绩",
       "iconPath":"./assess/tabicons/me.png",
       "selectedIconPath":"./assess/tabicons/me2.png"
     }]
@@ -61,6 +61,7 @@
     "van-rate": "@vant/weapp/rate/index",
     "van-radio": "@vant/weapp/radio/index",
     "van-radio-group": "@vant/weapp/radio-group/index",
-    "van-popup": "@vant/weapp/popup/index"
+    "van-popup": "@vant/weapp/popup/index",
+    "van-loading": "@vant/weapp/loading/index"
   }
 }

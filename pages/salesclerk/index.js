@@ -1,13 +1,22 @@
+let app = getApp();
+const $api = require('../../utils/request').API;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     rate:5,
     typeRadio:'1',
     showPopup:false,
     hasPhoneNumber:false
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    $api.getWorkerData({
+      openid:app.globalData.openId,
+      worker_id:app.globalData.worker_id,
+    }).then(res=>{
+      console.log(res)
+    })
   },
   onChange(event) {
     console.log(event);
@@ -37,12 +46,7 @@ Page({
     console.log(e.detail.iv)
     console.log(e.detail.encryptedData)
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-	
-  },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成

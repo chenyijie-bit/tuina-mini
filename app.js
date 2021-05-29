@@ -7,7 +7,7 @@ App({
     const statu = wx.getStorageSync('statu') || 0
     // statu == 1 是店员
     if(statu == 1){
-      this.globalData.list = this.globalData.allList[0].list1
+      this.globalData.list = this.globalData.allList[0].list2
     }else if(statu !== 1){
       this.globalData.list = this.globalData.allList[0].list1
     }
@@ -17,7 +17,11 @@ App({
     userAddrInfo:null,
     userInfo: null,
     statu:0,
-    openid:'',
+    openId:'',
+    // 当前店铺的id
+    shop_id:'',
+    // 当前店员的id
+    worker_id:'',
     allList: [{
       //用户角色tab栏
       list1: [{
@@ -69,7 +73,7 @@ App({
         "selectedIconPath":"../assess/tabicons/me2.png"
       }, 
       {
-        "pagePath": "../drag/index",
+        "pagePath": "../achievement/index",
         "text": "我的业绩",
         "iconPath":"../assess/tabicons/me.png",
         "selectedIconPath":"../assess/tabicons/me2.png"

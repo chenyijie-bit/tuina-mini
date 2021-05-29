@@ -122,6 +122,7 @@ Component({
       }
     },
     goToOrder(){
+      this.goToLogin()
       wx.switchTab({
         url: '../order/index',
       })

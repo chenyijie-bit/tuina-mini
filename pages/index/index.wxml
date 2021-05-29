@@ -4,7 +4,7 @@
   <view class="swipe-box">
     <swiper class="swipe-box-swipe" indicator-dots="{{indicatorDots}}"
         autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{images}}" wx:key="item">
+      <block wx:for="{{images}}" wx:key="index">
         <swiper-item>
           <view class="swiper-item">
             <image mode="widthFix" src="{{item}}"></image>
@@ -33,63 +33,69 @@
       </view>
     </view>
     <!-- 推荐人及店铺list -->
-    <view class="recommend-person">
-      <view class="per-img">
-        <image mode="aspectFit" src="{{personImg}}"></image>
-      
-        <view class="per-info">
-          <text class="per-name">陈小于</text>
-          <view class="price">
-            <text class="first-price">￥123</text>
-            <text class="sec-price">￥456</text>
+    <view  wx:if="{{loadingModelShow}}" style="text-align: center;">
+      <van-loading size="24px" vertical>加载中...</van-loading>
+    </view>
+    <block wx:else>
+      <view class="recommend-person"  wx:for="{{workerList}}" wx:key="index">
+        <view class="per-img">
+          <image mode="aspectFit" src="{{personImg}}"></image>
+          <view class="per-info">
+            <text class="per-name">{{item.block_type.name}}</text>
+            <view class="price">
+              <text class="first-price">￥123</text>
+              <text class="sec-price">￥456</text>
+            </view>
+            <image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
+            <view class="dengdaikuang">前面有2人，约等待20分钟</view>
           </view>
-          <image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
-          <view class="dengdaikuang">前面有2人，约等待20分钟</view>
+        </view>
+        <view class="per-start">
+          <block>
+            <van-button type="default" class="go-spa" bindtap="goToStaffInfo" data-id="{{item.block_type.id}}">点TA</van-button>
+          </block>
         </view>
       </view>
-      <view class="per-start">
-        <block>
-          <van-button type="default" class="go-spa" bindtap="goToStaffInfo">点TA</van-button>
+      <view class="store-list-box">
+        <block wx:for="{{storeList}}" wx:key="index">
+          <view class="recommend-stores">
+            <view class="recommend-stores-botborder">
+              <view class="store-photo">
+                <image mode="aspectFit" class="store-photo-img" src="../../assess/images/123.jpeg"></image>
+              </view>
+              <view class="store-info">
+                <view class="store-name">{{item.name}}</view>
+                <view class="store-type">全身推拿+火罐/刮痧</view>
+                <view class="store-num">
+                  <view>一人正在推拿</view>
+                  <view>老用户优惠</view>
+                </view>
+                <view class="store-prace">
+                  <text>￥123</text>
+                  <text>￥456</text>
+                </view>
+                <view class="store-address">
+                  <van-icon name="location" size="10"/>
+                  <text>{{item.address}}</text>
+                </view>
+              </view>
+              <view class="store-start">
+                <view>
+                  <view class="store-juli">{{item.distance  > 10000 ? 5 : item.distance}}公里</view>
+                  <!-- <text class="store-shangci">上次光临</text> -->
+                </view>
+                <view class="store-start-but">
+                  <van-button type="default" class="yuding" bindtap="goToStoreInfo" data-id="{{item.id}}">预定</van-button>
+                </view>
+              </view>
+            </view>
+            
+          </view>
         </block>
       </view>
-    </view>
-    <view class="store-list-box">
-      <block wx:for="storeList" wx:key="item">
-        <view class="recommend-stores">
-          <view class="recommend-stores-botborder">
-            <view class="store-photo">
-              <image mode="aspectFit" class="store-photo-img" src="../../assess/images/123.jpeg"></image>
-            </view>
-            <view class="store-info">
-              <view class="store-name">有一手推拿店</view>
-              <view class="store-type">全身推拿+火罐/刮痧</view>
-              <view class="store-num">
-                <view>一人正在推拿</view>
-                <view>老用户优惠</view>
-              </view>
-              <view class="store-prace">
-                <text>￥123</text>
-                <text>￥456</text>
-              </view>
-              <view class="store-address">
-                <van-icon name="location" size="10"/>
-                <text>广东省深圳市龙岗岩区吉华</text>
-              </view>
-            </view>
-            <view class="store-start">
-              <view>
-                <view class="store-juli">3.6公里</view>
-                <text class="store-shangci">上次光临</text>
-              </view>
-              <view class="store-start-but">
-                <van-button type="default" class="yuding" bindtap="goToStoreInfo">预定</van-button>
-              </view>
-            </view>
-          </view>
-          
-        </view>
-      </block>
-    </view>
+    </block>
+    
+    
     
   </view>
 </view>

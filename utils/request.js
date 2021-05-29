@@ -37,8 +37,11 @@ function request(method, url, data) {
 const API = {
     getOpenid: (data) => request(POST, `/user/xcx-check-login`,data),
     // 首页数据
-    getHomeData: (data) => request(POST, `/home/show`,data)
-    
+    getHomeData: (data) => request(POST, `/home/show`,data),
+    //获取店铺信息
+    getShopData: (data) => request(POST, `/shop/show`,data),
+    //获取店员信息
+    getWorkerData: (data) => request(POST, `/worker/show`,data)
 
 
 };
