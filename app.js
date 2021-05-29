@@ -2,20 +2,26 @@
 const $api = require('./utils/request').API;
 App({
   onLaunch() {
+    // wx.setStorageSync('statu', 0)
     // 展示本地存储能力
-    const statu = wx.getStorageSync('statu') || []
-    if(statu == 20){
-      this.globalData.list = this.globalData.allList[0].list1
-    }else if(statu==0){
+    const statu = wx.getStorageSync('statu') || 0
+    // statu == 1 是店员
+    if(statu == 1){
       this.globalData.list = this.globalData.allList[0].list2
+    }else if(statu !== 1){
+      this.globalData.list = this.globalData.allList[0].list1
     }
-   
-    
   },
   globalData: {
+    //用户的位置信息
+    userAddrInfo:null,
     userInfo: null,
     statu:0,
-    openid:'',
+    openId:'',
+    // 当前店铺的id
+    shop_id:'',
+    // 当前店员的id
+    worker_id:'',
     allList: [{
       //用户角色tab栏
       list1: [{

@@ -9,14 +9,14 @@
 		</view>
 
 		<!-- 切换tab组件 -->
-		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px" bindchange="bindChange">
 				<swiper-item>
 					<!-- 推荐人及店铺list -->
-					<view class="recommend-person">
+					<view class="recommend-person" wx:for="workList" wx:key="index">
 						<view class="per-img">
 							<image mode="aspectFit" src="{{personImg}}"></image>
 							<view class="per-info">
-								<text class="per-name">陈小于</text>
+								<text class="per-name">{{item.name}}</text>
 								<view class="price">
 									<text class="first-price">￥123</text>
 									<text class="sec-price">￥456</text>
@@ -27,29 +27,7 @@
 						</view>
 						<view class="per-start">
 							<block>
-								<van-button type="default" class="go-spa" bindtap="goToStaffInfo">点TA</van-button>
-							</block>
-						</view>
-					</view>
-
-
-					<!-- 推荐人及店铺list -->
-					<view class="recommend-person">
-						<view class="per-img">
-							<image mode="aspectFit" src="{{personImg}}"></image>
-							<view class="per-info">
-								<text class="per-name">陈小于</text>
-								<view class="price">
-									<text class="first-price">￥123</text>
-									<text class="sec-price">￥456</text>
-								</view>
-								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
-								<view class="dengdaikuang">前面有2人，约等待20分钟</view>
-							</view>
-						</view>
-						<view class="per-start">
-							<block>
-								<van-button type="default" class="go-spa" bindtap="goToStaffInfo">点TA</van-button>
+								<van-button type="default" class="go-spa" bindtap="goToStaffInfo" data-id="{{item.id}}">点TA</van-button>
 							</block>
 						</view>
 					</view>

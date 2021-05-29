@@ -1,23 +1,37 @@
 let app = getApp();
 const $api = require('../../utils/request').API;
+const $Distance = require('../../utils/util').Distance;
 Component({
   data: {
         canIUseGetUserProfile: false,
         searchValue:'',
         vertical: false,
-        autoplay: false,
+        autoplay: true,
         interval: 2000,
         duration: 500,
-        images:['../../assess/images/banner1.png','../../assess/images/2.jpeg','../../assess/images/3.jpeg'],
+        images:['../../assess/images/banner1.png','../../assess/images/banner2.jpg','../../assess/images/banner3.jpg','../../assess/images/banner4.jpg'],
         personImg:'../../assess/images/123.jpeg',
         positionIcon:'../../assess/images/position-icon.png',
         waitIcon:'../../assess/images/waiticon.png',
-        storeList:[
-          {},{},{}
-        ]
+        storeList:[],
+        // 店铺的默认地址
+        defaultAddressInfo:{
+          Long:114.064721,
+          Lat:22.661802
+        },
+        // 用户的地址
+        userAddressInfo:{
+          Long:0,
+          Lat:0
+        },
+        loadingModelShow:true
       },
   pageLifetimes: {
     show() {
+      let _this = this;
+      if(!this.data.userAddressInfo.Long){
+        _this.getUserLocation();
+      }
       if (typeof this.getTabBar === 'function' &&
         this.getTabBar()) {
         this.getTabBar().setData({
@@ -32,19 +46,42 @@ Component({
           $api.getOpenid({code:res.code})
           .then(res => {
             //请求成功
-            if(res.data && res.data.app_err && res.data.app_err.data 
-              && res.data.app_err.data.openid){
-                app.globalData.openid = res.data.app_err.data.openid || ''
+            if(res.data  && res.data.data 
+              && res.data.data.openid){
+                app.globalData.openId = res.data.data.openid
+                app.globalData.openid = res.data.data.openid || ''
+                wx.setStorageSync('statu', res.data.data.is_worker)
             }
             // 获取首页数据
-            $api.getHomeData({openid:res.data.app_err.data.openid}).then(
+            $api.getHomeData({openid:res.data.data.openid,shop_id:'1',worker_id:1}).then(
               res=>{
-                console.log(res);
+                if(res.statusCode ==200 && res.data && res.data.data){
+                  this.setData({
+                    loadingModelShow: false
+                  })
+                  let data = res.data.data
+                  let shops = data.shops || []
+                  for (let index = 0; index < shops.length; index++) {
+                    const element = shops[index];
+                    element.longitude ? '' : element.longitude = this.data.defaultAddressInfo.Long
+                    element.latitude ? '' : element.latitude = this.data.defaultAddressInfo.Lat
+                    element.distance =  $Distance(element.latitude,element.longitude,this.data.userAddressInfo.Lat,this.data.userAddressInfo.Long)
+                  }
+                  this.setData({
+                    storeList:data.shops,
+                    workerList: data.recommend
+                  })
+                }else{
+                  wx.showToast({
+                    title: res.msg,
+                    icon: 'error',
+                    duration: 4000
+                  })
+                }
               }
             )
           })
           .catch(err => {
-            console.log(err);
              //请求失败
           })
         }
@@ -53,6 +90,125 @@ Component({
     }
   },
   methods:{
+    //定位方法
+    getUserLocation: function () {
+      let _this = this;
+      wx.getSetting({
+        success: (res) => {
+          // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
+          // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
+          // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
+          if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
+            //未授权
+            wx.showModal({
+              title: '请求授权当前位置',
+              content: '需要获取您的地理位置，请确认授权',
+              success: function (res) {
+                if (res.cancel) {
+                  //取消授权
+                  wx.showToast({
+                    title: '将使用默认定位,若要开启定位重新进入小程序',
+                    icon: 'none',
+                    duration: 4000
+                  })
+                } else if (res.confirm) {
+                  //确定授权，通过wx.openSetting发起授权请求
+                  wx.openSetting({
+                    success: function (res) {
+                      if (res.authSetting["scope.userLocation"] == true) {
+                        wx.showToast({
+                          title: '授权成功',
+                          icon: 'success',
+                          duration: 1000
+                        })
+                        //再次授权，调用wx.getLocation的API
+                        // _this.geo();
+                      } else {
+                        wx.showToast({
+                          title: '授权失败',
+                          icon: 'none',
+                          duration: 1000
+                        })
+                      }
+                    }
+                  })
+                }
+              }
+            })
+          } else if (res.authSetting['scope.userLocation'] == undefined) {
+          //用户首次进入页面,调用wx.getLocation的API
+            _this.geo();
+          }
+          else {
+            //调用wx.getLocation的API
+            _this.geo();
+          }
+        }
+      })
+    },        
+    // 获取定位城市
+    geo: function () {
+      var _this = this;
+      wx.getLocation({
+        type: 'wgs84',
+        success: function (res) {
+          var latitude = res.latitude
+          var longitude = res.longitude
+          _this.setData({
+            'userAddressInfo.Long':longitude,
+            'userAddressInfo.Lat':latitude
+          })
+          let shops = _this.data.storeList
+          for (let index = 0; index < shops.length; index++) {
+            const element = shops[index];
+            element.longitude ? '' : element.longitude = _this.data.defaultAddressInfo.Long
+            element.latitude ? '' : element.latitude = _this.data.defaultAddressInfo.Lat
+            element.distance =  $Distance(element.latitude,element.longitude,_this.data.userAddressInfo.Lat,_this.data.userAddressInfo.Long)
+          }
+
+          _this.setData({
+            storeList:shops
+          })
+        },
+        fail(){
+          wx.showModal({
+            title: '请求授权当前位置',
+            content: '需要获取您的地理位置以计算到门店的距离，请确认授权',
+            success: function (res) {
+              if (res.cancel) {
+                //取消授权
+                wx.showToast({
+                  title: '将使用默认定位,若要开启定位重新进入小程序',
+                  icon: 'none',
+                  duration: 3000
+                })
+              } else if (res.confirm) {
+                //确定授权，通过wx.openSetting发起授权请求
+                wx.openSetting({
+                  success: function (res) {
+                    if (res.authSetting["scope.userLocation"] == true) {
+                      wx.showToast({
+                        title: '授权成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                      //再次授权，调用wx.getLocation的API
+                      // _this.geo();
+                    } else {
+                      wx.showToast({
+                        title: '授权失败',
+                        icon: 'none',
+                        duration: 1000
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
+        }
+      })
+    },
     changeStatu(){
       let datass = this.getTabBar().data.list
       let datassres = this.getTabBar().data.allList
@@ -72,14 +228,15 @@ Component({
         wx.setStorageSync('statu', 0)
       }
       // this.onLoad()
-      console.log(datass)
     },
-    goToStaffInfo(){
+    goToStaffInfo(e){
+      app.globalData.worker_id = e.currentTarget.dataset.id
       wx.navigateTo({
         url: '../salesclerk/index',
       })
     },
-    goToStoreInfo(){
+    goToStoreInfo(e){
+      app.globalData.shop_id = e.currentTarget.dataset.id
       wx.navigateTo({
         url: '../storeInfo/index',
       })
@@ -140,7 +297,6 @@ Component({
 //           //   }
 //           // })
 //         } else {
-//           console.log('登录失败！' + res.errMsg)
 //         }
 //       }
 //     })
@@ -156,7 +312,6 @@ Component({
 //       lang: "zh_CN",
 //       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 //       success: (res) => {
-//         console.log(res);
 //       }
 //     })
 //   },
@@ -165,7 +320,6 @@ Component({
 //     wx.getUserProfile({
 //       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 //       success: (res) => {
-//         console.log(res)
 //         this.setData({
 //           userInfo: res.userInfo,
 //           hasUserInfo: true

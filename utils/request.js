@@ -4,7 +4,7 @@ const PUT = 'PUT';
 const FORM = 'FORM';
 const DELETE = 'DELETE';
 
-const baseURL = 'http://47.105.194.199/api/v2';
+const baseURL = 'https://www.giacomo.top/api/v2';
 
 function request(method, url, data) {
     return new Promise(function(resolve, reject) {
@@ -21,7 +21,6 @@ function request(method, url, data) {
                 //请求成功
                 //判断状态码---errCode状态根据后端定义来判断
                 // if (res.data.errCode == 0) {
-                    console.log('success');
                     resolve(res);
                 // } else {
                 //     //其他异常
@@ -30,7 +29,6 @@ function request(method, url, data) {
             },
             fail(err) {
                 //请求失败
-                console.log('err');
                 reject(err)
             }
         })
@@ -39,8 +37,11 @@ function request(method, url, data) {
 const API = {
     getOpenid: (data) => request(POST, `/user/xcx-check-login`,data),
     // 首页数据
-    getHomeData: (data) => request(POST, `/home/show`,data)
-    
+    getHomeData: (data) => request(POST, `/home/show`,data),
+    //获取店铺信息
+    getShopData: (data) => request(POST, `/shop/show`,data),
+    //获取店员信息
+    getWorkerData: (data) => request(POST, `/worker/show`,data)
 
 
 };
