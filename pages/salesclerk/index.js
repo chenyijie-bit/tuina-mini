@@ -18,8 +18,7 @@ Page({
     $api.getWorkerData({
       //上线需要改成真实数据  type什么意思
       // openid:app.globalData.openId,
-      openid:'oGFUh5Ssh6XpAmERvUFwkA_wiZuY',
-      type:2,
+      openid:app.globalData.openId,
       worker_id:app.globalData.worker_id,
     }).then(res=>{
       console.log(res)
@@ -28,6 +27,25 @@ Page({
         let resData = Object.assign({},data)
         _this.setData({
           shopInfo: resData
+        })
+      }
+    }),
+    wx.checkSession({
+      success () {
+        //session_key 未过期，并且在本生命周期一直有效
+      },
+      fail () {
+        // session_key 已经失效，需要重新执行登录流程
+        // 登录
+      wx.login({
+        success: res => {
+          app.globalData.code = res.code
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          // 调用接口获取openid
+            if(!app.globalData.openId){
+              _this.getOpenid(res.code)
+            }
+          }
         })
       }
     })
@@ -55,10 +73,14 @@ Page({
       showPopup:false
     })
   },
+  /////需要加个判断就是首页拿到手机号的时候就不用在授权了
+  // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
     this.setData({
       appointmentType:e.currentTarget.dataset.type
     })
+    
+    
     console.log(this.data.appointmentType);
     $api.getTelNumber({
       openid:app.globalData.openId,
@@ -66,9 +88,6 @@ Page({
       encryptedData:e.detail.encryptedData,
       cloudIDL:e.detail.cloudID
     }).then(res=>{
-      console.log(res)
-      console.log(res.statusCode == 200);
-      console.log(res.data.code == 200);
       if(res.statusCode == 200 && res.data.code == 200){
         if(this.data.appointmentType == 1){
           let service_id = [
@@ -76,13 +95,19 @@ Page({
           ]
         let data = JSON.stringify({
           "openid": app.globalData.openId,
-          "shop_id": 1, 
-          "type_id": 1,    //1 为立即下单 ； 2 预约，
-          "worker_id": 1,
+          "shop_id": app.globalData.shop_id, 
+          "type_id": this.data.appointmentType,    //1 为立即下单 ； 2 预约，763022
+          "worker_id": app.globalData.worker_id,
           "service_id": service_id
         })
           $api.orderSubmit(data).then(res=>{
             console.log(res);
+            if(res.statusCode==200 && res.data.code == 200){
+              // 说明预约成功
+              wx.switchTab({
+                url: '../order/index',
+              })
+            }
           })
         }else{
 

@@ -12,7 +12,7 @@
 		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px" bindchange="bindChange">
 				<swiper-item>
 					<!-- 推荐人及店铺list -->
-					<view class="recommend-person" wx:for="workList" wx:key="index">
+					<view class="recommend-person" wx:for="{{workList}}" wx:key="index">
 						<view class="per-img">
 							<image mode="aspectFit" src="{{personImg}}"></image>
 							<view class="per-info">
@@ -22,7 +22,7 @@
 									<text class="sec-price">￥456</text>
 								</view>
 								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
-								<view class="dengdaikuang">前面有2人，约等待20分钟</view>
+								<view class="dengdaikuang">约需等待{{item.wait}}</view>
 							</view>
 						</view>
 						<view class="per-start">

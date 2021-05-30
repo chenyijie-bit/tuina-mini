@@ -49,6 +49,10 @@ const API = {
     orderSubmit: (data) => request(POST, `/order/submit`,data),
     //支付
     orderPaydata: (data) => request(POST, `/order/pay-data`,data),
+    //获取订单数据
+    orderShow: (data) => request(POST, `/order/show`,data),
+    //工作人员订单队列
+    workerQueueList: (data) => request(POST, `/worker/queue/list`,data),
 
 };
 module.exports = {

@@ -23,14 +23,18 @@ page{
   width: 140rpx !important;
   height: 6rpx !important;
 }
+.scroll-view{
+  padding-top: 100rpx;
+}
 .daifuwu-box{
   padding: 18rpx;
-  padding-top: 110rpx;
+  padding-bottom: 140rpx;
 }
 .order-item{
   background: #fff;
   padding: 30rpx 0;
   border-radius: 24rpx;
+  margin-bottom: 40rpx;
 }
 .order-item-title{
   font-size: 30rpx;
