@@ -73,7 +73,7 @@ Component({
       // 上线需要改成正确id
       $api.orderPaydata({
         "openid": app.globalData.openId,
-        "queue_id": 88
+        "queue_id": 90
       }).then(res=>{
         console.log(res)
         if(res.statusCode == 200 && res.data.code == 200){
@@ -81,25 +81,21 @@ Component({
             payData:res.data.data.jsApiParams,
             timeStamp:res.data.timestamp
           })
-          console.log(this.data.timeStamp+'');
-          console.log(
-            "timeStamp",this.data.timeStamp+'','----------',
-            "nonceStr", this.data.payData.nonce_str,'----------',
-            "package", this.data.payData.package,'----------',
-            "signType", "MD5",'----------',
-            "paySign", this.data.payData.sign);
           wx.requestPayment(
             {
-            "appId":this.data.payData.appid,
-            "timeStamp":this.data.timeStamp+'',
-            "nonceStr": this.data.payData.nonce_str,
-            "package": this.data.payData.package,
-            "signType": "MD5",
-            "paySign": this.data.payData.sign,
+            "appId":this.data.payData.jsApiParameters.appId,
+            "timeStamp":this.data.payData.jsApiParameters.timeStamp,
+            "nonceStr": this.data.payData.jsApiParameters.nonceStr,
+            "package": this.data.payData.jsApiParameters.package,
+            "signType": "HMAC-SHA256",
+            "paySign": this.data.payData.jsApiParameters.paySign,
             "success":function(res){
               console.log(res);
+              //需要重新获取列表信息
             },
-            "fail":function(res){},
+            "fail":function(res){
+              console.log(res);
+            },
             "complete":function(res){}
             })
         }else{

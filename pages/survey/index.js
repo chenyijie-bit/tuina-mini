@@ -79,6 +79,50 @@ Component({
         phoneNumber: phoneNumber //仅为示例，并非真实的电话号码
       })
     },
+    // 弃号
+    giveUp(e){
+      console.log(e);
+      let queue_id = e.currentTarget.dataset.id
+      $api.giveUp({
+        "openid": "test2",
+        "queue_id": queue_id
+      }).then(res=>{
+        console.log(res);
+        if(res.statusCode==200 && res.data.code==200){
+
+        }else{
+          wx.showToast({
+            title: res.data.err,
+            icon: 'error'
+          })
+        }
+      })
+    },
+    // 开始服务 // 结束服务
+    startServe(e){
+      let _this = this
+      let queue_id = e.currentTarget.dataset.id
+      $api.startServe({
+        "openid": "test2",
+        "queue_id": queue_id
+      }).then(res=>{
+        console.log(res);
+        if(res.statusCode==200 && res.data.code==200){
+          wx.showToast({
+            title: '已叫号',
+            icon: 'success'
+          })
+          // 这里需要再重新请求列表
+          _this.workerQueueShow()
+        }else{
+          wx.showToast({
+            title: res.data.err,
+            icon: 'error'
+          })
+        }
+      })
+    },
+    
     //获取员工端订单列表
     workerQueueShow(){
       // 下边的参数上线时要改成真实数据
@@ -90,13 +134,14 @@ Component({
         if(res.statusCode == 200 && res.data.code == 200){
           //上线要改成真是数据
           let copyData = []
-          let itemObj = {"title":"拖拽测试-1","desc":"长按左侧图标拖拽排序，左滑删除","address":"北京市朝阳区北京市朝阳区","icon_type":1,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false}
+          let itemObj = {"icon_type":1,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false}
           let resData
           if(res.data.data.queue){
             resData = JSON.parse(JSON.stringify(res.data.data.queue))
           }
           for (let index = 0; index < resData.length; index++) {
             const element = resData[index];
+            element.sortNum = index
             for (const key in itemObj) {
               if (Object.hasOwnProperty.call(itemObj, key)) {
                 element[key] = itemObj[key]
@@ -164,31 +209,11 @@ Component({
       this.setData({
           'scrollPosition.scrollTop':scrollTop
       })
-      // if(scrollTop >= 61){
-      //   if(this.data.navigationBarTitle != '拖拽排序+左滑删除'){
-      //     wx.setNavigationBarTitle({
-      //       title: '拖拽排序+左滑删除'
-      //     })
-      //     this.setData({
-      //       navigationBarTitle:'拖拽排序+左滑删除'
-      //     })
-      //   }
-        
-      // }else{
-      //   if(this.data.navigationBarTitle != ''){
-      //     wx.setNavigationBarTitle({
-      //       title: ''
-      //     })
-      //     this.setData({
-      //       navigationBarTitle:''
-      //     })
-      //   }
-      // }
     },
-      getOptionInfo:function (id) {
+      getOptionInfo:function (queue_id) {
           for(var i=0,j=this.data.optionsListData.length;i<j;i++){
               var optionData= this.data.optionsListData[i];
-              if(optionData.id == id){
+              if(optionData.queue_id == queue_id){
                   optionData.selectIndex = i;
                   return optionData;
               }
@@ -207,8 +232,6 @@ Component({
           return optionsListData[0];
       },
       draggleTouch:function (event) {
-        // console.log('draggleTouch')
-        // console.log(event)
           var touchType = event.type;
           switch(touchType){
               case "touchstart":
@@ -272,8 +295,8 @@ Component({
                 }
             })
           },10)
-          var id = domData.id;
-          var secInfo = that.getOptionInfo(id);
+          var queue_id = domData.queue_id;
+          var secInfo = that.getOptionInfo(queue_id);
           secInfo.selectPosition =  event.changedTouches[0].clientY;
           secInfo.selectClass = "dragSelected";
           that.data.optionsListData[secInfo.selectIndex].selectClass = "dragSelected";
@@ -293,13 +316,9 @@ Component({
           var everyOptionCell = that.data.scrollPosition.everyOptionCell;
           var optionsListData = that.data.optionsListData;
           var selectIndex = selectItemInfo.selectIndex;
-  
-          // console.log("event.changedTouches:",event.changedTouches);
           //movable-area滑块位置处理
           var movableX = 0;
           var movableY = event.changedTouches[0].pageY-that.data.scrollPosition.top-that.data.scrollPosition.everyOptionCell/2;
-  
-  
           that.setData({
               movableViewPosition:{
                   x:movableX,
@@ -308,7 +327,6 @@ Component({
                   data:that.data.movableViewPosition.data
               }
           })
-  
           if(moveDistance - selectPosition > 0 && selectIndex < optionsListData.length - 1){
               if (optionsListData[selectIndex].id == selectItemInfo.id) {
                   optionsListData.splice(selectIndex, 1);
@@ -316,7 +334,6 @@ Component({
                   selectPosition += everyOptionCell;
               }
           }
-  
           if (moveDistance - selectPosition < 0 && selectIndex > 0) {
               if (optionsListData[selectIndex].id == selectItemInfo.id) {
                   optionsListData.splice(selectIndex, 1);
@@ -324,7 +341,6 @@ Component({
                   selectPosition -= everyOptionCell;
               }
           }
-  
           that.setData({
               'selectItemInfo.selectPosition': selectPosition,
               'selectItemInfo.selectIndex': selectIndex,
@@ -336,7 +352,6 @@ Component({
           // console.log('结束');
           var that=this;
           var optionsListData = that.optionsDataTranlate(that.data.optionsListData,"");
-  
           that.setData({
               optionsListData:optionsListData,
               'scrollPosition.scrollY':true,
@@ -359,30 +374,32 @@ Component({
               })
               var selectItemInfo = that.data.selectItemInfo;
               for(let i=0;i<optionsListData.length;i++){
-                if(selectItemInfo.id == optionsListData[i].id){
+                if(selectItemInfo.queue_id == optionsListData[i].queue_id){
+                  console.log(selectItemInfo.queue_id);
+                  console.log(optionsListData[i].queue_id);
                     if(optionsListData[i].sortNum == i){//原有顺序=当前顺序，未改变位置
                       return false;
                     }
                     var relation_id='';
                     if(i == 0){//移动后处于首位，上移
-                      relation_id=optionsListData[i+1].id;
-                      that.updateList(selectItemInfo.id,'reset_weight',relation_id);
+                      relation_id=optionsListData[i+1].queue_id;
+                      that.updateList(selectItemInfo.queue_id,'reset_weight',relation_id);
                       return false;
                     }
                     if(i == (optionsListData.length - 1) ){//移动后处于末尾位，下移
-                      relation_id=optionsListData[i-1].id;
-                      that.updateList(selectItemInfo.id,'reset_weight',relation_id);
+                      relation_id=optionsListData[i-1].queue_id;
+                      that.updateList(selectItemInfo.queue_id,'reset_weight',relation_id);
                       return false;
                     }
   
                     var pre_num=optionsListData[i-1].sortNum;//上一条数据初始顺序
                     var curr_num=optionsListData[i].sortNum;//移动数据初始顺序
                     if(pre_num > curr_num){ //下移
-                      relation_id=optionsListData[i-1].id;
-                      that.updateList(selectItemInfo.id,'reset_weight',relation_id);
+                      relation_id=optionsListData[i-1].queue_id;
+                      that.updateList(selectItemInfo.queue_id,'reset_weight',relation_id);
                     }else{//上移
-                      relation_id=optionsListData[i+1].id;
-                      that.updateList(selectItemInfo.id,'reset_weight',relation_id);
+                      relation_id=optionsListData[i+1].queue_id;
+                      that.updateList(selectItemInfo.queue_id,'reset_weight',relation_id);
                     }
                 }
               }
@@ -410,7 +427,6 @@ Component({
       },
       handletouchmove: function(event) {
         // console.log(event)
-        console.log('左滑');
         var that=this;
         if (that.data.flag!== 0){
           return
@@ -515,8 +531,11 @@ Component({
         })
       },
       updateList:function(id,operate,relation_id){
-        var that=this;
-        var ajaxData={};
+        let dataList = this.data.optionsListData
+        for (let index = 0; index < dataList.length; index++) {
+          const element = dataList[index];
+          element.sortNum = index
+        }
       },
       confirmEvent:function(){
         var that=this;
