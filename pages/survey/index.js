@@ -1,9 +1,32 @@
+let app = getApp();
+const $api = require('../../utils/request').API;
 Component({
   data: {
     activeTab: 0,
     triggered: false,
   },
+  pageLifetimes: {
+    show() {
+      if (typeof this.getTabBar === 'function' &&
+        this.getTabBar()) {
+        this.getTabBar().setData({
+          selected: 1
+        })
+      }
+      this.workerQueueList()
+    }
+  },
   methods:{
+    //获取员工端订单列表
+    workerQueueList(){
+      // 下边的参数上线时要改成真实数据
+      $api.workerQueueList({
+        "openid": "test5",
+        "tidy_worker_id":2
+      }).then(res=>{
+        console.log(res)
+      })
+    },
     //下拉刷新
     onRefresh() {
       if (this._freshing) return
@@ -33,15 +56,6 @@ Component({
       console.log('onChange');
     }
     
-  },
-  pageLifetimes: {
-    show() {
-      if (typeof this.getTabBar === 'function' &&
-        this.getTabBar()) {
-        this.getTabBar().setData({
-          selected: 1
-        })
-      }
-    }
   }
+  
 })
