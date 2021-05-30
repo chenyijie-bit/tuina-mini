@@ -70,9 +70,10 @@ Component({
     // 支付
     payment(e){
       let queue_id = e.currentTarget.dataset.listid-0
+      // 上线需要改成正确id
       $api.orderPaydata({
         "openid": app.globalData.openId,
-        "queue_id": queue_id
+        "queue_id": 88
       }).then(res=>{
         console.log(res)
         if(res.statusCode == 200 && res.data.code == 200){
@@ -80,13 +81,19 @@ Component({
             payData:res.data.data.jsApiParams,
             timeStamp:res.data.timestamp
           })
-          let packageStr = `prepay_id=${this.data.payData.prepay_id}`
           console.log(this.data.timeStamp+'');
+          console.log(
+            "timeStamp",this.data.timeStamp+'','----------',
+            "nonceStr", this.data.payData.nonce_str,'----------',
+            "package", this.data.payData.package,'----------',
+            "signType", "MD5",'----------',
+            "paySign", this.data.payData.sign);
           wx.requestPayment(
             {
+            "appId":this.data.payData.appid,
             "timeStamp":this.data.timeStamp+'',
             "nonceStr": this.data.payData.nonce_str,
-            "package": packageStr,
+            "package": this.data.payData.package,
             "signType": "MD5",
             "paySign": this.data.payData.sign,
             "success":function(res){
