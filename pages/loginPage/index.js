@@ -21,8 +21,11 @@ Page({
       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
         console.log(res)
+        let resData = res.userInfo
+        resData.nickname = resData.nickName
+        resData.avata = resData.avatarUrl
         this.setData({
-          userInfo: res.userInfo,
+          userInfo: resData,
           hasUserInfo: true
         })
         wx.setStorageSync('userInfo', res.userInfo)
@@ -35,8 +38,13 @@ Page({
           })
         }
         //拿到信息在登录一下
-        let reqObj = Object.assign({code:app.globalData.code},res.userInfo)
-        $api.getOpenid(reqObj).then(res=>{})
+        wx.login({
+          success: e => {
+            let reqObj = Object.assign({code:e.code},res.userInfo)
+            $api.getOpenid(reqObj).then(res=>{})
+          }
+        })
+        
       }
     })
   },
