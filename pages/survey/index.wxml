@@ -106,7 +106,7 @@
 										<text>{{item.mobile}}</text>
 									</view>
 									<view class="que-start"> 
-										<van-button  class="que-start-but">开始服务</van-button>
+										<van-button  class="que-start-but" bindtap="startServe" data-id="{{item.queue_id}}">开始服务</van-button>
 									</view>
 								</view>
 								
@@ -114,7 +114,7 @@
 								<view class="address" wx:if="{{item.address != null}}" catchtap="goMap" data-index="{{index}}">{{item.user_st}} </view> -->
 							</view>
 						</view>	
-						<view class="delet-box" data-id="{{item.queue_id}}">忽略</view>
+						<view class="delet-box" data-id="{{item.queue_id}}" bindtap="giveUp">弃号</view>
 					</view>
 				</block>
 			</scroll-view>

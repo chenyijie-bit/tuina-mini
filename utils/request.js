@@ -53,7 +53,12 @@ const API = {
     orderShow: (data) => request(POST, `/order/show`,data),
     //工作人员订单列表
     workerQueueShow: (data) => request(POST, `/worker/queue/show`,data),
-
+    // 弃号
+    giveUp: (data) => request(POST, `/worker/queue/cancel`,data),
+    //叫号 也是开始服务
+    startServe:(data) => request(POST, `/worker/queue/call`,data),
+    // 服务结束
+    queueOrderSubmit: (data) => request(POST, `/worker/queue/order-submit`,data),
 };
 module.exports = {
     API: API
