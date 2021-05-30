@@ -77,6 +77,7 @@ Component({
     getOpenid(code){
       $api.getOpenid({code})
       .then(res => {
+        console.log(res.data.data);
         //请求成功
         if(res.data  && res.data.data 
           && res.data.data.openid){

@@ -53,6 +53,12 @@
           "pathName": "pages/salesclerk/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/survey/index",
+          "pathName": "pages/survey/index",
+          "query": "",
+          "scene": null
         }
       ]
     }
