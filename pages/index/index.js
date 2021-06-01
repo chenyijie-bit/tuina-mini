@@ -82,7 +82,10 @@ Component({
         if(res.data  && res.data.data 
           && res.data.data.openid){
             app.globalData.openId = res.data.data.openid
-            app.globalData.openid = res.data.data.openid || ''
+            // app.globalData.openid = res.data.data.openid || ''
+            app.globalData.mobile = res.data.data.mobile
+            app.globalData.head_url = res.data.data.head_url
+            app.globalData.nickname = res.data.data.nickname
             wx.setStorageSync('statu', res.data.data.is_worker)
         }
         //需要改动成真实数据
@@ -110,7 +113,7 @@ Component({
             }
             this.setData({
               storeList:data.shops,
-              workerList: data.recommend
+              workerList: [data.recommend[0].worder_list[0]]
             })
           }else{
             wx.showToast({
@@ -262,7 +265,9 @@ Component({
       // this.onLoad()
     },
     goToStaffInfo(e){
+      console.log(e);
       app.globalData.worker_id = e.currentTarget.dataset.id
+      app.globalData.worker_name = e.currentTarget.dataset.name
       wx.navigateTo({
         url: '../salesclerk/index',
       })

@@ -28,7 +28,7 @@ Component({
         this.setData({
           triggered: false,
         })
-        console.log(9999)
+        this.getOrder()
         this._freshing = false
       }, 3000)
     },
@@ -51,10 +51,9 @@ Component({
         if(res.statusCode==200 && res.data.code === 200){
           for (let index = 0; index <  res.data.data.length; index++) {
             const element =  res.data.data[index];
-            console.log(element.wait_time);
-            console.log(element.wait_time/60);
-            element.wait_time = parseFloat(element.wait_time/60)
-            
+            if(element.wait_time){
+              element.wait_time = parseFloat(element.wait_time/60)
+            }
           }
           this.setData({
             orderList: res.data.data
@@ -113,6 +112,16 @@ Component({
         activeTab: event.detail.name,
       });
       console.log('onChange');
+      this.getOrder()
+    },
+    cancelServe(e){
+      let orderId = e.currentTarget.dataset.listid
+      $api.cancelServe({
+        "openid": app.globalData.openId,
+        "queue_id": orderId
+      }).then(res=>{
+        console.log(res)
+      })
     }
     
   },

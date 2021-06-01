@@ -41,7 +41,7 @@
         <view class="per-img">
           <image mode="aspectFit" src="{{personImg}}"></image>
           <view class="per-info">
-            <text class="per-name">{{item.block_type.name}}</text>
+            <text class="per-name">{{item.name}}</text>
             <view class="price">
               <text class="first-price">￥123</text>
               <text class="sec-price">￥456</text>
@@ -52,7 +52,8 @@
         </view>
         <view class="per-start">
           <block>
-            <van-button type="default" class="go-spa" bindtap="goToStaffInfo" data-id="{{item.block_type.id}}">点TA</van-button>
+            <van-button type="default" class="go-spa" bindtap="goToStaffInfo" 
+            data-id="{{item.id}}" data-name="{{item.name}}">点TA</van-button>
           </block>
         </view>
       </view>

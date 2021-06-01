@@ -60,16 +60,101 @@
               </view>
             </view>
             <view class="order-item-but">
-              <van-button bindtap="payment" data-listid="{{item.list_id}}">取消排号 / 支付</van-button>
+              <van-button bindtap="cancelServe" data-listid="{{item.list_id}}">取消排号</van-button>
             </view>
           </view>
         </view>
       </scroll-view>
     </van-tab>
     <van-tab title="已完成">
-      <van-empty image="network" description="描述文字" />
+      <van-empty wx:if="{{!orderList.length}}" image="network" description="暂无信息" >{{orderList.length}}</van-empty>
+      <view class="daifuwu-box" wx:else>
+          <view class="order-item" wx:for="{{orderList}}" wx:key="index">
+            <view class="order-item-title">
+              {{item.status_str}}
+            </view>
+            <view class="order-item-info">
+              <view class="num">
+                <view class="top">{{item.sort_no}}</view>
+                <view class="bot">排队号码</view>
+              </view>
+              <view class="peo-num">
+                <view class="top">{{item.shop.name}}</view>
+                <view class="bot">服务门店</view>
+              </view>
+            </view>
+            <view class="order-item-type">
+              <view>
+                <text class="type-title">技师</text>:
+                <text class="type-ans">{{item.worker.name}}</text>
+              </view>
+              <view>
+                <text class="type-title">项目</text>:
+                <text class="type-ans">{{item.service.name}}</text>
+              </view>
+              <view>
+                <text class="type-title">合计</text>:
+                <text class="type-ans">{{item.order.price}}元</text>
+              </view>
+              <view>
+                <text class="type-title">取号时间</text>:
+                <text class="type-ans">{{item.start_date}}</text>
+              </view>
+            </view>
+            <view class="order-item-but">
+              <van-button bindtap="payment" wx:if="{{item.status_str == '按摩结束，待支付'}}" data-listid="{{item.list_id}}">{{item.status_str == "按摩结束，待支付" ? '支付':''}}</van-button>
+            </view>
+          </view>
+        </view>
     </van-tab>
     <van-tab title="过号/取消">
-      <van-empty image="search" description="描述文字" />
+      <van-empty  wx:if="{{!orderList.length}}" image="search" description="暂无信息" />
+      <view class="daifuwu-box" wx:else>
+        <view class="order-item" wx:for="{{orderList}}" wx:key="index">
+          <view class="order-item-title">
+            {{item.status_str}}
+          </view>
+          <view class="order-item-info">
+            <view class="num">
+              <view class="top">{{item.sort_no}}</view>
+              <view class="bot">排队号码</view>
+            </view>
+            <view class="peo-num">
+              <view class="top">{{item.pre_queue_number}}</view>
+              <view class="bot">排队人数</view>
+            </view>
+            <view class="time">
+              <view class="top">{{item.wait_time}}</view>
+              <view class="bot">预计等待/分钟</view>
+            </view>
+          </view>
+          <view class="order-item-addr">
+            <view>{{item.shop.name}}</view>
+            <!-- <view>距您1222米</view> -->
+            <view>></view>
+          </view>
+          <view class="order-item-type">
+            <view>
+              <text class="type-title">技师</text>:
+              <text class="type-ans">{{item.worker.name}}</text>
+            </view>
+            <view>
+              <text class="type-title">项目</text>:
+              <text class="type-ans">{{item.service.name}}</text>
+            </view>
+            <view>
+              <text class="type-title">合计</text>:
+              <text class="type-ans">{{item.order.price}}元</text>
+            </view>
+            <view>
+              <text class="type-title">取号时间</text>:
+              <text class="type-ans">{{item.start_date}}</text>
+            </view>
+          </view>
+          <view class="order-item-but">
+            <van-button bindtap="payment" data-listid="{{item.list_id}}">取消排号 / 支付</van-button>
+          </view>
+        </view>
+      </view>
     </van-tab>
   </van-tabs>

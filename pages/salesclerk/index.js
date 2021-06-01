@@ -8,13 +8,22 @@ Page({
     hasPhoneNumber:false,
     //预约类型  是 1 立即取号   还是 2  预约
     appointmentType:'',
-    shopInfo:{}
+    shopInfo:{},
+    yuyuekongjianIsShow:false,
+    //预约下单时间
+    reserve_date:'',
+    currentTab:0
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let _this = this
+    if(app.globalData.mobile){
+      this.setData({
+        hasPhoneNumber:true
+      })
+    }
     $api.getWorkerData({
       //上线需要改成真实数据  type什么意思
       // openid:app.globalData.openId,
@@ -25,6 +34,7 @@ Page({
       if(res.statusCode == 200){
         let data = res.data.data
         let resData = Object.assign({},data)
+        app.globalData.shop_id = resData.shop.id
         _this.setData({
           shopInfo: resData
         })
@@ -73,15 +83,19 @@ Page({
       showPopup:false
     })
   },
+  onClose2(){
+    this.setData({
+      yuyuekongjianIsShow:false
+    })
+  },
   /////需要加个判断就是首页拿到手机号的时候就不用在授权了
   // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
     this.setData({
       appointmentType:e.currentTarget.dataset.type
     })
-    
-    
     console.log(this.data.appointmentType);
+    // 如果系统中没有电话号码
     $api.getTelNumber({
       openid:app.globalData.openId,
       iv:e.detail.iv,
@@ -89,37 +103,115 @@ Page({
       cloudIDL:e.detail.cloudID
     }).then(res=>{
       if(res.statusCode == 200 && res.data.code == 200){
+        //立即下单
+        console.log(this.data.appointmentType);
         if(this.data.appointmentType == 1){
-          let service_id = [
-            {"id":"1","count":1}
-          ]
-        let data = JSON.stringify({
-          "openid": app.globalData.openId,
-          "shop_id": app.globalData.shop_id, 
-          "type_id": this.data.appointmentType,    //1 为立即下单 ； 2 预约，763022
-          "worker_id": app.globalData.worker_id,
-          "service_id": service_id
-        })
-          $api.orderSubmit(data).then(res=>{
-            console.log(res);
-            if(res.statusCode==200 && res.data.code == 200){
-              // 说明预约成功
-              wx.switchTab({
-                url: '../order/index',
-              })
-            }
+          this.setData({
+            showPopup:true
           })
         }else{
-
+          //预约下单
+          this.setData({
+            yuyuekongjianIsShow:true
+          })
         }
       }else{
+        // wx.hideLoading()
         wx.showToast({
           title: res.data.err,
+          icon:'error'
         })
       }
     })
   },
-  
+  getPhoneNumber2(){
+    if(this.data.appointmentType == 1){
+      this.setData({
+        showPopup:true
+      })
+    }else{
+      //预约下单
+      this.setData({
+        yuyuekongjianIsShow:true
+      })
+    }
+  },
+  selectTime(e){
+    console.log(e);
+    let time = e.currentTarget.dataset.time
+    this.setData({
+      currentTime:time
+    })
+  },
+  //创建订单
+  creatOrder(){
+
+    this.setData({
+      showPopup:false,
+      yuyuekongjianIsShow:false
+    })
+    wx.showLoading({
+      title: '创建订单中...',
+    })
+
+    if(this.data.appointmentType == 1){
+      // this.data.showPopup = true
+      
+    }else{
+      //预约下单
+      // this.data.yuyuekongjianIsShow = true
+      this.setData({
+        reserve_date
+      })
+    }
+    let service_id = [
+      {"id":this.data.typeRadio,"count":1}
+    ]
+    let data = JSON.stringify({
+      "openid": app.globalData.openId,
+      "shop_id": app.globalData.shop_id, 
+      "type_id": this.data.appointmentType,    //1 为立即下单 ； 2 预约，763022
+      "worker_id": app.globalData.worker_id,
+      "reserve_date":this.data.reserve_date,
+      "service_id": service_id
+    })
+    
+    $api.orderSubmit(data).then(res=>{
+      console.log(res);
+      wx.hideLoading()
+      if(res.statusCode==200 && res.data.code == 200){
+        // 说明预约成功
+        wx.switchTab({
+          url: '../order/index',
+        })
+      }else{
+        wx.showToast({
+          title: '创建失败，请重试',
+          icon:'error'
+        })
+      }
+    })
+  },
+    //  tab切换逻辑
+    swichNav: function( e ) {
+      var that = this;
+      if( this.data.currentTab === e.target.dataset.current ) {
+          return false;
+      } else {
+          that.setData( {
+              currentTab: e.target.dataset.current
+          })
+      }
+    },
+    bindChange: function( e ) {
+        var that = this;
+        that.setData( { currentTab: e.detail.current });
+    },
+
+
+
+
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
