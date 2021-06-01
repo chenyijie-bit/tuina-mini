@@ -19,10 +19,14 @@ App({
     statu:0,
     code:'',
     openId:'',
+    head_url:'',
+    mobile:'',
+    nickname:'',
     // 当前店铺的id
     shop_id:'',
     // 当前店员的id
     worker_id:'',
+    worker_name:'',
     allList: [{
       //用户角色tab栏
       list1: [{

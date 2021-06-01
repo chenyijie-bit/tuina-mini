@@ -59,6 +59,8 @@ const API = {
     startServe:(data) => request(POST, `/worker/queue/call`,data),
     // 服务结束
     queueOrderSubmit: (data) => request(POST, `/worker/queue/order-submit`,data),
+    // 取消订单
+    cancelServe: (data) => request(POST, `/worker/queue/cancel`,data),
 };
 module.exports = {
     API: API
