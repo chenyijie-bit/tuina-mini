@@ -72,7 +72,7 @@ Component({
       // 上线需要改成正确id
       $api.orderPaydata({
         "openid": app.globalData.openId,
-        "queue_id": 90
+        "queue_id": queue_id
       }).then(res=>{
         console.log(res)
         if(res.statusCode == 200 && res.data.code == 200){
@@ -99,13 +99,11 @@ Component({
             })
         }else{
           wx.showToast({
-            title: '调起支付出错，请重试',
+            title: res.data.err||'调起支付出错，请重试',
             icon:'error'
           })
         }
       })
-      
-      
     },
     onChange(event) {
       this.setData({
@@ -115,15 +113,29 @@ Component({
       this.getOrder()
     },
     cancelServe(e){
-      let orderId = e.currentTarget.dataset.listid
-      $api.cancelServe({
-        "openid": app.globalData.openId,
-        "queue_id": orderId
-      }).then(res=>{
-        console.log(res)
+      let _this = this
+      wx.showModal({
+        title: '确认取消排队？',
+        content: '确认取消排队后，此号将作废',
+        success (res) {
+          if (res.confirm) {
+            let orderId = e.currentTarget.dataset.listid
+            $api.cancelServe({
+              "openid": app.globalData.openId,
+              "queue_id": orderId
+            }).then(e=>{
+              if(e.statusCode==200 && e.data.code==200){
+                wx.showToast({
+                  title: '已取消排队',
+                })
+                _this.getOrder()
+              }
+            })
+          } else if (res.cancel) {
+            // console.log('用户点击取消')
+          }
+        }
       })
     }
-    
   },
-  
 })

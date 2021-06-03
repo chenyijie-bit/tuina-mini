@@ -17,7 +17,8 @@
       bindrefresherrestore="onRestore"
       bindrefresherabort="onAbort"
       >
-        <view class="daifuwu-box">
+        <van-empty wx:if="{{!orderList.length}}" image="network" description="暂无信息" ></van-empty>
+        <view class="daifuwu-box" wx:else>
           <view class="order-item" wx:for="{{orderList}}" wx:key="index">
             <view class="order-item-title">
               {{item.status_str}}
@@ -67,7 +68,7 @@
       </scroll-view>
     </van-tab>
     <van-tab title="已完成">
-      <van-empty wx:if="{{!orderList.length}}" image="network" description="暂无信息" >{{orderList.length}}</van-empty>
+      <van-empty wx:if="{{!orderList.length}}" image="network" description="暂无信息" ></van-empty>
       <view class="daifuwu-box" wx:else>
           <view class="order-item" wx:for="{{orderList}}" wx:key="index">
             <view class="order-item-title">

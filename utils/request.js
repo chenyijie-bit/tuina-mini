@@ -60,7 +60,9 @@ const API = {
     // 服务结束
     queueOrderSubmit: (data) => request(POST, `/worker/queue/order-submit`,data),
     // 取消订单
-    cancelServe: (data) => request(POST, `/worker/queue/cancel`,data),
+    cancelServe: (data) => request(POST, `/order/user-cancel`,data),
+    // 未来几天排队
+    workerFutureList: (data) => request(POST, `/worker/future-list`,data),
 };
 module.exports = {
     API: API

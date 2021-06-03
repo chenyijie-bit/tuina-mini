@@ -1,5 +1,6 @@
 let app = getApp();
 const $api = require('../../utils/request').API;
+const formatDate = require('../../utils/util')
 Page({
   data: {
     rate:5,
@@ -12,13 +13,20 @@ Page({
     yuyuekongjianIsShow:false,
     //预约下单时间
     reserve_date:'',
-    currentTab:0
+    currentTab:0,
+    dateList:[],
+    timeSelectModel:[
+      // {
+      //   time:
+      // },{}
+    ]
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let _this = this
+    console.log(app.globalData.mobile)
     if(app.globalData.mobile){
       this.setData({
         hasPhoneNumber:true
@@ -107,11 +115,13 @@ Page({
         console.log(this.data.appointmentType);
         if(this.data.appointmentType == 1){
           this.setData({
+            yuyuekongjianIsShow:false,
             showPopup:true
           })
         }else{
           //预约下单
           this.setData({
+            showPopup:false,
             yuyuekongjianIsShow:true
           })
         }
@@ -124,15 +134,33 @@ Page({
       }
     })
   },
-  getPhoneNumber2(){
+  getPhoneNumber2(e){
+    this.setData({
+      appointmentType:e.currentTarget.dataset.type
+    })
+    console.log(this.data.appointmentType);
     if(this.data.appointmentType == 1){
       this.setData({
-        showPopup:true
+        showPopup:true,
+        yuyuekongjianIsShow:false
       })
     }else{
       //预约下单
       this.setData({
+        showPopup:false,
         yuyuekongjianIsShow:true
+      })
+
+      //getPhoneNumber 函数也要写这部分
+      $api.workerFutureList({
+        // 上线要改成真实数据 改成工作人员的open
+        openid:app.globalData.openId,
+        worker_id:app.globalData.worker_id,
+      }).then(res=>{
+        console.log(res);
+        if(res.statusCode ==200 && res.data.code == 200){
+          let dateData = res.data.data
+        }
       })
     }
   },

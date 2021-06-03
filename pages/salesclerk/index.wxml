@@ -55,11 +55,11 @@
 			立即取号，无需等待
 		</view>
 		<view class="dubble-but">
-			<button wx:if="!hasPhoneNumber" class="bottom-but-mid" open-type="getPhoneNumber" data-type="2" bindgetphonenumber="getPhoneNumber">预约</button>
+			<button wx:if="{{!hasPhoneNumber}}" class="bottom-but-mid" open-type="getPhoneNumber" data-type="2" bindgetphonenumber="getPhoneNumber">预约</button>
 			<view wx:else class="bottom-but-mid"  bindtap="getPhoneNumber2" data-type="2">
 				预约
 			</view>
-			<button wx:if="!hasPhoneNumber" class="bottom-but-right" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即取号</button>
+			<button wx:if="{{!hasPhoneNumber}}" class="bottom-but-right" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即取号</button>
 			<view wx:else class="bottom-but-right" bindtap="getPhoneNumber2"  data-type="1">
 				立即取号
 			</view>
