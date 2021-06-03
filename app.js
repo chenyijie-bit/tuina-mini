@@ -25,6 +25,7 @@ App({
     // 当前店铺的id
     shop_id:'',
     // 当前店员的id
+    user_openId:'',
     worker_id:'',
     worker_name:'',
     allList: [{
