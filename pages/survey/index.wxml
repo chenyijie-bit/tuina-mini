@@ -59,7 +59,7 @@
 										<text>{{movableViewPosition.data.mobile}}</text>
 									</view>
 									<view class="que-start"> 
-										<van-button  class="que-start-but">开始服务</van-button>
+										<van-button  class="que-start-but">正在排队</van-button>
 									</view>
 								</view>
 								
@@ -89,11 +89,11 @@
 								<image src="{{dragImgUrl}}"></image>
 							</view>
 							<view class="edit_col2">
-								<view class="secname">排号：{{item.sort_no}}</view>
+								<view class="secname">排号：{{item.sort_no}}    {{item.type_id == 2 ? '预约' :''}}</view>
 								<view class="time-view">
 									<view> 
 										<view>预约时间</view>
-										<view>{{item.st}}</view>
+										<view>{{item.user_st}}</view>
 									</view>
 									<view>
 										<view>创建时间</view>
@@ -106,7 +106,7 @@
 										<text>{{item.mobile}}</text>
 									</view>
 									<view class="que-start"> 
-										<van-button  class="que-start-but" bindtap="startServe" data-id="{{item.queue_id}}">开始服务</van-button>
+										<van-button  class="que-start-but" bindtap="startServe" data-id="{{item.queue_id}}" data-status="{{item.status.msg}}">{{item.status.msg}}</van-button>
 									</view>
 								</view>
 								
@@ -131,6 +131,18 @@
 		</view> -->
 
 	<!-- </scroll-view>	 -->
+			<view class="mask-box" wx:if="{{modalShow}}">
+				<view class="modal" >
+						<view class="modal_top">
+								<view class="t1">请输入用户消费金额</view>
+								<input class="t2" value="{{modalValue}}"  bindinput="getValue"/>
+						</view>
+						<view class="modal_bottom">
+								<view class="b1" hover-class='hoverstyle' bindtap="modalCancel">取消</view>
+								<view class="b2" hover-class='hoverstyle' bindtap="modalConfirm">确认</view>
+						</view>
+				</view>
+		</view>
     </van-tab>
     <van-tab title="已完成">
       <van-empty image="network" description="描述文字" />

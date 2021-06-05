@@ -373,3 +373,71 @@ page{
 .seccode-3{
 	max-width:392rpx;
 }
+
+
+.mask-box {
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 899999;
+	background-color: rgba(0, 0, 0, .5);}
+	.mask-box 	.modal {
+					border-radius: 18rpx;
+					background-color: #fff;
+					height: 270rpx;
+					width: 600rpx;
+					position: absolute;
+					top: 20%;
+					left: 50%;
+					transform: translateX(-50%);	}
+					.mask-box 		.modal_top {
+							border-bottom: 2rpx solid #eee;
+							height: 185rpx;
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							
+						}
+						.modal_top	.t1 {
+							flex: 1;
+							text-align: center;
+							padding-top: 28rpx;
+							line-height: 36rpx;
+							color: #777;
+							font-weight: 500;
+							font-size: 36rpx;
+						}
+						.modal_top	.t2 {
+							height: 60rpx;
+							border: 2rpx solid #b9b9b9;
+							width: 80%;
+							border-radius: 8rpx;
+							border-color: #ccc;
+							margin: 0rpx 0 28rpx;
+							line-height: 30rpx;
+							padding-left: 8rpx;
+						}
+						.mask-box 	.modal_bottom {
+						 height: 85rpx;
+						 display: flex;
+						
+						
+					}
+					.mask-box 	.modal_bottom 	view {
+						flex: 1;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						font-size: 36rpx;
+						font-weight: 450;
+						color: rgba(0, 0, 0, .7);
+					}
+					.mask-box 	.modal_bottom  .b1 {
+						border-right: 2rpx solid #eee;
+					}
+					.mask-box 	.modal_bottom 	.hoverstyle {
+						background-color: #f6f6f6;
+						color: rgba(0, 0, 0, 1);
+					}
+

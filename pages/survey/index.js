@@ -4,11 +4,13 @@ Component({
   data: {
     activeTab: 0,
     triggered: false,
-
-
+    modalShow:false,
+    statusMsg:'',
+    queue_id:'',
     ///拖拽
     dragImgUrl:'../../assess/images/drag.png',
     optionsListData:[],
+    modalValue:'',
     movableViewPosition:{
         x:0,
         y:0,
@@ -72,6 +74,48 @@ Component({
     }
   },
   methods:{
+    getValue(e){
+      console.log(e)
+      let data = e.detail.value
+      this.setData({
+        modalValue:data
+      })
+      if(isNaN(parseInt(data))){
+        wx.showToast({
+          title: '消费金额只需填写数字',
+          icon:'none'
+        })
+        return false
+      }
+    },
+    modalCancel(){
+      this.setData({
+        modalShow: false,
+        modalValue:0
+      })
+    },
+    modalConfirm(){
+      console.log(this.data.modalValue)
+      if(isNaN(parseInt(this.data.modalValue))){
+        wx.showToast({
+          title: '消费金额只需填写数字',
+          icon:'none'
+        })
+        return false
+      }else{
+        $api.queueOrderSubmit({
+          // openid: app.globalData.openId,
+          openid: 'test2',
+          "queue_id": this.data.queue_id,
+          "change_price":parseInt(this.data.modalValue),
+          "remark":""
+        }).then(res=>{
+          console.log(res);
+          // if(res)
+        })
+        return false
+      }
+    },
     // 打电话
     makePhone(e){
       let phoneNumber = e.currentTarget.dataset.phone
@@ -102,6 +146,39 @@ Component({
     startServe(e){
       let _this = this
       let queue_id = e.currentTarget.dataset.id
+      this.setData({
+        queue_id:queue_id
+      })
+      this.setData({
+        statusMsg : e.currentTarget.dataset.status
+      })
+      
+      // console.log(statusMsg)
+      if(this.data.statusMsg == '正在按摩'){
+        this.setData({
+          modalShow:true
+        })
+        // wx.showModal({
+        //   title: '提示',
+        //   content: '<><>',
+        //   success (res) {
+        //     if (res.confirm) {
+        //       console.log('用户点击确定')
+        //     } else if (res.cancel) {
+        //       console.log('用户点击取消')
+        //     }
+        //   }
+        // })
+        return false
+        // $api.queueOrderSubmit({
+        //   openid: app.globalData.openId,
+        //   "queue_id": queue_id,
+        //   "change_price":0.01,
+        //   "remark":"快乐的小青蛙"
+        // }).then(res=>{})
+        // return false
+      }
+      
       $api.startServe({
         "openid": "test2",
         "queue_id": queue_id

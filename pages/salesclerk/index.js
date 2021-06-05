@@ -15,11 +15,15 @@ Page({
     reserve_date:'',
     currentTab:0,
     dateList:[],
-    timeSelectModel:[
-      // {
-      //   time:
-      // },{}
-    ]
+    dateTit : [],
+    longDateList:[],  //['2021-06-04','2021-06-05'...]
+    quedateList:[],  //[[{st: "1622851200", et: "1622853000", type: "2", sort: "1"},…],[]]
+    selectFlagTab:'',
+    indexTabDateCur:{}, //{1:[2,1,3],2:[3,4,5]} 对应日期索引上的对应时间索引 已被预约不可选择
+    timeSelectModelBox:[],
+    // timeSelectModel:[
+    //   {time:'08:00',select:false,disabled:false,datestr:''},{time:'08:30',select:false,disabled:false,datestr:''},{time:'09:00',select:false,disabled:false,datestr:''},{time:'09:30',select:false,disabled:false,datestr:''},{time:'10:00',select:false,disabled:false,datestr:''},{time:'10:30',select:false,disabled:false,datestr:''},{time:'11:00',select:false,disabled:false,datestr:''},{time:'11:30',select:false,disabled:false,datestr:''},{time:'12:00',select:false,disabled:false,datestr:''},{time:'12:30',select:false,disabled:false,datestr:''},{time:'13:00',select:false,disabled:false,datestr:''},{time:'13:30',select:false,disabled:false,datestr:''},{time:'14:00',select:false,disabled:false,datestr:''},{time:'14:30',select:false,disabled:false,datestr:''},{time:'15:00',select:false,disabled:false,datestr:''},{time:'15:30',select:false,disabled:false,datestr:''},{time:'16:00',select:false,disabled:false,datestr:''},{time:'16:30',select:false,disabled:false,datestr:''},{time:'17:00',select:false,disabled:false,datestr:''},{time:'17:30',select:false,disabled:false,datestr:''},{time:'18:00',select:false,disabled:false,datestr:''},{time:'18:30',select:false,disabled:false,datestr:''},{time:'19:00',select:false,disabled:false,datestr:''},{time:'19:30',select:false,disabled:false,datestr:''},{time:'20:00',select:false,disabled:false,datestr:''},{time:'20:30',select:false,disabled:false,datestr:''},{time:'21:00',select:false,disabled:false,datestr:''},{time:'21:30',select:false,disabled:false,datestr:''},{time:'22:00',select:false,disabled:false,datestr:''},{time:'22:30',select:false,disabled:false,datestr:''}
+    // ]
   },
   /**
    * 生命周期函数--监听页面加载
@@ -67,6 +71,12 @@ Page({
         })
       }
     })
+  },
+  createTimeSelectModel(){
+    let timeSelectModel = [
+      {time:'08:00',select:false,disabled:false,datestr:''},{time:'08:30',select:false,disabled:false,datestr:''},{time:'09:00',select:false,disabled:false,datestr:''},{time:'09:30',select:false,disabled:false,datestr:''},{time:'10:00',select:false,disabled:false,datestr:''},{time:'10:30',select:false,disabled:false,datestr:''},{time:'11:00',select:false,disabled:false,datestr:''},{time:'11:30',select:false,disabled:false,datestr:''},{time:'12:00',select:false,disabled:false,datestr:''},{time:'12:30',select:false,disabled:false,datestr:''},{time:'13:00',select:false,disabled:false,datestr:''},{time:'13:30',select:false,disabled:false,datestr:''},{time:'14:00',select:false,disabled:false,datestr:''},{time:'14:30',select:false,disabled:false,datestr:''},{time:'15:00',select:false,disabled:false,datestr:''},{time:'15:30',select:false,disabled:false,datestr:''},{time:'16:00',select:false,disabled:false,datestr:''},{time:'16:30',select:false,disabled:false,datestr:''},{time:'17:00',select:false,disabled:false,datestr:''},{time:'17:30',select:false,disabled:false,datestr:''},{time:'18:00',select:false,disabled:false,datestr:''},{time:'18:30',select:false,disabled:false,datestr:''},{time:'19:00',select:false,disabled:false,datestr:''},{time:'19:30',select:false,disabled:false,datestr:''},{time:'20:00',select:false,disabled:false,datestr:''},{time:'20:30',select:false,disabled:false,datestr:''},{time:'21:00',select:false,disabled:false,datestr:''},{time:'21:30',select:false,disabled:false,datestr:''},{time:'22:00',select:false,disabled:false,datestr:''},{time:'22:30',select:false,disabled:false,datestr:''}
+    ]
+    return timeSelectModel
   },
   onChange(event) {
     console.log(event);
@@ -124,6 +134,95 @@ Page({
             showPopup:false,
             yuyuekongjianIsShow:true
           })
+
+
+          //getPhoneNumber 函数也要写这部分
+          $api.workerFutureList({
+            // 上线要改成真实数据 改成工作人员的open
+            openid:app.globalData.openId,
+            worker_id:app.globalData.worker_id,
+          }).then(res=>{
+            console.log(res);
+            if(res.statusCode ==200 && res.data.code == 200){
+              let dateData = res.data.data
+              let arr = []
+              let longDateList = []
+              let quedateList = []
+              for (const key in dateData) {
+                if (Object.hasOwnProperty.call(dateData, key)) {
+                  longDateList.push(key)
+                  quedateList.push(dateData[key])
+                  let keyStrArr = key.split('-')
+                  let keyStr = ''
+                  if(keyStrArr && keyStrArr.length){
+                    keyStr = `${keyStrArr[1]}/${keyStrArr[2]}`
+                  }
+                  arr.push(keyStr)
+                }
+              }
+              this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
+              // console.log(this.data.dateTit);
+              // this.data.longDateList
+              let timeSelectModel = this.createTimeSelectModel()
+              timeSelectModel.map((e,i)=>{
+                // console.log(`${this.data.longDateList[this.data.currentTab]} ${e.time}`);
+                // return false
+                let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
+                // console.log(currentTimeStr);
+                timeSelectModel[i].datestr = currentTimeStr
+                // this.setData({
+                //   ['timeSelectModel['+i+'].datestr'] : currentTimeStr
+                // })
+              })
+              let resData = []
+              resData[this.data.currentTab] = timeSelectModel
+              this.setData({
+                timeSelectModelBox: resData
+              })
+              // console.log(this.data.timeSelectModel);
+              if(this.data.quedateList[this.data.currentTab] && this.data.quedateList[this.data.currentTab].length){
+                this.changeTabGetTime()
+                // 说明这一天有被预约的情况
+                // let yuyueList = this.data.quedateList[this.data.currentTab]
+                // console.log(yuyueList);
+                // let indexTabDateCur = {}
+                // for (let index = 0; index < yuyueList.length; index++) {
+                //   const element = yuyueList[index];
+                //   for (let j = 0; j < this.data.timeSelectModel.length; j++) {
+                //     const item = this.data.timeSelectModel[j];
+                //     if(Number(element.st)*1000<= item.datestr  && Number(element.et*1000) >= item.datestr){
+                //       // 则对应的日期索引上的时间段都不能被选中了
+                //       if(!indexTabDateCur[this.data.currentTab]){
+                //         indexTabDateCur[this.data.currentTab] = []
+                //         indexTabDateCur[this.data.currentTab].push(j)
+                //       }else{
+                //         indexTabDateCur[this.data.currentTab].push(j)
+                //       }
+                    
+                //     }
+                //   }
+                // }
+                // console.log(indexTabDateCur);
+                //   this.setData({
+                //     indexTabDateCur:indexTabDateCur
+                //   })
+                //   indexTabDateCur[this.data.currentTab].map((e,i)=>{
+                //     console.log(e);
+                //     this.setData({
+                //       ['timeSelectModel['+Number(e)+'].disabled']:  true
+                //     })
+                //   })
+                  
+              }
+
+
+
+
+            }
+          })
+
+
+          
         }
       }else{
         // wx.hideLoading()
@@ -160,20 +259,176 @@ Page({
         console.log(res);
         if(res.statusCode ==200 && res.data.code == 200){
           let dateData = res.data.data
+          let arr = []
+          let longDateList = []
+          let quedateList = []
+          for (const key in dateData) {
+            if (Object.hasOwnProperty.call(dateData, key)) {
+              longDateList.push(key)
+              quedateList.push(dateData[key])
+              let keyStrArr = key.split('-')
+              let keyStr = ''
+              if(keyStrArr && keyStrArr.length){
+                keyStr = `${keyStrArr[1]}/${keyStrArr[2]}`
+              }
+              arr.push(keyStr)
+            }
+          }
+          this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
+          // console.log(this.data.dateTit);
+          // this.data.longDateList
+          let timeSelectModel = this.createTimeSelectModel()
+          timeSelectModel.map((e,i)=>{
+            // console.log(`${this.data.longDateList[this.data.currentTab]} ${e.time}`);
+            // return false
+            let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
+            // console.log(currentTimeStr);
+            timeSelectModel[i].datestr = currentTimeStr
+            // this.setData({
+            //   ['timeSelectModel['+i+'].datestr'] : currentTimeStr
+            // })
+          })
+          let resData = []
+          resData[this.data.currentTab] = timeSelectModel
+          this.setData({
+            timeSelectModelBox: resData
+          })
+          // console.log(this.data.timeSelectModel);
+          if(this.data.quedateList[this.data.currentTab] && this.data.quedateList[this.data.currentTab].length){
+            this.changeTabGetTime()
+            // 说明这一天有被预约的情况
+            // let yuyueList = this.data.quedateList[this.data.currentTab]
+            // console.log(yuyueList);
+            // let indexTabDateCur = {}
+            // for (let index = 0; index < yuyueList.length; index++) {
+            //   const element = yuyueList[index];
+            //   for (let j = 0; j < this.data.timeSelectModel.length; j++) {
+            //     const item = this.data.timeSelectModel[j];
+            //     if(Number(element.st)*1000<= item.datestr  && Number(element.et*1000) >= item.datestr){
+            //       // 则对应的日期索引上的时间段都不能被选中了
+            //       if(!indexTabDateCur[this.data.currentTab]){
+            //         indexTabDateCur[this.data.currentTab] = []
+            //         indexTabDateCur[this.data.currentTab].push(j)
+            //       }else{
+            //         indexTabDateCur[this.data.currentTab].push(j)
+            //       }
+                 
+            //     }
+            //   }
+            // }
+            // console.log(indexTabDateCur);
+            //   this.setData({
+            //     indexTabDateCur:indexTabDateCur
+            //   })
+            //   indexTabDateCur[this.data.currentTab].map((e,i)=>{
+            //     console.log(e);
+            //     this.setData({
+            //       ['timeSelectModel['+Number(e)+'].disabled']:  true
+            //     })
+            //   })
+              
+          }
+
+
+
+
         }
       })
     }
   },
+  changeTabGetTime(){
+    let yuyueList = this.data.quedateList[this.data.currentTab]
+    if(!this.data.timeSelectModelBox[this.data.currentTab] || !this.data.timeSelectModelBox[this.data.currentTab].length){
+      let data = this.createTimeSelectModel()
+      data.map((e,i)=>{
+        // console.log(`${this.data.longDateList[this.data.currentTab]} ${e.time}`);
+        // return false
+        let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
+        // console.log(currentTimeStr);
+        data[i].datestr = currentTimeStr
+        // this.setData({
+        //   ['timeSelectModel['+i+'].datestr'] : currentTimeStr
+        // })
+      })
+      let index = this.data.currentTab
+      this.setData({
+        ['timeSelectModelBox['+index+']'] : data
+      })
+    }
+    console.log(yuyueList);
+    // this.data.indexTabDateCur = {}
+    for (let index = 0; index < yuyueList.length; index++) {
+      const element = yuyueList[index];
+      console.log(element);
+      for (let j = 0; j < this.data.timeSelectModelBox[this.data.currentTab].length; j++) {
+        const item = this.data.timeSelectModelBox[this.data.currentTab][j];
+        if(Number(element.st)*1000<= item.datestr  && Number(element.et*1000) >= item.datestr){
+          // 则对应的日期索引上的时间段都不能被选中了
+          if(!this.data.indexTabDateCur[this.data.currentTab]){
+            this.setData({
+              ['indexTabDateCur['+this.data.currentTab+']'] : []
+            })
+            let len =  this.data.indexTabDateCur[this.data.currentTab].length
+            let data = this.data.indexTabDateCur[this.data.currentTab]
+            if(Array.isArray(data)){
+              data.push(j)
+              data = Array.from(new Set(data))
+              this.setData({
+                ['indexTabDateCur['+this.data.currentTab+']'] : data
+              })  
+            }
+            // this.data.indexTabDateCur[this.data.currentTab].push(j)
+          }else{
+            let len =  this.data.indexTabDateCur[this.data.currentTab].length
+            let data = this.data.indexTabDateCur[this.data.currentTab]
+            if(Array.isArray(data)){
+              data.push(j)
+              data = Array.from(new Set(data))
+              this.setData({
+                ['indexTabDateCur['+this.data.currentTab+']['+len+']'] : j
+              })
+            }
+            
+            // this.data.indexTabDateCur[this.data.currentTab].push(j)
+          }
+          
+        }
+      }
+    }
+    console.log(this.data.indexTabDateCur);
+      // this.setData({
+      //   indexTabDateCur:indexTabDateCur
+      // })
+      if(this.data.indexTabDateCur[this.data.currentTab]){
+        this.data.indexTabDateCur[this.data.currentTab].map((e,i)=>{
+          // console.log(e);
+          this.setData({
+            ['timeSelectModelBox['+this.data.currentTab+']['+Number(e)+'].disabled']:  true
+          })
+        })
+      }
+  },
   selectTime(e){
     console.log(e);
+    let disabled = e.currentTarget.dataset.disabled
+    if(disabled) {
+      wx.showToast({
+        title: '此时段已被预约',
+        icon:'none'
+      })
+      return false
+    }
     let time = e.currentTarget.dataset.time
+    console.log(time);
+    let index = e.currentTarget.dataset.current
+    console.log(index);
     this.setData({
-      currentTime:time
+      currentTime:time,
+      selectFlagTab:index
     })
   },
   //创建订单
   creatOrder(){
-
     this.setData({
       showPopup:false,
       yuyuekongjianIsShow:false
@@ -181,13 +436,14 @@ Page({
     wx.showLoading({
       title: '创建订单中...',
     })
-
     if(this.data.appointmentType == 1){
       // this.data.showPopup = true
-      
     }else{
       //预约下单
       // this.data.yuyuekongjianIsShow = true
+      let date = this.data.longDateList[this.data.selectFlagTab]
+      let time = this.data.currentTime
+      let reserve_date = `${date} ${time}`
       this.setData({
         reserve_date
       })
@@ -213,9 +469,10 @@ Page({
           url: '../order/index',
         })
       }else{
+        console.log();
         wx.showToast({
-          title: '创建失败，请重试',
-          icon:'error'
+          title: res.data.err || '创建失败请重试',
+          icon:'none'
         })
       }
     })
@@ -227,9 +484,11 @@ Page({
           return false;
       } else {
           that.setData( {
+              // selectFlagTab : e.target.dataset.current,
               currentTab: e.target.dataset.current
           })
       }
+      this.changeTabGetTime()
     },
     bindChange: function( e ) {
         var that = this;

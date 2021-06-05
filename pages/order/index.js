@@ -52,7 +52,7 @@ Component({
           for (let index = 0; index <  res.data.data.length; index++) {
             const element =  res.data.data[index];
             if(element.wait_time){
-              element.wait_time = parseFloat(element.wait_time/60)
+              element.wait_time = parseInt(element.wait_time/60)
             }
           }
           this.setData({
