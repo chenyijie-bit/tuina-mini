@@ -89,7 +89,7 @@
 								<image src="{{dragImgUrl}}"></image>
 							</view>
 							<view class="edit_col2">
-								<view class="secname">排号：{{item.sort_no}}    {{item.type_id == 2 ? '预约' :''}}</view>
+								<view class="secname">排号：{{item.sort_no}}    {{item.type == 2 ? '预约' :''}}</view>
 								<view class="time-view">
 									<view> 
 										<view>预约时间</view>
@@ -106,7 +106,7 @@
 										<text>{{item.mobile}}</text>
 									</view>
 									<view class="que-start"> 
-										<van-button  class="que-start-but" bindtap="startServe" data-id="{{item.queue_id}}" data-status="{{item.status.msg}}">{{item.status.msg}}</van-button>
+										<van-button  class="que-start-but" bindtap="startServe" data-id="{{item.id}}" data-status="{{item.status.msg}}">{{item.status_msg}}</van-button>
 									</view>
 								</view>
 								

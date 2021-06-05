@@ -65,16 +65,16 @@
                 <image mode="aspectFit" class="store-photo-img" src="../../assess/images/123.jpeg"></image>
               </view>
               <view class="store-info">
-                <!-- <view class="store-name">{{item.name}}</view> -->
-                <view class="store-name">有一手1号店</view>
-                <view class="store-type">123123123</view>
+                <view class="store-name">{{item.name}}</view>
+                <!-- <view class="store-name">有一手1号店</view> -->
+                <view class="store-type">全身推拿+火罐/刮痧</view>
                 <view class="store-num">
-                  <view>一人正在排队</view>
-                  <view>老用户优惠</view>
+                  <!-- <view>一人正在排队</view>
+                  <view>老用户优惠</view> -->
                 </view>
                 <view class="store-prace">
-                  <text>￥123</text>
-                  <text>￥456</text>
+                  <text>￥{{item.min_price}}</text>
+                  <text>￥128</text>
                 </view>
                 <view class="store-address">
                   <van-icon name="location" size="10"/>

@@ -88,6 +88,7 @@ Component({
             app.globalData.mobile = res.data.data.mobile
             app.globalData.head_url = res.data.data.head_url
             app.globalData.nickname = res.data.data.nickname
+            app.globalData.worker_id = res.data.data.worker_id
             wx.setStorageSync('statu', res.data.data.is_worker)
             this.getHomeData(app.globalData.openId)
         }

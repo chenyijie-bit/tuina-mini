@@ -37,8 +37,6 @@ Page({
       })
     }
     $api.getWorkerData({
-      //上线需要改成真实数据  type什么意思
-      // openid:app.globalData.openId,
       openid:app.globalData.openId,
       worker_id:app.globalData.worker_id,
     }).then(res=>{

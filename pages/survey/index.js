@@ -20,6 +20,7 @@ Component({
           is_complete:true
         }
     },
+    nouserArr:[],
     scrollPosition:{
       //每个数据的高度 已经加上了marginbottom
         everyOptionCell:136,
@@ -57,7 +58,7 @@ Component({
           selected: 1
         })
       }
-      this.workerQueueShow()
+      this.workerQueueList()
 
 
       /////拖拽
@@ -105,8 +106,7 @@ Component({
         return false
       }else{
         $api.queueOrderSubmit({
-          // openid: app.globalData.openId,
-          openid: 'test2',
+          openid: app.globalData.openId,
           "queue_id": this.data.queue_id,
           "change_price":parseInt(this.data.modalValue),
           "remark":""
@@ -122,7 +122,7 @@ Component({
               icon:'none'
             })
              // 这里需要再重新请求列表
-            _this.workerQueueShow()
+            _this.workerQueueList()
           }
         })
         return false
@@ -140,7 +140,7 @@ Component({
       console.log(e);
       let queue_id = e.currentTarget.dataset.id
       $api.giveUp({
-        "openid": "test2",
+        "openid": app.globalData.openId,
         "queue_id": queue_id
       }).then(res=>{
         console.log(res);
@@ -171,7 +171,7 @@ Component({
         return false
       }
       $api.startServe({
-        "openid": "test2",
+        "openid": app.globalData.openId,
         "queue_id": queue_id
       }).then(res=>{
         console.log(res);
@@ -181,7 +181,7 @@ Component({
             icon: 'success'
           })
           // 这里需要再重新请求列表
-          _this.workerQueueShow()
+          _this.workerQueueList()
         }else{
           wx.showToast({
             title: res.data.err,
@@ -192,11 +192,11 @@ Component({
     },
     
     //获取员工端订单列表
-    workerQueueShow(){
+    workerQueueList(){
       // 下边的参数上线时要改成真实数据
-      $api.workerQueueShow({
-        "openid": "test2",
-        "tidy_worker_id":2
+      $api.workerQueueList({
+        "openid": app.globalData.openId,
+        "tidy_worker_id":app.globalData.worker_id
       }).then(res=>{
         console.log(res)
         if(res.statusCode == 200 && res.data.code == 200){
@@ -204,8 +204,21 @@ Component({
           let copyData = []
           let itemObj = {"icon_type":1,"is_complete":false,"show_delet":false,"selectClass":"","url":"","is_extend":false}
           let resData
-          if(res.data.data.queue){
-            resData = JSON.parse(JSON.stringify(res.data.data.queue))
+          if(res.data.data){
+            let data = res.data.data
+            let arr = []
+            let nouserArr = []
+            data.map(e=>{
+              if(e.type!==0){
+                arr.push(e)
+              }else{
+                nouserArr.push(e)
+              }
+            })
+            this.setData({
+              nouserArr:nouserArr
+            })
+            resData = JSON.parse(JSON.stringify(arr))
           }
           for (let index = 0; index < resData.length; index++) {
             const element = resData[index];
@@ -418,31 +431,33 @@ Component({
                 movableViewPosition:movableViewPosition
               })
               var selectItemInfo = that.data.selectItemInfo;
+              console.log(optionsListData);
               for(let i=0;i<optionsListData.length;i++){
-                if(selectItemInfo.queue_id == optionsListData[i].queue_id){
+                if(selectItemInfo.id == optionsListData[i].id){
                     if(optionsListData[i].sortNum == i){//原有顺序=当前顺序，未改变位置
                       return false;
                     }
                     var relation_id='';
                     if(i == 0){//移动后处于首位，上移
-                      relation_id=optionsListData[i+1].queue_id;
-                      that.updateList(selectItemInfo.queue_id,'reset_weight_up',relation_id);
+                      relation_id=optionsListData[i+1].id;
+                      console.log(selectItemInfo);
+                      that.updateList(selectItemInfo.id,'reset_weight_up',relation_id);
                       return false;
                     }
                     if(i == (optionsListData.length - 1) ){//移动后处于末尾位，下移
-                      relation_id=optionsListData[i-1].queue_id;
-                      that.updateList(selectItemInfo.queue_id,'reset_weight_down',relation_id);
+                      relation_id=optionsListData[i-1].id;
+                      that.updateList(selectItemInfo.id,'reset_weight_down',relation_id);
                       return false;
                     }
   
                     var pre_num=optionsListData[i-1].sortNum;//上一条数据初始顺序
                     var curr_num=optionsListData[i].sortNum;//移动数据初始顺序
                     if(pre_num > curr_num){ //下移
-                      relation_id=optionsListData[i-1].queue_id;
-                      that.updateList(selectItemInfo.queue_id,'reset_weight_dowm',relation_id);
+                      relation_id=optionsListData[i-1].id;
+                      that.updateList(selectItemInfo.id,'reset_weight_down',relation_id);
                     }else{//上移
-                      relation_id=optionsListData[i+1].queue_id;
-                      that.updateList(selectItemInfo.queue_id,'reset_weight_up',relation_id);
+                      relation_id=optionsListData[i+1].id;
+                      that.updateList(selectItemInfo.id,'reset_weight_up',relation_id);
                     }
                 }
               }
@@ -464,7 +479,7 @@ Component({
         var that =this;
         if(that.data.has_next ){
           if(that.data.has_next){
-            that.workerQueueShow();
+            that.workerQueueList();
           }
         }
       },
@@ -578,15 +593,15 @@ Component({
         console.log(id,operate,relation_id);
         // id// 是一栋的元素  12
         // relation_id//是一栋到一栋元素旁的元素  15
-        // operate ’reset_weight_dowm‘  ’reset_weight_uP‘  // 将元素12一栋到15下 或者上
+        // operate ’reset_weight_down‘  ’reset_weight_uP‘  // 将元素12一栋到15下 或者上
         let dataList = this.data.optionsListData
         let yidong  = ''
         let beidong  = ''
         dataList.map((e,i)=>{
-          if(e.queue_id == id){
+          if(e.id == id){
             yidong = i
           }
-          if(e.queue_id == relation_id){
+          if(e.id == relation_id){
             beidong = i
           }
         })
@@ -596,47 +611,32 @@ Component({
         console.log(dataList[beidong].st);
         console.log(operate);
         console.log(operate === 'reset_weight_down');
-        if(operate === 'reset_weight_down'){
-          console.log(123131312);
-          let resTime = dataList[beidong].st
-          resTime = resTime.split(' ')[1]
+        if(operate === "reset_weight_down"){
+          let resTime = dataList[beidong].et
+          let yidongTime  = Number(resTime)+2200
+          let yidongEndTime  = Number(yidongTime)+1800
+          // resTime = resTime.split(' ')[1]
           console.log(resTime);
-          let timeArr = resTime.split(':')
-          if(Number(timeArr[1]) + 40 >=60){
-            timeArr[0] = Number(timeArr[0]) + 1 < 10 ? `0${Number(timeArr[0]) + 1}` : Number(timeArr[0]) + 1
-            timeArr[1] = Number(timeArr[1]) + 40 -60
-          }else{
-            timeArr[0] = Number(timeArr[0]) < 10 ? `0${Number(timeArr[0])}` : Number(timeArr[0])
-            timeArr[1] = Number(timeArr[1]) + 40
-          }
-          let timeStr = timeArr.join(':')
-          dataList[yidong].st = dataList[yidong].st.split(' ')[0]
-          dataList[yidong].st = `${dataList[yidong].st} ${timeStr}`
+          console.log(yidongTime);
+          console.log(yidongEndTime);
           this.setData({
-            ['dataList['+yidong+'].st']: dataList[yidong].st
+            ['optionsListData['+yidong+'].st']: yidongTime+'',
+            ['optionsListData['+yidong+'].et']: yidongEndTime+''
           })
         }else{
           let resTime = dataList[beidong].st
-          resTime = resTime.split(' ')[1]
-          let timeArr = resTime.split(':')
-          if(Number(timeArr[1]) - 40 <0){
-            timeArr[0] = Number(timeArr[0]) - 1  < 10 ? `0${Number(timeArr[0]) - 1 }` : Number(timeArr[0]) - 1 
-            timeArr[1] = Number(timeArr[1]) + 60 - 40
-          }else{
-            timeArr[0] = Number(timeArr[0]) < 10 ? `0${Number(timeArr[0])}` : Number(timeArr[0])
-            timeArr[1] = Number(timeArr[1]) - 40
-          }
-          let timeStr = timeArr.join(':')
-          dataList[yidong].st = dataList[yidong].st.split(' ')[0]
-          dataList[yidong].st = `${dataList[yidong].st} ${timeStr}`
+          let yidongTime  = Number(resTime) - 2200+''
+          let yidongEndTime  = Number(yidongTime)+1800+''
           this.setData({
-            ['dataList['+yidong+'].st']: dataList[yidong].st
+            ['optionsListData['+yidong+'].st']: yidongTime,
+            ['optionsListData['+yidong+'].et']: yidongEndTime
           })
         }
+        let arr22 = this.data.nouserArr
         console.log(dataList);
         $api.workerQueueSet({
-          list:dataList,
-          "openid": "test2",
+          list:[...this.data.optionsListData,...arr22],
+          "openid": app.globalData.openId,
           "tidy_worker_id": 2,
         }).then(res=>{
           if(res.statusCode && res.data.code==200){
@@ -645,14 +645,14 @@ Component({
               icon:'none'
             })
              // 这里需要再重新请求列表
-            _this.workerQueueShow()
+            _this.workerQueueList()
           }else{
             wx.showToast({
               title: res.data.err,
               icon:'none'
             })
           }
-          _this.workerQueueShow()
+          _this.workerQueueList()
           console.log(res)
         }).catch(err=>{
           console.log(err)
