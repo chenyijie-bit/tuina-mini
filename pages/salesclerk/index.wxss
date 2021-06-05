@@ -292,6 +292,7 @@ page{
 	width: 180rpx;
 	height: 180rpx;
 	margin: auto;
+	margin-top: 80rpx;
 }
 /* 产生动画（向外扩散变大）的圆圈 第一个圆 */
 .pulse,.pulse1,.pulse2,.pulse3 {
@@ -341,6 +342,11 @@ page{
 .yuyuebutton-box .on-time button{
 	border-color: #BA9245;
 }
+.yuyuebutton-box .disabledStyle button{
+	border-color: #f1f0f0;
+	background: #f1f0f0;
+}
+
 /* .yuyuekongjian{
 	position: relative;
 } */

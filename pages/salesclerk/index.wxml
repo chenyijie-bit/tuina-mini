@@ -29,7 +29,7 @@
 		</view>
 		<view class="location-text">
 			<view>{{shopInfo.shop.address}}</view>
-			<view>距您1220米</view>
+			<!-- <view>距您1220米</view> -->
 		</view>
 	</view>
 	<!-- 服务项目 -->
@@ -71,7 +71,7 @@
 		custom-style="height: 40%;"
 		bind:close="onClose"
 	>
-		<view class="pop-dangqianpaidui">当前排队人数：1</view>
+		<!-- <view class="pop-dangqianpaidui">当前排队人数：1</view> -->
 		<view class="pop-container">
 					<van-button class="ripple-but" bindtap="creatOrder">
 						<view>立即</view>
@@ -93,48 +93,19 @@
 		<view class="yuyuepop-title">请选择预约开始时间</view>
 
 		<!-- ////// -->
-		<view class="swiper-tab">
-			<view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">6/01</view>
-			<view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">6/02</view>
+		<view class="swiper-tab" wx:if="{{dateTit.length}}">
+			<view class="swiper-tab-list {{currentTab==index ? 'on' : ''}}" data-current="{{index}}" bindtap="swichNav" wx:for="{{dateTit}}" wx:key="index">{{item}}</view>
+			<!-- <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">6/02</view>
 			<view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">6/03</view>
 			<view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">6/04</view>
-			<view class="swiper-tab-list {{currentTab==4 ? 'on' : ''}}" data-current="4" bindtap="swichNav">6/05</view>
+			<view class="swiper-tab-list {{currentTab==4 ? 'on' : ''}}" data-current="4" bindtap="swichNav">6/05</view> -->
 		</view>
 
 		<!-- 切换tab组件 -->
 		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:600px" bindchange="bindChange">
-				<swiper-item wx:for="[1,2,3,4,5]">
+				<swiper-item wx:for="{{[1,2,3,4,5]}}" wx:key="index">
 					<view class="yuyuebutton-box">
-						<van-button class="yuyuekongjian-button {{currentTime=='08:00' ? 'on-time' : ''}}" bindtap="selectTime" data-time="08:00">08:00</van-button>
-						<van-button class="yuyuekongjian-button {{currentTime=='08:30' ? 'on-time' : ''}}" bindtap="selectTime"  data-time="08:30">08:30</van-button>
-						<van-button class="yuyuekongjian-button">09:00</van-button>
-						<van-button class="yuyuekongjian-button">09:30</van-button>
-						<van-button class="yuyuekongjian-button">10:00</van-button>
-						<van-button class="yuyuekongjian-button">10:30</van-button>
-						<van-button class="yuyuekongjian-button">11:00</van-button>
-						<van-button class="yuyuekongjian-button">11:30</van-button>
-						<van-button class="yuyuekongjian-button">12:00</van-button>
-						<van-button class="yuyuekongjian-button">12:30</van-button>
-						<van-button class="yuyuekongjian-button">13:00</van-button>
-						<van-button class="yuyuekongjian-button">13:30</van-button>
-						<van-button class="yuyuekongjian-button">14:00</van-button>
-						<van-button class="yuyuekongjian-button">14:30</van-button>
-						<van-button class="yuyuekongjian-button">15:00</van-button>
-						<van-button class="yuyuekongjian-button">15:30</van-button>
-						<van-button class="yuyuekongjian-button">16:00</van-button>
-						<van-button class="yuyuekongjian-button">16:30</van-button>
-						<van-button class="yuyuekongjian-button">17:00</van-button>
-						<van-button class="yuyuekongjian-button">17:30</van-button>
-						<van-button class="yuyuekongjian-button">18:00</van-button>
-						<van-button class="yuyuekongjian-button">18:30</van-button>
-						<van-button class="yuyuekongjian-button">19:00</van-button>
-						<van-button class="yuyuekongjian-button">19:30</van-button>
-						<van-button class="yuyuekongjian-button">20:00</van-button>
-						<van-button class="yuyuekongjian-button">20:30</van-button>
-						<van-button class="yuyuekongjian-button">21:00</van-button>
-						<van-button class="yuyuekongjian-button">21:30</van-button>
-						<van-button class="yuyuekongjian-button">22:00</van-button>
-						<van-button class="yuyuekongjian-button" style="visibility: hidden">22:00</van-button>
+						<van-button  data-current="{{currentTab}}"  data-time="{{item.time}}" data-disabled="{{item.disabled}}" bindtap="selectTime" class="yuyuekongjian-button {{currentTime==item.time && !item.disabled && currentTab == selectFlagTab ? 'on-time' : ''}} {{item.disabled ? 'disabledStyle':''}}" wx:for="{{timeSelectModelBox[currentTab]}}" wx:key="index">{{item.time}}</van-button>
 					</view>
 				</swiper-item>
 		</swiper>

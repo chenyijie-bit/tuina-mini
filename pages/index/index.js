@@ -29,6 +29,7 @@ Component({
   pageLifetimes: {
     show() {
       let _this = this;
+      this.getHomeData()
       if(!this.data.userAddressInfo.Long){
         _this.getUserLocation();
       }
@@ -89,15 +90,15 @@ Component({
             wx.setStorageSync('statu', res.data.data.is_worker)
         }
         //需要改动成真实数据
-        this.getHomeData(res.data.data.openid,1,1)
+        this.getHomeData(res.data.data.openid)
       })
       .catch(err => {
           //请求失败
       })
     },
     // 获取首页数据
-    getHomeData(openid,shop_id,worker_id){
-      $api.getHomeData({openid,shop_id,worker_id}).then(
+    getHomeData(openid){
+      $api.getHomeData({openid}).then(
         res=>{
           if(res.statusCode ==200 && res.data && res.data.data){
             this.setData({
