@@ -134,8 +134,6 @@ Page({
             showPopup:false,
             yuyuekongjianIsShow:true
           })
-
-
           //getPhoneNumber 函数也要写这部分
           $api.workerFutureList({
             // 上线要改成真实数据 改成工作人员的open
@@ -161,68 +159,30 @@ Page({
                 }
               }
               this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
-              // console.log(this.data.dateTit);
-              // this.data.longDateList
+              // this.changeTabGetTime()
               let timeSelectModel = this.createTimeSelectModel()
               timeSelectModel.map((e,i)=>{
-                // console.log(`${this.data.longDateList[this.data.currentTab]} ${e.time}`);
-                // return false
                 let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
-                // console.log(currentTimeStr);
                 timeSelectModel[i].datestr = currentTimeStr
-                // this.setData({
-                //   ['timeSelectModel['+i+'].datestr'] : currentTimeStr
-                // })
+                let currentTimeStrCus = new Date().getTime()
+                if(currentTimeStrCus>currentTimeStr){
+                  timeSelectModel[i].disabled = true
+                }
+                // if(this.data.currentTimeStr > currentTimeStr){
+
+                // }
               })
+              
               let resData = []
               resData[this.data.currentTab] = timeSelectModel
               this.setData({
                 timeSelectModelBox: resData
               })
-              // console.log(this.data.timeSelectModel);
               if(this.data.quedateList[this.data.currentTab] && this.data.quedateList[this.data.currentTab].length){
                 this.changeTabGetTime()
-                // 说明这一天有被预约的情况
-                // let yuyueList = this.data.quedateList[this.data.currentTab]
-                // console.log(yuyueList);
-                // let indexTabDateCur = {}
-                // for (let index = 0; index < yuyueList.length; index++) {
-                //   const element = yuyueList[index];
-                //   for (let j = 0; j < this.data.timeSelectModel.length; j++) {
-                //     const item = this.data.timeSelectModel[j];
-                //     if(Number(element.st)*1000<= item.datestr  && Number(element.et*1000) >= item.datestr){
-                //       // 则对应的日期索引上的时间段都不能被选中了
-                //       if(!indexTabDateCur[this.data.currentTab]){
-                //         indexTabDateCur[this.data.currentTab] = []
-                //         indexTabDateCur[this.data.currentTab].push(j)
-                //       }else{
-                //         indexTabDateCur[this.data.currentTab].push(j)
-                //       }
-                    
-                //     }
-                //   }
-                // }
-                // console.log(indexTabDateCur);
-                //   this.setData({
-                //     indexTabDateCur:indexTabDateCur
-                //   })
-                //   indexTabDateCur[this.data.currentTab].map((e,i)=>{
-                //     console.log(e);
-                //     this.setData({
-                //       ['timeSelectModel['+Number(e)+'].disabled']:  true
-                //     })
-                //   })
-                  
               }
-
-
-
-
             }
           })
-
-
-          
         }
       }else{
         // wx.hideLoading()
@@ -283,7 +243,12 @@ Page({
             // return false
             let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
             // console.log(currentTimeStr);
+            let currentTimeStrCus = new Date().getTime()
+            
             timeSelectModel[i].datestr = currentTimeStr
+            if(currentTimeStrCus>currentTimeStr){
+              timeSelectModel[i].disabled = true
+            }
             // this.setData({
             //   ['timeSelectModel['+i+'].datestr'] : currentTimeStr
             // })
@@ -337,6 +302,7 @@ Page({
     }
   },
   changeTabGetTime(){
+    let currentTimeStrCus = new Date().getTime()
     let yuyueList = this.data.quedateList[this.data.currentTab]
     if(!this.data.timeSelectModelBox[this.data.currentTab] || !this.data.timeSelectModelBox[this.data.currentTab].length){
       let data = this.createTimeSelectModel()
@@ -346,6 +312,10 @@ Page({
         let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
         // console.log(currentTimeStr);
         data[i].datestr = currentTimeStr
+        let currentTimeStrCus = new Date().getTime()
+        if(currentTimeStrCus>currentTimeStr){
+          data[i].datestr.disabled = true
+        }
         // this.setData({
         //   ['timeSelectModel['+i+'].datestr'] : currentTimeStr
         // })
@@ -385,13 +355,25 @@ Page({
               data.push(j)
               data = Array.from(new Set(data))
               this.setData({
-                ['indexTabDateCur['+this.data.currentTab+']['+len+']'] : j
+                ['indexTabDateCur['+this.data.currentTab+']'] : data
               })
             }
             
             // this.data.indexTabDateCur[this.data.currentTab].push(j)
           }
           
+          
+        }
+        // s说明现在的时间已经过了现在要预约的了
+        if(currentTimeStrCus > item.datestr){
+          let data = this.data.indexTabDateCur[this.data.currentTab]
+            if(Array.isArray(data)){
+              data.push(j)
+              data = Array.from(new Set(data))
+              this.setData({
+                ['indexTabDateCur['+this.data.currentTab+']'] : data
+              })
+            }
         }
       }
     }

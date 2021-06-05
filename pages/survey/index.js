@@ -95,6 +95,7 @@ Component({
       })
     },
     modalConfirm(){
+      let _this = this
       console.log(this.data.modalValue)
       if(isNaN(parseInt(this.data.modalValue))){
         wx.showToast({
@@ -111,7 +112,18 @@ Component({
           "remark":""
         }).then(res=>{
           console.log(res);
-          // if(res)
+          if(res.statusCode==200 && res.code==200){
+            this.setData({
+              modalShow: false,
+              modalValue:0
+            })
+            wx.showToast({
+              title:'请让顾客在完成订单列表支付',
+              icon:'none'
+            })
+             // 这里需要再重新请求列表
+            _this.workerQueueShow()
+          }
         })
         return false
       }
@@ -152,33 +164,12 @@ Component({
       this.setData({
         statusMsg : e.currentTarget.dataset.status
       })
-      
-      // console.log(statusMsg)
       if(this.data.statusMsg == '正在按摩'){
         this.setData({
           modalShow:true
         })
-        // wx.showModal({
-        //   title: '提示',
-        //   content: '<><>',
-        //   success (res) {
-        //     if (res.confirm) {
-        //       console.log('用户点击确定')
-        //     } else if (res.cancel) {
-        //       console.log('用户点击取消')
-        //     }
-        //   }
-        // })
         return false
-        // $api.queueOrderSubmit({
-        //   openid: app.globalData.openId,
-        //   "queue_id": queue_id,
-        //   "change_price":0.01,
-        //   "remark":"快乐的小青蛙"
-        // }).then(res=>{})
-        // return false
       }
-      
       $api.startServe({
         "openid": "test2",
         "queue_id": queue_id
@@ -234,35 +225,12 @@ Component({
       })
     },
     //下拉刷新
-    // onRefresh() {
-    //   if (this._freshing) return
-    //   this._freshing = true
-    //   setTimeout(() => {
-    //     this.setData({
-    //       triggered: false,
-    //     })
-    //     this._freshing = false
-    //   }, 3000)
-    // },
-    // onPulling(e) {
-    //   console.log('onPulling:', e)
-    // },
-    // onRestore(e) {
-    //   console.log('onRestore:', e)
-    // },
-  
-    // onAbort(e) {
-    //   console.log('onAbort', e)
-    // },
-    //下拉刷新
     onChange(event) {
       this.setData({
         activeTab: event.detail.name,
       });
       console.log('onChange');
     },
-
-
 
     /////拖拽  ---start
     longpressfuc:function(e){
@@ -452,20 +420,18 @@ Component({
               var selectItemInfo = that.data.selectItemInfo;
               for(let i=0;i<optionsListData.length;i++){
                 if(selectItemInfo.queue_id == optionsListData[i].queue_id){
-                  console.log(selectItemInfo.queue_id);
-                  console.log(optionsListData[i].queue_id);
                     if(optionsListData[i].sortNum == i){//原有顺序=当前顺序，未改变位置
                       return false;
                     }
                     var relation_id='';
                     if(i == 0){//移动后处于首位，上移
                       relation_id=optionsListData[i+1].queue_id;
-                      that.updateList(selectItemInfo.queue_id,'reset_weight',relation_id);
+                      that.updateList(selectItemInfo.queue_id,'reset_weight_up',relation_id);
                       return false;
                     }
                     if(i == (optionsListData.length - 1) ){//移动后处于末尾位，下移
                       relation_id=optionsListData[i-1].queue_id;
-                      that.updateList(selectItemInfo.queue_id,'reset_weight',relation_id);
+                      that.updateList(selectItemInfo.queue_id,'reset_weight_down',relation_id);
                       return false;
                     }
   
@@ -473,10 +439,10 @@ Component({
                     var curr_num=optionsListData[i].sortNum;//移动数据初始顺序
                     if(pre_num > curr_num){ //下移
                       relation_id=optionsListData[i-1].queue_id;
-                      that.updateList(selectItemInfo.queue_id,'reset_weight',relation_id);
+                      that.updateList(selectItemInfo.queue_id,'reset_weight_dowm',relation_id);
                     }else{//上移
                       relation_id=optionsListData[i+1].queue_id;
-                      that.updateList(selectItemInfo.queue_id,'reset_weight',relation_id);
+                      that.updateList(selectItemInfo.queue_id,'reset_weight_up',relation_id);
                     }
                 }
               }
@@ -608,11 +574,93 @@ Component({
         })
       },
       updateList:function(id,operate,relation_id){
+        let _this = this
+        console.log(id,operate,relation_id);
+        // id// 是一栋的元素  12
+        // relation_id//是一栋到一栋元素旁的元素  15
+        // operate ’reset_weight_dowm‘  ’reset_weight_uP‘  // 将元素12一栋到15下 或者上
         let dataList = this.data.optionsListData
-        for (let index = 0; index < dataList.length; index++) {
-          const element = dataList[index];
-          element.sortNum = index
+        let yidong  = ''
+        let beidong  = ''
+        dataList.map((e,i)=>{
+          if(e.queue_id == id){
+            yidong = i
+          }
+          if(e.queue_id == relation_id){
+            beidong = i
+          }
+        })
+        console.log('yidong',yidong);
+        console.log('beidong',beidong);
+        console.log(dataList[yidong].st);
+        console.log(dataList[beidong].st);
+        console.log(operate);
+        console.log(operate === 'reset_weight_down');
+        if(operate === 'reset_weight_down'){
+          console.log(123131312);
+          let resTime = dataList[beidong].st
+          resTime = resTime.split(' ')[1]
+          console.log(resTime);
+          let timeArr = resTime.split(':')
+          if(Number(timeArr[1]) + 40 >=60){
+            timeArr[0] = Number(timeArr[0]) + 1 < 10 ? `0${Number(timeArr[0]) + 1}` : Number(timeArr[0]) + 1
+            timeArr[1] = Number(timeArr[1]) + 40 -60
+          }else{
+            timeArr[0] = Number(timeArr[0]) < 10 ? `0${Number(timeArr[0])}` : Number(timeArr[0])
+            timeArr[1] = Number(timeArr[1]) + 40
+          }
+          let timeStr = timeArr.join(':')
+          dataList[yidong].st = dataList[yidong].st.split(' ')[0]
+          dataList[yidong].st = `${dataList[yidong].st} ${timeStr}`
+          this.setData({
+            ['dataList['+yidong+'].st']: dataList[yidong].st
+          })
+        }else{
+          let resTime = dataList[beidong].st
+          resTime = resTime.split(' ')[1]
+          let timeArr = resTime.split(':')
+          if(Number(timeArr[1]) - 40 <0){
+            timeArr[0] = Number(timeArr[0]) - 1  < 10 ? `0${Number(timeArr[0]) - 1 }` : Number(timeArr[0]) - 1 
+            timeArr[1] = Number(timeArr[1]) + 60 - 40
+          }else{
+            timeArr[0] = Number(timeArr[0]) < 10 ? `0${Number(timeArr[0])}` : Number(timeArr[0])
+            timeArr[1] = Number(timeArr[1]) - 40
+          }
+          let timeStr = timeArr.join(':')
+          dataList[yidong].st = dataList[yidong].st.split(' ')[0]
+          dataList[yidong].st = `${dataList[yidong].st} ${timeStr}`
+          this.setData({
+            ['dataList['+yidong+'].st']: dataList[yidong].st
+          })
         }
+        console.log(dataList);
+        $api.workerQueueSet({
+          list:dataList,
+          "openid": "test2",
+          "tidy_worker_id": 2,
+        }).then(res=>{
+          if(res.statusCode && res.data.code==200){
+            wx.showToast({
+              title: '已调整排队信息',
+              icon:'none'
+            })
+             // 这里需要再重新请求列表
+            _this.workerQueueShow()
+          }else{
+            wx.showToast({
+              title: res.data.err,
+              icon:'none'
+            })
+          }
+          _this.workerQueueShow()
+          console.log(res)
+        }).catch(err=>{
+          console.log(err)
+        })
+        // for (let index = 0; index < dataList.length; index++) {
+        //   const element = dataList[index];
+        //   element.sortNum = index
+        // }
       },
       confirmEvent:function(){
         var that=this;
