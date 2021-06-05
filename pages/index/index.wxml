@@ -47,7 +47,7 @@
               <text class="sec-price">￥456</text>
             </view>
             <image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
-            <view class="dengdaikuang">前面有2人，约等待20分钟</view>
+            <view class="dengdaikuang">可立即开始服务</view>
           </view>
         </view>
         <view class="per-start">
