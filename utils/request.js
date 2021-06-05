@@ -63,6 +63,8 @@ const API = {
     cancelServe: (data) => request(POST, `/order/user-cancel`,data),
     // 未来几天排队
     workerFutureList: (data) => request(POST, `/worker/future-list`,data),
+    // 修改队列
+    workerQueueSet:(data)=> request(POST, `/worker/queue/set`,data),
 };
 module.exports = {
     API: API

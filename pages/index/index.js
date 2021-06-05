@@ -29,7 +29,6 @@ Component({
   pageLifetimes: {
     show() {
       let _this = this;
-      this.getHomeData()
       if(!this.data.userAddressInfo.Long){
         _this.getUserLocation();
       }
@@ -40,14 +39,16 @@ Component({
         })
       }
        // 登录
-       wx.login({
+      wx.login({
         success: res => {
           app.globalData.code = res.code
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 调用接口获取openid
-          console.log(app.globalData.openId);
           if(!app.globalData.openId){
             _this.getOpenid(res.code)
+          }
+          if(app.globalData.openId){
+            this.getHomeData(app.globalData.openId)
           }
         }
       })
@@ -60,7 +61,7 @@ Component({
           // session_key 已经失效，需要重新执行登录流程
           // 登录
        wx.login({
-        success: res => {
+        success:  res => {
           app.globalData.code = res.code
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 调用接口获取openid
@@ -88,9 +89,8 @@ Component({
             app.globalData.head_url = res.data.data.head_url
             app.globalData.nickname = res.data.data.nickname
             wx.setStorageSync('statu', res.data.data.is_worker)
+            this.getHomeData(app.globalData.openId)
         }
-        //需要改动成真实数据
-        this.getHomeData(res.data.data.openid)
       })
       .catch(err => {
           //请求失败
