@@ -107,6 +107,11 @@ Page({
   /////需要加个判断就是首页拿到手机号的时候就不用在授权了
   // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
+    console.log(e);
+    if(e.detail.errMsg == 'getPhoneNumber:fail user deny'){
+      // 说明拒绝授权手机号
+      return false
+    }
     this.setData({
       appointmentType:e.currentTarget.dataset.type
     })

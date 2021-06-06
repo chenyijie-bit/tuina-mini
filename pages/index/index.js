@@ -255,14 +255,12 @@ Component({
         //   datass:datassres[1],
         //   statu: 20
         // })
-        wx.setStorageSync('statu', 20)
       }else{
         // app.globalData.statu = 0
         // this.setData({
         //   datass:datassres[0],
         //   statu: 0
         // })
-        wx.setStorageSync('statu', 0)
       }
       // this.onLoad()
     },

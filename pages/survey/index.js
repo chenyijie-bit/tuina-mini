@@ -637,7 +637,7 @@ Component({
         $api.workerQueueSet({
           list:[...this.data.optionsListData,...arr22],
           "openid": app.globalData.openId,
-          "tidy_worker_id": 2,
+          "tidy_worker_id": app.globalData.worker_id,
         }).then(res=>{
           if(res.statusCode && res.data.code==200){
             wx.showToast({
