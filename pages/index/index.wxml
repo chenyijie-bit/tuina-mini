@@ -43,8 +43,8 @@
           <view class="per-info">
             <text class="per-name">{{item.name}}</text>
             <view class="price">
-              <text class="first-price">￥123</text>
-              <text class="sec-price">￥456</text>
+              <text class="first-price">￥{{item.low_price}}</text>
+              <text class="sec-price">￥{{120}}</text>
             </view>
             <image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
             <view class="dengdaikuang">可立即开始服务</view>

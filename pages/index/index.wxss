@@ -140,6 +140,7 @@
   background: #f8f3eb;
   color: #BA9245;
   font-weight: bold;
+  display: inline-block;
 }
 .recommend-stores{
   background: #fff;
