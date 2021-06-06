@@ -108,7 +108,7 @@ Page({
   // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
     console.log(e);
-    if(e.detail.errMsg == 'getPhoneNumber:fail user deny'){
+    if(e.detail.errMsg){
       // 说明拒绝授权手机号
       return false
     }
