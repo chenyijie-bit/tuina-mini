@@ -30,6 +30,12 @@ page{
   padding: 18rpx;
   padding-bottom: 140rpx;
 }
+.cant-pay{
+  background-color: #ccc;
+}
+.cant-pay button{
+  background-color: #ccc !important;
+}
 .order-item{
   background: #fff;
   padding: 30rpx 0;

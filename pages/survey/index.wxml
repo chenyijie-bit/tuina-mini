@@ -38,7 +38,7 @@
 								<view class="seccode">{{movableViewPosition.data.desc}}</view>
 								<view class="address" wx:if="{{movableViewPosition.data.address != null}}">{{movableViewPosition.data.address}}</view>
 							</view> -->
-							<view class="edit_col1" data-id="{{movableViewPosition.data.queue_id}}">
+							<view class="edit_col1" data-id="{{movableViewPosition.data.id}}">
 								<image src="{{dragImgUrl}}"></image>
 							</view>
 							<view class="edit_col2">
@@ -75,17 +75,18 @@
 						style="height: {{scrollPosition.scrollViewHeight}}px;" bindscroll="bindscroll" bindscrolltolower="scrolltolower">
 				<!-- 用户信息 start -->
 				<view class="user-info-box">
+					<view class="review" wx:if="{{showReview}}" bindtap="reviewBut">刷新</view>
 					<image src="{{user.headimgurl}}" mode="aspectFill" class="user-headimg" wx:if="{{user.headimgurl}}"></image>
 					<view class="user-edb" wx:if="{{user.expected_birth_week}}"><text>我的待服务订单</text>{{user.expected_birth_week}}</view>
 				</view>
 				<!-- 用户信息 end -->
-				<!-- <block wx:for="{{optionsListData}}" wx:key="queue_id"> -->
+				<!-- <block wx:for="{{optionsListData}}" wx:key="id"> -->
 				<block wx:for="{{optionsListData}}" wx:key="index">
 					<view class="edit_row  {{item.selectClass}} {{item.show_delet?'show-delet':''}} {{item.is_complete?'completed':''}}" data-index="{{index}}" bindtouchmove="handletouchmove" bindtouchstart="handletouchstart" bindtouchend="handletouchend" animation="{{animation_flag == index ? animationData :''}}">
 						<view class="test" wx:if="{{item.selectClass == 'dragSelected'}}"></view>
 						<view class="test test-delet" wx:if="{{item.show_delet}}" data-index="{{index}}" catchtap="fadeoutBox"></view>
-						<view class="edit_row_left" data-url="{{item.url}}" data-id="{{item.queue_id}}" data-status="{{item.is_complete?'0':'1'}}" data-index="{{index}}">
-							<view class="edit_col1" data-id="{{item.queue_id}}">
+						<view class="edit_row_left" data-url="{{item.url}}" data-id="{{item.id}}" data-status="{{item.is_complete?'0':'1'}}" data-index="{{index}}">
+							<view class="edit_col1" data-id="{{item.id}}">
 								<image src="{{dragImgUrl}}"></image>
 							</view>
 							<view class="edit_col2">
@@ -114,7 +115,7 @@
 								<view class="address" wx:if="{{item.address != null}}" catchtap="goMap" data-index="{{index}}">{{item.user_st}} </view> -->
 							</view>
 						</view>	
-						<view class="delet-box" data-id="{{item.queue_id}}" bindtap="giveUp">弃号</view>
+						<view class="delet-box" data-id="{{item.id}}" bindtap="giveUp">弃号</view>
 					</view>
 				</block>
 			</scroll-view>

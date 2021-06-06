@@ -2,6 +2,7 @@ let app = getApp();
 const $api = require('../../utils/request').API;
 Component({
   data: {
+    payOk:false,
     activeTab: 0,
     triggered: false,
     payData:{},
@@ -66,9 +67,54 @@ Component({
         }
       })
     },
+    //获取是否支付成功
+    getOrder2(no){
+      $api.orderShow({
+        openid:app.globalData.openId,
+        tap_type:this.data.activeTab+1
+      }).then(res=>{
+        console.log(res);
+        if(res.statusCode==200 && res.data.code === 200){
+          for (let index = 0; index <  res.data.data.length; index++) {
+            const element =  res.data.data[index];
+            // if(element.wait_time){
+            //   element.wait_time = parseInt(element.wait_time/60)
+            // }
+          }
+          if(res.data.data.length){
+            res.data.data.map(e=>{
+              if(e.order.no == no){
+                if(e.order.is_pay == 1){
+                  // 说明成功了
+                  this.setData({
+                    payOk:true
+                  })
+                  wx.showToast({
+                    title: '支付成功'
+                  })
+                }
+              }
+            })
+          }
+          this.setData({
+            orderList: res.data.data
+          })
+        }else{
+          wx.showToast({
+            title: '获取支付数据出错，请重试',
+            icon: 'error'
+          })
+        }
+      })
+    },
     // 支付
     payment(e){
+      let _this = this
       let queue_id = e.currentTarget.dataset.listid-0
+      let flag = e.currentTarget.dataset.flag
+      let no = e.currentTarget.dataset.no
+      if(flag != '按摩结束，待支付') return false
+
       // 上线需要改成正确id
       $api.orderPaydata({
         "openid": app.globalData.openId,
@@ -91,6 +137,25 @@ Component({
             "success":function(res){
               console.log(res);
               //需要重新获取列表信息
+              // wx.showToast({
+              //   title: '支付成功'
+              // })
+              let index = 1
+              let interval  = setInterval(() => {
+                index++
+                _this.getOrder2(no)
+                if(_this.data.payOk){
+                  clearInterval(interval)
+                }
+                if(index>4){
+                  clearInterval(interval)
+                  wx.showToast({
+                    title: '支付出错请联系工作人员',
+                    icon:'none'
+                  })
+                }
+              }, 1200);
+              // no: "AM2021060618011355176"
             },
             "fail":function(res){
               console.log(res);
