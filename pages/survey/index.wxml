@@ -106,7 +106,7 @@
 										<text>{{item.mobile}}</text>
 									</view>
 									<view class="que-start"> 
-										<van-button  class="que-start-but" bindtap="startServe" data-id="{{item.id}}" data-status="{{item.status.msg}}">{{item.status_msg}}</van-button>
+										<van-button  class="que-start-but" bindtap="startServe" data-id="{{item.id}}" data-status="{{item.status_msg}}">{{item.status_msg}}</van-button>
 									</view>
 								</view>
 								
