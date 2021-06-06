@@ -22,15 +22,15 @@ Component({
         let userInfo = wx.getStorageSync('userInfo')
         console.log(userInfo)
         this.setData({
-          avatarUrl :userInfo.avatarUrl,
-          nickName:userInfo.nickName
+          avatarUrl :app.globalData.head_url,
+          nickName:app.globalData.nickname
         })
       }
     }
   },
   methods:{
     goToLogin(){
-      if(!this.data.nickName){
+      if(!app.globalData.nickname){
         wx.navigateTo({
           url: '../loginPage/index',
         })

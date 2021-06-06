@@ -3,6 +3,7 @@ const $api = require('../../utils/request').API;
 const formatDate = require('../../utils/util')
 Page({
   data: {
+    head_url:'../../assess/images/123.jpeg',
     rate:5,
     typeRadio:'',
     showPopup:false,
@@ -29,13 +30,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('onload');
     let _this = this
-    console.log(app.globalData.mobile)
-    if(app.globalData.mobile){
-      this.setData({
-        hasPhoneNumber:true
-      })
-    }
+    
     $api.getWorkerData({
       openid:app.globalData.openId,
       worker_id:app.globalData.worker_id,
@@ -501,7 +498,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-	
+    console.log('show');
+    console.log(app.globalData.mobile)
+    if(app.globalData.mobile){
+      this.setData({
+        hasPhoneNumber:true
+      })
+    }
   },
 
   /**

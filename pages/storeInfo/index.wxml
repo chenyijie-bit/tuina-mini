@@ -1,6 +1,6 @@
 <view class="store-info">
 	<view class="store-img">
-		<image mode="widthFix" src="../../assess/images/store-img.jpeg"></image>
+		<image mode="widthFix" src="{{banner_url}}"></image>
 	</view>
 	<view class="store-sales">
 		<view class="swiper-tab">
@@ -18,11 +18,13 @@
 							<view class="per-info">
 								<text class="per-name">{{item.name}}</text>
 								<view class="price">
-									<text class="first-price">￥123</text>
-									<text class="sec-price">￥456</text>
+									<text class="first-price">￥{{item.low_price || 68}}</text>
+									<text class="sec-price">￥128</text>
 								</view>
 								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
-								<view class="dengdaikuang">约需等待{{item.wait}}</view>
+								<view>
+									<view class="dengdaikuang">约需等待{{item.wait}}</view>
+								</view>
 							</view>
 						</view>
 						<view class="per-start">

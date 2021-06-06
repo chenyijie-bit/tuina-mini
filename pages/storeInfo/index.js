@@ -2,6 +2,7 @@ let app = getApp();
 const $api = require('../../utils/request').API;
 Page({
   data: {
+    banner_url:'../../assess/images/banner1.png',
       winHeight: 0,
       currentTab: 0,
       personImg:'../../assess/images/123.jpeg',
