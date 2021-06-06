@@ -317,6 +317,11 @@ page{
 	border-bottom-right-radius:30%; 
 	overflow:hidden;
 }
+.user-info-box .review{position: absolute;
+right: 30rpx;
+top: 30rpx;
+color: #fff;
+}
 .user-headimg{
 	display:block;
 	margin:0 auto;

@@ -1,4 +1,4 @@
-
+let app = getApp();
 Component({
   data: {
     avatarUrl:'../../assess/tabicons/me.png',
@@ -14,7 +14,8 @@ Component({
           selected: 2
         })
       }
-      if(!wx.getStorageSync('userInfo')){
+      console.log(app.globalData.nickname);
+      if(!app.globalData.nickname){
         // wx.navigateTo({
         //   url: '../loginPage/index',
         // })
@@ -29,6 +30,12 @@ Component({
     }
   },
   methods:{
+    goToNoUse(){
+      wx.showToast({
+        title: '敬请期待',
+        icon: 'none'
+      })
+    },
     goToLogin(){
       if(!app.globalData.nickname){
         wx.navigateTo({

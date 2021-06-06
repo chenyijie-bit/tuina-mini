@@ -2,6 +2,7 @@ let app = getApp();
 const $api = require('../../utils/request').API;
 Component({
   data: {
+    showReview:true,
     activeTab: 0,
     triggered: false,
     modalShow:false,
@@ -75,8 +76,21 @@ Component({
     }
   },
   methods:{
+    reviewBut(){
+      this.setData({
+        showReview: false
+      })
+      wx.showToast({
+        title: '已是最新数据',
+      })
+      this.workerQueueList()
+     setTimeout(() => {
+       this.setData({
+         showReview: true
+       })
+     }, 3000);
+    },
     getValue(e){
-      console.log(e)
       let data = e.detail.value
       this.setData({
         modalValue:data
@@ -97,8 +111,7 @@ Component({
     },
     modalConfirm(){
       let _this = this
-      console.log(this.data.modalValue)
-      if(isNaN(parseInt(this.data.modalValue))){
+      if(isNaN(parseFloat(this.data.modalValue))){
         wx.showToast({
           title: '消费金额只需填写数字',
           icon:'none'
@@ -108,11 +121,10 @@ Component({
         $api.queueOrderSubmit({
           openid: app.globalData.openId,
           "queue_id": this.data.queue_id,
-          "change_price":parseInt(this.data.modalValue),
+          "change_price":parseFloat(this.data.modalValue),
           "remark":""
         }).then(res=>{
-          console.log(res);
-          if(res.statusCode==200 && res.code==200){
+          if(res.statusCode==200 && res.data.code==200){
             this.setData({
               modalShow: false,
               modalValue:0
@@ -123,6 +135,11 @@ Component({
             })
              // 这里需要再重新请求列表
             _this.workerQueueList()
+          }else{
+            wx.showToast({
+              title:res.data.err || '操作出错',
+              icon:'none'
+            })
           }
         })
         return false
@@ -137,13 +154,11 @@ Component({
     },
     // 弃号
     giveUp(e){
-      console.log(e);
       let queue_id = e.currentTarget.dataset.id
       $api.giveUp({
         "openid": app.globalData.openId,
         "queue_id": queue_id
       }).then(res=>{
-        console.log(res);
         if(res.statusCode==200 && res.data.code==200){
 
         }else{
@@ -174,7 +189,6 @@ Component({
         "openid": app.globalData.openId,
         "queue_id": queue_id
       }).then(res=>{
-        console.log(res);
         if(res.statusCode==200 && res.data.code==200){
           wx.showToast({
             title: '已叫号',
@@ -200,7 +214,6 @@ Component({
         // "openid": '',
         // "tidy_worker_id":2
       }).then(res=>{
-        console.log(res)
         if(res.statusCode == 200 && res.data.code == 200){
           //上线要改成真是数据
           let copyData = []
@@ -244,7 +257,6 @@ Component({
       this.setData({
         activeTab: event.detail.name,
       });
-      console.log('onChange');
     },
 
     /////拖拽  ---start
@@ -258,7 +270,6 @@ Component({
             is_complete:true
           }
       };
-      // console.log(movableViewPosition.data.is_complete);
       this.setData({
         movableViewPosition:movableViewPosition
       })
@@ -273,7 +284,7 @@ Component({
       getOptionInfo:function (queue_id) {
           for(var i=0,j=this.data.optionsListData.length;i<j;i++){
               var optionData= this.data.optionsListData[i];
-              if(optionData.queue_id == queue_id){
+              if(optionData.id == queue_id){
                   optionData.selectIndex = i;
                   return optionData;
               }
@@ -295,7 +306,6 @@ Component({
           var touchType = event.type;
           switch(touchType){
               case "touchstart":
-                console.log("touchstart");
                   this.scrollTouchStart(event);
                   break;
               case "touchmove":
@@ -308,12 +318,10 @@ Component({
       },
       scrollTouchStart:function (event) {
           var that=this;
-          // console.log('开始');
           var firstTouchPosition = {
               x:event.changedTouches[0].pageX,
               y:event.changedTouches[0].pageY,
           }
-          // console.log("firstTouchPosition:",firstTouchPosition);
           var domData = that.getPositionDomByXY(firstTouchPosition);
           domData.show_delet = false;
           // 排序时禁止已完成card移动------start--------
@@ -332,7 +340,6 @@ Component({
             return false;
           }
           // 排序时禁止已完成card移动------end--------
-          // console.log("domData:",domData);
           //movable-area滑块位置处理
           var movableX = 0;
           var movableY = firstTouchPosition.y-that.data.scrollPosition.top-that.data.scrollPosition.everyOptionCell/2;
@@ -355,7 +362,7 @@ Component({
                 }
             })
           },10)
-          var queue_id = domData.queue_id;
+          var queue_id = domData.id;
           var secInfo = that.getOptionInfo(queue_id);
           secInfo.selectPosition =  event.changedTouches[0].clientY;
           secInfo.selectClass = "dragSelected";
@@ -409,7 +416,6 @@ Component({
   
       },
       scrollTouchEnd:function (event) {
-          // console.log('结束');
           var that=this;
           var optionsListData = that.optionsDataTranlate(that.data.optionsListData,"");
           that.setData({
@@ -428,12 +434,10 @@ Component({
               }
           };
           if(that.data.move_type != 'reset_status'){
-            // console.log('排序');
               that.setData({
                 movableViewPosition:movableViewPosition
               })
               var selectItemInfo = that.data.selectItemInfo;
-              console.log(optionsListData);
               for(let i=0;i<optionsListData.length;i++){
                 if(selectItemInfo.id == optionsListData[i].id){
                     if(optionsListData[i].sortNum == i){//原有顺序=当前顺序，未改变位置
@@ -442,7 +446,6 @@ Component({
                     var relation_id='';
                     if(i == 0){//移动后处于首位，上移
                       relation_id=optionsListData[i+1].id;
-                      console.log(selectItemInfo);
                       that.updateList(selectItemInfo.id,'reset_weight_up',relation_id);
                       return false;
                     }
@@ -469,7 +472,6 @@ Component({
               movableViewPosition:movableViewPosition
             })
           }
-          // console.log(that.data);
       },
       optionsDataTranlate:function (optionsList,selectClass) {
           for(var i=0,j=optionsList.length;i<j;i++){
@@ -486,7 +488,6 @@ Component({
         }
       },
       handletouchmove: function(event) {
-        // console.log(event)
         var that=this;
         if (that.data.flag!== 0){
           return
@@ -505,7 +506,6 @@ Component({
           })
           if (tx < -80 && (ty <= 50 && ty >= -50)) {
             // text = "向左滑动";
-            console.log(that.data.swiper_index);
             that.data.flag= 1;
             if(that.data.swiper_index != undefined){
               let index = that.data.swiper_index;
@@ -551,11 +551,9 @@ Component({
         //将当前坐标进行保存以进行下一次计算
         // this.data.lastX = currentX;
         // this.data.lastY = currentY;
-        // console.log(text);
       },
      
       handletouchstart:function(event) {
-        // console.log(event)
         var that=this;
         that.data.lastX = event.touches[0].pageX;
         that.data.lastY = event.touches[0].pageY;
@@ -577,7 +575,6 @@ Component({
       handletouchend:function(event) {
         var that=this;
         that.data.flag= 0 ;
-        // console.log('结束滑动');
         let scrollPosition=that.data.scrollPosition;
         scrollPosition.scrollY = true;
         that.setData({
@@ -592,7 +589,6 @@ Component({
       },
       updateList:function(id,operate,relation_id){
         let _this = this
-        console.log(id,operate,relation_id);
         // id// 是一栋的元素  12
         // relation_id//是一栋到一栋元素旁的元素  15
         // operate ’reset_weight_down‘  ’reset_weight_uP‘  // 将元素12一栋到15下 或者上
@@ -607,20 +603,11 @@ Component({
             beidong = i
           }
         })
-        console.log('yidong',yidong);
-        console.log('beidong',beidong);
-        console.log(dataList[yidong].st);
-        console.log(dataList[beidong].st);
-        console.log(operate);
-        console.log(operate === 'reset_weight_down');
         if(operate === "reset_weight_down"){
           let resTime = dataList[beidong].et
           let yidongTime  = Number(resTime)+2200
           let yidongEndTime  = Number(yidongTime)+1800
           // resTime = resTime.split(' ')[1]
-          console.log(resTime);
-          console.log(yidongTime);
-          console.log(yidongEndTime);
           this.setData({
             ['optionsListData['+yidong+'].st']: yidongTime+'',
             ['optionsListData['+yidong+'].et']: yidongEndTime+''
@@ -634,8 +621,16 @@ Component({
             ['optionsListData['+yidong+'].et']: yidongEndTime
           })
         }
+        let datas = []
+        this.data.optionsListData.map(e=>{
+          if(e.status_msg != '正在按摩'){
+            datas.push(e)
+          }
+        })
+        this.setData({
+          optionsListData: datas
+        })
         let arr22 = this.data.nouserArr
-        console.log(dataList);
         $api.workerQueueSet({
           list:[...this.data.optionsListData,...arr22],
           "openid": app.globalData.openId,
@@ -655,9 +650,7 @@ Component({
             })
           }
           _this.workerQueueList()
-          console.log(res)
         }).catch(err=>{
-          console.log(err)
         })
         // for (let index = 0; index < dataList.length; index++) {
         //   const element = dataList[index];

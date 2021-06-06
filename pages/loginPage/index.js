@@ -28,6 +28,8 @@ Page({
           userInfo: resData,
           hasUserInfo: true
         })
+        app.globalData.head_url = resData.avatarUrl
+        app.globalData.nickname = resData.nickName
         wx.setStorageSync('userInfo', res.userInfo)
         if(res.userInfo){
           wx.navigateBack({

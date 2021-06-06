@@ -97,13 +97,17 @@
                 <text class="type-title">合计</text>:
                 <text class="type-ans">{{item.order.price}}元</text>
               </view>
+              <view wx:if="{{item.order.pay_price}}">
+              <text class="type-title">实付</text>:
+              <text class="type-ans">{{item.order.pay_price}}元</text>
+            </view>
               <view>
                 <text class="type-title">取号时间</text>:
                 <text class="type-ans">{{item.start_date}}</text>
               </view>
             </view>
             <view class="order-item-but">
-              <van-button bindtap="payment" wx:if="{{item.status_str == '按摩结束，待支付'}}" data-listid="{{item.list_id}}">{{item.status_str == "按摩结束，待支付" ? '支付':''}}</van-button>
+              <van-button bindtap="payment" data-no="{{item.order.no}}" data-flag="{{item.status_str}}" class="{{item.status_str == '按摩结束，待支付' ? '' : 'cant-pay'}}"   data-listid="{{item.list_id}}">{{item.status_str == "按摩结束，待支付" ? '支付':'已支付'}}</van-button>
             </view>
           </view>
         </view>
@@ -153,7 +157,7 @@
             </view>
           </view>
           <view class="order-item-but">
-            <van-button bindtap="payment" data-listid="{{item.list_id}}">取消排号 / 支付</van-button>
+            <!-- <van-button bindtap="payment" data-listid="{{item.list_id}}">取消排号 / 支付</van-button> -->
           </view>
         </view>
       </view>
