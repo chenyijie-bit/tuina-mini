@@ -4,7 +4,7 @@ const formatDate = require('../../utils/util')
 Page({
   data: {
     rate:5,
-    typeRadio:'1',
+    typeRadio:'',
     showPopup:false,
     hasPhoneNumber:false,
     //预约类型  是 1 立即取号   还是 2  预约
@@ -48,6 +48,11 @@ Page({
         _this.setData({
           shopInfo: resData
         })
+        if(data.skill && data.skill.length){
+          _this.setData({
+            typeRadio: data.skill[0].id
+          });
+        }
       }
     }),
     wx.checkSession({
@@ -108,7 +113,7 @@ Page({
   // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
     console.log(e);
-    if(e.detail.errMsg == 'getPhoneNumber:fail user deny'){
+    if(e.detail.errMsg){
       // 说明拒绝授权手机号
       return false
     }
