@@ -13,6 +13,7 @@ Component({
         personImg:'../../assess/images/123.jpeg',
         positionIcon:'../../assess/images/position-icon.png',
         waitIcon:'../../assess/images/waiticon.png',
+        shop_url:'../../assess/images/123.jpeg',
         storeList:[],
         // 店铺的默认地址
         defaultAddressInfo:{

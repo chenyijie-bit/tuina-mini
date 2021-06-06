@@ -3,6 +3,7 @@ const $api = require('../../utils/request').API;
 const formatDate = require('../../utils/util')
 Page({
   data: {
+    head_url:'../../assess/images/123.jpeg',
     rate:5,
     typeRadio:'1',
     showPopup:false,

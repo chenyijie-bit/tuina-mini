@@ -197,6 +197,8 @@ Component({
       $api.workerQueueList({
         "openid": app.globalData.openId,
         "tidy_worker_id":app.globalData.worker_id
+        // "openid": '',
+        // "tidy_worker_id":2
       }).then(res=>{
         console.log(res)
         if(res.statusCode == 200 && res.data.code == 200){
