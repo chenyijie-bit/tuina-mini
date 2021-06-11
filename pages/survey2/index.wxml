@@ -1,0 +1,154 @@
+<!--pages/order/index.wxml-->
+<van-tabs
+    active="{{ activeTab }}"
+    bind:change="onChange"
+  >
+    <van-tab title="待服务">
+		<view class="zhanwei-110" style="height:110rpx"></view>
+		<!-- <scroll-view
+		scroll-y
+		refresher-enabled="{{true}}"
+		refresher-threshold="{{100}}"
+		refresher-default-style="black"
+		refresher-background="#f7f8f9"
+		refresher-triggered="{{triggered}}"
+		bindrefresherpulling="onPulling"
+		bindrefresherrefresh="onRefresh"
+		bindrefresherrestore="onRestore"
+		bindrefresherabort="onAbort"
+		> -->
+		<view style="position: relative;">
+			<!-- catchtouchstart="draggleTouch" -->
+			<!-- 监测移动事件and长按触发事件 -->
+			<view class="touchView" style="height:{{scrollPosition.scrollViewHeight}}px;" catchlongpress="longpressfuc" 
+					catchtouchmove="{{movableViewPosition.data.is_complete?'':'draggleTouch'}}" catchtouchend="{{movableViewPosition.data.is_complete?'':'draggleTouch'}}">
+			</view>
+			<!-- 用于展示给用户的移动item -->
+			<movable-area  class="moveable_row move_row  {{movableViewPosition.className}}"
+							style="height: {{scrollPosition.scrollViewHeight}}px;">
+				<movable-view style="height: {{scrollPosition.everyOptionCell}}px; width: 100%;"
+								direction="vertical" x="{{movableViewPosition.x}}" y="{{movableViewPosition.y}}"
+								inertia="false" damping="9999"  friction="9999">
+					<view class="edit_row edit_row_show {{movableViewPosition.data.is_complete?'completed':''}}">
+						<view class="edit_row_left">
+							<!-- <view class="edit_col1" data-id="{{movableViewPosition.data.id}}">
+							</view>
+							<view class="edit_col2">
+								<view class="secname">{{movableViewPosition.data.title}}</view>
+								<view class="seccode">{{movableViewPosition.data.desc}}</view>
+								<view class="address" wx:if="{{movableViewPosition.data.address != null}}">{{movableViewPosition.data.address}}</view>
+							</view> -->
+							<view class="edit_col1" data-id="{{movableViewPosition.data.id}}">
+								<image src="{{dragImgUrl}}"></image>
+							</view>
+							<view class="edit_col2">
+								<view class="secname">排号：{{movableViewPosition.data.sort_no}}</view>
+								<view class="time-view">
+									<view> 
+										<view>预约时间</view>
+										<view>{{movableViewPosition.data.st}}</view>
+									</view>
+									<view>
+										<view>创建时间</view>
+										<view>{{movableViewPosition.data.create_time}}</view>
+									</view>
+								</view>
+								<view class="tel-btn-box">
+									<view bindtap="makePhone" data-phone="{{movableViewPosition.data.mobile}}" class="makePhone">
+										<text>电话: </text>
+										<text>{{movableViewPosition.data.mobile}}</text>
+									</view>
+									<view class="que-start"> 
+										<van-button  class="que-start-but">正在排队</van-button>
+									</view>
+								</view>
+								
+								<!-- <view class="seccode {{item.style_type == 3?'seccode-3':''}} {{item.address != null?'col-2':''}}">{{item.create_time}}</view>
+								<view class="address" wx:if="{{item.address != null}}" catchtap="goMap" data-index="{{index}}">{{item.user_st}} </view> -->
+							</view>
+						</view>
+					</view>
+				</movable-view>
+			</movable-area>
+			<!-- 页面card -->
+			<scroll-view class="edit_row_holder" scroll-y="{{scrollPosition.scrollY}}"
+						style="height: {{scrollPosition.scrollViewHeight}}px;" bindscroll="bindscroll" bindscrolltolower="scrolltolower">
+				<!-- 用户信息 start -->
+				<view class="user-info-box">
+					<view class="review" wx:if="{{showReview}}" bindtap="reviewBut">刷新</view>
+					<image src="{{user.headimgurl}}" mode="aspectFill" class="user-headimg" wx:if="{{user.headimgurl}}"></image>
+					<view class="user-edb" wx:if="{{user.expected_birth_week}}"><text>我的待服务订单</text>{{user.expected_birth_week}}</view>
+				</view>
+				<!-- 用户信息 end -->
+				<!-- <block wx:for="{{optionsListData}}" wx:key="id"> -->
+				<block wx:for="{{optionsListData}}" wx:key="index">
+					<view class="edit_row  {{item.selectClass}} {{item.show_delet?'show-delet':''}} {{item.is_complete?'completed':''}}" data-index="{{index}}" bindtouchmove="handletouchmove" bindtouchstart="handletouchstart" bindtouchend="handletouchend" animation="{{animation_flag == index ? animationData :''}}">
+						<view class="test" wx:if="{{item.selectClass == 'dragSelected'}}"></view>
+						<view class="test test-delet" wx:if="{{item.show_delet}}" data-index="{{index}}" catchtap="fadeoutBox"></view>
+						<view class="edit_row_left" data-url="{{item.url}}" data-id="{{item.id}}" data-status="{{item.is_complete?'0':'1'}}" data-index="{{index}}">
+							<view class="edit_col1" data-id="{{item.id}}">
+								<image src="{{dragImgUrl}}"></image>
+							</view>
+							<view class="edit_col2">
+								<view class="secname">排号：{{item.sort_no}}    {{item.type == 2 ? '预约' :''}}</view>
+								<view class="time-view">
+									<view> 
+										<view>预约时间</view>
+										<view>{{item.user_st}}</view>
+									</view>
+									<view>
+										<view>创建时间</view>
+										<view>{{item.create_time}}</view>
+									</view>
+								</view>
+								<view class="tel-btn-box">
+									<view bindtap="makePhone" data-phone="{{item.mobile}}" class="makePhone">
+										<text>电话: </text>
+										<text>{{item.mobile}}</text>
+									</view>
+									<view class="que-start"> 
+										<van-button  class="que-start-but" bindtap="startServe" data-id="{{item.id}}" data-status="{{item.status_msg}}">{{item.status_msg}}</van-button>
+									</view>
+								</view>
+								
+								<!-- <view class="seccode {{item.style_type == 3?'seccode-3':''}} {{item.address != null?'col-2':''}}">{{item.create_time}}</view>
+								<view class="address" wx:if="{{item.address != null}}" catchtap="goMap" data-index="{{index}}">{{item.user_st}} </view> -->
+							</view>
+						</view>	
+						<view class="delet-box" data-id="{{item.id}}" bindtap="giveUp">弃号</view>
+					</view>
+				</block>
+			</scroll-view>
+
+			
+		</view>
+		<!-- <view class="daifuwu-box">
+			<view class="order-item">
+			
+				<view class="order-item-but">
+					<van-button>取消排号</van-button>
+				</view>
+			</view>
+		</view> -->
+
+	<!-- </scroll-view>	 -->
+			<view class="mask-box" wx:if="{{modalShow}}">
+				<view class="modal" >
+						<view class="modal_top">
+								<view class="t1">请输入用户消费金额</view>
+								<input class="t2" value="{{modalValue}}"  bindinput="getValue"/>
+						</view>
+						<view class="modal_bottom">
+								<view class="b1" hover-class='hoverstyle' bindtap="modalCancel">取消</view>
+								<view class="b2" hover-class='hoverstyle' bindtap="modalConfirm">确认</view>
+						</view>
+				</view>
+		</view>
+    </van-tab>
+    <van-tab title="已完成">
+      <van-empty image="network" description="描述文字" />
+    </van-tab>
+    <van-tab title="过号/取消">
+      <van-empty image="search" description="描述文字" />
+    </van-tab>
+  </van-tabs>
