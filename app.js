@@ -12,9 +12,9 @@ App({
     //   this.globalData.list = this.globalData.allList[0].list2
     // }
     if(statu == 0){
-      this.globalData.list = this.globalData.allList[0].list2
+      this.globalData.list = this.globalData.allList[0].list1
     }else if(statu == 1){
-      this.globalData.list = this.globalData.allList[0].list2
+      this.globalData.list = this.globalData.allList[0].list1
     }
   },
   globalData: {

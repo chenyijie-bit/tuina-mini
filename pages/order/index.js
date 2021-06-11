@@ -4,7 +4,7 @@ Component({
   data: {
     payOk:false,
     activeTab: 0,
-    triggered: false,
+    // triggered: false,
     payData:{},
     timeStamp:'',
     orderList:[]
@@ -22,26 +22,26 @@ Component({
   },
   methods:{
     //下拉刷新
-    onRefresh() {
-      if (this._freshing) return
-      this._freshing = true
-      setTimeout(() => {
-        this.setData({
-          triggered: false,
-        })
-        this.getOrder()
-        this._freshing = false
-      }, 3000)
-    },
-    onPulling(e) {
-      console.log('onPulling:', e)
-    },
-    onRestore(e) {
-      console.log('onRestore:', e)
-    },
-    onAbort(e) {
-      console.log('onAbort', e)
-    },
+    // onRefresh() {
+    //   if (this._freshing) return
+    //   this._freshing = true
+    //   setTimeout(() => {
+    //     this.setData({
+    //       triggered: false,
+    //     })
+    //     this.getOrder()
+    //     this._freshing = false
+    //   }, 3000)
+    // },
+    // onPulling(e) {
+    //   console.log('onPulling:', e)
+    // },
+    // onRestore(e) {
+    //   console.log('onRestore:', e)
+    // },
+    // onAbort(e) {
+    //   console.log('onAbort', e)
+    // },
     //获取订单列表
     getOrder(){
       $api.orderShow({
