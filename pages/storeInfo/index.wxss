@@ -120,6 +120,7 @@ page{
   background: #f8f3eb;
   color: #BA9245;
   font-weight: bold;
+  display: inline-block;
 }
 .van-empty__image,.van-empty__image image{
   height: 100rpx !important;

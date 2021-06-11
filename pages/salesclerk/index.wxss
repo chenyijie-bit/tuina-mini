@@ -346,7 +346,8 @@ page{
 }
 .yuyuebutton-box .disabledStyle button{
 	border-color: #f1f0f0;
-	background: #f1f0f0;
+	background: #f1f1f1;
+    color: #c1c1c1;
 }
 
 /* .yuyuekongjian{

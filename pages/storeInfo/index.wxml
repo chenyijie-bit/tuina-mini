@@ -22,7 +22,7 @@
 									<text class="sec-price">￥128</text>
 								</view>
 								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
-								<view>
+								<view style="text-align: left;">
 									<view class="dengdaikuang">约需等待{{item.wait}}</view>
 								</view>
 							</view>

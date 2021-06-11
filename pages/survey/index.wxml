@@ -13,15 +13,15 @@
 						<view slot="left">选择</view>
 						<view class="order-contain">
 							<view class="info-box">
-								<view class="tel">
+								<view class="tel marbot40">
 									<text>电话号码</text>：
 									<text>139213818283</text>
 								</view>
-								<view class="gettime">
+								<view class="gettime marbot40">
 									<text>下单时间</text>：
 									<text>139213818283</text>
 								</view>
-								<view class="starttime">
+								<view class="starttime marbot40">
 									<text>预约时间</text>：
 									<text>139213818283</text>
 								</view>
@@ -31,9 +31,9 @@
 								</view>
 							</view>
 							<view class="but-box">
-								<van-button type="default">默认按钮</van-button>
-								<van-button type="default">默认按钮</van-button>
-								<van-button type="default">默认按钮</van-button>
+								<van-button type="default">叫号</van-button>
+								<van-button type="default">开始服务</van-button>
+								<van-button type="default">让顾客付款</van-button>
 							</view>
 						</view>
 						<view slot="right">删除</view>
