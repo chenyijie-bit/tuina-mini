@@ -42,8 +42,13 @@ Page({
         let data = res.data.data
         let resData = Object.assign({},data)
         app.globalData.shop_id = resData.shop.id
+        let deftypeRadio = ''
+        if(resData.skill && resData.skill .length && resData.skill[0].id){
+          deftypeRadio = resData.skill[0].id
+        }
         _this.setData({
-          shopInfo: resData
+          shopInfo: resData,
+          typeRadio: deftypeRadio
         })
         if(data.skill && data.skill.length){
           _this.setData({
@@ -85,6 +90,7 @@ Page({
     });
   },
   changeType(data){
+    console.log(data);
     this.setData({
       typeRadio: data.currentTarget.dataset.type
     });
