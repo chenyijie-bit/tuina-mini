@@ -1,6 +1,6 @@
 /* pages/order/index.wxss */
 page{
-  background: rgba(247, 248, 249, 1);
+  background: rgb(247, 247, 247);
   height: 120%;
 }
 .van-tabs__wrap{
@@ -28,6 +28,7 @@ page{
 }
 .daifuwu-box{
   padding: 18rpx;
+  padding-top: 130rpx;
   padding-bottom: 140rpx;
 }
 .cant-pay{

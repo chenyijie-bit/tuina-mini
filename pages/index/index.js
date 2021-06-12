@@ -3,6 +3,7 @@ const $api = require('../../utils/request').API;
 const $Distance = require('../../utils/util').Distance;
 Component({
   data: {
+        tuijianWorker:{},
         canIUseGetUserProfile: false,
         searchValue:'',
         vertical: false,
@@ -114,9 +115,20 @@ Component({
               element.latitude ? '' : element.latitude = this.data.defaultAddressInfo.Lat
               element.distance =  $Distance(element.latitude,element.longitude,this.data.userAddressInfo.Lat,this.data.userAddressInfo.Long)
             }
+            let tuijianWorker = {}
+            if(data.recommend[0] && data.recommend[0].worder_list && data.recommend[0].worder_list[0]){
+              tuijianWorker = data.recommend[0].worder_list[0]
+              if(tuijianWorker.wait_time == 0){
+                tuijianWorker.waitStr = '无需等待，可立即服务'
+              }else{
+                let min = parseInt(tuijianWorker.wait_time/60) || 20
+                tuijianWorker.waitStr = `需等待${min}分钟`
+              } 
+            }
+            console.log(tuijianWorker);
             this.setData({
               storeList:data.shops,
-              workerList: [data.recommend[0].worder_list[0]]
+              workerList: [tuijianWorker],
             })
           }else{
             wx.showToast({

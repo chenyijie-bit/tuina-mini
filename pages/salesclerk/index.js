@@ -5,7 +5,8 @@ Page({
   data: {
     head_url:'../../assess/images/123.jpeg',
     rate:5,
-    typeRadio:'',
+    typeRadio:'1',
+    deftypeTimeStr:'',
     showPopup:false,
     hasPhoneNumber:false,
     //预约类型  是 1 立即取号   还是 2  预约
@@ -43,12 +44,15 @@ Page({
         let resData = Object.assign({},data)
         app.globalData.shop_id = resData.shop.id
         let deftypeRadio = ''
+        let deftypeTimeStr  = ''
         if(resData.skill && resData.skill .length && resData.skill[0].id){
           deftypeRadio = resData.skill[0].id
+          deftypeTimeStr = resData.skill[0].service_duration
         }
         _this.setData({
           shopInfo: resData,
-          typeRadio: deftypeRadio
+          typeRadio: deftypeRadio,
+          deftypeTimeStr:deftypeTimeStr
         })
         if(data.skill && data.skill.length){
           _this.setData({
@@ -90,9 +94,15 @@ Page({
     });
   },
   changeType(data){
-    console.log(data);
+    console.log(this.data.currentTab);
+    for (let index = 0; index < 5; index++) {
+      this.setData({
+        ['indexTabDateCur['+index+']'] : []
+      })
+    }
     this.setData({
-      typeRadio: data.currentTarget.dataset.type
+      typeRadio: data.currentTarget.dataset.type,
+      deftypeTimeStr: data.currentTarget.dataset.needtime
     });
   },
   getNumberNow(){
@@ -176,14 +186,11 @@ Page({
                 let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
                 timeSelectModel[i].datestr = currentTimeStr
                 let currentTimeStrCus = new Date().getTime()
+                /// 现在的时间大于预约时间段的时间的话
                 if(currentTimeStrCus>currentTimeStr){
                   timeSelectModel[i].disabled = true
                 }
-                // if(this.data.currentTimeStr > currentTimeStr){
-
-                // }
               })
-              
               let resData = []
               resData[this.data.currentTab] = timeSelectModel
               this.setData({
@@ -246,30 +253,20 @@ Page({
             }
           }
           this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
-          // console.log(this.data.dateTit);
-          // this.data.longDateList
           let timeSelectModel = this.createTimeSelectModel()
           timeSelectModel.map((e,i)=>{
-            // console.log(`${this.data.longDateList[this.data.currentTab]} ${e.time}`);
-            // return false
             let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
-            // console.log(currentTimeStr);
             let currentTimeStrCus = new Date().getTime()
-            
             timeSelectModel[i].datestr = currentTimeStr
             if(currentTimeStrCus>currentTimeStr){
               timeSelectModel[i].disabled = true
             }
-            // this.setData({
-            //   ['timeSelectModel['+i+'].datestr'] : currentTimeStr
-            // })
           })
           let resData = []
           resData[this.data.currentTab] = timeSelectModel
           this.setData({
             timeSelectModelBox: resData
           })
-          // console.log(this.data.timeSelectModel);
           if(this.data.quedateList[this.data.currentTab] && this.data.quedateList[this.data.currentTab].length){
             this.changeTabGetTime()
             // 说明这一天有被预约的情况
@@ -318,32 +315,27 @@ Page({
     if(!this.data.timeSelectModelBox[this.data.currentTab] || !this.data.timeSelectModelBox[this.data.currentTab].length){
       let data = this.createTimeSelectModel()
       data.map((e,i)=>{
-        // console.log(`${this.data.longDateList[this.data.currentTab]} ${e.time}`);
-        // return false
         let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
-        // console.log(currentTimeStr);
         data[i].datestr = currentTimeStr
         let currentTimeStrCus = new Date().getTime()
-        if(currentTimeStrCus>currentTimeStr){
+        if(currentTimeStrCus>=currentTimeStr){
           data[i].datestr.disabled = true
         }
-        // this.setData({
-        //   ['timeSelectModel['+i+'].datestr'] : currentTimeStr
-        // })
       })
       let index = this.data.currentTab
       this.setData({
         ['timeSelectModelBox['+index+']'] : data
       })
     }
-    console.log(yuyueList);
-    // this.data.indexTabDateCur = {}
     for (let index = 0; index < yuyueList.length; index++) {
       const element = yuyueList[index];
-      console.log(element);
+      // element是预约的item
+      // console.log(element);
       for (let j = 0; j < this.data.timeSelectModelBox[this.data.currentTab].length; j++) {
+        // item是固定时间item
         const item = this.data.timeSelectModelBox[this.data.currentTab][j];
-        if(Number(element.st)*1000<= item.datestr  && Number(element.et*1000) >= item.datestr){
+        if((Number(element.st)*1000)<= item.datestr  && (Number(element.et*1000)) >= item.datestr){
+          // + Number(this.data.deftypeTimeStr)*60   + Number(this.data.deftypeTimeStr)*60
           // 则对应的日期索引上的时间段都不能被选中了
           if(!this.data.indexTabDateCur[this.data.currentTab]){
             this.setData({
@@ -369,11 +361,21 @@ Page({
                 ['indexTabDateCur['+this.data.currentTab+']'] : data
               })
             }
-            
             // this.data.indexTabDateCur[this.data.currentTab].push(j)
           }
-          
-          
+        }
+        // debugger
+        // console.log(this.data.deftypeTimeStr);
+        if(((Number(item.datestr) + Number(this.data.deftypeTimeStr)*60*1000)  >= ((Number(element.st)*1000))) && ((Number(item.datestr) + Number(this.data.deftypeTimeStr)*60*1000)<= ((Number(element.et)*1000)))){
+          // console.log(j)
+          let data = this.data.indexTabDateCur[this.data.currentTab]
+            if(Array.isArray(data)){
+              data.push(j)
+              data = Array.from(new Set(data))
+              this.setData({
+                ['indexTabDateCur['+this.data.currentTab+']'] : data
+              })
+            }
         }
         // s说明现在的时间已经过了现在要预约的了
         if(currentTimeStrCus > item.datestr){
@@ -487,11 +489,13 @@ Page({
         var that = this;
         that.setData( { currentTab: e.detail.current });
     },
-
-
-
-
-
+    bindanimationfinish:function(e){
+      let currentTab = e.detail.current
+      this.setData( {
+        currentTab: currentTab
+      })
+      this.changeTabGetTime()
+    },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

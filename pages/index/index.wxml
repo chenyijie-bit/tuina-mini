@@ -48,7 +48,7 @@
             </view>
             <image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
             <view>
-              <view class="dengdaikuang">可立即开始服务</view>
+              <view class="dengdaikuang">{{item.waitStr}}</view>
             </view>
           </view>
         </view>
