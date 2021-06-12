@@ -36,7 +36,7 @@
 	<view class="sale-types-box">
 		<van-radio-group value="{{ typeRadio }}" bind:change="onChange">
 			<view class="type-title">服务项目价格</view>
-			<view class="type-item"  bindtap="changeType" data-type="{{item.id}}" wx:for="{{shopInfo.skill}}" wx:key="index">
+			<view class="type-item"  bindtap="changeType" data-needtime="{{item.service_duration}}"  data-type="{{item.id}}" wx:for="{{shopInfo.skill}}" wx:key="index">
 				<view class="type-item-name">
 					{{item.service_name}}
 				<view class="time-money-box">
@@ -102,7 +102,7 @@
 		</view>
 
 		<!-- 切换tab组件 -->
-		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:600px" bindchange="bindChange">
+		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:600px" bindchange="bindChange" bindanimationfinish="bindanimationfinish" >
 				<swiper-item wx:for="{{[1,2,3,4,5]}}" wx:key="index">
 					<view class="yuyuebutton-box">
 						<van-button  data-current="{{currentTab}}"  data-time="{{item.time}}" data-disabled="{{item.disabled}}" bindtap="selectTime" class="yuyuekongjian-button {{currentTime==item.time && !item.disabled && currentTab == selectFlagTab ? 'on-time' : ''}} {{item.disabled ? 'disabledStyle':''}}" wx:for="{{timeSelectModelBox[currentTab]}}" wx:key="index">{{item.time}}</van-button>

@@ -43,6 +43,9 @@ page{
 		line-height: 44px;
 		color: #fff;
 		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		background-color: #ee0a24;
 	}
 .order-contain{

@@ -1,0 +1,4 @@
+.gongzuotai .van-bottom-enter-to{
+  padding-bottom: 160rpx !important;
+  height: 1400rpx !important;
+}

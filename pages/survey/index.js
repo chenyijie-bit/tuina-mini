@@ -1,6 +1,7 @@
 
 let app = getApp();
 const $api = require('../../utils/request').API;
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Component({
   data: {
     active: 0,
@@ -19,8 +20,21 @@ Component({
     }
   },
   methods:{
-    getUserInfo(event) {
-      console.log(event.detail);
+    deletItem(){
+      Dialog.confirm({
+        title: '标题',
+        message: '弹窗内容',
+      })
+        .then(() => {
+          // on confirm
+        })
+        .catch(() => {
+          // on cancel
+        });
+    },
+    deletOrder(event){
+      console.log(213);
+      console.log(event);
     },
     onClose(event) {
       const { position, instance } = event.detail;
@@ -30,14 +44,14 @@ Component({
           instance.close();
           break;
         case 'right':
-          this.setData({
-            showDialog:true
-          })
-          // Dialog.confirm({
-          //   message: '确定删除吗？',
-          // }).then(() => {
-          //   instance.close();
-          // });
+          // this.setData({
+          //   showDialog:true
+          // })
+          Dialog.confirm({
+            message: '确定删除吗？',
+          }).then(() => {
+            instance.close();
+          });
           break;
       }
     },
@@ -46,9 +60,9 @@ Component({
       // 下边的参数上线时要改成真实数据
       $api.workerQueueList({
         "openid": app.globalData.openId,
-        "tidy_worker_id":app.globalData.worker_id
+        // "tidy_worker_id":app.globalData.worker_id
         // "openid": '',
-        // "tidy_worker_id":2
+        "tidy_worker_id":3
       }).then(res=>{
         if(res.statusCode == 200 && res.data.code == 200){
           //上线要改成真是数据

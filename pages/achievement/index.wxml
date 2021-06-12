@@ -1,2 +1,16 @@
-<view>
-  我的业绩</view>
+<view class="gongzuotai">
+  <view class="title-box">
+    <view class="title">常用</view>
+    <view>
+      <van-calendar
+        show="{{ show }}"
+        min-date="{{ minDate }}"
+        max-date="{{ maxDate }}"
+        type="range"
+        bind:close="onClose"
+        bind:confirm="onConfirm"
+      />
+    </view>
+  </view>
+  <view class="title-box">门店</view>
+</view>

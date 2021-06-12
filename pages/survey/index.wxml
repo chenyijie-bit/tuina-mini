@@ -10,7 +10,7 @@
 						async-close
 						bind:close="onClose"
 					>
-						<view slot="left">选择</view>
+						<view slot="left">移至首位</view>
 						<view class="order-contain">
 							<view class="info-box">
 								<view class="tel marbot40">
@@ -36,7 +36,7 @@
 								<van-button type="default">让顾客付款</van-button>
 							</view>
 						</view>
-						<view slot="right">删除</view>
+						<view slot="right" bindtap="deletItem">删除</view>
 					</van-swipe-cell>
 					
 				</view>
@@ -47,12 +47,11 @@
 	</van-tabs>
 	<van-dialog
 		use-slot
-		title="标题"
+		title="确定删除尾号{{}}的订单？"
 		show="{{ showDialog }}"
 		show-cancel-button
 		bind:close="onClose"
-		bind:getuserinfo="getUserInfo"
+		bind:deletOrder="deletOrder"
 	>
-	123
 	</van-dialog>
 </view>

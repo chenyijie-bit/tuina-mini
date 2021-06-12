@@ -50,14 +50,14 @@ Component({
       }).then(res=>{
         console.log(res);
         if(res.statusCode==200 && res.data.code === 200){
-          for (let index = 0; index <  res.data.data.length; index++) {
-            const element =  res.data.data[index];
+          for (let index = 0; index <  res.data.data.list.length; index++) {
+            const element =  res.data.data.list[index];
             if(element.wait_time){
               element.wait_time = parseInt(element.wait_time/60)
             }
           }
           this.setData({
-            orderList: res.data.data
+            orderList: res.data.data.list
           })
         }else{
           wx.showToast({

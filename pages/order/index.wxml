@@ -3,7 +3,7 @@
     active="{{ activeTab }}"
     bind:change="onChange"
   >
-    <van-tab title="待服务">
+    <van-tab title="待消费">
         <van-empty wx:if="{{!orderList.length}}" image="network" description="暂无信息" ></van-empty>
         <view class="daifuwu-box" wx:else>
           <view class="order-item" wx:for="{{orderList}}" wx:key="index">
@@ -11,10 +11,10 @@
               {{item.status_str}}
             </view>
             <view class="order-item-info">
-              <view class="num">
+              <!-- <view class="num">
                 <view class="top">{{item.sort_no}}</view>
                 <view class="bot">排队号码</view>
-              </view>
+              </view> -->
               <view class="peo-num">
                 <view class="top">{{item.pre_queue_number}}</view>
                 <view class="bot">排队人数</view>
