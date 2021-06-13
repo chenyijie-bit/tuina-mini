@@ -67,6 +67,8 @@
     "van-cell-group": "@vant/weapp/cell-group/index", 
     "van-swipe-cell": "@vant/weapp/swipe-cell/index",
     "van-dialog": "@vant/weapp/dialog/index",
-    "van-calendar": "@vant/weapp/calendar/index"
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index"
   }
 }

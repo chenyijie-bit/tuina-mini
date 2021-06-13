@@ -88,6 +88,10 @@ page{
   justify-content: space-between;
   border-bottom:  1rpx solid rgb(224, 224, 224);
 }
+.coupont-name{
+  margin-left: 28rpx;
+  color: #aaa;
+}
 .order-item-type{
   padding: 50rpx 80rpx 0;
 }
@@ -119,4 +123,28 @@ page{
   color: #fff;
   border: none;
   margin: 0 auto;
+}
+.coupon-sheet{
+ 
+}
+.coupon-sheet-content{
+  padding: 20rpx 30rpx 150rpx;
+}
+.coupon-sheet .content{
+  padding-bottom: 140rpx;
+}
+.coupon-sheet-content button{
+  width: 100%;
+  height: 60rpx;
+  background: #BA9245;
+  border-radius: 30rpx;
+  color: #fff;
+}
+.coupon-list-item{
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 10rpx 55rpx;
+}
+.coupon-item{
+  display: flex;
 }
