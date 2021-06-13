@@ -7,7 +7,11 @@ Component({
     // triggered: false,
     payData:{},
     timeStamp:'',
-    orderList:[]
+    orderList:[],
+    showCouponList: false,
+    couponsList:[],
+    couponsDefault:{},
+    typeRadio:''
   },
   pageLifetimes: {
     show() {
@@ -42,6 +46,31 @@ Component({
     // onAbort(e) {
     //   console.log('onAbort', e)
     // },
+    // 获取优惠券
+    getCouponts(){
+      this.setData({
+        showCouponList: true
+      })
+    },
+    closeCouponSheet(){
+      this.setData({
+        showCouponList:false
+      })
+    },
+    onChangeCouponsId(e){
+      let changedId = e.detail
+      for (let index = 0; index < this.data.couponsList.length; index++) {
+        const element = this.data.couponsList[index];
+        if(element.coupon_id == changedId){
+          this.setData({
+            couponsDefault:element
+          })
+        }
+      }
+      this.setData({
+        showCouponList : false
+      })
+    },
     //获取订单列表
     getOrder(){
       $api.orderShow({
@@ -50,14 +79,51 @@ Component({
       }).then(res=>{
         console.log(res);
         if(res.statusCode==200 && res.data.code === 200){
-          for (let index = 0; index <  res.data.data.list.length; index++) {
-            const element =  res.data.data.list[index];
+          let resList = res.data.data.list
+          let coupons = res.data.data.coupons
+          if(coupons && coupons.length){
+            coupons.map(e=>{
+              e.priceNum = e.price ? parseFloat(e.price) : 0
+            })
+            this.setData({
+              couponsList: coupons
+            })
+            coupons.map(e=>{
+              if(e.is_default === 1){
+                this.setData({
+                  couponsDefault: e,
+                  typeRadio: e.coupon_id
+                })
+              }
+            })
+            if(!resList.couponsDefault){
+              this.setData({
+                typeRadio: coupons[0].coupon_id,
+                couponsDefault: coupons[0]
+              })
+            }
+          }
+          for (let index = 0; index <  resList.length; index++) {
+            const element =  resList[index];
             if(element.wait_time){
               element.wait_time = parseInt(element.wait_time/60)
             }
+            if(element.order.price){
+              element.order.priceNum = parseFloat(element.order.price)
+            }
+            if(element.status == 170){
+              //正在排队中 可以取消
+              element.statusCusStr = '取消排号'
+            }else if(element.status == 173){
+              // 正在服务中
+              element.statusCusStr = '服务中'
+            }else if(element.status == 175){
+              // 待支付
+              element.statusCusStr = '支付'
+            }
           }
           this.setData({
-            orderList: res.data.data.list
+            orderList: resList
           })
         }else{
           wx.showToast({
@@ -107,69 +173,8 @@ Component({
         }
       })
     },
-    // 支付
-    payment(e){
-      let _this = this
-      let queue_id = e.currentTarget.dataset.listid-0
-      let flag = e.currentTarget.dataset.flag
-      let no = e.currentTarget.dataset.no
-      if(flag != '按摩结束，待支付') return false
-
-      // 上线需要改成正确id
-      $api.orderPaydata({
-        "openid": app.globalData.openId,
-        "queue_id": queue_id
-      }).then(res=>{
-        console.log(res)
-        if(res.statusCode == 200 && res.data.code == 200){
-          this.setData({
-            payData:res.data.data.jsApiParams,
-            timeStamp:res.data.timestamp
-          })
-          wx.requestPayment(
-            {
-            "appId":this.data.payData.jsApiParameters.appId,
-            "timeStamp":this.data.payData.jsApiParameters.timeStamp,
-            "nonceStr": this.data.payData.jsApiParameters.nonceStr,
-            "package": this.data.payData.jsApiParameters.package,
-            "signType": "HMAC-SHA256",
-            "paySign": this.data.payData.jsApiParameters.paySign,
-            "success":function(res){
-              console.log(res);
-              //需要重新获取列表信息
-              // wx.showToast({
-              //   title: '支付成功'
-              // })
-              let index = 1
-              let interval  = setInterval(() => {
-                index++
-                _this.getOrder2(no)
-                if(_this.data.payOk){
-                  clearInterval(interval)
-                }
-                if(index>4){
-                  clearInterval(interval)
-                  wx.showToast({
-                    title: '支付出错请联系工作人员',
-                    icon:'none'
-                  })
-                }
-              }, 1200);
-              // no: "AM2021060618011355176"
-            },
-            "fail":function(res){
-              console.log(res);
-            },
-            "complete":function(res){}
-            })
-        }else{
-          wx.showToast({
-            title: res.data.err||'调起支付出错，请重试',
-            icon:'error'
-          })
-        }
-      })
-    },
+    
+    
     onChange(event) {
       this.setData({
         activeTab: event.detail.name,
@@ -201,6 +206,101 @@ Component({
           }
         }
       })
+    },
+    // 支付或者取消排队
+    cancelServeOrpayment(e){
+      let _this = this
+      let status = e.currentTarget.dataset.status
+      if(status == 170){
+        //正在排队中 可以取消
+        wx.showModal({
+          title: '确认取消排队？',
+          content: '确认取消排队后，此号将作废',
+          success (res) {
+            if (res.confirm) {
+              let orderId = e.currentTarget.dataset.listid
+              $api.cancelServe({
+                "openid": app.globalData.openId,
+                "queue_id": orderId
+              }).then(e=>{
+                if(e.statusCode==200 && e.data.code==200){
+                  wx.showToast({
+                    title: '已取消排队',
+                  })
+                  _this.getOrder()
+                }
+              })
+            } else if (res.cancel) {
+              // console.log('用户点击取消')
+            }
+          }
+        })
+      }else if(status == 173){
+        // 正在服务中 不可取消 显示的是服务中
+        wx.showToast({
+          title: '提示店员收款即可付款',
+          icon:'none'
+        })
+      }else if(status == 175){
+        // 待支付 // 支付
+        let queue_id = e.currentTarget.dataset.listid-0
+        let no = e.currentTarget.dataset.no
+        // 上线需要改成正确id
+        $api.orderPaydata({
+          "openid": app.globalData.openId,
+          "queue_id": queue_id,
+          "coupon_id":this.data.couponsDefault.coupon_id
+        }).then(res=>{
+          console.log(res)
+          if(res.statusCode == 200 && res.data.code == 200){
+            this.setData({
+              payData:res.data.data.jsApiParams,
+              timeStamp:res.data.timestamp
+            })
+            wx.requestPayment(
+              {
+              "appId":this.data.payData.jsApiParameters.appId,
+              "timeStamp":this.data.payData.jsApiParameters.timeStamp,
+              "nonceStr": this.data.payData.jsApiParameters.nonceStr,
+              "package": this.data.payData.jsApiParameters.package,
+              "signType": "HMAC-SHA256",
+              "paySign": this.data.payData.jsApiParameters.paySign,
+              "success":function(res){
+                console.log(res);
+                //需要重新获取列表信息
+                // wx.showToast({
+                //   title: '支付成功'
+                // })
+                let index = 1
+                let interval  = setInterval(() => {
+                  index++
+                  _this.getOrder2(no)
+                  if(_this.data.payOk){
+                    clearInterval(interval)
+                  }
+                  if(index>4){
+                    clearInterval(interval)
+                    wx.showToast({
+                      title: '支付出错请联系工作人员',
+                      icon:'none'
+                    })
+                  }
+                }, 1200);
+                // no: "AM2021060618011355176"
+              },
+              "fail":function(res){
+                console.log(res);
+              },
+              "complete":function(res){}
+              })
+          }else{
+            wx.showToast({
+              title: res.data.err||'调起支付出错，请重试',
+              icon:'error'
+            })
+          }
+        })
+      }
     }
   },
 })

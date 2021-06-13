@@ -2,7 +2,7 @@
 	<van-tabs active="{{ active }}" bind:change="onChange">
 		<van-tab title="待服务">
 			<view class="tab-box">
-				<view class="tab-items"> 
+				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
 					<van-swipe-cell
 						id="swipe-cell"
 						right-width="{{ 65 }}"
@@ -13,27 +13,31 @@
 						<view slot="left">移至首位</view>
 						<view class="order-contain">
 							<view class="info-box">
-								<view class="tel marbot40">
+								<view class="tel marbot28">
+								<text>预约类型</text>：
+								<text>{{item.type == 2 ? '预约取号' :'立即取号'}}</text>
+								</view>
+								<view class="tel marbot28">
 									<text>电话号码</text>：
-									<text>139213818283</text>
+									<text>{{item.mobile}}</text>
 								</view>
-								<view class="gettime marbot40">
+								<view class="gettime marbot28">
 									<text>下单时间</text>：
-									<text>139213818283</text>
+									<text>{{item.create_time}}</text>
 								</view>
-								<view class="starttime marbot40">
+								<view class="starttime marbot28">
 									<text>预约时间</text>：
-									<text>139213818283</text>
+									<text>{{item.user_st}}</text>
 								</view>
 								<view class="gettime">
 									<text>预约项目</text>：
-									<text>139213818283</text>
+									<text>{{item.service.name[0]}}</text>
 								</view>
 							</view>
 							<view class="but-box">
-								<van-button type="default">叫号</van-button>
-								<van-button type="default">开始服务</van-button>
-								<van-button type="default">让顾客付款</van-button>
+								<!-- <van-button type="default">叫号</van-button> -->
+								<van-button type="default" bindtap="startServe" data-mobile="{{item.mobile}}" data-status="{{item.status}}" data-id="{{item.id}}" class="{{item.status == 170 && index == 0 ? 'default-but' : 'nouser-but'}}">开始服务</van-button>
+								<van-button type="default" bindtap="startServe" data-mobile="{{item.mobile}}" data-status="{{item.status}}"  data-id="{{item.id}}" class="{{item.status == 173 && index == 0 ? 'default-but' : 'nouser-but'}}"> 让顾客付款 </van-button>
 							</view>
 						</view>
 						<view slot="right" bindtap="deletItem">删除</view>
@@ -45,6 +49,7 @@
 		<van-tab title="已完成"></van-tab>
 		<van-tab title="过号/取消">内容 3</van-tab>
 	</van-tabs>
+	<van-dialog id="van-dialog" className="van-dialog-id" confirm-button-color="#BA9245"/>
 	<van-dialog
 		use-slot
 		title="确定删除尾号{{}}的订单？"
@@ -54,4 +59,73 @@
 		bind:deletOrder="deletOrder"
 	>
 	</van-dialog>
+
+	<view class="van-dialog-id-sec-shadow"  wx:if="{{letPaymentShow}}">
+		<view class="van-dialog-id-sec">
+			<view class="title">
+				让顾客付款
+			</view>
+			<view class="dialog-box">
+				<van-cell-group>
+					<van-field
+						value="{{modalValue}}"
+						label="用户消费金额:"
+						bindchange="onChangePay"
+						placeholder="请输入顾客需要支付的费用"
+						border="{{false}}"
+					/>
+				</van-cell-group>
+				<van-cell-group>
+					<van-field
+						value="{{modelDesc}}"
+						label="备注(非必填):"
+						type="textarea"
+						bindchange="descChange"
+						autosize
+						border="{{false}}"
+					/>
+				</van-cell-group>
+			</view>
+			<view class="dialog-but-box">
+				<view class="dialog-but-left" bindtap="makeUserPayCancel">
+					取消
+				</view>
+				<view class="dialog-but-right" bindtap="letPaymentShowbeforeClose"> 
+					确认
+				</view>
+			</view>
+		</view>
+	</view>
+	
+
+
+	<!-- <van-dialog
+	confirm-button-color="#BA9245"
+  use-slot
+	className="van-dialog-id-sec"
+  title="让顾客付款"
+  show="{{ letPaymentShow2 }}"
+  show-cancel-button
+  bind:close="onClose"
+  bind:confirm="letPaymentShowbeforeClose"
+>
+<van-cell-group>
+  <van-field
+    value="{{modalValue}}"
+		label="用户消费金额:"
+		bindchange="onChangePay"
+    placeholder="请输入顾客需要支付的费用"
+    border="{{false}}"
+  />
+</van-cell-group>
+<van-cell-group>
+  <van-field
+    value="{{modelDesc}}"
+    label="备注(非必填):"
+    type="textarea"
+    autosize
+    border="{{false}}"
+  />
+</van-cell-group>
+</van-dialog> -->
 </view>

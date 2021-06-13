@@ -29,6 +29,14 @@
               <!-- <view>距您1222米</view> -->
               <view>></view>
             </view>
+            <view class="order-item-addr order-list-coupons" wx:if="{{couponsList.length && item.status==175}}" bindtap="getCouponts">
+              <view style="display: flex;"> 
+                <view>店铺优惠</view>
+                <view class="coupont-name" style="margin-left:40rpx;" >{{couponsDefault.name}}</view>
+                <view style="color:red; margin-left:20rpx;"> -{{couponsDefault.price}}</view>
+              </view>
+              <view>></view>
+            </view>
             <view class="order-item-type">
               <view>
                 <text class="type-title">技师</text>:
@@ -39,16 +47,24 @@
                 <text class="type-ans">{{item.service.name}}</text>
               </view>
               <view>
-                <text class="type-title">合计</text>:
+                <text class="type-title">应付</text>:
                 <text class="type-ans">{{item.order.price}}元</text>
               </view>
               <view>
-                <text class="type-title">取号时间</text>:
+                <text class="type-title">优惠</text>:
+                <text class="type-ans">{{couponsDefault.price}}元</text>
+              </view>
+              <view>
+                <text class="type-title">实付</text>:
+                <text class="type-ans">{{item.order.priceNum - couponsDefault.priceNum}}元</text>
+              </view>
+              <view>
+                <text class="type-title">预计开始</text>:
                 <text class="type-ans">{{item.start_date}}</text>
               </view>
             </view>
             <view class="order-item-but">
-              <van-button bindtap="cancelServe" data-listid="{{item.list_id}}">取消排号</van-button>
+              <van-button bindtap="cancelServeOrpayment"  data-no="{{item.order.no}}" data-listid="{{item.list_id}}" data-status="{{item.status}}">{{item.statusCusStr}}</van-button>
             </view>
           </view>
         </view>
@@ -148,4 +164,31 @@
         </view>
       </view>
     </van-tab>
+    <!-- 展示优惠券列表 -->
+    <van-action-sheet
+      className="coupon-sheet"
+      safe-area-inset-bottom
+      style="padding-bottom:140rpx;"
+      show="{{ showCouponList }}"
+      title="优惠"
+      bind:close="closeCouponSheet"
+    >
+      <view class="coupon-sheet-content">
+        <van-radio-group value="{{ typeRadio }}" bind:change="onChangeCouponsId">
+          <view class="coupon-list-item" wx:for="{{couponsList}}" wx:key="index">
+            <view class="coupon-item">
+              <view>{{item.name}} </view>
+              <view style="color:red;margin-left:30rpx;"> -{{item.price}}</view>
+            </view>
+            <van-radio name="{{item.coupon_id}}" checked-color="#BA9245"></van-radio>
+          </view>
+          
+        </van-radio-group>
+        <!-- <view>
+          <van-button type="default" class="coupon-but">确定</van-button>
+        </view> -->
+
+        
+      </view>
+    </van-action-sheet>
   </van-tabs>
