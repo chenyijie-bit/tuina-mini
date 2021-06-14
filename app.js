@@ -6,16 +6,16 @@ App({
     // 展示本地存储能力
     const statu = wx.getStorageSync('statu') || 0
     // statu == 1 是店员
+    // if(statu == 0){
+    //   this.globalData.list = this.globalData.allList[0].list1
+    // }else if(statu == 1){
+    //   this.globalData.list = this.globalData.allList[0].list2
+    // }
     if(statu == 0){
       this.globalData.list = this.globalData.allList[0].list1
     }else if(statu == 1){
       this.globalData.list = this.globalData.allList[0].list2
     }
-    // if(statu == 0){
-    //   this.globalData.list = this.globalData.allList[0].list2
-    // }else if(statu == 1){
-    //   this.globalData.list = this.globalData.allList[0].list2
-    // }
   },
   globalData: {
     //用户的位置信息

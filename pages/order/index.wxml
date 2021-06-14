@@ -46,16 +46,16 @@
                 <text class="type-title">项目</text>:
                 <text class="type-ans">{{item.service.name}}</text>
               </view>
-              <view>
+              <view wx:if="{{couponsDefault.price}}">
                 <text class="type-title">应付</text>:
                 <text class="type-ans">{{item.order.price}}元</text>
               </view>
-              <view>
+              <view wx:if="{{couponsDefault.price}}">
                 <text class="type-title">优惠</text>:
                 <text class="type-ans">{{couponsDefault.price}}元</text>
               </view>
               <view>
-                <text class="type-title">实付</text>:
+                <text class="type-title">小计</text>:
                 <text class="type-ans">{{item.order.priceNum - couponsDefault.priceNum}}元</text>
               </view>
               <view>

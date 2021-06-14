@@ -1,5 +1,5 @@
 <view class="page-content">
-	<van-tabs active="{{ active }}" bind:change="onChange">
+	<van-tabs active="{{ active }}" bind:change="onChangeTab">
 		<van-tab title="待服务">
 			<view class="tab-box">
 				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
@@ -8,9 +8,12 @@
 						right-width="{{ 65 }}"
 						left-width="{{ 65 }}"
 						async-close
-						bind:close="onClose"
+						data-id="{{item.id}}"
+						data-index="{{index}}"
+						data-mobile="{{item.mobile}}"
+						bind:close="onCloseItem"
 					>
-						<view slot="left">移至首位</view>
+						<view slot="left" style="width:40rpx;">移至首位</view>
 						<view class="order-contain">
 							<view class="info-box">
 								<view class="tel marbot28">
@@ -40,7 +43,8 @@
 								<van-button type="default" bindtap="startServe" data-mobile="{{item.mobile}}" data-status="{{item.status}}"  data-id="{{item.id}}" class="{{item.status == 173 && index == 0 ? 'default-but' : 'nouser-but'}}"> 让顾客付款 </van-button>
 							</view>
 						</view>
-						<view slot="right" bindtap="deletItem">删除</view>
+						<!-- bindtap="giveUp" -->
+						<view slot="right"  data-id="{{item.id}}">删除</view>
 					</van-swipe-cell>
 					
 				</view>
@@ -50,15 +54,6 @@
 		<van-tab title="过号/取消">内容 3</van-tab>
 	</van-tabs>
 	<van-dialog id="van-dialog" className="van-dialog-id" confirm-button-color="#BA9245"/>
-	<van-dialog
-		use-slot
-		title="确定删除尾号{{}}的订单？"
-		show="{{ showDialog }}"
-		show-cancel-button
-		bind:close="onClose"
-		bind:deletOrder="deletOrder"
-	>
-	</van-dialog>
 
 	<view class="van-dialog-id-sec-shadow"  wx:if="{{letPaymentShow}}">
 		<view class="van-dialog-id-sec">

@@ -7,9 +7,11 @@ Component({
     active: 0,
     showDialog: false,
     optionsListData:[], //订单列表数据
+    nouserArr:[], // 开始上班和下班的时间
     letPaymentShow: false,
     modalValue:'',// 消费金额
-    modelDesc:'' // 备注
+    modelDesc:'' ,// 备注
+    queue_id:''
   },
   pageLifetimes: {
     show() {
@@ -39,24 +41,125 @@ Component({
       console.log(213);
       console.log(event);
     },
-    onClose(event) {
+    onCloseItem(event) {
+      console.log(event);
+      let queue_id = event.currentTarget.dataset.id
+      let mobile = event.currentTarget.dataset.mobile
+      let index = event.currentTarget.dataset.index
       const { position, instance } = event.detail;
       switch (position) {
         case 'left':
+          Dialog.confirm({
+            message: `确定将尾号 ${mobile} 的订单移至第一个吗？`,
+          }).then(() => {
+            // 确认删除
+            instance.close();
+            this.moveToFirst(index)
+          }).catch(() => {
+            instance.close();
+          });
+          break;
         case 'cell':
           instance.close();
           break;
         case 'right':
-          // this.setData({
-          //   showDialog:true
-          // })
           Dialog.confirm({
-            message: '确定删除吗？',
+            message: `确定删除尾号 ${mobile} 的订单吗？`,
           }).then(() => {
+            // 确认删除
+            instance.close();
+            this.giveUp(queue_id)
+          }).catch(() => {
             instance.close();
           });
           break;
       }
+    },
+    // 移至首位
+    moveToFirst(index){
+      console.log(index);
+      if(index === 0){
+        wx.showToast({
+          title: '已经是第一位',
+        })
+        return false
+      }
+      // 根据index来移动
+      let listData = this.data.optionsListData
+      let currentItem = this.data.optionsListData[index]
+      let needTimeStr = currentItem.et - currentItem.st  //秒
+      // 获取现在的时间 再加上 此项目所需时间
+      let nowTimeStr = new Date().getTime()
+      let noUserTimeStr = 180  // 闲杂时间 3分钟
+      // nowTimeStr+noUserTimeStr 定为开始时间的st
+      let st = parseInt(nowTimeStr/1000)+noUserTimeStr
+      currentItem.st = parseInt(st)
+      currentItem.et = parseInt((st + needTimeStr))
+      console.log(currentItem);
+      for (let i = 0; i < listData.length; i++) {
+        const element = listData[i];
+        if(i<index){
+          if(element.st-0 < currentItem.et){
+            // 说明有重合
+            // coincidenceTime//重合时间
+            let coincidenceTime = currentItem.et - (element.st-0)
+            element.st = element.st - 0 + coincidenceTime + 20
+            element.et = element.et - 0 + coincidenceTime + 30
+            currentItem = element
+          }
+        }
+      }
+      listData.unshift(listData[index])
+      listData.splice(index+1,1)
+      listData.map((e,i)=>{
+        e.sort = i+1
+      })
+      this.setData({
+        optionsListData:listData
+      })
+      console.log(this.data.optionsListData);
+      let arr22 = this.data.nouserArr
+      $api.workerQueueSet({
+        list:[...this.data.optionsListData,...arr22],
+        "openid": app.globalData.openId,
+        "tidy_worker_id": app.globalData.worker_id,
+      }).then(res=>{
+        if(res.statusCode && res.data.code==200){
+          wx.showToast({
+            title: '已调整排队信息',
+            icon:'none'
+          })
+            // 这里需要再重新请求列表
+          _this.workerQueueList()
+        }else{
+          wx.showToast({
+            title: res.data.err,
+            icon:'none'
+          })
+        }
+        _this.workerQueueList()
+      }).catch(err=>{
+      })
+    },
+    // 弃号
+    giveUp(queue_id){
+      let _this = this
+      $api.giveUp({
+        "openid": app.globalData.openId,
+        "queue_id": queue_id
+      }).then(res=>{
+        if(res.statusCode==200 && res.data.code==200){
+          wx.showToast({
+            title: '已删除',
+          })
+          _this.workerQueueList()
+        }else{
+          wx.showToast({
+            title: res.data.err,
+            icon: 'error'
+          })
+        }
+      })
     },
     // 开始服务 // 结束服务
     startServe(e){
@@ -121,6 +224,17 @@ Component({
       //   return false
       // }
       
+    },
+    onChangeTab(e){
+      console.log(e);
+      let index = e.detail.index //从0开始的
+      if(index === 0){
+        this.workerQueueList()
+      }else if(index === 1){
+
+      }else if(index === 2){
+        
+      }
     },
     onChangePay(e){
       this.setData({
