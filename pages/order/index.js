@@ -3,7 +3,7 @@ const $api = require('../../utils/request').API;
 Component({
   data: {
     payOk:false,
-    activeTab: 0,
+    activeTab: '1',
     // triggered: false,
     payData:{},
     timeStamp:'',
@@ -74,8 +74,8 @@ Component({
     //获取订单列表
     getOrder(){
       $api.orderShow({
-        openid:app.globalData.openId,
-        tap_type:this.data.activeTab+1
+        openid: app.globalData.openId,
+        tap_type: Number(this.data.activeTab)
       }).then(res=>{
         console.log(res);
         if(res.statusCode==200 && res.data.code === 200){
@@ -136,8 +136,8 @@ Component({
     //获取是否支付成功
     getOrder2(no){
       $api.orderShow({
-        openid:app.globalData.openId,
-        tap_type:this.data.activeTab+1
+        openid: app.globalData.openId,
+        tap_type: Number(this.data.activeTab)
       }).then(res=>{
         console.log(res);
         if(res.statusCode==200 && res.data.code === 200){
@@ -277,11 +277,12 @@ Component({
                   _this.getOrder2(no)
                   if(_this.data.payOk){
                     clearInterval(interval)
+                    return false
                   }
-                  if(index>4){
+                  if(index>5){
                     clearInterval(interval)
                     wx.showToast({
-                      title: '支付出错请联系工作人员',
+                      title: '支付可能出错请联系工作人员',
                       icon:'none'
                     })
                   }

@@ -1,3 +1,4 @@
+<page-meta page-style="overflow: {{yuyuekongjianIsShow ? 'hidden' : 'visible'}}" />
 <view class="contain-box">
 	<view class="sale-top-box">
 		<view class="sale-box-bottom-border">

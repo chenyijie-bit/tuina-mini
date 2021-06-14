@@ -55,7 +55,7 @@
         <view class="per-start">
           <block>
             <van-button type="default" class="go-spa" bindtap="goToStaffInfo" 
-            data-id="{{item.id}}" data-name="{{item.name}}">点TA</van-button>
+            data-id="{{item.id}}" data-name="{{item.name}}" data-shopid="{{item.shop_id}}">点TA</van-button>
           </block>
         </view>
       </view>
