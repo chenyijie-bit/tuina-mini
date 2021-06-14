@@ -148,3 +148,6 @@ color: #BA9245;
 .dialog-but-right{
 	color: #BA9245;
 }
+.van-swipe-cell__left{
+	background: #BA9245;
+}
