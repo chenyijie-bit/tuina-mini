@@ -17,6 +17,107 @@ App({
       this.globalData.list = this.globalData.allList[0].list2
     }
   },
+  //获取openID
+  getOpenid(code){
+    $api.getOpenid({code})
+    .then(res => {
+      console.log(res.data.data);
+      //请求成功
+      if(res.data  && res.data.data 
+        && res.data.data.openid){
+          app.globalData.openId = res.data.data.openid
+          // app.globalData.openid = res.data.data.openid || ''
+          app.globalData.mobile = res.data.data.mobile
+          app.globalData.head_url = res.data.data.head_url
+          app.globalData.nickname = res.data.data.nickname
+          app.globalData.worker_id = res.data.data.worker_id
+          wx.setStorageSync('statu', res.data.data.is_worker)
+          // this.getHomeData(app.globalData.openId)
+      }
+    })
+    .catch(err => {
+        //请求失败
+    })
+  },
+  checkSessionAndLogin(){
+    console.log(this.globalData.openId);
+    let _this = this
+    return new Promise((resolve)=>{
+      if(!this.globalData.openId){
+        wx.login({
+          success:  res => {
+            console.log(4353);
+            this.globalData.code = res.code
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId
+            // 调用接口获取openid
+            if(!this.globalData.openId){
+             return  $api.getOpenid({code:res.code}).then(res => {
+                console.log(res.data.data);
+                //请求成功
+                if(res.data  && res.data.data 
+                  && res.data.data.openid){
+                    this.globalData.openId = res.data.data.openid
+                    // this.globalData.openid = res.data.data.openid || ''
+                    this.globalData.mobile = res.data.data.mobile
+                    this.globalData.head_url = res.data.data.head_url
+                    this.globalData.nickname = res.data.data.nickname
+                    this.globalData.worker_id = res.data.data.worker_id
+                    wx.setStorageSync('statu', res.data.data.is_worker)
+                    // this.getHomeData(this.globalData.openId)
+                }
+                resolve('成功')
+              })
+              // _this.getOpenid(res.code)
+            }
+          },
+          fail: function (error) {
+            _this.checkSessionAndLogin()
+          }
+        })
+      }
+      wx.checkSession({
+        success () {
+          console.log(123);
+          //session_key 未过期，并且在本生命周期一直有效
+        },
+        fail () {
+          // session_key 已经失效，需要重新执行登录流程
+          // 登录
+          wx.login({
+            success:  res => {
+              console.log(4353);
+              this.globalData.code = res.code
+              // 发送 res.code 到后台换取 openId, sessionKey, unionId
+              // 调用接口获取openid
+                if(!this.globalData.openId){
+                 return  $api.getOpenid({code:res.code}).then(res => {
+                    console.log(res.data.data);
+                    //请求成功
+                    if(res.data  && res.data.data 
+                      && res.data.data.openid){
+                        this.globalData.openId = res.data.data.openid
+                        // this.globalData.openid = res.data.data.openid || ''
+                        this.globalData.mobile = res.data.data.mobile
+                        this.globalData.head_url = res.data.data.head_url
+                        this.globalData.nickname = res.data.data.nickname
+                        this.globalData.worker_id = res.data.data.worker_id
+                        wx.setStorageSync('statu', res.data.data.is_worker)
+                        // this.getHomeData(this.globalData.openId)
+                        resolve('成功')
+                    }
+                  })
+                }
+              },
+              fail: function (error) {
+                _this.checkSessionAndLogin()
+              }
+            })
+        }
+      })
+    }).catch(err=>{
+      console.log(err);
+    })
+  },
   globalData: {
     //用户的位置信息
     userAddrInfo:null,

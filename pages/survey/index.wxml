@@ -20,7 +20,7 @@
 								<text>预约类型</text>：
 								<text>{{item.type == 2 ? '预约取号' :'立即取号'}}</text>
 								</view>
-								<view class="tel marbot28">
+								<view class="tel marbot28"  bindtap="makePhone" data-phone="{{item.mobile}}" >
 									<text>电话号码</text>：
 									<text>{{item.mobile}}</text>
 								</view>
@@ -50,8 +50,69 @@
 				</view>
 			</view>
 		</van-tab>
-		<van-tab title="已完成"></van-tab>
-		<van-tab title="过号/取消">内容 3</van-tab>
+		<van-tab title="已完成">
+			<view class="tab-box">
+				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
+						<view class="order-contain">
+							<view class="info-box">
+								<view class="tel marbot28">
+								<text>预约类型</text>：
+								<text>{{item.type == 2 ? '预约取号' :'立即取号'}}</text>
+								</view>
+								<view class="tel marbot28"   bindtap="makePhone" data-phone="{{item.mobile}}">
+									<text>电话号码</text>：
+									<text>{{item.mobile}}</text>
+								</view>
+								<view class="gettime marbot28">
+									<text>下单时间</text>：
+									<text>{{item.create_time}}</text>
+								</view>
+								<view class="starttime marbot28">
+									<text>预约时间</text>：
+									<text>{{item.user_st}}</text>
+								</view>
+								<view class="gettime">
+									<text>预约项目</text>：
+									<text>{{item.service.name[0]}}</text>
+								</view>
+							</view>
+							<view>
+								<van-button type="default"  class="{{item.status == 179 ? 'gray-but' : 'warnning-but'}}" >{{item.status == 179 ? '已支付' : item.status == 175 ? '暂未支付' : ''}}</van-button>
+							</view>
+						</view>
+				</view>
+			</view>
+		</van-tab>
+		<van-tab title="过号/取消">
+			<view class="tab-box">
+				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
+						<view class="order-contain">
+							<view class="info-box">
+								<view class="tel marbot28">
+								<text>预约类型</text>：
+								<text>{{item.type == 2 ? '预约取号' :'立即取号'}}</text>
+								</view>
+								<view class="tel marbot28"   bindtap="makePhone" data-phone="{{item.mobile}}">
+									<text>电话号码</text>：
+									<text>{{item.mobile}}</text>
+								</view>
+								<view class="gettime marbot28">
+									<text>下单时间</text>：
+									<text>{{item.create_time}}</text>
+								</view>
+								<view class="starttime marbot28">
+									<text>预约时间</text>：
+									<text>{{item.user_st}}</text>
+								</view>
+								<view class="gettime">
+									<text>预约项目</text>：
+									<text>{{item.service.name[0]}}</text>
+								</view>
+							</view>
+						</view>
+				</view>
+			</view>
+		</van-tab>
 	</van-tabs>
 	<van-dialog id="van-dialog" className="van-dialog-id" confirm-button-color="#BA9245"/>
 

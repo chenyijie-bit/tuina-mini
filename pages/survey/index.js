@@ -25,6 +25,13 @@ Component({
     }
   },
   methods:{
+    // 打电话
+    makePhone(e){
+      let phoneNumber = e.currentTarget.dataset.phone
+      wx.makePhoneCall({
+        phoneNumber: phoneNumber 
+      })
+    },
     deletItem(){
       Dialog.confirm({
         title: '标题',
@@ -204,7 +211,6 @@ Component({
           })
         })
         .catch(() => {
-          // on cancel
           console.log('取消');
         });
       }else if(statusCode == 173){
@@ -214,27 +220,14 @@ Component({
         })
         return false
       }
-      // this.setData({
-      //   statusMsg : e.currentTarget.dataset.status
-      // })
-      // if(this.data.statusMsg == '正在按摩'){
-      //   this.setData({
-      //     modalShow:true
-      //   })
-      //   return false
-      // }
-      
     },
     onChangeTab(e){
       console.log(e);
       let index = e.detail.index //从0开始的
-      if(index === 0){
-        this.workerQueueList()
-      }else if(index === 1){
-
-      }else if(index === 2){
-        
-      }
+      this.setData({
+        tabIndex: index
+      })
+      this.workerQueueList()
     },
     onChangePay(e){
       this.setData({
@@ -251,17 +244,6 @@ Component({
         letPaymentShow: false
       })
     },
-    // 让顾客支付
-    // letPaymentShowbeforeClose = (action) => new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     if (action === 'confirm') {
-    //       resolve(true);
-    //     } else {
-    //       // 拦截取消操作
-    //       resolve(false);
-    //     }
-    //   }, 1000);
-    // }),
     letPaymentShowbeforeClose(){
       let _this = this
       if(!this.data.modalValue){
@@ -315,12 +297,10 @@ Component({
       // 下边的参数上线时要改成真实数据
       $api.workerQueueList({
         "openid": app.globalData.openId,
-        "tidy_worker_id":app.globalData.worker_id
-        // "openid": '',
-        // "tidy_worker_id":3
+        "tidy_worker_id":app.globalData.worker_id,
+        tap_type: this.data.tabIndex+1
       }).then(res=>{
         if(res.statusCode == 200 && res.data.code == 200){
-          //上线要改成真是数据
           let copyData = []
           let resData
           if(res.data.data){

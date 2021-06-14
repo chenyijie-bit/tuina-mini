@@ -14,7 +14,7 @@ Page({
       var hours = Math.floor((second % 86400) / 3600);
       var minutes = Math.floor(((second % 86400) % 3600) / 60);
       var seconds = Math.floor(((second % 86400) % 3600) % 60);
-      var duration = days>0 ? days + "天" + hours + "小时" + minutes + "分" : hours > 0 ? hours + "小时" + minutes + "分" : minutes + "分";
+      var duration = days>0 ? '约需等待' + days + "天" + hours + "小时" + minutes + "分钟" : hours > 0 ? '约需等待' + hours + "小时" + minutes + "分钟" : '约需等待' + minutes + "分钟";
       return duration;
   },
   onShow: function() {

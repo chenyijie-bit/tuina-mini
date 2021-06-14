@@ -37,6 +37,7 @@ Page({
     $api.getWorkerData({
       openid:app.globalData.openId,
       worker_id:app.globalData.worker_id,
+      shop_id:app.globalData.shop_id
     }).then(res=>{
       console.log(res)
       if(res.statusCode == 200){
@@ -424,6 +425,13 @@ Page({
   },
   //创建订单
   creatOrder(){
+    if(!this.data.currentTime){
+      wx.showToast({
+        title: '请选择开始时间',
+        icon: 'none'
+      })
+      return false
+    }
     this.setData({
       showPopup:false,
       yuyuekongjianIsShow:false

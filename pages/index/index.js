@@ -40,40 +40,44 @@ Component({
           selected: 0
         })
       }
+      app.checkSessionAndLogin().then(()=>{
+          _this.getHomeData(app.globalData.openId)
+        
+      })
        // 登录
-      wx.login({
-        success: res => {
-          app.globalData.code = res.code
-          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          // 调用接口获取openid
-          if(!app.globalData.openId){
-            _this.getOpenid(res.code)
-          }
-          if(app.globalData.openId){
-            this.getHomeData(app.globalData.openId)
-          }
-        }
-      })
-      wx.checkSession({
-        success () {
-          //session_key 未过期，并且在本生命周期一直有效
-          console.log(`12`);
-        },
-        fail () {
-          // session_key 已经失效，需要重新执行登录流程
-          // 登录
-       wx.login({
-        success:  res => {
-          app.globalData.code = res.code
-          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          // 调用接口获取openid
-            if(!app.globalData.openId){
-              _this.getOpenid(res.code)
-            }
-          }
-        })
-        }
-      })
+      // wx.login({
+      //   success: res => {
+      //     app.globalData.code = res.code
+      //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      //     // 调用接口获取openid
+      //     if(!app.globalData.openId){
+      //       _this.getOpenid(res.code)
+      //     }
+      //     if(app.globalData.openId){
+      //       this.getHomeData(app.globalData.openId)
+      //     }
+      //   }
+      // })
+      // wx.checkSession({
+      //   success () {
+      //     //session_key 未过期，并且在本生命周期一直有效
+      //     console.log(`12`);
+      //   },
+      //   fail () {
+      //     // session_key 已经失效，需要重新执行登录流程
+      //     // 登录
+      //  wx.login({
+      //   success:  res => {
+      //     app.globalData.code = res.code
+      //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      //     // 调用接口获取openid
+      //       if(!app.globalData.openId){
+      //         _this.getOpenid(res.code)
+      //       }
+      //     }
+      //   })
+      //   }
+      // })
     }
   },
   methods:{
@@ -281,6 +285,7 @@ Component({
       console.log(e);
       app.globalData.worker_id = e.currentTarget.dataset.id
       app.globalData.worker_name = e.currentTarget.dataset.name
+      app.globalData.shop_id = e.currentTarget.dataset.shopid
       wx.navigateTo({
         url: '../salesclerk/index',
       })

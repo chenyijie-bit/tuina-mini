@@ -151,3 +151,16 @@ color: #BA9245;
 .van-swipe-cell__left{
 	background: #BA9245;
 }
+.warnning-but button,.gray-but button{
+	height: 60rpx;
+	line-height: 60rpx;
+	border: none;
+}
+.gray-but button{
+	background: #ccc;
+  color: #fff;
+}
+.warnning-but button{
+	background: #BA9245;
+	color: #fff;
+}
