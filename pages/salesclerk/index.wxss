@@ -333,7 +333,7 @@ page{
 	width: 90%;
 	margin: 0 auto;
 	display: flex;
-	justify-content:space-around;
+	/* justify-content:space-around; */
 	flex-wrap: wrap;
 	/* height: 70rpx;
 	line-height: 70rpx; */
@@ -363,6 +363,7 @@ page{
 	left: 0;
 	height: 120rpx;
 	background: #fff;
+	padding-bottom: 30rpx;
 }
 .position-but .position-but-ok button{
 	height: 88rpx;
@@ -374,11 +375,12 @@ page{
 .yuyuekongjian-button{
 	width: 30%;
 	height: 70rpx;
+	margin-right: 4.5%;
 	line-height: 70rpx;
 	margin-top: 30rpx;
-	/* margin-left: 30rpx; */
-	/* flex: 1; */
-	
+}
+.yuyuekongjian-button:nth-child(3n){
+	margin-right: 0 !important;
 }
 .yuyuekongjian-button .van-button--normal{
 	height: 70rpx;
