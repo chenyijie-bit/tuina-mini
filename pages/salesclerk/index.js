@@ -79,7 +79,7 @@ Page({
   },
   createTimeSelectModel(){
     let timeSelectModel = [
-      {time:'08:00',select:false,disabled:false,datestr:''},{time:'08:30',select:false,disabled:false,datestr:''},{time:'09:00',select:false,disabled:false,datestr:''},{time:'09:30',select:false,disabled:false,datestr:''},{time:'10:00',select:false,disabled:false,datestr:''},{time:'10:30',select:false,disabled:false,datestr:''},{time:'11:00',select:false,disabled:false,datestr:''},{time:'11:30',select:false,disabled:false,datestr:''},{time:'12:00',select:false,disabled:false,datestr:''},{time:'12:30',select:false,disabled:false,datestr:''},{time:'13:00',select:false,disabled:false,datestr:''},{time:'13:30',select:false,disabled:false,datestr:''},{time:'14:00',select:false,disabled:false,datestr:''},{time:'14:30',select:false,disabled:false,datestr:''},{time:'15:00',select:false,disabled:false,datestr:''},{time:'15:30',select:false,disabled:false,datestr:''},{time:'16:00',select:false,disabled:false,datestr:''},{time:'16:30',select:false,disabled:false,datestr:''},{time:'17:00',select:false,disabled:false,datestr:''},{time:'17:30',select:false,disabled:false,datestr:''},{time:'18:00',select:false,disabled:false,datestr:''},{time:'18:30',select:false,disabled:false,datestr:''},{time:'19:00',select:false,disabled:false,datestr:''},{time:'19:30',select:false,disabled:false,datestr:''},{time:'20:00',select:false,disabled:false,datestr:''},{time:'20:30',select:false,disabled:false,datestr:''},{time:'21:00',select:false,disabled:false,datestr:''},{time:'21:30',select:false,disabled:false,datestr:''},{time:'22:00',select:false,disabled:false,datestr:''},{time:'22:30',select:false,disabled:false,datestr:''}
+      {time:'07:30',select:false,disabled:false,datestr:''},{time:'08:00',select:false,disabled:false,datestr:''},{time:'08:30',select:false,disabled:false,datestr:''},{time:'09:00',select:false,disabled:false,datestr:''},{time:'09:30',select:false,disabled:false,datestr:''},{time:'10:00',select:false,disabled:false,datestr:''},{time:'10:30',select:false,disabled:false,datestr:''},{time:'11:00',select:false,disabled:false,datestr:''},{time:'11:30',select:false,disabled:false,datestr:''},{time:'12:00',select:false,disabled:false,datestr:''},{time:'12:30',select:false,disabled:false,datestr:''},{time:'13:00',select:false,disabled:false,datestr:''},{time:'13:30',select:false,disabled:false,datestr:''},{time:'14:00',select:false,disabled:false,datestr:''},{time:'14:30',select:false,disabled:false,datestr:''},{time:'15:00',select:false,disabled:false,datestr:''},{time:'15:30',select:false,disabled:false,datestr:''},{time:'16:00',select:false,disabled:false,datestr:''},{time:'16:30',select:false,disabled:false,datestr:''},{time:'17:00',select:false,disabled:false,datestr:''},{time:'17:30',select:false,disabled:false,datestr:''},{time:'18:00',select:false,disabled:false,datestr:''},{time:'18:30',select:false,disabled:false,datestr:''},{time:'19:00',select:false,disabled:false,datestr:''},{time:'19:30',select:false,disabled:false,datestr:''},{time:'20:00',select:false,disabled:false,datestr:''},{time:'20:30',select:false,disabled:false,datestr:''},{time:'21:00',select:false,disabled:false,datestr:''},{time:'21:30',select:false,disabled:false,datestr:''},{time:'22:00',select:false,disabled:false,datestr:''},{time:'22:30',select:false,disabled:false,datestr:''},{time:'23:00',select:false,disabled:false,datestr:''}
     ]
     return timeSelectModel
   },
@@ -121,6 +121,7 @@ Page({
   /////需要加个判断就是首页拿到手机号的时候就不用在授权了
   // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
+    console.log(111111111111);
     console.log(e);
     if(e.detail.errMsg && e.detail.errMsg.indexOf('fail')>0){
       // 说明拒绝授权手机号
@@ -179,7 +180,8 @@ Page({
               // this.changeTabGetTime()
               let timeSelectModel = this.createTimeSelectModel()
               timeSelectModel.map((e,i)=>{
-                let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
+                let pinjieTime = `${this.data.longDateList[this.data.currentTab]} ${e.time}`
+                let currentTimeStr = new Date(pinjieTime.replace(/-/g, '/')).getTime()
                 timeSelectModel[i].datestr = currentTimeStr
                 let currentTimeStrCus = new Date().getTime()
                 /// 现在的时间大于预约时间段的时间的话
@@ -251,13 +253,15 @@ Page({
           this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
           let timeSelectModel = this.createTimeSelectModel()
           timeSelectModel.map((e,i)=>{
-            let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
+            let pinjieTime = `${this.data.longDateList[this.data.currentTab]} ${e.time}`
+            let currentTimeStr = new Date(pinjieTime.replace(/-/g, '/')).getTime()
             let currentTimeStrCus = new Date().getTime()
             timeSelectModel[i].datestr = currentTimeStr
             if(currentTimeStrCus>currentTimeStr){
               timeSelectModel[i].disabled = true
             }
           })
+          console.log(timeSelectModel);
           let resData = []
           resData[this.data.currentTab] = timeSelectModel
           this.setData({
@@ -265,42 +269,7 @@ Page({
           })
           if(this.data.quedateList[this.data.currentTab] && this.data.quedateList[this.data.currentTab].length){
             this.changeTabGetTime()
-            // 说明这一天有被预约的情况
-            // let yuyueList = this.data.quedateList[this.data.currentTab]
-            // console.log(yuyueList);
-            // let indexTabDateCur = {}
-            // for (let index = 0; index < yuyueList.length; index++) {
-            //   const element = yuyueList[index];
-            //   for (let j = 0; j < this.data.timeSelectModel.length; j++) {
-            //     const item = this.data.timeSelectModel[j];
-            //     if(Number(element.st)*1000<= item.datestr  && Number(element.et*1000) >= item.datestr){
-            //       // 则对应的日期索引上的时间段都不能被选中了
-            //       if(!indexTabDateCur[this.data.currentTab]){
-            //         indexTabDateCur[this.data.currentTab] = []
-            //         indexTabDateCur[this.data.currentTab].push(j)
-            //       }else{
-            //         indexTabDateCur[this.data.currentTab].push(j)
-            //       }
-                 
-            //     }
-            //   }
-            // }
-            // console.log(indexTabDateCur);
-            //   this.setData({
-            //     indexTabDateCur:indexTabDateCur
-            //   })
-            //   indexTabDateCur[this.data.currentTab].map((e,i)=>{
-            //     console.log(e);
-            //     this.setData({
-            //       ['timeSelectModel['+Number(e)+'].disabled']:  true
-            //     })
-            //   })
-              
           }
-
-
-
-
         }
       })
     }
@@ -311,7 +280,8 @@ Page({
     if(!this.data.timeSelectModelBox[this.data.currentTab] || !this.data.timeSelectModelBox[this.data.currentTab].length){
       let data = this.createTimeSelectModel()
       data.map((e,i)=>{
-        let currentTimeStr = new Date(`${this.data.longDateList[this.data.currentTab]} ${e.time}`).getTime()
+        let pinjieTime = `${this.data.longDateList[this.data.currentTab]} ${e.time}`
+        let currentTimeStr = new Date(pinjieTime.replace(/-/g, '/')).getTime()
         data[i].datestr = currentTimeStr
         let currentTimeStrCus = new Date().getTime()
         if(currentTimeStrCus>=currentTimeStr){

@@ -86,23 +86,23 @@ App({
           wx.login({
             success:  res => {
               console.log(4353);
-              this.globalData.code = res.code
+              _this.globalData.code = res.code
               // 发送 res.code 到后台换取 openId, sessionKey, unionId
               // 调用接口获取openid
-                if(!this.globalData.openId){
+                if(!_this.globalData.openId){
                  return  $api.getOpenid({code:res.code}).then(res => {
                     console.log(res.data.data);
                     //请求成功
                     if(res.data  && res.data.data 
                       && res.data.data.openid){
-                        this.globalData.openId = res.data.data.openid
-                        // this.globalData.openid = res.data.data.openid || ''
-                        this.globalData.mobile = res.data.data.mobile
-                        this.globalData.head_url = res.data.data.head_url
-                        this.globalData.nickname = res.data.data.nickname
-                        this.globalData.worker_id = res.data.data.worker_id
+                        _this.globalData.openId = res.data.data.openid
+                        // _this.globalData.openid = res.data.data.openid || ''
+                        _this.globalData.mobile = res.data.data.mobile
+                        _this.globalData.head_url = res.data.data.head_url
+                        _this.globalData.nickname = res.data.data.nickname
+                        _this.globalData.worker_id = res.data.data.worker_id
                         wx.setStorageSync('statu', res.data.data.is_worker)
-                        // this.getHomeData(this.globalData.openId)
+                        // _this.getHomeData(this.globalData.openId)
                         resolve('成功')
                     }
                   })
