@@ -389,13 +389,16 @@ Page({
     })
   },
   //创建订单
-  creatOrder(){
-    if(!this.data.currentTime){
-      wx.showToast({
-        title: '请选择开始时间',
-        icon: 'none'
-      })
-      return false
+  creatOrder(e){
+    let type = e.currentTarget.dataset.type
+    if(type == 2){
+      if(!this.data.currentTime){
+        wx.showToast({
+          title: '请选择开始时间',
+          icon: 'none'
+        })
+        return false
+      }
     }
     this.setData({
       showPopup:false,

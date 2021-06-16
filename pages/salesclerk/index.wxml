@@ -74,7 +74,7 @@
 	>
 		<!-- <view class="pop-dangqianpaidui">当前排队人数：1</view> -->
 		<view class="pop-container">
-					<van-button class="ripple-but" bindtap="creatOrder">
+					<van-button class="ripple-but" data-type="1" bindtap="creatOrder">
 						<view>立即</view>
 						<view>取号</view>
 					</van-button>
@@ -112,7 +112,7 @@
 		</swiper>
 		
 		<view class="position-but">
-			<van-button class="position-but-ok" bindtap="creatOrder">确认选择</van-button>
+			<van-button class="position-but-ok" data-type="2" bindtap="creatOrder">确认选择</van-button>
 		</view>	
 	</van-popup>
 </view>
