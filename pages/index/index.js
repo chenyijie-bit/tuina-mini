@@ -41,9 +41,16 @@ Component({
         })
       }
       app.checkSessionAndLogin().then(()=>{
-          _this.getHomeData(app.globalData.openId)
-        
+        _this.getHomeData(app.globalData.openId)
       })
+      // if(app.globalData.openId){
+      //   _this.getHomeData(app.globalData.openId)
+      // }else{
+      //   app.checkSessionAndLogin().then(()=>{
+      //     _this.getHomeData(app.globalData.openId)
+      //   })
+      // }
+      
        // 登录
       // wx.login({
       //   success: res => {
