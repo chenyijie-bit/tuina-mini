@@ -1,6 +1,7 @@
 let app = getApp();
 const $api = require('../../utils/request').API;
 const formatDate = require('../../utils/util')
+const $Distance = require('../../utils/util').Distance;
 Page({
   data: {
     head_url:'../../assess/images/123.jpeg',
@@ -44,6 +45,11 @@ Page({
         let data = res.data.data
         let resData = Object.assign({},data)
         app.globalData.shop_id = resData.shop.id
+        if(resData.shop && resData.shop.location){
+          resData.distance = $Distance(resData.shop.location.latitude,resData.shop.location.longitude,app.globalData.userAddressInfo.Lat,app.globalData.userAddressInfo.Long)
+          resData.longitude = resData.shop.location.longitude
+          resData.latitude = resData.shop.location.latitude
+        } 
         let deftypeRadio = ''
         let deftypeTimeStr  = ''
         if(resData.skill && resData.skill .length && resData.skill[0].id){
@@ -88,6 +94,41 @@ Page({
     ]
     return timeSelectModel
   },
+  goto: function (e) {
+    var page = this;
+    wx.getSetting({
+        success: function (res) {
+            if (!res.authSetting['scope.userLocation']) {
+                app.getauth({
+                    content: '需要获取您的地理位置授权，请到小程序设置中打开授权！',
+                    cancel: false,
+                    success: function (res) {
+                        if (res.authSetting['scope.userLocation']) {
+                            page.location(e);
+                        }
+                    }
+                });
+            } else {
+                page.location(e);
+            }
+        }
+    })
+  },
+
+  location: function (e) {
+      let page = this;
+      let latitude = e.currentTarget.dataset.latitude;
+      let longitude = e.currentTarget.dataset.longitude;
+      let name = e.currentTarget.dataset.name;
+      let address = e.currentTarget.dataset.address;
+      wx.openLocation({
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+          name: name,
+          address: address,
+      })
+  },
+
   onChange(event) {
     console.log(event);
     this.setData({

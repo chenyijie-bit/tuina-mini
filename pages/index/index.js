@@ -88,6 +88,11 @@ Component({
     }
   },
   methods:{
+    bindtap(){
+      wx.navigateTo({
+        url: '../searchStop/index',
+      })
+    },
     //获取openID
     getOpenid(code){
       $api.getOpenid({code})
@@ -219,6 +224,8 @@ Component({
             'userAddressInfo.Long':longitude,
             'userAddressInfo.Lat':latitude
           })
+          app.globalData.userAddressInfo.Long = longitude
+          app.globalData.userAddressInfo.Lat = latitude
           let shops = _this.data.storeList
           for (let index = 0; index < shops.length; index++) {
             const element = shops[index];

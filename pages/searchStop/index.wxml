@@ -1,20 +1,4 @@
-<!--index.wxml-->
-<!--  -->
-<view class="container">
-  <view class="swipe-box">
-    <swiper class="swipe-box-swipe" indicator-dots="{{indicatorDots}}"
-        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{images}}" wx:key="index">
-        <swiper-item>
-          <view class="swiper-item">
-            <image mode="widthFix" src="{{item}}"></image>
-          </view>
-        </swiper-item>
-      </block>
-    </swiper>
-  </view>
-  <!-- 搜索栏 -->
-  <view class="middel-box">
+<view class="middel-box">
     <view class="search-box">
       <view class="add-text-icon">
         <text class="address-city">深圳</text>
@@ -26,19 +10,18 @@
         background="transparent"
         placeholder="请输入门店名称"
         style="flex:1;"
-        bindtap="bindtap"
+        bindchange="bindchange"
       />
-      <view class="map-icon">
+      <!-- <view class="map-icon">
         <image mode="aspectFit" bindtap="changeStatu" src="{{positionIcon}}"></image>
-        <!-- <van-icon bindtap="changeStatu" class="map-icon-cont" name="shop-collect" color="#999" size="60rpx;"/> -->
-      </view>
+      </view> -->
     </view>
     <!-- 推荐人及店铺list -->
     <view  wx:if="{{loadingModelShow}}" style="text-align: center;">
       <van-loading size="24px" vertical>加载中...</van-loading>
     </view>
     <block wx:else>
-      <view class="recommend-person"  wx:for="{{workerList}}" wx:key="index">
+      <!-- <view class="recommend-person"  wx:for="{{workerList}}" wx:key="index">
         <view class="per-img">
           <image mode="aspectFit" src="{{item.head_url || personImg}}"></image>
           <view class="per-info">
@@ -59,8 +42,8 @@
             data-id="{{item.id}}" data-name="{{item.name}}" data-shopid="{{item.shop_id}}">点TA</van-button>
           </block>
         </view>
-      </view>
-      <view class="store-list-box">
+      </view> -->
+      <view class="store-list-box" wx:if="{{storeList.length}}">
         <block wx:for="{{storeList}}" wx:key="index">
           <view class="recommend-stores">
             <view class="recommend-stores-botborder">
@@ -75,10 +58,10 @@
                   <!-- <view>一人正在排队</view>
                   <view>老用户优惠</view> -->
                 </view>
-                <view class="store-prace">
+                <!-- <view class="store-prace">
                   <text>￥{{item.min_price}}</text>
                   <text>￥128</text>
-                </view>
+                </view> -->
                 <view class="store-address">
                   <van-icon name="location" size="10"/>
                   <text>{{item.address}}</text>
@@ -98,9 +81,11 @@
           </view>
         </block>
       </view>
+      <view wx:if="{{!storeList.length && showNone}}">
+        <view style="padding-top:50rpx;text-align:center;">暂无搜索内容</view>
+      </view>
     </block>
     
     
     
   </view>
-</view>

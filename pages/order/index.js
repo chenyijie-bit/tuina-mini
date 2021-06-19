@@ -25,6 +25,8 @@ Component({
         setTimeout(()=>{
           this.getOrder()
         },500)
+      }else{
+        this.getOrder()
       }
     }
   },
