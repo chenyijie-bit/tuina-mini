@@ -67,6 +67,8 @@ const API = {
     workerQueueList: (data) => request(POST, `/worker/queue/list`,data),
     // 修改队列
     workerQueueSet:(data)=> request(POST, `/worker/queue/set`,data),
+    // 搜索门店]
+    homeSearch:(data)=> request(POST, `/home/search`,data),
 };
 module.exports = {
     API: API

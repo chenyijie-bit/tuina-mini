@@ -134,6 +134,11 @@ App({
     user_openId:'',
     worker_id:'',
     worker_name:'',
+    // 用户的地址
+    userAddressInfo:{
+      Long:0,
+      Lat:0
+    },
     allList: [{
       //用户角色tab栏
       list1: [{

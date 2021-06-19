@@ -28,9 +28,9 @@
 		<view class="location">
 			<image mode="aspectFit" src="../../assess/images/position-icon.png"></image>
 		</view>
-		<view class="location-text">
+		<view class="location-text" catchtap="goto" data-latitude="{{shopInfo.latitude}}" data-longitude="{{shopInfo.longitude}}" data-name="{{shopInfo.shop.name}}" data-name="{{shopInfo.shop.address}}">
 			<view>{{shopInfo.shop.address}}</view>
-			<!-- <view>距您1220米</view> -->
+			<view>距您{{shopInfo.distance}}公里</view>
 		</view>
 	</view>
 	<!-- 服务项目 -->

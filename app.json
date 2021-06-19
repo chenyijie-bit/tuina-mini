@@ -7,7 +7,8 @@
     "pages/survey/index",
     "pages/salesclerk/index",
     "pages/storeInfo/index",
-    "pages/drag/index"
+    "pages/drag/index",
+    "pages/searchStop/index"
   ],
   "permission": {
     "scope.userLocation": {
