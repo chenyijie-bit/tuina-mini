@@ -42,7 +42,7 @@
               </view>
               <view>></view>
             </view>
-            <view class="order-item-addr order-list-coupons"  data-price="{{item.order.price}}" wx:if="{{couponsList.length && item.status==175 && item.couponId}}" bindtap="getCouponts">
+            <view class="order-item-addr order-list-coupons"  data-listid="{{item.list_id}}"  data-price="{{item.order.price}}" wx:if="{{couponsList.length && item.status==175 && item.couponId}}" bindtap="getCouponts">
               <view style="display: flex;"> 
                 <view>已选店铺优惠</view>
                 <view class="coupont-name" style="margin-left:40rpx;" >{{item.couponObj.name}}</view>
@@ -137,7 +137,7 @@
           <view class="order-item-title">
             {{item.status_str}}
           </view>
-          <view class="order-item-info">
+          <!-- <view class="order-item-info">
             <view class="num">
               <view class="top">{{item.sort_no}}</view>
               <view class="bot">排队号码</view>
@@ -150,7 +150,7 @@
               <view class="top">{{item.wait_time}}</view>
               <view class="bot">预计等待/分钟</view>
             </view>
-          </view>
+          </view> -->
           <view class="order-item-addr">
             <view>{{item.shop.name}}</view>
             <!-- <view>距您1222米</view> -->

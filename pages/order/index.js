@@ -70,7 +70,7 @@ Component({
       console.log(e);
       let shouldPay = parseFloat(e.currentTarget.dataset.price)
       let listid = e.currentTarget.dataset.listid
-      
+      console.log(listid);
       this.setData({
         showCouponList: true,
         currentListId : listid
@@ -102,22 +102,27 @@ Component({
     },
     onChangeCouponsId(e){
       console.log(e);
+      let _this = this
       let changedId = e.detail
       for (let index = 0; index < this.data.couponsList.length; index++) {
         const element = this.data.couponsList[index];
         if(element.coupon_id == changedId){
-          
           this.setData({
             typeRadio: changedId,
             couponsDefault:element
           })
+          setTimeout(() => {
+            this.setData({
+              typeRadio: '',
+            })
+          }, 500);
         }
       }
       let datalist = this.data.orderList
       datalist.map(e=>{
-        if(e.list_id == this.data.currentListId){
+        if(e.list_id == _this.data.currentListId){
           e.couponId = changedId
-          e.couponObj = this.data.couponsDefault
+          e.couponObj = _this.data.couponsDefault
         }
       })
       this.setData({
@@ -308,7 +313,7 @@ Component({
         let obj = e.currentTarget.dataset.obj
         let reqObj = {}
         if(obj){
-          if(obj.type == 3 && obj.user_coupon_id){
+          if(obj.user_coupon_id){
             reqObj.user_coupon_id = obj.user_coupon_id
           }else{
             reqObj.coupon_id = obj.coupon_id
@@ -366,7 +371,7 @@ Component({
           }else{
             wx.showToast({
               title: res.data.err||'调起支付出错，请重试',
-              icon:'error'
+              icon:'none'
             })
           }
         })

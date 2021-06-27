@@ -183,3 +183,10 @@ color: #BA9245;
 	width: 100%;
 	height: 100%;
 }
+.custom-image .van-empty{
+	padding-top: 150rpx;
+}
+.custom-image  .van-empty__image{
+	width: 120rpx;
+	height: 120rpx;
+}

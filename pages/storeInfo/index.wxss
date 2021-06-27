@@ -126,3 +126,6 @@ page{
   height: 100rpx !important;
   width: 100rpx !important;
 }
+.store-sales{
+  padding-bottom: 120rpx;
+}
