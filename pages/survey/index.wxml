@@ -155,45 +155,6 @@
 			</view>
 		</view>
 	</view>
-	
-
-
-	<!-- <van-dialog
-	confirm-button-color="#BA9245"
-  use-slot
-	className="van-dialog-id-sec"
-  title="让顾客付款"
-  show="{{ letPaymentShow2 }}"
-  show-cancel-button
-  bind:close="onClose"
-  bind:confirm="letPaymentShowbeforeClose"
->
-<van-cell-group>
-  <van-field
-    value="{{modalValue}}"
-		label="用户消费金额:"
-		bindchange="onChangePay"
-    placeholder="请输入顾客需要支付的费用"
-    border="{{false}}"
-  />
-</van-cell-group>
-<van-cell-group>
-  <van-field
-    value="{{modelDesc}}"
-    label="备注(非必填):"
-    type="textarea"
-    autosize
-    border="{{false}}"
-  />
-</van-cell-group>
-</van-dialog> -->
-	<!-- <view class="show-qrcode-model" wx:if="{{showQrCodeBox}}">
-		<view class="qrcode-box">
-			<view>让顾客扫码支付</view>
-			<image mode="aspectFit" src="{{qrCodeUrl}}"></image>
-			<van-button bindtap="paymentYet">确认已支付</van-button>
-		</view>
-	</view> -->
 	<van-dialog
 		use-slot
 		title="扫码支付"
