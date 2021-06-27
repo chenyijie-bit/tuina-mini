@@ -5,6 +5,8 @@ const QR = require('../../utils/weapp-qrcode.js')
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Component({
   data: {
+    todayDataList:[], //今天的订单数据
+    todayData:'', //今天的日期
     qrCodeUrl: '',
     showQrCodeBox: false,
     active: '1',
@@ -88,6 +90,7 @@ Component({
     // 移至首位
     moveToFirst(index){
       console.log(index);
+      let newIndex=''
       if(index === 0){
         wx.showToast({
           title: '已经是第一位',
@@ -97,6 +100,22 @@ Component({
       // 根据index来移动
       let listData = this.data.optionsListData
       let currentItem = this.data.optionsListData[index]
+      if(currentItem.user_st.split(' ')[0] !== this.data.todayData){
+        // setTimeout(() => {
+          wx.showToast({
+            title: '只能移动今日数据',
+            icon:'none'
+          })
+        // }, 800);
+        return false
+      }
+      let todayDataList = this.data.todayDataList
+      todayDataList.map((e,i)=>{
+        if(currentItem.id == e.id){
+          newIndex = i
+          currentItem = e
+        }
+      })
       let needTimeStr = currentItem.et - currentItem.st  //秒
       // 获取现在的时间 再加上 此项目所需时间
       let nowTimeStr = new Date().getTime()
@@ -106,9 +125,9 @@ Component({
       currentItem.st = parseInt(st)
       currentItem.et = parseInt((st + needTimeStr))
       console.log(currentItem);
-      for (let i = 0; i < listData.length; i++) {
-        const element = listData[i];
-        if(i<index){
+      for (let i = 0; i < todayDataList.length; i++) {
+        const element = todayDataList[i];
+        if(i<newIndex){
           if(element.st-0 < currentItem.et){
             // 说明有重合
             // coincidenceTime//重合时间
@@ -119,18 +138,20 @@ Component({
           }
         }
       }
-      listData.unshift(listData[index])
-      listData.splice(index+1,1)
-      listData.map((e,i)=>{
-        e.sort = i+1
+      todayDataList.unshift(todayDataList[newIndex])
+      todayDataList.splice(newIndex+1,1)
+      todayDataList.map((e,i)=>{
+        if(e.type!==0){
+          e.sort = i+1
+        }
       })
-      this.setData({
-        optionsListData:listData
-      })
+      // this.setData({
+      //   optionsListData:todayDataList
+      // })
       console.log(this.data.optionsListData);
-      let arr22 = this.data.nouserArr
+      // let arr22 = this.data.nouserArr
       $api.workerQueueSet({
-        list:[...this.data.optionsListData,...arr22],
+        list:[...todayDataList],
         "openid": app.globalData.openId,
         "tidy_worker_id": app.globalData.worker_id,
       }).then(res=>{
@@ -312,6 +333,12 @@ Component({
             let nouserArrObj = {}
             let nouserArr = []
             data.map((e,i)=>{
+              if(e.is_today && e.is_today==1){
+                this.setData({
+                  todayData: e.date,
+                  todayDataList: e.list
+                })
+              }
               if(e.list && e.list.length){
                 e.list.map(s=>{
                   if(i==0){
@@ -321,7 +348,9 @@ Component({
                   if(s.type!==0){
                     arr.push(s)
                   }else{
-                    nouserArr.push(s)
+                    if(i==0){
+                      nouserArr.push(s)
+                    }
                     nouserArrObj[e.date]  = nouserArr
                   }
                 })

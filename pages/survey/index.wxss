@@ -51,7 +51,7 @@ page{
 	}
 .order-contain{
 	background: #fff;
-	padding: 45rpx;
+	padding: 45rpx 28rpx;
 	box-shadow: 0px 4px 20px 0px rgba(192, 194, 200, 0.35);
 	border-radius: 24rpx;
 	display: flex;
