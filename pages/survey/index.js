@@ -89,6 +89,7 @@ Component({
     },
     // 移至首位
     moveToFirst(index){
+      let _this = this
       console.log(index);
       let newIndex=''
       if(index === 0){
@@ -124,26 +125,35 @@ Component({
       let st = parseInt(nowTimeStr/1000)+noUserTimeStr
       currentItem.st = parseInt(st)
       currentItem.et = parseInt((st + needTimeStr))
+      let newObjCopycurrentItem = JSON.parse(JSON.stringify(currentItem))
       console.log(currentItem);
       for (let i = 0; i < todayDataList.length; i++) {
         const element = todayDataList[i];
-        if(i<newIndex){
-          if(element.st-0 < currentItem.et){
+        if(element.type!==0 && i!= newIndex){
+          console.log(i);
+          if(element.st-0 < newObjCopycurrentItem.et){
             // 说明有重合
             // coincidenceTime//重合时间
-            let coincidenceTime = currentItem.et - (element.st-0)
+            let coincidenceTime = newObjCopycurrentItem.et - (element.st-0)
             element.st = element.st - 0 + coincidenceTime + 20
             element.et = element.et - 0 + coincidenceTime + 30
-            currentItem = element
+            newObjCopycurrentItem = element
           }
         }
       }
       todayDataList.unshift(todayDataList[newIndex])
       todayDataList.splice(newIndex+1,1)
+      let nouserArr = []
+      let newDataList = []
       todayDataList.map((e,i)=>{
-        if(e.type!==0){
-          e.sort = i+1
+        if(e.type==0){
+          nouserArr.push(e)
+        }else{
+          newDataList.push(e)
         }
+      })
+      newDataList.map((e,i)=>{
+        e.sort = i+1
       })
       // this.setData({
       //   optionsListData:todayDataList
@@ -151,7 +161,7 @@ Component({
       console.log(this.data.optionsListData);
       // let arr22 = this.data.nouserArr
       $api.workerQueueSet({
-        list:[...todayDataList],
+        list:[...newDataList,...nouserArr],
         "openid": app.globalData.openId,
         "tidy_worker_id": app.globalData.worker_id,
       }).then(res=>{
@@ -160,8 +170,6 @@ Component({
             title: '已调整排队信息',
             icon:'none'
           })
-            // 这里需要再重新请求列表
-          _this.workerQueueList()
         }else{
           wx.showToast({
             title: res.data.err,

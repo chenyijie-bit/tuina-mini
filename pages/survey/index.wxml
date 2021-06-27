@@ -1,7 +1,13 @@
 <view class="page-content">
 	<van-tabs active="{{ active }}" bind:change="onChangeTab">
-		<van-tab title="待服务" name="1">
-			<view class="tab-box">
+		<van-tab  title="待服务" name="1">
+			<van-empty
+			wx:if="{{!optionsListData.length}}"
+			class="custom-image"
+			image="https://img01.yzcdn.cn/vant/custom-empty-image.png"
+			description="暂无数据"
+		/>
+			<view wx:else class="tab-box">
 				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
 					<van-swipe-cell
 						id="swipe-cell"
@@ -51,7 +57,13 @@
 			</view>
 		</van-tab>
 		<van-tab title="已完成"  name="2">
-			<view class="tab-box">
+			<van-empty
+				wx:if="{{!optionsListData.length}}"
+				class="custom-image"
+				image="https://img01.yzcdn.cn/vant/custom-empty-image.png"
+				description="暂无数据"
+			/>
+			<view wx:else class="tab-box">
 				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
 						<view class="order-contain">
 							<view class="info-box">
@@ -84,7 +96,13 @@
 			</view>
 		</van-tab>
 		<van-tab title="过号/取消"  name="3">
-			<view class="tab-box">
+			<van-empty
+				wx:if="{{!optionsListData.length}}"
+				class="custom-image"
+				image="https://img01.yzcdn.cn/vant/custom-empty-image.png"
+				description="暂无数据"
+			/>
+			<view class="tab-box" wx:else>
 				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
 						<view class="order-contain">
 							<view class="info-box">

@@ -59,6 +59,7 @@ page{
   margin-bottom: 25rpx;
 }
 .order-item-info{
+  margin-top: 26rpx;
   display: flex;
   justify-content: space-between;
   padding: 0 80rpx 25rpx;
