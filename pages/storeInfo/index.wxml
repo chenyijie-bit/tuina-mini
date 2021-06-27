@@ -14,7 +14,7 @@
 					<!-- 推荐人及店铺list -->
 					<view class="recommend-person" wx:for="{{workList}}" wx:key="index">
 						<view class="per-img">
-							<image mode="aspectFit" src="{{personImg}}"></image>
+							<image mode="aspectFill" src="{{item.head_url || personImg}}"></image>
 							<view class="per-info">
 								<text class="per-name">{{item.name}}</text>
 								<view class="price">

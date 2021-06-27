@@ -40,7 +40,7 @@
     <block wx:else>
       <view class="recommend-person"  wx:for="{{workerList}}" wx:key="index">
         <view class="per-img">
-          <image mode="aspectFit" src="{{item.head_url || personImg}}"></image>
+          <image mode="aspectFill" src="{{item.head_url || personImg}}"></image>
           <view class="per-info">
             <text class="per-name">{{item.name}}</text>
             <view class="price">

@@ -1,6 +1,6 @@
 Component({
   data: {
-    show: true,
+    show: false,
     minDate: new Date(2020, 5, 1).getTime(),
     maxDate: new Date().getTime(),
   },

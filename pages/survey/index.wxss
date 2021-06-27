@@ -28,7 +28,7 @@ page{
 		padding: 130rpx 20rpx;
 	}
 	.tab-items{
-		touch-action: none;
+		/* touch-action: none; */
 		margin-bottom: 40rpx;
 	}
 	.demo-swipe-cell {
@@ -163,4 +163,36 @@ color: #BA9245;
 .warnning-but button{
 	background: #BA9245;
 	color: #fff;
+}
+.fixed-top-tab{
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 9999;
+	height: 88rpx;
+	display: flex;
+	justify-content: space-between;
+}
+.top-tab-item{
+	width: 33.3%;
+	height: 88rpx;
+	line-height: 88rpx;
+	text-align: center;
+}
+.top-tab-item text{
+	display: inline-block;
+	width: 150rpx;
+	height: 100%;
+	font-size: 30rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #282828;
+	opacity: 0.8;
+	box-sizing: border-box;
+	text-align: center;
+	border-bottom: 6rpx solid #BA9245;
+	/* font-weight: bold;
+    color: #BA9245; */
 }

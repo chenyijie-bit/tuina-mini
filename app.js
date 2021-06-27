@@ -134,6 +134,8 @@ App({
     user_openId:'',
     worker_id:'',
     worker_name:'',
+    // 所有优惠券
+    couponsList:[],
     // 用户的地址
     userAddressInfo:{
       Long:0,

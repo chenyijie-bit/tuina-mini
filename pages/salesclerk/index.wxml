@@ -3,7 +3,7 @@
 	<view class="sale-top-box">
 		<view class="sale-box-bottom-border">
 			<view class="sale-img">
-				<image src="{{shopInfo.worker.head_url || head_url}}"></image>
+				<image src="{{shopInfo.worker.head_url || head_url}}" mode="aspectFill"></image>
 			</view>
 			<view class="sale-info">
 				<view class="name">{{shopInfo.worker.name}}</view>
