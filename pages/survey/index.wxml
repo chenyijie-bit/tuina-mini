@@ -1,19 +1,19 @@
 <view class="page-content">
-	<view class="fixed-top-tab">
-		<view class="top-tab-item" bindtap="onChangeTab">
-			<text>待服务</text>
-		</view>
-		<view class="top-tab-item" bindtap="onChangeTab">
-			<text>已完成</text>
-		</view>
-		<view class="top-tab-item" bindtap="onChangeTab">
-			<text>过号/取消</text>
-		</view>
-	</view>
-	<!-- <van-tabs active="{{ active }}" bind:change="onChangeTab"> -->
-		<!-- <van-tab title="待服务" name="1"> -->
+	<van-tabs active="{{ active }}" bind:change="onChangeTab">
+		<van-tab title="待服务" name="1">
 			<view class="tab-box">
 				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
+					<van-swipe-cell
+						id="swipe-cell"
+						right-width="{{ 65 }}"
+						left-width="{{ 65 }}"
+						async-close
+						data-id="{{item.id}}"
+						data-index="{{index}}"
+						data-mobile="{{item.mobile}}"
+						bind:close="onCloseItem"
+					>
+						<view slot="left" style="width:40rpx;">移至首位</view>
 						<view class="order-contain">
 							<view class="info-box">
 								<view class="tel marbot28">
@@ -41,13 +41,17 @@
 								<!-- <van-button type="default">叫号</van-button> -->
 								<van-button type="default" bindtap="startServe" data-mobile="{{item.mobile}}" data-status="{{item.status}}" data-id="{{item.id}}" class="{{item.status == 170 && index == 0 ? 'default-but' : 'nouser-but'}}">开始服务</van-button>
 								<van-button type="default" bindtap="startServe" data-mobile="{{item.mobile}}" data-status="{{item.status}}"  data-id="{{item.id}}" class="{{item.status == 173 && index == 0 ? 'default-but' : 'nouser-but'}}"> 让顾客付款 </van-button>
+								<van-button type="default" bindtap="shouQrCode"  class="qr-button" data-list_id="{{item.id}}">二维码支付</van-button>
 							</view>
 						</view>
+						<!-- bindtap="giveUp" -->
+						<view slot="right"  data-id="{{item.id}}">删除</view>
+					</van-swipe-cell>
 				</view>
 			</view>
-		<!-- </van-tab> -->
-		<!-- <van-tab title="已完成"  name="2"> -->
-			<!-- <view class="tab-box">
+		</van-tab>
+		<van-tab title="已完成"  name="2">
+			<view class="tab-box">
 				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
 						<view class="order-contain">
 							<view class="info-box">
@@ -77,10 +81,10 @@
 							</view>
 						</view>
 				</view>
-			</view> -->
-		<!-- </van-tab> -->
-		<!-- <van-tab title="过号/取消"  name="3"> -->
-			<!-- <view class="tab-box">
+			</view>
+		</van-tab>
+		<van-tab title="过号/取消"  name="3">
+			<view class="tab-box">
 				<view class="tab-items" wx:for="{{optionsListData}}" wx:key="index"> 
 						<view class="order-contain">
 							<view class="info-box">
@@ -111,11 +115,10 @@
 							</view>
 						</view>
 				</view>
-			</view> -->
-		<!-- </van-tab> -->
-	<!-- </van-tabs> -->
+			</view>
+		</van-tab>
+	</van-tabs>
 	<van-dialog id="van-dialog" className="van-dialog-id" confirm-button-color="#BA9245"/>
-
 	<view class="van-dialog-id-sec-shadow"  wx:if="{{letPaymentShow}}">
 		<view class="van-dialog-id-sec">
 			<view class="title">
@@ -184,4 +187,21 @@
   />
 </van-cell-group>
 </van-dialog> -->
+	<!-- <view class="show-qrcode-model" wx:if="{{showQrCodeBox}}">
+		<view class="qrcode-box">
+			<view>让顾客扫码支付</view>
+			<image mode="aspectFit" src="{{qrCodeUrl}}"></image>
+			<van-button bindtap="paymentYet">确认已支付</van-button>
+		</view>
+	</view> -->
+	<van-dialog
+		use-slot
+		title="扫码支付"
+		show="{{ showQrCodeBox }}"
+		show-cancel-button
+		bind:close="onClose"
+		bind:confirm="paymentYet"
+	>
+		<image  mode="aspectFit" src="{{qrCodeUrl}}" />
+	</van-dialog>
 </view>

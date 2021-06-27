@@ -1,9 +1,12 @@
 
 let app = getApp();
 const $api = require('../../utils/request').API;
+const QR = require('../../utils/weapp-qrcode.js')
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Component({
   data: {
+    qrCodeUrl: '',
+    showQrCodeBox: false,
     active: '1',
     showDialog: false,
     optionsListData:[], //订单列表数据
@@ -352,6 +355,58 @@ Component({
           })
         }
       })
+    },
+    // drawImg: function () {
+    //   console.log(this.data.codeText);
+    //   var imgData = QR.drawImg(this.data.codeText, {
+    //     typeNumber: 4,
+    //     errorCorrectLevel: 'M',
+    //     size: 500
+    //   })
+    //   this.setData({
+    //     qrcodeURL: imgData
+    //   })
+    // },
+    // 二维码支付
+    shouQrCode(e){
+      let _this = this
+      let list_id = e.currentTarget.dataset.list_id
+      Dialog.confirm({
+        title: '警告',
+        message: '其他支付条件不能使用时才能选择二维码支付，确定使用？',
+      })
+        .then(() => {
+          // on confirm
+          $api.showQrCode({
+            "openid": app.globalData.openId,
+            "list_id":list_id,
+          }).then(res=>{
+            console.log(res);
+            if(res.statusCode == 200 && res.data.code == 200){
+              let  imgData = QR.drawImg(res.data.data.url, {
+                typeNumber: 4,
+                errorCorrectLevel: 'M',
+                size: 500
+              })
+              console.log(imgData);
+              _this.setData({
+                showQrCodeBox: true,
+                qrCodeUrl: imgData
+              })
+            }
+          })
+        })
+        .catch(() => {
+          // on cancel
+        });
+    },
+    paymentYet(){
+      this.setData({
+        showQrCodeBox: false
+      })
+      setTimeout(() => {
+        this.workerQueueList()
+      }, 300);
     }
   }
 })

@@ -164,35 +164,22 @@ color: #BA9245;
 	background: #BA9245;
 	color: #fff;
 }
-.fixed-top-tab{
-	background: #fff;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 9999;
-	height: 88rpx;
-	display: flex;
-	justify-content: space-between;
+.qr-button button{
+	background: #ccc;
 }
-.top-tab-item{
-	width: 33.3%;
-	height: 88rpx;
-	line-height: 88rpx;
-	text-align: center;
-}
-.top-tab-item text{
-	display: inline-block;
-	width: 150rpx;
+.show-qrcode-model{
+	background: rgba(0, 0, 0, .2);
 	height: 100%;
-	font-size: 30rpx;
-	font-family: PingFang SC;
-	font-weight: 500;
-	color: #282828;
-	opacity: 0.8;
-	box-sizing: border-box;
-	text-align: center;
-	border-bottom: 6rpx solid #BA9245;
-	/* font-weight: bold;
-    color: #BA9245; */
+	width: 100%;
+}
+.show-qrcode-model .qrcode-box{
+	height: 800rpx;
+	width: 600rpx;
+	background-color: #fff;
+	margin: 200rpx auto 0;
+}
+.show-qrcode-model .qrcode-box image{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
 }
