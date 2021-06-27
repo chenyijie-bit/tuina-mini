@@ -4,7 +4,7 @@ const $api = require('../../utils/request').API;
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Component({
   data: {
-    active: 0,
+    active: '1',
     showDialog: false,
     optionsListData:[], //订单列表数据
     nouserArr:[], // 开始上班和下班的时间
@@ -223,9 +223,9 @@ Component({
     },
     onChangeTab(e){
       console.log(e);
-      let index = e.detail.index //从0开始的
+      let name = e.detail.name //从0开始的
       this.setData({
-        tabIndex: index
+        active: name
       })
       this.workerQueueList()
     },
@@ -298,7 +298,7 @@ Component({
       $api.workerQueueList({
         "openid": app.globalData.openId,
         "tidy_worker_id":app.globalData.worker_id,
-        tap_type: this.data.tabIndex+1
+        tap_type: Number(this.data.active)
       }).then(res=>{
         if(res.statusCode == 200 && res.data.code == 200){
           let copyData = []
@@ -306,18 +306,35 @@ Component({
           if(res.data.data){
             let data = res.data.data
             let arr = []
+            let nouserArrObj = {}
             let nouserArr = []
-            data.map(e=>{
-              if(e.type!==0){
-                arr.push(e)
-              }else{
-                nouserArr.push(e)
+            data.map((e,i)=>{
+              if(e.list && e.list.length){
+                e.list.map(s=>{
+                  if(i==0){
+                    // 说明是第一天的数据 或者是有数据的那天 比如昨天的数据还存在 那么数组第一个就是昨天的数据 
+                    s.first = true
+                  }
+                  if(s.type!==0){
+                    arr.push(s)
+                  }else{
+                    nouserArr.push(s)
+                    nouserArrObj[e.date]  = nouserArr
+                  }
+                })
               }
+              // if(e.type!==0){
+              //   arr.push(e)
+              // }else{
+              //   nouserArr.push(e)
+              // }
             })
             this.setData({
-              nouserArr:nouserArr
+              nouserArr:nouserArr,
+              nouserArrObj: nouserArrObj
             })
             resData = JSON.parse(JSON.stringify(arr))
+            console.log(resData);
           }
           // for (let index = 0; index < resData.length; index++) {
           //   const element = resData[index];

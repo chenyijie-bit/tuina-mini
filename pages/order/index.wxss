@@ -1,7 +1,8 @@
 /* pages/order/index.wxss */
 page{
   background: rgb(247, 247, 247);
-  height: 120%;
+  height: 100%;
+  overflow: scroll;
 }
 .van-tabs__wrap{
   position: fixed;
@@ -26,9 +27,13 @@ page{
 .scroll-view{
   padding-top: 100rpx;
 }
+.paddingzhanwei{
+  height: 100rpx;
+  width: 100%;
+}
 .daifuwu-box{
   padding: 18rpx;
-  padding-top: 130rpx;
+  /* padding-top: 130rpx; */
   padding-bottom: 140rpx;
 }
 .cant-pay{
@@ -51,12 +56,12 @@ page{
   padding-left: 30rpx;
   padding-bottom: 25rpx;
   border-bottom: 1rpx solid rgb(224, 224, 224);
-  margin-bottom: 60rpx;
+  margin-bottom: 25rpx;
 }
 .order-item-info{
   display: flex;
   justify-content: space-between;
-  padding: 0 80rpx 50rpx;
+  padding: 0 80rpx 25rpx;
   align-items: center;
   border-bottom:  1rpx solid rgb(224, 224, 224);
 }
@@ -88,17 +93,27 @@ page{
   justify-content: space-between;
   border-bottom:  1rpx solid rgb(224, 224, 224);
 }
+.order-item-addr-tit{
+  text-align: right;
+  padding: 10rpx 30rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #282828;
+  opacity: 0.8;
+}
 .coupont-name{
   margin-left: 28rpx;
   color: #aaa;
 }
 .order-item-type{
-  padding: 50rpx 80rpx 0;
+  font-size: 26rpx;
+  padding: 50rpx 30rpx 0;
 }
 .order-item-type .type-title{
   display: inline-block;
   width: 126rpx;
-  margin-bottom: 50rpx;
+  margin-bottom: 35rpx;
   font-size: 30rpx;
   font-family: PingFang SC;
   font-weight: 500;

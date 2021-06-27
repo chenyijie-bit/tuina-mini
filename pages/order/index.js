@@ -9,9 +9,13 @@ Component({
     timeStamp:'',
     orderList:[],
     showCouponList: false,
+    currentListId:'',
+    // 关闭切换优惠券功能
+    getAllCoupon:true,
     couponsList:[],
     couponsDefault:{},
-    typeRadio:''
+    typeRadio:'',
+    payDialogShow:false
   },
   pageLifetimes: {
     show() {
@@ -52,33 +56,82 @@ Component({
     // onAbort(e) {
     //   console.log('onAbort', e)
     // },
-    // 获取优惠券
-    getCouponts(){
+    //获取所有优惠券
+    getCoupontsAll(){
+      let list = app.globalData.couponsList
       this.setData({
-        showCouponList: true
+        showCouponList: true,
+        couponsList: list,
+        getAllCoupon:false
+      })
+    },
+    // 获取优惠券
+    getCouponts(e){
+      console.log(e);
+      let shouldPay = parseFloat(e.currentTarget.dataset.price)
+      let listid = e.currentTarget.dataset.listid
+      
+      this.setData({
+        showCouponList: true,
+        currentListId : listid
+      })
+      let coupons = this.data.couponsList
+      let getcouponBox = []
+      coupons.map(e=>{
+        if(e.type == 3){
+          if(e.can_use === '1'){
+            if(parseFloat(e.price) <= shouldPay){
+              getcouponBox.push(e)
+            }
+          }
+        }else{
+          if(parseFloat(e.price) <= shouldPay){
+            getcouponBox.push(e)
+          }
+        }
+      })
+      this.setData({
+        couponsList: getcouponBox
       })
     },
     closeCouponSheet(){
       this.setData({
-        showCouponList:false
+        showCouponList:false,
+        getAllCoupon: true
       })
     },
     onChangeCouponsId(e){
+      console.log(e);
       let changedId = e.detail
       for (let index = 0; index < this.data.couponsList.length; index++) {
         const element = this.data.couponsList[index];
         if(element.coupon_id == changedId){
+          
           this.setData({
+            typeRadio: changedId,
             couponsDefault:element
           })
         }
       }
+      let datalist = this.data.orderList
+      datalist.map(e=>{
+        if(e.list_id == this.data.currentListId){
+          e.couponId = changedId
+          e.couponObj = this.data.couponsDefault
+        }
+      })
       this.setData({
-        showCouponList : false
+        showCouponList : false,
+        orderList : datalist
       })
     },
     //获取订单列表
     getOrder(){
+      let _this = this
+      this.setData({
+        couponsDefault: {},
+        typeRadio: ''
+      })
       $api.orderShow({
         openid: app.globalData.openId,
         tap_type: Number(this.data.activeTab)
@@ -94,20 +147,21 @@ Component({
             this.setData({
               couponsList: coupons
             })
+            app.globalData.couponsList = coupons
             coupons.map(e=>{
-              if(e.is_default === 1){
-                this.setData({
-                  couponsDefault: e,
-                  typeRadio: e.coupon_id
-                })
-              }
+              // if(e.is_default === 1){
+              //   this.setData({
+              //     couponsDefault: e,
+              //     typeRadio: e.coupon_id
+              //   })
+              // }
             })
-            if(!resList.couponsDefault){
-              this.setData({
-                typeRadio: coupons[0].coupon_id,
-                couponsDefault: coupons[0]
-              })
-            }
+            // if(!_this.data.couponsDefault){
+            //   this.setData({
+            //     typeRadio: coupons[0].coupon_id,
+            //     couponsDefault: coupons[0]
+            //   })
+            // }
           }
           for (let index = 0; index <  resList.length; index++) {
             const element =  resList[index];
@@ -251,12 +305,21 @@ Component({
         // 待支付 // 支付
         let queue_id = e.currentTarget.dataset.listid-0
         let no = e.currentTarget.dataset.no
-        // 上线需要改成正确id
-        $api.orderPaydata({
+        let obj = e.currentTarget.dataset.obj
+        let reqObj = {}
+        if(obj){
+          if(obj.type == 3 && obj.user_coupon_id){
+            reqObj.user_coupon_id = obj.user_coupon_id
+          }else{
+            reqObj.coupon_id = obj.coupon_id
+          }
+        }
+        let defaultObj = {
           "openid": app.globalData.openId,
           "queue_id": queue_id,
-          "coupon_id":this.data.couponsDefault.coupon_id
-        }).then(res=>{
+        }
+        // 上线需要改成正确id
+        $api.orderPaydata({...defaultObj,...reqObj}).then(res=>{
           console.log(res)
           if(res.statusCode == 200 && res.data.code == 200){
             this.setData({

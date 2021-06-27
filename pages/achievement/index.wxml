@@ -1,6 +1,7 @@
 <view class="gongzuotai">
   <view class="title-box">
-    <view class="title">常用</view>
+    <!-- <view class="title">常用</view> -->
+    <view class="title">敬请期待</view>
     <view>
       <van-calendar
         show="{{ show }}"
@@ -12,5 +13,5 @@
       />
     </view>
   </view>
-  <view class="title-box">门店</view>
+  <!-- <view class="title-box">门店</view> -->
 </view>
