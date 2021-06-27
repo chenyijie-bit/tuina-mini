@@ -69,6 +69,8 @@ const API = {
     workerQueueSet:(data)=> request(POST, `/worker/queue/set`,data),
     // 搜索门店]
     homeSearch:(data)=> request(POST, `/home/search`,data),
+    // 生成支付二维码
+    showQrCode:(data)=>request(POST, `/worker/order/paycode`,data),
 };
 module.exports = {
     API: API
