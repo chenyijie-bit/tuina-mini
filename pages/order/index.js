@@ -200,10 +200,12 @@ Component({
     },
     //获取是否支付成功
     getOrder2(no){
+      let _this = this
       $api.orderShow({
         openid: app.globalData.openId,
         tap_type: Number(this.data.activeTab)
       }).then(res=>{
+        _this.getOrder()
         console.log(res);
         if(res.statusCode==200 && res.data.code === 200){
           for (let index = 0; index <  res.data.data.length; index++) {

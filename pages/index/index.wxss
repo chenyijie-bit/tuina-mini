@@ -219,7 +219,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0rpx 0 12rpx;
+  padding: 0rpx 0 32rpx;
   /* margin-left: 20rpx; */
 }
 .store-info{
