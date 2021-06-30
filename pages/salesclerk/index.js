@@ -123,7 +123,12 @@ Page({
           address: address,
       })
   },
-
+  zanbuzhichi(){
+    wx.showToast({
+      title: '该员工暂不支持立即取号',
+      icon: 'none'
+    })
+  },
   onChange(event) {
     console.log(event);
     this.setData({

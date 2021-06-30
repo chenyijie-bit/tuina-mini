@@ -89,7 +89,7 @@
 								</view>
 							</view>
 							<view>
-								<van-button type="default"  class="{{item.status == 179 ? 'gray-but' : 'warnning-but'}}" >{{item.status == 179 ? '已支付' : item.status == 175 ? '暂未支付' : ''}}</van-button>
+								<van-button type="default"  class="{{item.status == 179 || item.status == !84 ? 'gray-but' : 'warnning-but'}}" >{{item.status == 179 ? '已支付' : item.status == 175 ? '暂未支付' : item.status == 84 ? '二维码支付' : ''}}</van-button>
 							</view>
 						</view>
 				</view>
