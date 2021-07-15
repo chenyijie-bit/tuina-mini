@@ -1,0 +1,17 @@
+<!--pages/addWorker/index.wxml-->
+<view>
+  <view>
+    <van-search
+      value="{{ searchValue }}"
+      shape="round"
+      background="transparent"
+      placeholder="请输入员工手机号"
+      style="flex:1;"
+      bindchange="bindchange"
+    />
+    <view class="add-text-icon">
+      <text class="address-city" bindtap="search">搜索</text>
+        <!-- <van-icon class="arrow-icon" name="arrow" size="30rpx"/> -->
+    </view>
+  </view>
+</view>

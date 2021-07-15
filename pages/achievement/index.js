@@ -1,22 +1,13 @@
 Component({
   data: {
-    show: false,
-    minDate: new Date(2020, 5, 1).getTime(),
-    maxDate: new Date().getTime(),
+    personImg:'../../assess/images/banner1.png'
   },
-  onClose() {
-    this.setData({ show: false });
-  },
-  formatDate(date) {
-    date = new Date(date);
-    return `${date.getMonth() + 1}/${date.getDate()}`;
-  },
-  onConfirm(event) {
-    const [start, end] = event.detail;
-    this.setData({
-      show: false,
-      date: `${this.formatDate(start)} - ${this.formatDate(end)}`,
-    });
+  methods:{
+    addWorker(){
+      wx.navigateTo({
+        url: '../addWorker/index',
+      })
+    },
   },
   pageLifetimes: {
     show() {
@@ -27,6 +18,5 @@ Component({
         })
       }
     },
-    
   }
 })

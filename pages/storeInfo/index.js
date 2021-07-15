@@ -37,7 +37,7 @@ Page({
               })
             }
             that.setData( {
-                winHeight: 160*workerNum,
+                winHeight: 160*workerNum + 50,
                 workList: data.worker
             });
         }

@@ -49,7 +49,7 @@
             </view>
             <image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
             <view>
-              <view class="dengdaikuang">{{item.waitStr}}</view>
+              <view class="dengdaikuang">五星推荐</view>
             </view>
           </view>
         </view>

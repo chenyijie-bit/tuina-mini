@@ -9,7 +9,7 @@
 		</view>
 
 		<!-- 切换tab组件 -->
-		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px;margin-bottom:120rpx;" bindchange="bindChange">
+		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px;" bindchange="bindChange">
 				<swiper-item>
 					<!-- 推荐人及店铺list -->
 					<view class="recommend-person" wx:for="{{workList}}" wx:key="index">
@@ -23,7 +23,8 @@
 								</view>
 								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
 								<view style="text-align: left;">
-									<view class="dengdaikuang">{{item.waitStr}}</view>
+									<!-- <view class="dengdaikuang">{{item.waitStr}}</view> -->
+									<view class="dengdaikuang">五星推荐</view>
 								</view>
 							</view>
 						</view>

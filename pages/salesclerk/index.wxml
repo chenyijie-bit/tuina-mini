@@ -53,21 +53,22 @@
 	<view class="sale-pingjia-box"></view>
 	<view class="bottom-but">
 		<view class="bottom-but-left">
-			<text wx:if="{{shopInfo.worker.type!=1}}">立即取号，无需等待</text>
-			<text wx:else>提前预约，不消费不扣款</text>
+			<!-- <text wx:if="{{shopInfo.worker.type!=1}}">立即取号，无需等待</text> -->
+			<!-- <text wx:else>提前预约，不消费不扣款</text> -->
+			<text>提前预约，不消费不扣款</text>
 		</view>
 		<view class="dubble-but">
 			<button wx:if="{{!hasPhoneNumber}}" class="bottom-but-mid" open-type="getPhoneNumber" data-type="2" bindgetphonenumber="getPhoneNumber">预约</button>
 			<view wx:else class="bottom-but-mid"  bindtap="getPhoneNumber2" data-type="2">
 				预约
 			</view>
-			<button wx:if="{{!hasPhoneNumber && shopInfo.worker.type!=1}}" class="bottom-but-right" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即取号</button>
-			<view wx:if="{{hasPhoneNumber && shopInfo.worker.type!=1}}" class="bottom-but-right" bindtap="getPhoneNumber2"  data-type="1">
+			<!-- <button wx:if="{{!hasPhoneNumber && shopInfo.worker.type!=1}}" class="bottom-but-right" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即取号</button> -->
+			<!-- <view wx:if="{{hasPhoneNumber && shopInfo.worker.type!=1}}" class="bottom-but-right" bindtap="getPhoneNumber2"  data-type="1">
 				立即取号
 			</view>
 			<view wx:if="{{shopInfo.worker.type==1}}"  class="bottom-but-right" style="background:#dedede;" bindtap="zanbuzhichi"  data-type="1">
 				立即取号
-			</view>
+			</view> -->
 		</view>
 	</view>
 	<van-popup

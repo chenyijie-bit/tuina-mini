@@ -1,0 +1,13 @@
+/* pages/addWorker/index.wxss */
+.search-box .van-search {
+  /* padding: 0; */
+  flex: 1;
+}
+.van-search .van-search__content{
+  background: #fff;
+}
+.add-text-icon{
+  height: 108rpx;
+  line-height: 108rpx;
+  margin-top: -4rpx;
+}

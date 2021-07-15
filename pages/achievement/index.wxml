@@ -1,16 +1,23 @@
 <view class="gongzuotai">
   <view class="title-box">
     <!-- <view class="title">常用</view> -->
-    <view class="title">敬请期待</view>
-    <view>
-      <van-calendar
-        show="{{ show }}"
-        min-date="{{ minDate }}"
-        max-date="{{ maxDate }}"
-        type="range"
-        bind:close="onClose"
-        bind:confirm="onConfirm"
-      />
+    <view wx:if="{{true}}" class="title">敬请期待</view>
+    <view wx:else> 
+      <view>
+        <image style="width:100;" mode="aspectFill" src="{{personImg}}"></image>
+      </view>
+      <view class="work-table-list-top">
+        <view>常用</view>
+        <view class="list-box">
+          <view class="item" bindtap="addWorker">
+            <!-- <image></image> -->
+            <text>添加员工</text>
+          </view>
+        </view>
+      </view>
+      <view class="work-table-list-bot">
+      
+      </view>
     </view>
   </view>
   <!-- <view class="title-box">门店</view> -->

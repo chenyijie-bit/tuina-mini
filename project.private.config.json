@@ -13,14 +13,14 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/order/index",
-          "pathName": "pages/order/index",
+          "name": "pages/bar/index",
+          "pathName": "pages/bar/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
+          "name": "pages/index2/index",
+          "pathName": "pages/index2/index",
           "query": "",
           "scene": null
         },
@@ -57,6 +57,12 @@
         {
           "name": "pages/survey/index",
           "pathName": "pages/survey/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/achievement/index",
+          "pathName": "pages/achievement/index",
           "query": "",
           "scene": null
         }

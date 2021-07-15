@@ -40,7 +40,7 @@
 								</view>
 								<view class="gettime">
 									<text>预约项目</text>：
-									<text>{{item.service.name[0]}}</text>
+									<text>{{item.service.name[0]}}（{{item.order.total_price}}元）</text>
 								</view>
 							</view>
 							<view class="but-box">
@@ -82,6 +82,10 @@
 								<view class="starttime marbot28">
 									<text>预约时间</text>：
 									<text>{{item.user_st}}</text>
+								</view>
+								<view class="starttime marbot28">
+									<text>项目金额</text>：
+									<text>{{item.order.total_price}}元</text>
 								</view>
 								<view class="gettime">
 									<text>预约项目</text>：

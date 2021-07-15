@@ -52,9 +52,9 @@ Page({
         } 
         let deftypeRadio = ''
         let deftypeTimeStr  = ''
-        if(resData.skill && resData.skill .length && resData.skill[0].id){
+        if(resData.skill && resData.skill.length && resData.skill[0].id){
           deftypeRadio = resData.skill[0].id
-          deftypeTimeStr = resData.skill[0].service_duration
+          deftypeTimeStr = resData.skill[0].service_duration - 5
         }
         _this.setData({
           shopInfo: resData,
@@ -144,7 +144,7 @@ Page({
     }
     this.setData({
       typeRadio: data.currentTarget.dataset.type,
-      deftypeTimeStr: data.currentTarget.dataset.needtime
+      deftypeTimeStr: data.currentTarget.dataset.needtime - 5
     });
   },
   getNumberNow(){
@@ -234,6 +234,8 @@ Page({
                 if(currentTimeStrCus>currentTimeStr){
                   timeSelectModel[i].disabled = true
                 }
+                // 在这里判断 如果选择的时间数组里面的时间早于开店时间或者晚于关店时间都要disabled = true
+                // 
               })
               let resData = []
               resData[this.data.currentTab] = timeSelectModel
@@ -306,6 +308,8 @@ Page({
             if(currentTimeStrCus>currentTimeStr){
               timeSelectModel[i].disabled = true
             }
+            // 在这里判断 如果选择的时间数组里面的时间早于开店时间或者晚于关店时间都要disabled = true
+            // 
           })
           console.log(timeSelectModel);
           let resData = []
@@ -346,7 +350,7 @@ Page({
       for (let j = 0; j < this.data.timeSelectModelBox[this.data.currentTab].length; j++) {
         // item是固定时间item
         const item = this.data.timeSelectModelBox[this.data.currentTab][j];
-        if((Number(element.st)*1000)<= item.datestr  && (Number(element.et*1000)) >= item.datestr){
+        if((Number(element.st)*1000)<= item.datestr  && (Number((element.et - 300)*1000)) >= item.datestr){
           // + Number(this.data.deftypeTimeStr)*60   + Number(this.data.deftypeTimeStr)*60
           // 则对应的日期索引上的时间段都不能被选中了
           if(!this.data.indexTabDateCur[this.data.currentTab]){

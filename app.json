@@ -3,12 +3,14 @@
     "pages/index/index",
     "pages/order/index",
     "pages/me/index",
+    "pages/index2/index",
     "pages/achievement/index",
     "pages/survey/index",
     "pages/salesclerk/index",
     "pages/storeInfo/index",
     "pages/drag/index",
-    "pages/searchStop/index"
+    "pages/searchStop/index",
+    "pages/addWorker/index"
   ],
   "permission": {
     "scope.userLocation": {

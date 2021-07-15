@@ -71,6 +71,9 @@ const API = {
     homeSearch:(data)=> request(POST, `/home/search`,data),
     // 生成支付二维码
     showQrCode:(data)=>request(POST, `/worker/order/paycode`,data),
+    // 获取用户列表 添加员工用
+    requestWorkerList:(data)=>request(POST, `/worker/user/list`,data),
+    searchWorker:(data)=>request(POST, `/worker/user/list`,data),
 };
 module.exports = {
     API: API
