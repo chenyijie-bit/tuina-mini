@@ -21,12 +21,12 @@
                 <view class="bot">排队号码</view>
               </view> -->
               <view class="peo-num">
-                <view class="top">{{item.pre_queue_number}}</view>
-                <view class="bot">排队人数</view>
+                <view class="top">排队人数</view>
+                <view class="bot">{{item.pre_queue_number}}</view>
               </view>
               <view class="time">
-                <view class="top">{{item.wait_time}}</view>
-                <view class="bot">预计等待/分钟</view>
+                <view class="top">预计开始</view>
+                <view class="bot">{{item.start_date}}</view>
               </view>
             </view>
             <view class="order-item-addr">
