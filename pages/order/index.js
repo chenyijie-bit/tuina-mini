@@ -67,10 +67,8 @@ Component({
     },
     // 获取优惠券
     getCouponts(e){
-      console.log(e);
-      let shouldPay = parseFloat(e.currentTarget.dataset.price)
+      let shouldPay = parseFloat(e.currentTarget.dataset.shijiprice) || parseFloat(e.currentTarget.dataset.price)
       let listid = e.currentTarget.dataset.listid
-      console.log(listid);
       this.setData({
         showCouponList: true,
         currentListId : listid
@@ -173,8 +171,8 @@ Component({
             if(element.wait_time){
               element.wait_time = parseInt(element.wait_time/60)
             }
-            if(element.order.price){
-              element.order.priceNum = parseFloat(element.order.price)
+            if(element.order.pay_price){
+              element.order.pay_price = parseFloat(element.order.pay_price)
             }
             if(element.status == 170){
               //正在排队中 可以取消
@@ -203,25 +201,26 @@ Component({
       let _this = this
       $api.orderShow({
         openid: app.globalData.openId,
-        tap_type: Number(this.data.activeTab)
+        // tap_type: Number(this.data.activeTab)
+        tap_type: 2
       }).then(res=>{
-        _this.getOrder()
-        console.log(res);
         if(res.statusCode==200 && res.data.code === 200){
-          for (let index = 0; index <  res.data.data.length; index++) {
+          for (let index = 0; index <  res.data.data.list.length; index++) {
             const element =  res.data.data[index];
             // if(element.wait_time){
             //   element.wait_time = parseInt(element.wait_time/60)
             // }
           }
-          if(res.data.data.length){
-            res.data.data.map(e=>{
+          if(res.data.data.list && res.data.data.list.length){
+            res.data.data.list.map(e=>{
               if(e.order.no == no){
                 if(e.order.is_pay == 1){
                   // 说明成功了
                   this.setData({
-                    payOk:true
+                    payOk:true,
+                    activeTab: '2'
                   })
+                  _this.getOrder()
                   wx.showToast({
                     title: '支付成功'
                   })
