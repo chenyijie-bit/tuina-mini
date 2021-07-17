@@ -4,6 +4,7 @@ Component({
   data: {
     payOk:false,
     activeTab: '1',
+    loading: true,
     // triggered: false,
     payData:{},
     timeStamp:'',
@@ -25,6 +26,9 @@ Component({
             selected: 1
           })
         }
+        this.setData({
+          activeTab: '1'
+        })
        if(!app.globalData.openId){
         setTimeout(()=>{
           this.getOrder()
@@ -132,6 +136,9 @@ Component({
     getOrder(){
       let _this = this
       this.setData({
+        loading: true
+      })
+      this.setData({
         couponsDefault: {},
         typeRadio: ''
       })
@@ -139,6 +146,9 @@ Component({
         openid: app.globalData.openId,
         tap_type: Number(this.data.activeTab)
       }).then(res=>{
+        this.setData({
+          loading: false
+        })
         console.log(res);
         if(res.statusCode==200 && res.data.code === 200){
           let resList = res.data.data.list
@@ -185,6 +195,9 @@ Component({
               element.statusCusStr = '支付'
             }
           }
+          if(this.data.activeTab != '1'){
+            resList.reverse()
+          }
           this.setData({
             orderList: resList
           })
@@ -218,6 +231,7 @@ Component({
                   // 说明成功了
                   this.setData({
                     payOk:true,
+                    // orderList:[],
                     activeTab: '2'
                   })
                   _this.getOrder()
@@ -361,7 +375,7 @@ Component({
                       icon:'none'
                     })
                   }
-                }, 1200);
+                }, 1500);
                 // no: "AM2021060618011355176"
               },
               "fail":function(res){

@@ -85,8 +85,11 @@
     </van-tab>
     <van-tab title="已完成"  name="2">
       <view class="paddingzhanwei"></view>
-      <van-empty wx:if="{{!orderList.length}}" image="network" description="暂无信息" ></van-empty>
-      <view class="daifuwu-box" wx:else>
+      <van-empty wx:if="{{!orderList.length && !loading}}" image="network" description="暂无信息" ></van-empty>
+      <view wx:if="{{!orderList.length && loading}}">
+        <van-loading size="28px">加载中...</van-loading>
+      </view>
+      <view class="daifuwu-box" wx:if="{{orderList.length && !loading}}">
           <view class="order-item" wx:for="{{orderList}}" wx:key="index">
             <view class="order-item-title">
               {{item.status_str}}
