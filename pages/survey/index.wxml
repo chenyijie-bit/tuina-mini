@@ -89,7 +89,7 @@
 								</view>
 								<view class="gettime">
 									<text>预约项目</text>：
-									<text>{{item.service.name[0]}}</text>
+									<text>{{item.service[0].name}}</text>
 								</view>
 							</view>
 							<view>
@@ -132,7 +132,7 @@
 								</view>
 								<view class="gettime">
 									<text>预约项目</text>：
-									<text>{{item.service.name[0]}}</text>
+									<text>{{item.service[0].name}}</text>
 								</view>
 							</view>
 						</view>
