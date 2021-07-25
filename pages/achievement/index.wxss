@@ -2,3 +2,38 @@
   padding-bottom: 160rpx !important;
   height: 1400rpx !important;
 }
+.work-table-list-top{
+  padding-top: 20rpx;
+  margin-bottom: 30rpx;
+  color: #666;
+}
+.work-table-list-top .title{
+  font-size: 42rpx;
+  text-align: center;
+  width: 100rpx;
+  margin: 0 auto;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-weight: 500;
+  border-bottom: 6rpx solid #666;
+}
+.work-table-list-top .title-lag{
+  width: 180rpx;
+}
+.work-table-list-top .list-box{
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 20rpx;
+}
+.work-table-list-top .list-box .item{
+  width: 24.9%;
+  text-align: center;
+  line-height: 50rpx;
+  padding: 40rpx 0;
+}
+.list-box .item text{
+  font-size:  30rpx;
+}

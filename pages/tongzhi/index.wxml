@@ -1,0 +1,26 @@
+<!--pages/tongzhi/index.wxml-->
+<view class="tongzhi" style="padding-bottom:120rpx;">
+  <view style="text-align: right;padding: 30rpx 41rpx 28rpx;">
+    <van-icon bindtap="tianjiatongzhi" name="add-o" color="333" size="25px"/>
+  </view>
+  <view class="xierutongzhi-box" wx:if="{{xianshitianjia}}">
+    <textarea  bindinput='getInputValue' placeholder="请输入通知内容" name="tongzhi" id="tongzhi" ></textarea>
+    <view style="text-align:center;">
+      <van-button size="small" auto-height  class="querentianjia but-but" bindtap="querenfasong">确认发送</van-button>
+    </view>
+  </view>
+  <view class="tongzhiliebiao">
+    <view wx:for="{{tongzhiliebiao}}" wx:key="index" class="tongzhiitem">
+      <view style="padding: 10rpx 10px 25rpx;">{{item.content}}</view>
+      <view class="content-but-box" style="text-align:right;font-size:24rpx;color: #999;">
+      <!-- 根据身份来是否显示 -->
+        <view class="content-but">
+          <!-- <van-button size="mini" class="but-but" bindtap="xiugai" data-id="{{item.id}}">修改</van-button> -->
+          <van-button size="mini" class="but-but" bindtap="shanchu" data-id="{{item.id}}">删除</van-button>
+        </view>
+        <view>{{item.update_time}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<van-dialog id="van-dialog" />

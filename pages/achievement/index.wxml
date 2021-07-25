@@ -1,22 +1,87 @@
 <view class="gongzuotai">
   <view class="title-box">
     <!-- <view class="title">常用</view> -->
-    <view wx:if="{{true}}" class="title">敬请期待</view>
-    <view wx:else> 
-      <view>
+    <!-- <view wx:if="{{true}}" class="title">敬请期待</view> -->
+    <!-- <view wx:else>  -->
+    <view> 
+      <!-- <view>
         <image style="width:100;" mode="aspectFill" src="{{personImg}}"></image>
-      </view>
+      </view> -->
       <view class="work-table-list-top">
-        <view>常用</view>
+        <view class="title">常用</view>
         <view class="list-box">
-          <view class="item" bindtap="addWorker">
-            <!-- <image></image> -->
-            <text>添加员工</text>
+          <view class="item" bindtap="daka">
+            <view>
+              <van-icon size="25px" color="#666" name="underway-o" />
+            </view>
+            <text>打卡</text>
+          </view>
+          <view class="item" bindtap="wodeyeji">
+            <view>
+              <van-icon size="25px" color="#666" name="notes-o" />
+            </view>
+            <text>我的业绩</text>
+          </view>
+          <view class="item" bindtap="tongzhi">
+            <view>
+              <van-icon size="25px" color="#666" name="bullhorn-o" />
+            </view>
+            <text>通知</text>
+          </view>
+          <view class="item" bindtap="gukepingjia">
+            <view>
+              <van-icon size="25px" color="#666" name="edit" />
+            </view>
+            <text>顾客评价</text>
+          </view>
+          <view class="item" bindtap="kaoqinshenqing">
+            <view>
+              <van-icon size="25px" color="#666" name="completed" />
+            </view>
+            <text>考勤申请</text>
+          </view>
+          <view class="item" bindtap="gerenxinxi">
+            <view>
+              <van-icon size="25px" color="#666" name="newspaper-o" />
+            </view>
+            <text>个人信息</text>
           </view>
         </view>
       </view>
-      <view class="work-table-list-bot">
-      
+      <view class="work-table-list-top">
+        <view class="title title-lag">店长工具</view>
+        <view class="list-box">
+          <view class="item" bindtap="mendianshuju">
+            <view>
+              <van-icon size="25px" color="#666" name="chart-trending-o" />
+            </view>
+            <text>门店数据</text>
+          </view>
+          <view class="item" bindtap="mendianpaiban">
+            <view>
+              <van-icon size="25px" color="#666" name="cluster-o" />
+            </view>
+            <text>门店排班</text>
+          </view>
+          <view class="item" bindtap="kaoqinshenpi">
+            <view>
+              <van-icon size="25px" color="#666" name="records" />
+            </view>
+            <text>考勤审批</text>
+          </view>
+          <view class="item" bindtap="tianjiayuangong">
+            <view>
+              <van-icon size="25px" color="#666" name="add-o" />
+            </view>
+            <text>添加员工</text>
+          </view>
+          <view class="item" bindtap="tongzhi">
+            <view>
+              <van-icon size="25px" color="#666" name="bullhorn-o" />
+            </view>
+            <text>通知</text>
+          </view>
+        </view>
       </view>
     </view>
   </view>

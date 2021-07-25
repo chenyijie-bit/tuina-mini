@@ -3,11 +3,36 @@
   /* padding: 0; */
   flex: 1;
 }
+.search-box{
+  display: flex;
+  padding: 30rpx 28rpx 10rpx 10rpx;
+}
 .van-search .van-search__content{
-  background: #fff;
+  background: #eee;
 }
 .add-text-icon{
   height: 108rpx;
   line-height: 108rpx;
   margin-top: -4rpx;
+}
+.containt-box{
+  text-align: center;
+    padding-top: 60rpx;
+}
+.item-list{
+  display: flex;
+  padding: 30rpx 30rpx;
+  background: #eee;
+  margin: 0 30rpx;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+  text-align: left;
+}
+.item-list image{
+  width: 150rpx;
+  height: 150rpx;
+}
+.but-but button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
 }

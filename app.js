@@ -31,7 +31,9 @@ App({
           app.globalData.head_url = res.data.data.head_url
           app.globalData.nickname = res.data.data.nickname
           app.globalData.worker_id = res.data.data.worker_id
-          wx.setStorageSync('statu', res.data.data.is_worker)
+          if(wx.getStorageSync('statu')!=1){
+            wx.setStorageSync('statu', res.data.data.is_worker)
+          }
           // this.getHomeData(app.globalData.openId)
       }
     })
@@ -62,9 +64,30 @@ App({
                     this.globalData.head_url = res.data.data.head_url
                     this.globalData.nickname = res.data.data.nickname
                     this.globalData.worker_id = res.data.data.worker_id
-                    wx.setStorageSync('statu', res.data.data.is_worker)
+                    if(wx.getStorageSync('statu')!=1){
+                      wx.setStorageSync('statu', res.data.data.is_worker)
+                    }
+                   
                     // this.getHomeData(this.globalData.openId)
                 }
+                if(wx.getStorageSync('statu')!=1){
+                  console.log(wx.getStorageSync('statu'));
+                  console.log(wx.getStorageSync('statu')==1);
+                  $api.userInfo({openid:this.globalData.openId}).then(res=>{
+                    console.log(res);
+                    let data = res.data
+                    if(data && data.code == 200){
+                      if(data.data && data.data.worker_info && data.data.worker_info.status == 50){
+                        wx.setStorageSync('statu', 1)
+                        wx.showToast({
+                          title: '点击右上角三个点重新进入小程序',
+                          icon: 'none'
+                        })
+                      }
+                    }
+                  })
+                }
+                
                 resolve('成功')
               })
               // _this.getOpenid(res.code)
@@ -101,7 +124,9 @@ App({
                         _this.globalData.head_url = res.data.data.head_url
                         _this.globalData.nickname = res.data.data.nickname
                         _this.globalData.worker_id = res.data.data.worker_id
-                        wx.setStorageSync('statu', res.data.data.is_worker)
+                        if(wx.getStorageSync('statu')!=1){
+                          wx.setStorageSync('statu', res.data.data.is_worker)
+                        }
                         // _this.getHomeData(this.globalData.openId)
                         resolve('成功')
                     }

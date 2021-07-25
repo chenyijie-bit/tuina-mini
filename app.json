@@ -10,7 +10,16 @@
     "pages/storeInfo/index",
     "pages/drag/index",
     "pages/searchStop/index",
-    "pages/addWorker/index"
+    "pages/addWorker/index",
+    "pages/daka/index",
+    "pages/wodeyeji/index",
+    "pages/tongzhi/index",
+    "pages/gukepingjia/index",
+    "pages/kaoqinshenqing/index",
+    "pages/mendianshuju/index",
+    "pages/mendianpaiban/index",
+    "pages/kaoqinshenpi/index",
+    "pages/gerenxinxi/index"
   ],
   "permission": {
     "scope.userLocation": {

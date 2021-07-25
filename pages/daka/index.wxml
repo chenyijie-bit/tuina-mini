@@ -1,0 +1,16 @@
+<!--pages/daka/index.wxml打卡-->
+<view>
+  <view class="dakaanniu" bindtap="workerPunchClock">打卡</view>
+  <view class="dakaitem">
+    <view class="title">上班</view>
+    <view class="dakatime">待打卡</view>
+  </view>
+  <view class="dakaitem">
+    <view class="title">下班</view>
+    <view class="dakatime">待打卡</view>
+  </view>
+  <view class="zuihou">
+    <view class="">考勤统计</view>
+    <view class="">异常申请</view>
+  </view>
+</view>

@@ -1,0 +1,37 @@
+/* pages/daka/index.wxss */
+.dakaanniu{
+  width: 250rpx;
+    height: 250rpx;
+    /* display: inline-block; */
+    margin: 120rpx auto 200rpx;
+    border-radius: 50%;
+    background: #BA9245;
+    line-height: 250rpx;
+    text-align: center;
+    color: white;
+    font-size: 38rpx;
+    font-weight: 500;
+}
+.dakaitem{
+  display: flex;
+  padding-left: 120rpx;
+  line-height: 90rpx;
+  height: 90rpx;
+}
+.title{
+  color: #666;
+  width: 180rpx;
+  font-size: 34rpx;
+}
+.dakatime{
+  color: #666;
+  font-size: 38rpx;
+}
+.zuihou{
+  margin-top: 120rpx;
+  display: flex;
+  padding: 12rpx 100rpx;
+  justify-content: space-between;
+  color: rgb(5, 111, 199);
+  font-weight: 500;
+}

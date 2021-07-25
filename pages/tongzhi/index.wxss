@@ -1,0 +1,32 @@
+/* pages/tongzhi/index.wxss */
+.tongzhiitem{
+  padding: 20rpx 20rpx 15rpx;
+  background: #efefef;
+  margin: 28rpx 20rpx 3rpx;
+  border-radius: 8rpx;
+}
+.xierutongzhi-box {
+  margin-bottom: 50rpx;
+}
+.xierutongzhi-box textarea{
+  width: 94%;
+    margin: 15rpx auto;
+    box-sizing: border-box !important;
+    border: 1px solid #ccc;
+    border-radius: 8rpx;
+  padding: 12rpx;
+}
+.but-but button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+}
+.content-but-box{
+  display: flex;
+  justify-content: space-between;
+}
+.content-but{
+  display: flex;
+  /* width: 300rpx; */
+  justify-content: space-between;
+  padding-left: 30rpx;
+}

@@ -1,6 +1,6 @@
 <!--pages/addWorker/index.wxml-->
 <view>
-  <view>
+  <view class="search-box">
     <van-search
       value="{{ searchValue }}"
       shape="round"
@@ -9,9 +9,36 @@
       style="flex:1;"
       bindchange="bindchange"
     />
-    <view class="add-text-icon">
-      <text class="address-city" bindtap="search">搜索</text>
-        <!-- <van-icon class="arrow-icon" name="arrow" size="30rpx"/> -->
+    <view class="add-text-icon" bindtap="search">
+      搜索
+    </view>
+  </view>
+  <view class="containt-box">
+    <van-loading wx:if="{{loading}}" />
+    <view class="item-list" wx:for="{{itemList}}" wx:key="index"> 
+      <view style="max-width:150rpx;overflow-wrap: anywhere;">
+        <image mode="aspectFit" src="{{item.head_url}}"></image>
+      </view>
+      <view style="display:flex;flex-direction: column;flex:1;">
+        <view style="margin-left:20rpx;margin-right:30rpx;">
+          <text  style="font-size:36rpx;margin-bottom:12rpx;">手机号:  </text>
+          <text>{{item.mobile}}</text>
+          <!-- <view style="font-size:38rpx;margin-top:18rpx;margin-bottom:10rpx;">描述:  </view>
+          <text>{{item.worker_info.desc}}</text> -->
+        </view>
+        <view  style="margin-left:20rpx;margin-right:30rpx;">
+          <text style="font-size:36rpx;">昵称: </text>
+          <text>{{item.name}}</text>
+        </view>
+        <view  style="margin-left:20rpx;margin-right:30rpx;">
+          <text style="font-size:36rpx;">信息: </text>
+          <text>{{item.worker_info.desc}}</text>
+        </view>
+        <view style="text-align: right;margin-top:20rpx;">
+          <van-button wx:if="{{item.worker_info.status != 60 && item.worker_info.status != 56}}" bindtap="setWorker" data-status="{{item.worker_info.status}}" data-id="{{item.id}}" class="but-but" size="small" plain type="info">{{item.butText}}</van-button>
+        </view>
+      </view>
+      
     </view>
   </view>
 </view>

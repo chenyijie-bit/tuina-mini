@@ -65,6 +65,18 @@
           "pathName": "pages/achievement/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/achievement/index",
+          "pathName": "pages/achievement/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/addWorker/index",
+          "pathName": "pages/addWorker/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

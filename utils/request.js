@@ -74,6 +74,28 @@ const API = {
     // 获取用户列表 添加员工用
     requestWorkerList:(data)=>request(POST, `/worker/user/list`,data),
     searchWorker:(data)=>request(POST, `/worker/user/list`,data),
+    setForWorker:(data)=>request(POST, `/worker/user/set-for-worker`,data),
+    // 通知
+    // 通知列表
+    workerNotificationList:(data)=>request(POST, `/worker/notification/list`,data),
+    // 发送通知
+    workerNotificationSend:(data)=>request(POST, `/worker/notification/send`,data),
+    // 删除通知
+    workerNotificationDel:(data)=>request(POST, `/worker/notification/del`,data),
+    // 打卡
+    workerPunchClock:(data)=>request(POST, `/worker/punch/clock`,data),
+    // 打卡详情
+    workerPunchList:(data)=>request(POST, `/worker/punch/list`,data),
+    // 设置为员工时 对应选中人的个人信息
+    userInfo:(data)=>request(POST, `/user/info`,data),
+    
+
+    
+
+
+
+    
+
 };
 module.exports = {
     API: API
