@@ -1,2 +1,27 @@
 <!--pages/kaoqinshenqing/index.wxml-->
-<text>pages/kaoqinshenqing/index.wxml</text>
+<view>
+  <van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="当前申请">
+      <view>
+        <text>申请类别</text>
+
+      </view>
+      <view wx:if="{{type == 'qingjia'}}">
+        <view>
+          <text>申请日期</text>
+
+        </view>
+        <view>
+          <text>结束日期</text>
+          
+        </view>
+      </view>
+      <view wx:if="{{type}}">
+      
+      </view>
+    </van-tab>
+    <van-tab title="申请历史">
+    
+    </van-tab>
+  </van-tabs>
+</view>

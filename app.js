@@ -71,8 +71,6 @@ App({
                     // this.getHomeData(this.globalData.openId)
                 }
                 if(wx.getStorageSync('statu')!=1){
-                  console.log(wx.getStorageSync('statu'));
-                  console.log(wx.getStorageSync('statu')==1);
                   $api.userInfo({openid:this.globalData.openId}).then(res=>{
                     console.log(res);
                     let data = res.data

@@ -86,8 +86,13 @@ const API = {
     workerPunchClock:(data)=>request(POST, `/worker/punch/clock`,data),
     // 打卡详情
     workerPunchList:(data)=>request(POST, `/worker/punch/list`,data),
+    // 打卡回显
+    workerPunchListByDate:(data)=>request(POST, `/worker/punch/list-by-date`,data),
+    
     // 设置为员工时 对应选中人的个人信息
     userInfo:(data)=>request(POST, `/user/info`,data),
+    //用户补充信息
+    userWorkerRegister:(data)=>request(POST, `/user/worker-register`,data),
     
 
     

@@ -1,16 +1,24 @@
 <!--pages/daka/index.wxml打卡-->
 <view>
-  <view class="dakaanniu" bindtap="workerPunchClock">打卡</view>
+  <view class="dakaanniu" bindtap="workerPunchClock" wx:if="{{dakafanwei}}">打卡</view>
+  <view wx:else  class="dakaanniu feidakafanwei" >非打卡范围</view>
   <view class="dakaitem">
     <view class="title">上班</view>
-    <view class="dakatime">待打卡</view>
+    <view class="dakatime" wx:if="firstTime">{{firstTime}}</view>
+    <view class="dakatime" wx:else>待打卡</view>
   </view>
   <view class="dakaitem">
     <view class="title">下班</view>
-    <view class="dakatime">待打卡</view>
+    <view class="dakatime" wx:if="lastTime">{{lastTime}}</view>
+    <view class="dakatime" wx:else>待打卡</view>
+  </view>
+  <view wx:if="{{dakafanwei}}" class="yijinru">已进入打卡范围</view>
+  <view wx:else  class="yijinru weijinru">
+    <text style="display: inline-block;margin-right: 30rpx;">未进入打卡范围</text>
+    <van-icon style="vertical-align: middle;" size="25px" name="replay" bindtap="shuaxin" class="{{shuaxinAttr? 'shuaxinCss' : ''}}"/>
   </view>
   <view class="zuihou">
-    <view class="">考勤统计</view>
-    <view class="">异常申请</view>
+    <view class="" bindtap="kaoqintongji">考勤统计</view>
+    <view class="" bindtap="yichangshenqing">异常申请</view>
   </view>
 </view>

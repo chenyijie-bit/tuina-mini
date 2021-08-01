@@ -35,3 +35,18 @@
   color: rgb(5, 111, 199);
   font-weight: 500;
 }
+.yijinru{
+  margin-top: 40rpx;
+    padding-left: 100rpx;
+    color: rgb(5, 111, 199);
+}
+.weijinru{
+  color: #999;
+}
+.shuaxinCss{
+  transform: rotate(360deg);
+  transition: all ease .8s;
+}
+.feidakafanwei{
+  background: #ccc;
+}

@@ -19,7 +19,8 @@
     "pages/mendianshuju/index",
     "pages/mendianpaiban/index",
     "pages/kaoqinshenpi/index",
-    "pages/gerenxinxi/index"
+    "pages/gerenxinxi/index",
+    "pages/kaoqintongji/index"
   ],
   "permission": {
     "scope.userLocation": {
@@ -81,6 +82,9 @@
     "van-dialog": "@vant/weapp/dialog/index",
     "van-calendar": "@vant/weapp/calendar/index",
     "van-field": "@vant/weapp/field/index",
-    "van-action-sheet": "@vant/weapp/action-sheet/index"
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-uploader": "@vant/weapp/uploader/index"
   }
 }

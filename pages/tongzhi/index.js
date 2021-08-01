@@ -30,6 +30,11 @@ Page({
         _this.setData({
           tongzhiliebiao : list
         })
+      }else{
+        wx.showToast({
+          title: res.data.data.err,
+          icon: 'none'
+        })
       }
     })
   },

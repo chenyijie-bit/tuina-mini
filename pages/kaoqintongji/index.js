@@ -1,18 +1,33 @@
-// pages/kaoqinshenqing/index.js
+let app = getApp();
+const $api = require('../../utils/request').API;
+// pages/kaoqintongji/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    active: 0,
-    type: ''
+
   },
-  onChange(event) {
-    wx.showToast({
-      title: `切换到标签 ${event.detail.name}`,
-      icon: 'none',
-    });
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.workerPunchList()
+  },
+  workerPunchList(){
+    $api.workerPunchList({openid:app.globalData.openId}).then(res=>{
+      console.log(res);
+      let listArr = []
+      if(res.data && res.data.code == 200){
+        listArr.push()
+      }else{
+        wx.showToast({
+          title: res.data.err,
+          icon: 'none'
+        })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -28,12 +43,7 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
+  
 
   /**
    * 生命周期函数--监听页面隐藏
