@@ -1,1 +1,27 @@
 /* pages/kaoqintongji/index.wxss */
+.item{
+  height: 100rpx;
+  width: 100rpx;
+  background: #efefef;
+  border-radius: 50rpx;
+  margin-right: 18rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  margin-bottom: 24rpx;
+  flex-direction: column;
+}
+.flex-box{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+}
+.circle{
+  height: 16rpx;
+  width: 16rpx;
+  border-radius: 8rpx;
+  background: #BA9245;
+  margin-top: 10rpx;
+}

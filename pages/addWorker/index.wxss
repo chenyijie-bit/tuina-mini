@@ -35,4 +35,10 @@
 .but-but button{
   color: #BA9245 !important;
   border-color: #BA9245;
+  
+}
+.but-but-red button{
+  color: red !important;
+  border-color: red;
+  margin-left: 30rpx;
 }

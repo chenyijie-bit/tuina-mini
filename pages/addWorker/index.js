@@ -1,5 +1,6 @@
 let app = getApp();
 const $api = require('../../utils/request').API;
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 // pages/addWorker/index.js
 Page({
 
@@ -9,7 +10,10 @@ Page({
   data: {
     loading:false,
     searchValue:'',
-    itemList:''
+    itemList:'',
+    telWorker:'',
+    listInfo:'',
+    meiyouInfo: false
   },
   bindchange(e){
     this.setData({
@@ -18,6 +22,9 @@ Page({
   },
   search(){
     let tel = this.data.searchValue
+    this.setData({
+      telWorker:tel
+    })
     console.log(!tel);
     if(tel) tel = tel.trim()
     if(tel && tel.length==11){
@@ -34,10 +41,21 @@ Page({
       loading:true
     })
     console.log(app.globalData)
-    $api.searchWorker({phone:data,openid:app.globalData.openId}).then(res=>{
+    // searchWorker
+    
+    $api.requestWorkerList({phone:data,openid:app.globalData.openId}).then(res=>{
       if(res.statusCode ==200 && res.data.code == 200){
         let itemList2 = res.data.data.list
+        if(!itemList2 || !itemList2.length){
+          this.setData({
+            listInfo:'没有信息',
+            meiyouInfo: true
+          })
+        }
         itemList2.map(e=>{
+          if(!e.worker_info.status){
+            e.worker_info.status = 0
+          }
           if(e.worker_info.status == 0){
             e.butText = '设置为员工'
           }else if(e.worker_info.status == 50){
@@ -48,28 +66,72 @@ Page({
         })
         //说明获取成功
         this.setData({
-          loading:false,
           itemList: itemList2
         })
+      }else{
+        wx.showToast({
+          title: res.data.err,
+          icon:'none'
+        })
       }
+      this.setData({
+        loading:false
+      })
     })
+  },
+  // 删除员工
+  delWorker(e){
+    let id = e.currentTarget.dataset.id
+    const beforeClose = (action) => new Promise((resolve) => {
+      setTimeout(() => {
+        if (action === 'confirm') {
+          $api.workerUserDel({
+            openid:app.globalData.openId,worker_id:id
+          }).then(res=>{
+            console.log(res);
+            if(res.data.code == 200){
+              wx.showToast({
+                title: '已删除该员工'
+              })
+              this.searchWorker(this.data.telWorker)
+            }else{
+              wx.showToast({
+                title: res.data.err,
+                icon:'none'
+              })
+            }
+          })
+          resolve(true);
+        } else {
+          // 拦截取消操作
+          resolve(false);
+        }
+      }, 1000);
+    });
+    Dialog.confirm({
+      title: '标题',
+      message: '确认删除该员工？',
+      beforeClose
+    });
   },
   setWorker(e){
     let id = e.currentTarget.dataset.id
     let status = e.currentTarget.dataset.status
-    if(!status){
+    if(!status || status == '-2'){
       $api.setForWorker({openid:app.globalData.openId,user_info_id:id}).then(res=>{
         console.log(res)
         if(res.data && res.data.code == 200){
           wx.showToast({
             title: '通知员工后台添加信息',
-            icon: 'none'
+            icon: 'none',
+            duration: 2200
           })
           this.search()
         }else{
           wx.showToast({
-            title: '设置失败，请重试',
-            icon: 'none'
+            title: res.data.err || res.data.data.err,
+            icon: 'none',
+            duration: 2200
           })
         }
       })
@@ -78,7 +140,20 @@ Page({
 
     }else if(status && status == 53){
       // 信息填写完毕  可以确认设置为员工
-
+      $api.workerUserAgree({openid:app.globalData.openId,worker_id:id}).then(res=>{
+        console.log(res)
+        if(res.data && res.data.code == 200){
+          wx.showToast({
+            title: '添加成功'
+          })
+          this.search()
+        }else{
+          wx.showToast({
+            title: res.data.err || res.data.data.err,
+            icon: 'none'
+          })
+        }
+      })
     }else if(status && status == 56){
       // 已设置为员工  可以为他分配店铺
 

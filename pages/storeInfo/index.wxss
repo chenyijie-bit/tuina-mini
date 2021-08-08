@@ -30,9 +30,9 @@ page{
   padding: 0 36rpx;
   box-sizing: border-box;
 }
-.swiper-box view{
+/* .swiper-box view{
   text-align: center;
-}
+} */
 .store-img image{
   width: 100%;
 }
@@ -128,4 +128,31 @@ page{
 }
 .store-sales{
   padding-bottom: 120rpx;
+}
+.list-box{
+  border-bottom: 1rpx solid #ddd;
+  padding: 30rpx;
+}
+.flex-box{
+  display: flex;
+  padding: 20rpx 0;
+}
+.content{
+  padding: 0rpx 0 40rpx;
+}
+.flex-l{
+  flex: 1;
+}
+.flex-r{
+  width: 120rpx;
+
+}
+.first-text{
+  font-size: 40rpx;
+  margin-right: 30rpx;
+}
+.bottom-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

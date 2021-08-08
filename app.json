@@ -20,7 +20,8 @@
     "pages/mendianpaiban/index",
     "pages/kaoqinshenpi/index",
     "pages/gerenxinxi/index",
-    "pages/kaoqintongji/index"
+    "pages/kaoqintongji/index",
+    "pages/qupingjia/index"
   ],
   "permission": {
     "scope.userLocation": {
@@ -85,6 +86,8 @@
     "van-action-sheet": "@vant/weapp/action-sheet/index",
     "van-stepper": "@vant/weapp/stepper/index",
     "van-switch": "@vant/weapp/switch/index",
-    "van-uploader": "@vant/weapp/uploader/index"
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index"
   }
 }

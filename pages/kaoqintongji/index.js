@@ -7,7 +7,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    dateList:[],
+    currentDate: new Date().getTime(),
+    minDate: new Date().getTime(),
+  },
+  onInput(event) {
+    this.setData({
+      currentDate: event.detail,
+    });
   },
   /**
    * 生命周期函数--监听页面显示
@@ -20,7 +27,17 @@ Page({
       console.log(res);
       let listArr = []
       if(res.data && res.data.code == 200){
-        listArr.push()
+        let data = res.data.data
+        for (const key in data) {
+          if (Object.hasOwnProperty.call(data, key)) {
+            const element = data[key];
+            let splitDate = key.split('-').slice(1).join('/')
+            listArr.push({name:splitDate,...element})
+          }
+        }
+        this.setData({
+          dateList: listArr
+        })
       }else{
         wx.showToast({
           title: res.data.err,

@@ -64,9 +64,9 @@ App({
                     this.globalData.head_url = res.data.data.head_url
                     this.globalData.nickname = res.data.data.nickname
                     this.globalData.worker_id = res.data.data.worker_id
-                    if(wx.getStorageSync('statu')!=1){
+                    // if(wx.getStorageSync('statu')!=1){
                       wx.setStorageSync('statu', res.data.data.is_worker)
-                    }
+                    // }
                    
                     // this.getHomeData(this.globalData.openId)
                 }
@@ -75,10 +75,11 @@ App({
                     console.log(res);
                     let data = res.data
                     if(data && data.code == 200){
-                      if(data.data && data.data.worker_info && data.data.worker_info.status == 50){
+                      if(data.data && data.data.worker_info && (data.data.worker_info.status == 50 || data.data.worker_info.status == 53)){
+                        // 写评论的时候注释掉 不然出不来用户的页面  写完这个需求在放开
                         wx.setStorageSync('statu', 1)
                         wx.showToast({
-                          title: '点击右上角三个点重新进入小程序',
+                          title: '如未显示工作台,请重新进入',
                           icon: 'none'
                         })
                       }

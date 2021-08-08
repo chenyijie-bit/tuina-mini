@@ -1,1 +1,40 @@
 /* pages/gukepingjia/index.wxss */
+.fuwupingjia{
+  font-size: 32rpx;
+  padding: 30rpx 20rpx 34rpx;
+}
+.list-box{
+  border-top: 1rpx solid #ddd;
+  padding: 30rpx;
+}
+.flex-box{
+  display: flex;
+  padding: 20rpx 0;
+}
+.content{
+  padding: 40rpx 0;
+}
+.flex-l{
+  flex: 1;
+}
+.flex-r{
+  width: 120rpx;
+
+}
+.first-text{
+  font-size: 40rpx;
+  margin-right: 30rpx;
+}
+.bottom-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bottom-box button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+}
+.bottom-box  .but-but-red  button{
+  color: red !important;
+  border-color: red;
+}

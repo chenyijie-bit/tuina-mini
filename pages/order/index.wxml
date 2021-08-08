@@ -126,8 +126,9 @@
                 <text class="type-ans">{{item.start_date}}</text>
               </view>
             </view>
-            <view class="order-item-but">
-              <van-button bindtap="payment" data-no="{{item.order.no}}" data-flag="{{item.status_str}}" class="{{item.status_str == '按摩结束，待支付' ? '' : 'cant-pay'}}"   data-listid="{{item.list_id}}">{{item.status_str == "按摩结束，待支付" ? '支付':'已支付'}}</van-button>
+            <view class="order-item-but gotopingjia">
+              <van-button bindtap="payment" data-no="{{item.order.no}}" data-flag="{{item.status_str}}" class="{{item.status_str == '按摩结束，待支付' ? '' : 'cant-pay'}} item-but"   data-listid="{{item.list_id}}" data-orderid="{{item.order.id}}">{{item.status_str == "按摩结束，待支付" ? '支付':'已支付'}}</van-button>
+              <van-button wx:if="{{item.status=='179'}}" class="item-but" bindtap="gotopingjia"  data-orderid="{{item.order.id}}" data-listid="{{item.list_id}}">去评价</van-button>
             </view>
           </view>
         </view>

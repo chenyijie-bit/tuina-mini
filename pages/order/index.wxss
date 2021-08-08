@@ -134,11 +134,21 @@ page{
   display: block;
   height: 70rpx;
   line-height: 70rpx;
-  width: 650rpx;
+  /* width: 650rpx; */
   background: #BA9245;
   color: #fff;
   border: none;
   margin: 0 auto;
+}
+.order-item-but  .item-but:last-child{
+  margin-left: 20rpx;
+}
+.order-item-but .item-but{
+  flex: 1;
+}
+.gotopingjia{
+  /* margin-top: 40rpx; */
+  display: flex;
 }
 .coupon-sheet{
  

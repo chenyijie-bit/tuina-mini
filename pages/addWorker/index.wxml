@@ -13,7 +13,7 @@
       搜索
     </view>
   </view>
-  <view class="containt-box">
+  <view class="containt-box" wx:if="{{!meiyouInfo}}">
     <van-loading wx:if="{{loading}}" />
     <view class="item-list" wx:for="{{itemList}}" wx:key="index"> 
       <view style="max-width:150rpx;overflow-wrap: anywhere;">
@@ -36,9 +36,12 @@
         </view>
         <view style="text-align: right;margin-top:20rpx;">
           <van-button wx:if="{{item.worker_info.status != 60 && item.worker_info.status != 56}}" bindtap="setWorker" data-status="{{item.worker_info.status}}" data-id="{{item.id}}" class="but-but" size="small" plain type="info">{{item.butText}}</van-button>
+          <van-button bindtap="delWorker"  wx:if="{{item.worker_info.status == 60 || item.worker_info.status == 56}}"  class="but-but-red"  size="small" plain type="info" data-id="{{item.worker_info.id}}">删除员工</van-button>
         </view>
       </view>
       
     </view>
   </view>
+  <view  wx:else style="margin-top:40rpx;text-align: center;">{{listInfo}}</view>
+  <van-dialog id="van-dialog" />
 </view>

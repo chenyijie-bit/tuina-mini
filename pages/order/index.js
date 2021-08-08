@@ -39,6 +39,15 @@ Component({
     }
   },
   methods:{
+    // 去评价
+    gotopingjia(e){
+      let queue_id = e.currentTarget.dataset.orderid-0
+      console.log(queue_id);
+      wx.setStorageSync('pingjiaid', queue_id)
+      wx.navigateTo({
+        url: '../qupingjia/index',
+      })
+    },
     //下拉刷新
     // onRefresh() {
     //   if (this._freshing) return

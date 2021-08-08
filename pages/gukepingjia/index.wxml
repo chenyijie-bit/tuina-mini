@@ -1,2 +1,31 @@
 <!--pages/gukepingjia/index.wxml-->
-<text>pages/gukepingjia/index.wxml</text>
+<view>
+  <view class="fuwupingjia">
+    服务评价
+  </view>
+  <view wx:if="{{evaluateList.length}}">
+    <view wx:for="{{evaluateList}}" wx:key="index" class="list-box">
+      <view class="flex-box">
+        <view class="flex-l">
+          <view>  
+            <text class="first-text">{{item.grade}}星</text>
+            <text style="color:#777;">{{item.user.nickname}}</text>
+          </view>
+        </view>
+        <view class="flex-r">
+          <!-- <view>头像</view> -->
+        </view>
+      </view>
+      <view class="content">
+        <view>{{item.content}}</view>
+      </view>
+      <view class="bottom-box">
+        <view  style="color:#777;">理疗师：{{item.worker.name}}</view>
+        <van-button bindtap="shenhetongguo"  wx:if="{{item.approve == 4 || item.approve == 10}}"  class="{{item.approve==4 ? 'but-but' : 'but-but-red'}}"  size="small" plain type="info" data-pinglunid="{{item.id}}" data-workerid="{{item.worker.id}}"  data-approveid="{{item.approve}}">{{item.approve==4 ? '审核未通过' : '审核已通过'}}</van-button>
+      </view>
+    </view>
+  </view>
+  <view wx:else>
+    暂无数据
+  </view>
+</view>

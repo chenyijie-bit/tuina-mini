@@ -1,0 +1,46 @@
+/* pages/qupingjia/index.wxss */
+.title{
+  margin-top: 30rpx;
+  font-size: 32rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.middle{
+  padding: 20rpx 32rpx;
+}
+.middle .text{
+  color: #646566;
+  display: inline-block;
+  width: 120rpx;
+  font-size: 29rpx;
+  text-align: right;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-right: 40rpx;
+  vertical-align: top;
+  margin-top: 10rpx;
+}
+.bottom{
+  padding: 40rpx;
+}
+.bottom textarea{
+  height: 130px !important;
+  width: 100%;
+  background: #eee;
+  padding: 18rpx;
+  box-sizing: border-box;
+  border-radius: 8rpx;
+}
+.order-item-but{
+  margin-top: 120rpx;
+}
+.order-item-but  button{
+  display: block;
+  height: 70rpx;
+  line-height: 70rpx;
+  width: 300rpx;
+  background: #BA9245;
+  color: #fff;
+  border: none;
+  margin: 0 auto;
+}

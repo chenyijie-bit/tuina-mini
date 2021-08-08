@@ -28,12 +28,7 @@
             </view>
             <text>通知</text>
           </view>
-          <view class="item" bindtap="gukepingjia">
-            <view>
-              <van-icon size="25px" color="#666" name="edit" />
-            </view>
-            <text>顾客评价</text>
-          </view>
+          
           <view class="item" bindtap="kaoqinshenqing">
             <view>
               <van-icon size="25px" color="#666" name="completed" />
@@ -73,13 +68,19 @@
             <view>
               <van-icon size="25px" color="#666" name="add-o" />
             </view>
-            <text>添加员工</text>
+            <text>添减员工</text>
           </view>
           <view class="item" bindtap="tongzhi">
             <view>
               <van-icon size="25px" color="#666" name="bullhorn-o" />
             </view>
             <text>通知</text>
+          </view>
+          <view class="item" bindtap="gukepingjia">
+            <view>
+              <van-icon size="25px" color="#666" name="edit" />
+            </view>
+            <text>顾客评价</text>
           </view>
         </view>
       </view>

@@ -142,9 +142,14 @@ Component({
               } 
             }
             console.log(tuijianWorker);
+            let copyWorkerList = []
+            if(JSON.stringify(tuijianWorker) != "{}"){
+              console.log('进来了');
+              copyWorkerList = [tuijianWorker]
+            }
             this.setData({
               storeList:data.shops,
-              workerList: [tuijianWorker],
+              workerList: copyWorkerList,
             })
           }else{
             wx.showToast({

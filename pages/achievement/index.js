@@ -60,9 +60,9 @@ Component({
         if(res.data && res.data.code==200){
           if(res.data.data && res.data.data.worker_info.status && res.data.data.worker_info.status==50){
             // 说明是管理员已把他设置为员工但是还没有完善员工信息
-            // wx.navigateTo({
-            //   url: '../gerenxinxi/index',
-            // })
+            wx.navigateTo({
+              url: '../gerenxinxi/index',
+            })
           }
         }
       })

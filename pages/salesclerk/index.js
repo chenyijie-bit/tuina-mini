@@ -282,7 +282,7 @@ Page({
       }).then(res=>{
         console.log(res);
         if(res.statusCode ==200 && res.data.code == 200){
-          let dateData = res.data.data
+          let dateData = res.data.data.future_list
           let arr = []
           let longDateList = []
           let quedateList = []

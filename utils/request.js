@@ -93,9 +93,17 @@ const API = {
     userInfo:(data)=>request(POST, `/user/info`,data),
     //用户补充信息
     userWorkerRegister:(data)=>request(POST, `/user/worker-register`,data),
-    
-
-    
+    // 管理员删除员工
+    workerUserDel:(data)=>request(POST, `/worker/user/del`,data),
+    //  管理员确认
+    workerUserAgree:(data)=>request(POST, `/worker/user/agree`,data),
+    // 发送评价
+    orderCommentIn:(data)=>request(POST, `/order-comment/in`,data),
+    // 查看评价
+    workerOrderCommentList:(data)=>request(POST, `/worker/order-comment/list`,data),
+   // 审核评价通过或者不通过
+   workerOrderCommentCheck:(data)=>request(POST, `/worker/order-comment/check`,data),
+   
 
 
 

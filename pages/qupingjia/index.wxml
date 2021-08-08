@@ -1,0 +1,29 @@
+<!--pages/qupingjia/index.wxml-->
+<view wx:if="{{!pingjiawancheng}}">
+  <view class="title"> 您对本次的服务是否满意？</view>
+  <view class="middle">
+    <text class="text">服务评价</text>
+    <van-rate
+      value="{{ value }}"
+      size="{{ 25 }}"
+      color="#BA9245"
+      void-color="#eee"
+      void-icon="star"
+      bind:change="onChange"
+    />
+  </view>
+  <view class="bottom">
+    <textarea bindblur="bindTextAreaBlur" auto-height placeholder="有什么想对我们说的可以写在这哦"/>
+  </view>
+  <view>
+    <van-button class="order-item-but" bindtap="send">确定</van-button>
+  </view>
+</view>
+<view wx:else>
+  <view style="padding-top: 40rpx;font-size: 40rpx;text-align: center;">
+    感谢您对我们的支持~
+  </view>
+  <view style="padding: 40rpx 30rpx;font-size: 32rpx;color: #666">
+    如有任何问题或者意见建议都可以直接告知我们，建议如若被采纳将会给您部分奖励哦。再次感谢您对我们的支持与认可，祝您生活愉快。
+  </view>
+</view>
