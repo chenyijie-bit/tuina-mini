@@ -1,17 +1,37 @@
 <!--pages/kaoqintongji/index.wxml-->
 <view>
+  <view style="text-align:right;padding-right:40rpx;height: 100rpx;line-height: 100rpx;font-weight: 500;display: flex;align-items: center;justify-content: flex-end;" bindtap="showPop">
+    <text>{{currentMounth}}</text>
+    <van-icon name="arrow" />
+  </view>
+  <view class="desc-circle">
+    <view>
+      <view></view> 
+      <view></view>
+    </view>
+  </view>
+  <view class="flex-box">
+    <view wx:for="{{dateList}}" wx:key="index" class="item" bindtap="getDayInfo" data-info="{{item}}">
+      <view>{{item.name}}</view>
+      <view class="circle"></view>
+    </view>
+  </view>
+  
+  <van-popup
+    show="{{ showDatePicker }}"
+    position="bottom"
+    custom-style="height: 40%;"
+    bind:close="onClose"
+  >
   <view>
     <van-datetime-picker
       type="year-month"
       value="{{ currentDate }}"
       min-date="{{ minDate }}"
       bind:input="onInput"
+      bind:confirm="selectDate"
+      bind:cancel="cancelDate"
     />
   </view>
-  <view class="flex-box">
-    <view wx:for="{{dateList}}" wx:key="index" class="item">
-      <view>{{item.name}}</view>
-      <view class="circle"></view>
-    </view>
-  </view>
+  </van-popup>
 </view>

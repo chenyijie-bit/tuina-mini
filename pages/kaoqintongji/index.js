@@ -1,5 +1,6 @@
 let app = getApp();
 const $api = require('../../utils/request').API;
+const $formatTime = require('../../utils/util').formatTime;
 // pages/kaoqintongji/index.js
 Page({
 
@@ -9,11 +10,41 @@ Page({
   data: {
     dateList:[],
     currentDate: new Date().getTime(),
-    minDate: new Date().getTime(),
+    minDate: new Date(2021, 5).getTime(),
+    showDatePicker:false,
+    currentMounth:'',
+    currentY:'',
+    currentM:''
   },
   onInput(event) {
     this.setData({
       currentDate: event.detail,
+    });
+  },
+  selectDate(){
+    let resultDate = $formatTime(new Date(this.data.currentDate))
+    let formDate = resultDate.split('/')
+    this.setData({
+      currentY:formDate[0],
+      currentM:formDate[1],
+      currentMounth:`${formDate[0]}-${formDate[1]}`,
+      showDatePicker: false
+    })
+    this.workerPunchList({year:this.data.currentY,month:this.data.currentM})
+  },
+  cancelDate(){
+    this.setData({
+      showDatePicker: false,
+    });
+  },
+  onClose(){
+    this.setData({
+      showDatePicker: false,
+    });
+  },
+  showPop(){
+    this.setData({
+      showDatePicker: true,
     });
   },
   /**
@@ -22,17 +53,29 @@ Page({
   onShow: function () {
     this.workerPunchList()
   },
-  workerPunchList(){
-    $api.workerPunchList({openid:app.globalData.openId}).then(res=>{
-      console.log(res);
+  getDayInfo(e){
+    let dataInfo = e.currentTarget.dataset.info
+    let date = dataInfo.key    // 2021-08-13
+    wx.setStorageSync('selectDate', date)
+    wx.navigateTo({
+      url: '../dakaxiangqing/index',
+    })
+  },
+  workerPunchList(data){
+    $api.workerPunchList({openid:app.globalData.openId,...data}).then(res=>{
       let listArr = []
       if(res.data && res.data.code == 200){
-        let data = res.data.data
+        let data = res.data.data.list
         for (const key in data) {
+          if(!this.data.currentMounth){
+            this.setData({
+              currentMounth: key.slice(0,7)
+            })
+          }
           if (Object.hasOwnProperty.call(data, key)) {
             const element = data[key];
             let splitDate = key.split('-').slice(1).join('/')
-            listArr.push({name:splitDate,...element})
+            listArr.push({name:splitDate,...element,key})
           }
         }
         this.setData({

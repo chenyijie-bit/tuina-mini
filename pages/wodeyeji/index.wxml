@@ -1,2 +1,32 @@
 <!--pages/wodeyeji/index.wxml-->
-<text>pages/wodeyeji/index.wxml</text>
+<view>
+  <view style="text-align:right;margin-bottom:30rpx;">
+    <view>
+      <van-button class="but-but" size="small" plain type="info"  wx:if="{{selectType==2}}" data-id="1" bindtap="search">切换到按天查询</van-button>
+    </view>
+    <view>
+      <van-button class="but-but" size="small" plain type="info"  wx:if="{{selectType==1}}" data-id="2" bindtap="search">切换到按月查询</van-button>
+    </view>
+  </view>
+  <view class="custom-date"  wx:if="{{selectType==1}}" bindtap="onDisplay">
+    <view>选择日期区间</view>
+    <view>{{date}} <van-icon name="arrow" /></view>
+  </view>
+  <view  class="width3th">
+    <view>日期</view>
+    <view>单量</view>
+    <view>金额</view>
+  </view>
+  <view wx:for="{{resList}}" class="width3th" wx:key='index'>
+    <view>
+      {{item.date}}
+    </view>
+    <view>
+      {{item.order_count}}
+    </view>
+    <view>
+      {{item.order_sum}}
+    </view>
+  </view>
+  <van-calendar show="{{ showcalendar }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" allow-same-day type="range" show-confirm="{{ false }}" bind:close="onClose" bind:confirm="onConfirm"/>
+</view>

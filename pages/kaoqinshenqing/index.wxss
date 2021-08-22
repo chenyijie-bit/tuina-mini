@@ -1,1 +1,38 @@
 /* pages/kaoqinshenqing/index.wxss */
+.van-tabs__line{
+  background: #BA9245 !important;
+}
+.shenqing-box{
+  display: flex;
+  justify-content: space-between;
+  padding:30rpx 40rpx;
+}
+.content-box{
+  padding:50rpx 40rpx;
+}
+.margin-large{
+  margin-bottom: 60rpx;
+}
+.text-area{
+  width: 380rpx;
+  height: 220rpx;
+  border: 1px solid #ccc;
+  border-radius: 8rpx;
+}
+.but-but button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+}
+.button-box{
+  text-align: center;
+    margin-top: 50rpx;
+}
+.box-list{
+  padding: 20rpx;
+}
+.list-item{
+  background: #ccc;
+  padding: 24rpx;
+  margin-bottom: 34rpx;
+  border-radius: 12rpx;
+}

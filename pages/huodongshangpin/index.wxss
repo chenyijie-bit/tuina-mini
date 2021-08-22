@@ -1,0 +1,18 @@
+/* pages/gerenxinxi/index.wxss */
+.user-info-box{
+  padding: 20rpx 20rpx 30rpx;
+}
+.float-l{
+  float: right;
+  margin-right: 30rpx;
+}
+.float-l:first-child{
+  margin-right: 10rpx;
+}
+.queren-but{
+  margin-top: 80rpx;
+  text-align: center;
+}
+.top-file .van-cell-group{
+  padding-left: 32rpx;
+}

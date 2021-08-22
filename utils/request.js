@@ -103,9 +103,14 @@ const API = {
     workerOrderCommentList:(data)=>request(POST, `/worker/order-comment/list`,data),
    // 审核评价通过或者不通过
    workerOrderCommentCheck:(data)=>request(POST, `/worker/order-comment/check`,data),
-   
-
-
+   // 考勤申请历史
+   workerPunchApproveList:(data)=>request(POST, `/worker/punch/approve-list`,data),
+   // 请假或补卡申请
+   workerPunchApplys:(data)=>request(POST, `/worker/punch/applys`,data),
+    // 我的业绩
+    workerUserPerformance:(data)=>request(POST, `/worker/user/performance`,data),
+    // 添加海报
+    workerSystemPageDetailSet:(data)=>request(POST, `/worker/system/page-detail-set`,data),
 
     
 

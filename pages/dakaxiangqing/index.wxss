@@ -1,0 +1,19 @@
+/* pages/dakaxiangqing/index.wxss */
+.current-date{
+  text-align: center;
+  padding: 30rpx 0;
+  position: relative;
+}
+view text:first-child{
+  padding: 30rpx 30rpx;
+  margin-right: 40rpx;
+}
+.content-box{
+  padding: 30rpx;
+}
+.positiona{
+  position: absolute;
+  top:30rpx;
+  right: 20rpx;
+  color: rgb(12, 133, 240);
+}

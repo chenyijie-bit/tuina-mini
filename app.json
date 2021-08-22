@@ -21,7 +21,10 @@
     "pages/kaoqinshenpi/index",
     "pages/gerenxinxi/index",
     "pages/kaoqintongji/index",
-    "pages/qupingjia/index"
+    "pages/qupingjia/index",
+    "pages/huodongshangpin/index",
+    "pages/huiyuankaika/index",
+    "pages/dakaxiangqing/index"
   ],
   "permission": {
     "scope.userLocation": {

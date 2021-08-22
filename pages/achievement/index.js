@@ -25,6 +25,16 @@ Component({
         url: '../gukepingjia/index',
       })
     },
+    huodongshangpin(){
+      wx.navigateTo({
+        url: '../huodongshangpin/index',
+      })
+    },
+    huiyuankaika(){
+      wx.navigateTo({
+        url: '../huiyuankaika/index',
+      })
+    },
     kaoqinshenqing(){
       wx.navigateTo({
         url: '../kaoqinshenqing/index',

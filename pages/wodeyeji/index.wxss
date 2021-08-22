@@ -1,1 +1,26 @@
 /* pages/wodeyeji/index.wxss */
+page{
+  padding: 20rpx;
+    box-sizing: border-box;
+}
+.width3th{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.width3th view{
+  flex: 1;
+}
+.custom-date{
+  display: flex;
+    justify-content: space-between;
+    padding: 20rpx 30rpx;
+    margin-bottom: 40rpx;
+    margin-top: 40rpx;
+    background: #efefef;
+    border-radius: 12rpx;
+}
+.but-but button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+}

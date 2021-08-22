@@ -1,0 +1,32 @@
+<!--pages/dakaxiangqing/index.wxml-->
+<view>
+  <view class="current-date">
+  {{currentDate}}
+  <view class="positiona" bindtap="gotobuka">
+    去补卡<van-icon name="arrow" />
+  </view>
+  </view>
+  <view class="content-box">
+    <text>打卡时间1</text>
+    <text>{{firstDaka}}</text>
+  </view>
+  <view class="content-box">
+    <text>打卡时间2</text>
+    <text>{{lastDaka}}</text>
+  </view>
+  <view wx:if="{{shifoubuka}}">
+    <view class="content-box">
+      <text>补卡时间1</text>
+      <text>{{bukaFirstDaka}}</text>
+    </view>
+    <view class="content-box">
+      <text>补卡时间2</text>
+      <text>{{bukaLastDaka}}</text>
+    </view> 
+  </view>
+  <view wx:if="{{shifouqingjia}}"> 
+    <view class="content-box">
+      <text>今日请假</text>
+    </view> 
+  </view>
+</view>
