@@ -12,7 +12,7 @@
     <view>选择日期区间</view>
     <view>{{date}} <van-icon name="arrow" /></view>
   </view>
-  <view  class="width3th">
+  <view  class="width3th" style="color:#ba9245;">
     <view>日期</view>
     <view>单量</view>
     <view>金额</view>

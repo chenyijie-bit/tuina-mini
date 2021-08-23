@@ -111,8 +111,10 @@ const API = {
     workerUserPerformance:(data)=>request(POST, `/worker/user/performance`,data),
     // 添加海报
     workerSystemPageDetailSet:(data)=>request(POST, `/worker/system/page-detail-set`,data),
-
-    
+    // 门店数据
+    workerShopList:(data)=>request(POST, `/worker/shop/list`,data),
+    // 门店详情
+    workerShopDetail:(data)=>request(POST, `/worker/shop/detail`,data),
 
 };
 module.exports = {

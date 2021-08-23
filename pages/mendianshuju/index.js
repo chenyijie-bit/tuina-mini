@@ -1,13 +1,44 @@
 // pages/mendianshuju/index.js
+let app = getApp();
+const $api = require('../../utils/request').API;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    storeList:[]
   },
-
+  addStore(){
+    wx.navigateTo({
+      url: '../addstore/index',
+    })
+  },
+  dianpuxiangqing(e){
+    console.log(e);
+    let id= e.currentTarget.dataset.id
+    let name= e.currentTarget.dataset.name
+    wx.setStorageSync('storeDataId', id)
+    wx.setStorageSync('storeDataName', name)
+    wx.navigateTo({
+      url: '../mendianxiangqing/index',
+    })
+  },
+  initData(){
+    $api.workerShopList({openid:app.globalData.openId}).then(res=>{
+      console.log(res);
+      if(res.data.code == 200){
+        this.setData({
+          storeList: res.data.data.list
+        })
+      }else{
+        wx.showToast({
+          title: res.data.err,
+          icon:'none'
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -26,7 +57,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.initData()
   },
 
   /**

@@ -14,7 +14,9 @@ Page({
     showDatePicker:false,
     currentMounth:'',
     currentY:'',
-    currentM:''
+    currentM:'',
+    manqinTime: 11*60*60**1000, //满勤毫秒数  以11小时为满勤
+    // flagIndex:false
   },
   onInput(event) {
     this.setData({
@@ -66,6 +68,7 @@ Page({
       let listArr = []
       if(res.data && res.data.code == 200){
         let data = res.data.data.list
+        let currentDay =  res.data.data.cur_date.split(' ')[0]
         for (const key in data) {
           if(!this.data.currentMounth){
             this.setData({
@@ -78,6 +81,20 @@ Page({
             listArr.push({name:splitDate,...element,key})
           }
         }
+        let flagIndex = ''
+        listArr.map((e,i)=>{
+          if(e.key.split(' ')[0] == currentDay){
+            flagIndex = i
+          }
+          console.log(flagIndex);
+          if(flagIndex || flagIndex===0 && i>=flagIndex){
+            console.log(i);
+            e.notdaka = true
+          }
+        })
+        // 1 判断满足不满足10小时  2 如果打卡不足2次 寻找补卡里有没有 有的话（1次）    没有的话
+
+        // notdaka  当前时间还没到那一天
         this.setData({
           dateList: listArr
         })

@@ -1,0 +1,31 @@
+<!--pages/mendianxiangqing/index.wxml-->
+<view class="page-box">
+  <view class="title">
+    {{name}}
+  </view>
+  <view class="store-box">
+    <view class="store-name">门店数据</view>
+      <view class="store-item">
+        <view>复购订单数量:{{shopInfo.rep_count}}</view>
+        <view>复购用户数量:{{shopInfo.rep_user_count}}</view>
+        <view>订单数:{{shopInfo.sum_count}}</view>
+        <view>支付金额:{{shopInfo.sum_pay_price}}</view>
+        <view>优惠金额:{{shopInfo.sum_promotion_price}}</view>
+        <view>预付金额:{{shopInfo.sum_total_price}}</view>  
+      </view>
+  </view>
+  <view class="worker-name">
+    <view  class="worker-name">店员数据</view>
+    <view wx:for="{{workerList}}" wx:key="index" class="worker-box">
+      <view class="worker-item">
+        <view class="worker-name-name"> {{item.name}}</view>
+        <view>复购订单数量:{{item.worker_stat.rep_count}}</view>
+        <view>复购用户数量:{{item.worker_stat.rep_user_count}}</view>
+        <view>订单数:{{item.worker_stat.sum_count}}</view>
+        <view>支付金额:{{item.worker_stat.sum_pay_price}}</view>
+        <view>优惠金额:{{item.worker_stat.sum_promotion_price}}</view>
+        <view>预付金额:{{item.worker_stat.sum_total_price}}</view>
+      </view>
+    </view>
+  </view>
+</view>

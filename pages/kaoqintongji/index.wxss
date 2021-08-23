@@ -22,6 +22,27 @@
   height: 16rpx;
   width: 16rpx;
   border-radius: 8rpx;
-  background: #BA9245;
+  background: green;
   margin-top: 10rpx;
+}
+.danger-circle{
+  height: 16rpx;
+  width: 16rpx;
+  border-radius: 8rpx;
+  background: red;
+}
+.warnning-circle{
+  height: 16rpx;
+  width: 16rpx;
+  border-radius: 8rpx;
+  background: #BA9245;
+}
+.qingjia-circle{
+  height: 16rpx;
+  width: 16rpx;
+  border-radius: 8rpx;
+  background: #888;
+}
+.exple-circle{
+  margin-right: 8rpx;
 }

@@ -12,7 +12,8 @@ Page({
     showcalendar:false,
     minDate: new Date(2021, 7, 1).getTime(),
     maxDate: new Date().getTime(),
-    date:''
+    date:'',
+    flag:'1'   //1 按月  2 按日
   },
   onDisplay() {
     this.setData({ showcalendar: true });
@@ -56,14 +57,16 @@ Page({
         selectType: 2
       })
     }
+    this.initData()
   },
   initData(sdate,edate){
     $api.workerUserPerformance({
       "openid": app.globalData.openId,
       "worker_id": app.globalData.worker_id,					
       "sdate": sdate,
-      "edate":edate,
-      "shop_id":""
+      "edate": edate,
+      "shop_id":"",
+      date_unit: this.data.selectType == 1 ? '2' : '1'
     }).then(res=>{
       console.log(res);
       if(res.data.code == 200){

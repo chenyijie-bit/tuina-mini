@@ -1,2 +1,35 @@
 <!--pages/kaoqinshenpi/index.wxml-->
-<text>pages/kaoqinshenpi/index.wxml</text>
+<view>
+  <view class="box-list">
+  <view wx:for="{{lishiList}}" wx:key="index"  class="list-item">
+    <view>是否处理：{{item.approve_info.desc}}</view>
+    <view>申请类型：{{item.type_info.id == 1 ? '补卡' : '请假'}}</view>
+    <view wx:if="{{item.type_info.id == 1}}">
+      <view wx:if="{{item.date_info.sdate && item.date_info.sdate.length}}">
+        {{item.date_info.sdate[1]}}: {{item.date_info.sdate[0]}}
+      </view>
+      <view wx:if="{{item.date_info.edate && item.date_info.edate.length}}">
+        {{item.date_info.edate[1]}}: {{item.date_info.edate[0]}}
+      </view>
+    </view>
+    <view wx:if="{{item.type_info.id == 2}}">
+    <!-- 请假 -->
+      <view wx:if="{{item.date_info.sdate && item.date_info.sdate.length}}">
+        {{item.date_info.sdate[1]}}
+      </view>
+      <view wx:if="{{item.date_info.edate && item.date_info.edate.length}}">
+        <view>至</view>
+        <view>{{item.date_info.edate[1]}}</view>
+      </view>
+    </view>
+    <view class="button-box">
+      <view>
+        <van-button class="but-but-red" size="small" plain type="info" data-id="1" bindtap="tongguo">不通过</van-button>
+      </view>
+      <view>
+        <van-button class="but-but-green" size="small" plain type="info" data-id="2" bindtap="tongguo">通过</van-button>
+      </view>
+    </view>
+  </view>
+</view>
+</view>

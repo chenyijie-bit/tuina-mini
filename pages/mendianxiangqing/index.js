@@ -1,4 +1,4 @@
-// pages/kaoqinshenpi/index.js
+// pages/mendianxiangqing/index.js
 let app = getApp();
 const $api = require('../../utils/request').API;
 Page({
@@ -7,22 +7,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    name:'',
+    id:'',
+    shopInfo:{},
+    workerList:[]
   },
   initData(){
-    $api.workerPunchApproveList({
-      "openid": app.globalData.openId,
-        approve:0, 			//审批情况	1 通过   2 未通过   0 未审核
-        approve_worker_id:'',  	//审批人 id
-        worker_id:'' ,			//申请人 id
-        start_date:'',  		//请假的开始时间
-        end_date:''            //请假的结束时间
-
-    }).then(res=>{
+    let id = wx.getStorageSync('storeDataId')
+    let name = wx.getStorageSync('storeDataName')
+    console.log(id,name);
+    this.setData({
+      name,id
+    })
+    $api.workerShopDetail({openid:app.globalData.openId,sdate:'',edate:'',shop_id:id}).then(res=>{
       console.log(res);
       if(res.data.code == 200){
+        let shopInfo = res.data.data.shop
+        let workerList = res.data.data.worker.list
         this.setData({
-          lishiList : res.data.data.list
+          shopInfo,
+          workerList
         })
       }else{
         wx.showToast({

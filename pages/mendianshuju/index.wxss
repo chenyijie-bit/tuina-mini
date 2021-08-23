@@ -1,1 +1,10 @@
 /* pages/mendianshuju/index.wxss */
+.item-box{
+  padding: 20rpx;
+    background: #efefef;
+    border-radius: 12rpx;
+}
+.parent-box{
+  margin-bottom: 30rpx;
+  padding: 12rpx 30rpx;
+}

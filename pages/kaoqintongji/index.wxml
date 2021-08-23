@@ -5,15 +5,25 @@
     <van-icon name="arrow" />
   </view>
   <view class="desc-circle">
-    <view>
-      <view></view> 
-      <view></view>
+    <view style="display: flex;justify-content: center;align-items: center;margin-right:20rpx;">
+      <view style="display: flex;justify-content: center;align-items: center;">
+        <view class="exple-circle danger-circle"></view>
+        <view>时间不足</view>
+      </view> 
+      <view style="display: flex;justify-content: center;align-items: center;margin-right:20rpx;">
+        <view class="exple-circle warnning-circle"></view>
+        <view>次数不够</view>
+      </view>
+      <view style="display: flex;justify-content: center;align-items: center;margin-right:20rpx;">
+        <view class="exple-circle qingjia-circle"></view>
+        <view>有请假</view>
+      </view>
     </view>
   </view>
   <view class="flex-box">
     <view wx:for="{{dateList}}" wx:key="index" class="item" bindtap="getDayInfo" data-info="{{item}}">
       <view>{{item.name}}</view>
-      <view class="circle"></view>
+      <view wx:if="{{!item.notdaka}}" class="circle"></view>
     </view>
   </view>
   

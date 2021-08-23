@@ -24,7 +24,9 @@
     "pages/qupingjia/index",
     "pages/huodongshangpin/index",
     "pages/huiyuankaika/index",
-    "pages/dakaxiangqing/index"
+    "pages/dakaxiangqing/index",
+    "pages/mendianxiangqing/index",
+    "pages/addstore/index"
   ],
   "permission": {
     "scope.userLocation": {

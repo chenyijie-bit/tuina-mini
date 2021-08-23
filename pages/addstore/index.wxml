@@ -1,0 +1,45 @@
+<!--pages/addstore/index.wxml-->
+<view>
+  <view>
+    <van-cell-group>
+      <van-field
+        model:value="{{ name }}"
+        label="店铺名称"
+        type="textarea"
+        placeholder="请输入店铺名称"
+        autosize
+        border="{{ false }}"
+      />
+    </van-cell-group>
+    <van-cell-group>
+      <van-field
+        model:value="{{ address }}"
+        label="门店地址"
+        type="textarea"
+        placeholder="请输入门店地址"
+        autosize
+        border="{{ false }}"
+      />
+    </van-cell-group>
+    <van-cell-group>
+      <van-field
+        model:value="{{ jingdu }}"
+        label="门店经度"
+        type="textarea"
+        placeholder="请输入门店经度"
+        autosize
+        border="{{ false }}"
+      />
+    </van-cell-group>
+    <van-cell-group>
+      <van-field
+        model:value="{{ weidu }}"
+        label="门店维度"
+        type="textarea"
+        placeholder="请输入门店维度"
+        autosize
+        border="{{ false }}"
+      />
+    </van-cell-group>
+  </view>
+</view>

@@ -1,1 +1,24 @@
 /* pages/kaoqinshenpi/index.wxss */
+.box-list{
+  padding: 20rpx;
+}
+.list-item{
+  background: #efefef;
+  padding: 24rpx;
+  margin-bottom: 34rpx;
+  border-radius: 12rpx;
+}
+.button-box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30rpx 0 10rpx;
+}
+.but-but-red button{
+  color: #999 !important;
+  border-color: #999;
+}
+.but-but-green button{
+  color: green !important;
+  border-color: green;
+}
