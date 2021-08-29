@@ -20,8 +20,12 @@
         autosize
         border="{{ false }}"
       />
+    <!-- </van-cell-group>
+    <van-cell-group class="date-class">
+      <van-cell title="开业时间" value="{{ date }}" bind:click="onDisplay" />
+      <van-calendar show="{{ show }}" bind:close="onClose" bind:confirm="onConfirm" />
     </van-cell-group>
-    <van-cell-group>
+    <van-cell-group> -->
       <van-field
         model:value="{{ jingdu }}"
         label="门店经度"
@@ -41,5 +45,13 @@
         border="{{ false }}"
       />
     </van-cell-group>
+    <van-cell-group class="top-file">
+      <text style="display:inline-block;margin-right:30rpx;color:#646566;font-size: 26rpx;">门店图片</text>
+      <van-uploader  file-list="{{ fileList }}" bind:after-read="afterRead"/>
+    </van-cell-group>
   </view>
+  <view class="queren-but">
+    <van-button plain hairline type="info" bindtap="oooo">确认信息</van-button>
+  </view>
+  <van-toast id="van-toast" />
 </view>

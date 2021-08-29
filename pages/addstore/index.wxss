@@ -1,1 +1,15 @@
 /* pages/addstore/index.wxss */
+.date-class .van-cell__value{
+  text-align: left;
+}
+.date-class .van-cell__title{
+  flex: none;
+  width: 195rpx;
+}
+.top-file .van-cell-group{
+  padding-left: 32rpx;
+}
+.queren-but{
+  margin-top: 80rpx;
+  text-align: center;
+}

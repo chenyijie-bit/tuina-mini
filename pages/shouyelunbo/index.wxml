@@ -1,0 +1,20 @@
+<view>
+  <view style="text-align: right;padding: 30rpx 41rpx 28rpx;" bindtap="tianjialunbo">
+    <text>添加轮播图</text><van-icon  style="vertical-align: middle;margin-left: 10rpx;" name="add-o" color="333" size="25px"/>
+  </view>
+  <view>
+    <view style="padding:30rpx;">
+    <view wx:for="{{list}}" wx:key="index" style="padding:30rpx;background: #efefef;border-radius: 12rpx;margin-bottom:30rpx;">
+      <view>图片：<image style="display:inline-block;height:120rpx;width:200rpx;vertical-align: middle;" mode="aspectFit" src="{{item.pageImage.atta_url}}"></image></view>
+      <view class="padding-item-20">名称：{{item.pageImage.name}}</view>
+      <view class="padding-item-20" wx:if="{{item.pageImage.link_type}}">类型：{{item.pageImage.link_type == 3 ? '活动商品' : '会员卡'}}</view>
+      <!-- <view wx:if="{{item.status == 200}}" style="text-align:right;">
+        <van-button  class="but-but" size="small" plain type="info" data-id="{{item.id}}"  bindtap="guanbi">已启用</van-button>
+      </view>
+      <view wx:else style="text-align:right;">
+        <van-button class="but-but-red" size="small" plain type="info"  data-id="{{item.id}}"  bindtap="kaiqi">已禁用</van-button>
+      </view> -->
+    </view>
+  </view>
+  </view>
+</view>

@@ -10,6 +10,10 @@
         <view class="exple-circle danger-circle"></view>
         <view>时间不足</view>
       </view> 
+      <view style="display: flex;justify-content: center;align-items: center;">
+        <view class="exple-circle danger-circle"></view>
+        <view>时间不足</view>
+      </view> 
       <view style="display: flex;justify-content: center;align-items: center;margin-right:20rpx;">
         <view class="exple-circle warnning-circle"></view>
         <view>次数不够</view>

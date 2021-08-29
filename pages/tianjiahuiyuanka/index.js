@@ -1,7 +1,7 @@
-// pages/addstore/index.js
-import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+// pages/tianjiahuiyuanka/index.js
 let app = getApp();
 const $api = require('../../utils/request').API;
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
 
   /**
@@ -9,28 +9,25 @@ Page({
    */
   data: {
     fileList:[],
-    name:'',
-    address:'',
-    jingdu:'',
-    weidu:'',
-    // date: '',
-    show: false,
+    name:'',  // 标题
+    // shangjia: false, // 是否上架
+    desc:'',   // 海报详情
+    aid:'' ,
+    type:'30',
+    discount:'', // 折扣
+    money:100
   },
-  onDisplay() {
-    this.setData({ show: true });
-  },
-  onClose() {
-    this.setData({ show: false });
-  },
-  formatDate(date) {
-    date = new Date(date);
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  },
-  onConfirm(event) {
+  // onChangeShangjia({ detail }){
+  //   this.setData({
+  //     shangjia: detail
+  //   })
+  // },
+  onChangeRadioTab(e){
+    console.log(e);
+    let detail = e.detail
     this.setData({
-      show: false,
-      date: this.formatDate(event.detail),
-    });
+      type: detail
+    })
   },
   afterRead(event) {
     let _this = this
@@ -84,42 +81,45 @@ Page({
     });
   },
   oooo(){
-    // fileList:[],
-    // name:'',
-    // address:'',
-    // jingdu:'',
-    // weidu:'',
-    // date: '',
-    if(!this.data.fileList || !this.data.fileList.length || !this.data.name || !this.data.address || !this.data.jingdu || !this.data.weidu){
+    if(!this.data.discount || !this.data.money){
       wx.showToast({
-        title: '请完善信息',
+        title: '请把信息填写完整',
         icon:'none'
       })
       return false
     }
-    $api.workerShopCreate({
-      openid:app.globalData.openId,
-      name: this.data.name,
-      "location":{
-          "longitude":this.data.jingdu,
-          "latitude":this.data.weidu
-      },
-      // "work_open_date":"08:00:00",
-      // "weekend_open_date":"23:30:00",
-      "address":this.data.address,
-      "atta_id":"",
-      storeImg:this.data.fileList[0].url || ''
+    if(this.data.discount){
+      if(!parseFloat(this.data.discount) || parseFloat(this.data.discount)>10 || parseFloat(this.data.discount)<1){
+        wx.showToast({
+          title: '折扣请填写 1到10 的数值,数字8代表8折',
+          icon:'none',
+          duration: 3000
+        })
+        return false
+      }
+    }
+    $api.workerVipSet({
+      id : '',						//修改时  有id
+      "openid": app.globalData.openId,
+      "name":this.data.name,
+      "atta_id":this.data.aid,
+      "discount":parseFloat(this.data.discount) / 10,  //折扣
+      "type":this.data.type,
+      "desc":this.data.desc,
+      "price":this.data.money   //价格
     }).then(res=>{
       console.log(res);
       if(res.data.code == 200){
         // 说明是修改信息成功了
         wx.showToast({
-          title: '  ',
+          title: '已添加会员卡',
           icon:'none'
         })
-        wx.navigateTo({
-          url: '../mendianshuju/index'
-        })
+        setTimeout(() => {
+          wx.redirectTo({
+            url: '../huiyuankaika/index',
+          })
+        }, 1200);
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,
@@ -127,6 +127,11 @@ Page({
         })
       }
     })
+    console.log(this.data.name);
+    console.log(this.data.tel);
+    console.log(this.data.age);
+    console.log(this.data.shangjia);
+    console.log(this.data.message);
   },
   /**
    * 生命周期函数--监听页面加载

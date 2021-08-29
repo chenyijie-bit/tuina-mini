@@ -37,3 +37,6 @@
 .list-box .item text{
   font-size:  30rpx;
 }
+.work-table-list-top2{
+  margin-bottom: 130rpx;
+}

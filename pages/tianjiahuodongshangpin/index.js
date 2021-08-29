@@ -1,7 +1,8 @@
-// pages/addstore/index.js
-import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 let app = getApp();
 const $api = require('../../utils/request').API;
+
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+// pages/gerenxinxi/index.js
 Page({
 
   /**
@@ -9,28 +10,16 @@ Page({
    */
   data: {
     fileList:[],
-    name:'',
-    address:'',
-    jingdu:'',
-    weidu:'',
-    // date: '',
-    show: false,
+    name:'',  // 标题
+    shangjia: false, // 是否上架
+    message:'',   // 海报详情
+    aid:'' ,
+    money:100
   },
-  onDisplay() {
-    this.setData({ show: true });
-  },
-  onClose() {
-    this.setData({ show: false });
-  },
-  formatDate(date) {
-    date = new Date(date);
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  },
-  onConfirm(event) {
+  onChangeShangjia({ detail }){
     this.setData({
-      show: false,
-      date: this.formatDate(event.detail),
-    });
+      shangjia: detail
+    })
   },
   afterRead(event) {
     let _this = this
@@ -84,41 +73,25 @@ Page({
     });
   },
   oooo(){
-    // fileList:[],
-    // name:'',
-    // address:'',
-    // jingdu:'',
-    // weidu:'',
-    // date: '',
-    if(!this.data.fileList || !this.data.fileList.length || !this.data.name || !this.data.address || !this.data.jingdu || !this.data.weidu){
-      wx.showToast({
-        title: '请完善信息',
-        icon:'none'
-      })
-      return false
-    }
-    $api.workerShopCreate({
+    $api.workerMarketingSet({
       openid:app.globalData.openId,
-      name: this.data.name,
-      "location":{
-          "longitude":this.data.jingdu,
-          "latitude":this.data.weidu
-      },
-      // "work_open_date":"08:00:00",
-      // "weekend_open_date":"23:30:00",
-      "address":this.data.address,
-      "atta_id":"",
-      storeImg:this.data.fileList[0].url || ''
+      atta_id:this.data.aid,
+      id:'',  // 店铺id
+      name:this.data.name,
+      status: this.data.shangjia ? 1 : 0, // // 删除 -2  ； 上架 1  ；未审核 0
+      desc: this.data.message,  //描述
+      price: this.data.money,
+      shop_id:''
     }).then(res=>{
       console.log(res);
       if(res.data.code == 200){
         // 说明是修改信息成功了
         wx.showToast({
-          title: '  ',
+          title: '已添加活动商品',
           icon:'none'
         })
-        wx.navigateTo({
-          url: '../mendianshuju/index'
+        wx.redirectTo({
+          url: '../huodongshangpin/index',
         })
       }else{
         wx.showToast({
@@ -127,6 +100,11 @@ Page({
         })
       }
     })
+    console.log(this.data.name);
+    console.log(this.data.tel);
+    console.log(this.data.age);
+    console.log(this.data.shangjia);
+    console.log(this.data.message);
   },
   /**
    * 生命周期函数--监听页面加载

@@ -1,7 +1,7 @@
-// pages/addstore/index.js
-import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+// pages/tianjiahuiyuanka/index.js
 let app = getApp();
 const $api = require('../../utils/request').API;
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
 
   /**
@@ -9,28 +9,49 @@ Page({
    */
   data: {
     fileList:[],
-    name:'',
-    address:'',
-    jingdu:'',
-    weidu:'',
-    // date: '',
-    show: false,
+    name:'',  // 标题
+    isLink: false, // 是否是链接
+    desc:'',   // 海报详情
+    aid:'' ,
+    type:'',
+    obj: {
+      "page_id":"7",								//页面id        本项目为        7    
+      "block_type":"4",							//页面类型                     4 => '轮播图组',   7=> '单张图组 按序排列',  10=> '推荐技师',
+      "rank":"",									//排序  可以按顺序传
+      "is_all_through_valid":"1",					//是否一直有效，  可以显示一次
+      "start_time":"2021-02-03 23:59:23",			//轮播开始时间
+      "end_time":"2031-02-03 23:59:23",			//轮播结束时间
+      "image_name":"1",							//图片的名称  或者 看怎么用
+      "image_image_type":"1",						// 图片类型， 暂定
+      "image_is_smooth_scroll":"1",				// 1平滑混动，2整屏滚动',
+      "image_width":"1",
+      "image_height":"1",							
+      "image_background_color":"1",				
+      "image_box_style":"1",
+      "image_addation1":"1",						//备注信息1
+      "image_addation2":"1",						//备注信息2
+    }
   },
-  onDisplay() {
-    this.setData({ show: true });
-  },
-  onClose() {
-    this.setData({ show: false });
-  },
-  formatDate(date) {
-    date = new Date(date);
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  },
-  onConfirm(event) {
+  onChangeShangjia({ detail }){
     this.setData({
-      show: false,
-      date: this.formatDate(event.detail),
-    });
+      isLink: detail
+    })
+    if(this.data.isLink){
+      this.setData({
+        type: '3'
+      })
+    }else{
+      this.setData({
+        type: ''
+      })
+    }
+  },
+  onChangeRadioTab(e){
+    console.log(e);
+    let detail = e.detail
+    this.setData({
+      type: detail
+    })
   },
   afterRead(event) {
     let _this = this
@@ -84,42 +105,27 @@ Page({
     });
   },
   oooo(){
-    // fileList:[],
-    // name:'',
-    // address:'',
-    // jingdu:'',
-    // weidu:'',
-    // date: '',
-    if(!this.data.fileList || !this.data.fileList.length || !this.data.name || !this.data.address || !this.data.jingdu || !this.data.weidu){
-      wx.showToast({
-        title: '请完善信息',
-        icon:'none'
-      })
-      return false
+    let cusObj = {
+      "openid": app.globalData.openId,
+      "status":"1",								// 删除 给 -2  ；  其他不给
+      "image_name":this.data.name,
+      "image_atta_id":this.data.aid,
+      "image_link_type": this.data.isLink ? this.data.type : 0,			// 链接类型  链接类型 0 无链接 ； 1技师  ； 2店铺 ;3 活动     4  会员卡
     }
-    $api.workerShopCreate({
-      openid:app.globalData.openId,
-      name: this.data.name,
-      "location":{
-          "longitude":this.data.jingdu,
-          "latitude":this.data.weidu
-      },
-      // "work_open_date":"08:00:00",
-      // "weekend_open_date":"23:30:00",
-      "address":this.data.address,
-      "atta_id":"",
-      storeImg:this.data.fileList[0].url || ''
-    }).then(res=>{
+    let resObj = Object.assign({},cusObj,this.data.obj)
+    $api.workerSystemPageDetailSet(resObj).then(res=>{
       console.log(res);
       if(res.data.code == 200){
         // 说明是修改信息成功了
         wx.showToast({
-          title: '  ',
+          title: '已添加轮播图',
           icon:'none'
         })
-        wx.navigateTo({
-          url: '../mendianshuju/index'
-        })
+        setTimeout(() => {
+          wx.redirectTo({
+            url: '../lunboshouye/index',
+          })
+        }, 1200);
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,
@@ -127,6 +133,11 @@ Page({
         })
       }
     })
+    console.log(this.data.name);
+    console.log(this.data.tel);
+    console.log(this.data.age);
+    console.log(this.data.isLink);
+    console.log(this.data.message);
   },
   /**
    * 生命周期函数--监听页面加载

@@ -1,0 +1,10 @@
+/* pages/tianjiahuiyuanka/index.wxss */
+.custom-style .van-cell-group{
+  display: flex;
+  align-items: center;
+  padding-left: 32rpx;
+}
+.queren-but{
+  margin-top: 50rpx;
+    text-align: center;
+}

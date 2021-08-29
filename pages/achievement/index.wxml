@@ -43,7 +43,7 @@
           </view>
         </view>
       </view>
-      <view class="work-table-list-top">
+      <view class="work-table-list-top work-table-list-top2">
         <view class="title title-lag">店长工具</view>
         <view class="list-box">
           <view class="item" bindtap="mendianshuju">
@@ -92,7 +92,13 @@
             <view>
               <van-icon size="25px" color="#666" name="vip-card-o" />
             </view>
-            <text>会员开卡</text>
+            <text>会员卡</text>
+          </view>
+          <view class="item" bindtap="shouyelunbo">
+            <view>
+              <van-icon size="25px" color="#666" name="video-o" />
+            </view>
+            <text>首页轮播</text>
           </view>
         </view>
       </view>

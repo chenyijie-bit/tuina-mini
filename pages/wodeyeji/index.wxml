@@ -28,5 +28,6 @@
       {{item.order_sum}}
     </view>
   </view>
+  <view wx:if="{{!resList.length}}"> 暂无数据</view>
   <van-calendar show="{{ showcalendar }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" allow-same-day type="range" show-confirm="{{ false }}" bind:close="onClose" bind:confirm="onConfirm"/>
 </view>

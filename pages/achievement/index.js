@@ -65,6 +65,11 @@ Component({
         url: '../addWorker/index',
       })
     },
+    shouyelunbo(){
+      wx.navigateTo({
+        url: '../shouyelunbo/index',
+      })
+    },
     getUserInfo(){
       $api.userInfo({"openid":app.globalData.openId}).then(res=>{
         if(res.data && res.data.code==200){

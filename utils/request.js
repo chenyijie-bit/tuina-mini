@@ -105,16 +105,33 @@ const API = {
    workerOrderCommentCheck:(data)=>request(POST, `/worker/order-comment/check`,data),
    // 考勤申请历史
    workerPunchApproveList:(data)=>request(POST, `/worker/punch/approve-list`,data),
+   // 考勤申请审批
+   workerPunchApproveCheck:(data)=>request(POST, `/worker/punch/approve-check`,data),
    // 请假或补卡申请
    workerPunchApplys:(data)=>request(POST, `/worker/punch/applys`,data),
     // 我的业绩
     workerUserPerformance:(data)=>request(POST, `/worker/user/performance`,data),
     // 添加海报
-    workerSystemPageDetailSet:(data)=>request(POST, `/worker/system/page-detail-set`,data),
+    workerMarketingSet:(data)=>request(POST, `/worker/marketing/set`,data),
+    // 海报列表
+    workerMarketingList:(data)=>request(POST, `/worker/marketing/list`,data),
+
     // 门店数据
     workerShopList:(data)=>request(POST, `/worker/shop/list`,data),
     // 门店详情
     workerShopDetail:(data)=>request(POST, `/worker/shop/detail`,data),
+    // 添加店铺
+    workerShopCreate:(data)=>request(POST, `/worker/shop/create`,data),
+    // 会员卡
+    // 添加
+    workerVipSet:(data)=>request(POST, `/worker/vip/set`,data),
+    // 列表
+    workerVipList:(data)=>request(POST, `/vip/list`,data),
+    // 轮播
+    // 列表
+    workerSystemPageDetailList:(data)=>request(POST, `/worker/system/page-detail-list`,data),
+    // 添加轮播
+    workerSystemPageDetailSet:(data)=>request(POST, `/worker/system/page-detail-set`,data),
 
 };
 module.exports = {

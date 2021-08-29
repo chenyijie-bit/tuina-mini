@@ -1,0 +1,4 @@
+/* pages/shouyelunbo/index.wxss */
+.padding-item-20{
+  padding: 20rpx 0;
+}

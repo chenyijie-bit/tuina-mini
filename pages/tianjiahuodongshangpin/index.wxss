@@ -16,17 +16,3 @@
 .top-file .van-cell-group{
   padding-left: 32rpx;
 }
-.padding-item{
-  padding: 10rpx 0;
-}
-.but-but-del{
-  margin-right: 36rpx;
-}
-.but-but-del button{
-  color: red !important;
-  border-color: red;
-}
-.but-but-gray button{
-  color: gray !important;
-  border-color: gray;
-}

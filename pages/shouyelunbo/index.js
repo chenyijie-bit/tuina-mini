@@ -1,4 +1,4 @@
-// pages/kaoqinshenpi/index.js
+// pages/shouyelunbo/index.js
 let app = getApp();
 const $api = require('../../utils/request').API;
 Page({
@@ -7,52 +7,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    list: []
   },
-  tongguo(e){
-    console.log(e);
-    let id = e.currentTarget.dataset.id
-    this.shenhe(id,1)
-  },
-  butongguo(e){
-    let id = e.currentTarget.dataset.id
-    this.shenhe(id,2)
-  },
-  shenhe(id,state){
-    $api.workerPunchApproveCheck({
-      "openid": app.globalData.openId,
-	    "approve" : state,		//审批情况	1 通过   2 未通过   0 未审核
-	    id				//审批的id
-    }).then(res=>{
-      console.log(res);
-      if(res.data.code == 200){
-        wx.showToast({
-          title: '操作成功'
-        })
-        this.initData()
-      }else{
-        wx.showToast({
-          title: res.data.err || res.data.data.err,
-          icon:'none'
-        })
-      }
+  tianjialunbo(){
+    wx.navigateTo({
+      url: '../tianjialunbo/index',
     })
   },
-
   initData(){
-    $api.workerPunchApproveList({
+    $api.workerSystemPageDetailList({
       "openid": app.globalData.openId,
-        approve:0, 			//审批情况	1 通过   2 未通过   0 未审核
-        approve_worker_id:'',  	//审批人 id
-        worker_id:'' ,			//申请人 id
-        start_date:'',  		//请假的开始时间
-        end_date:''            //请假的结束时间
-
+      "name":"", 						//可选参数。  模糊查询
+      "page_id": 7
     }).then(res=>{
       console.log(res);
-      if(res.data.code == 200){
+      if(res.data.code ==200){
+        let list = res.data.data.list
         this.setData({
-          lishiList : res.data.data.list
+          list
         })
       }else{
         wx.showToast({

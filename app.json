@@ -26,7 +26,11 @@
     "pages/huiyuankaika/index",
     "pages/dakaxiangqing/index",
     "pages/mendianxiangqing/index",
-    "pages/addstore/index"
+    "pages/addstore/index",
+    "pages/shouyelunbo/index",
+    "pages/tianjiahuiyuanka/index",
+    "pages/tianjialunbo/index"
+    
   ],
   "permission": {
     "scope.userLocation": {
