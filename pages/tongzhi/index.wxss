@@ -1,6 +1,6 @@
 /* pages/tongzhi/index.wxss */
 .tongzhiitem{
-  padding: 20rpx 20rpx 15rpx;
+  padding: 30rpx 20rpx 30rpx;
   background: #efefef;
   margin: 28rpx 20rpx 3rpx;
   border-radius: 8rpx;

@@ -1,13 +1,38 @@
 // pages/mendianpaiban/index.js
+let app = getApp();
+const $api = require('../../utils/request').API;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    storelist:[]
   },
-
+  getStoreId(e){
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../mendianpaibanxiangqing/index?id=' + id,
+    })
+  },
+  getShopList(){
+    $api.workerShopList({
+      openid:app.globalData.openId
+    }).then(res=>{
+      console.log(res);
+      if(res.data.code == 200){
+        let list = res.data.data.list || []
+        this.setData({
+          storelist:list
+        })
+      }else{
+        wx.showToast({
+          title: res.data.err || res.data.data.err,
+          icon:'none'
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -26,7 +51,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getShopList()
   },
 
   /**

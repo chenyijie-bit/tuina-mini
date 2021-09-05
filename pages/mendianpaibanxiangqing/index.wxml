@@ -1,0 +1,21 @@
+<view>
+  <view class="content" style="padding: 40rpx 30rpx;">
+    <view wx:for="{{workerList}}" wx:key="index" class="item-item">
+      <view>{{item.worker.name}}</view>
+      <view wx:if="{{item.info.clock.length}}">
+        <view>首次打卡： {{item.info.clock[0]}}</view>
+        <view wx:if="{{item.info.clock.length > 1}}">末次打卡： {{item.info.clock[item.info.clock.length - 1]}}</view> 
+      </view>
+      <view wx:else>
+        暂未打卡
+      </view>
+      <view wx:if="{{item.info.qj.length}}">
+        <view>
+          今日请假
+        </view>
+        <view wx:if="{{item.info.qj[0]}}">{{item.info.qj[0]}}</view>
+        <view wx:if="{{item.info.qj[1]}}">{{item.info.qj[1]}}</view> 
+      </view>
+    </view>
+  </view>
+</view>

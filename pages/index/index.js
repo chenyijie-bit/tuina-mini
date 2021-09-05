@@ -10,6 +10,7 @@ Component({
         autoplay: true,
         interval: 2000,
         duration: 500,
+        imgBox:[],
         images:['../../assess/images/banner1.png','../../assess/images/banner2.jpg','../../assess/images/banner3.jpg','../../assess/images/banner4.jpg'],
         personImg:'../../assess/images/123.jpeg',
         positionIcon:'../../assess/images/position-icon.png',
@@ -88,6 +89,23 @@ Component({
     }
   },
   methods:{
+    gotoUrl(e){
+      console.log(e);
+      let type = e.currentTarget.dataset.type
+      if(type){
+        if(type == 3){
+          // 活动
+          wx.navigateTo({
+            url: '../yonghuhuodong/index',
+          })
+        }else if(type ==4){
+          // 会员卡
+          wx.navigateTo({
+            url: '../yonghuhuiyuan/index',
+          })
+        }
+      }
+    },
     bindtap(){
       wx.navigateTo({
         url: '../searchStop/index',
@@ -123,7 +141,15 @@ Component({
             this.setData({
               loadingModelShow: false
             })
+            
             let data = res.data.data
+            let imgBox = data.carousel || []
+            imgBox.map(e=>{
+              e.base_url = e.atta_url
+            })
+            this.setData({
+              imgBox:imgBox
+            })
             let shops = data.shops || []
             for (let index = 0; index < shops.length; index++) {
               const element = shops[index];

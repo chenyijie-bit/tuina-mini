@@ -1,0 +1,23 @@
+<view>
+  <view>
+    <view class="item-box">
+      <view class="date-box">
+        <view wx:for="{{dateList}}"  wx:for-index="index" wx:key="index" class="date-item">
+          {{item.name}}
+        </view>
+      </view>
+      
+      <view wx:for="{{mendianList}}" wx:key="name" class="store-item">
+        <view>
+          {{item.name}}
+        </view>
+        <view wx:for="{{item.dateList}}" wx:for-index="j" wx:key="j" class="flag-box" data-parent="{{index}}" data-index="{{j}}" bindtap="setFlag">
+          <van-icon wx:if="{{item.flag}}" name="success" class="success" color="green"/>
+        </view>
+      </view>
+    </view>
+    <view>
+      <van-button  class="but-but" size="small" plain type="info"   bindtap="queren">确认</van-button>
+    </view>
+  </view>
+</view>

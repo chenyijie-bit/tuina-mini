@@ -2,3 +2,8 @@
 .padding-item-20{
   padding: 20rpx 0;
 }
+.but-but-red button{
+  color: red !important;
+  border-color: red;
+  margin-left: 30rpx;
+}

@@ -1,0 +1,8 @@
+/* pages/mendianpaibanxiangqing/index.wxss */
+.item-item{
+  padding: 26rpx;
+  background: #efefef;
+  border-radius: 12rpx;
+  line-height: 56rpx;
+  margin-bottom: 50rpx;
+}

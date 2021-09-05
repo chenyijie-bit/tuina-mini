@@ -1,0 +1,46 @@
+<view>
+  <view class="search-box">
+    <van-search
+      value="{{ searchValue }}"
+      shape="round"
+      background="transparent"
+      placeholder="请输入订单手机号"
+      style="flex:1;"
+      bindchange="bindchange"
+    />
+    <view class="add-text-icon" bindtap="search">
+      搜索
+    </view>
+  </view>
+  <view style="display: flex;justify-content: center;margin-top:20rpx;margin-bottom:20rpx;">
+    <van-radio-group value="{{ radio }}" bind:change="onChangeRadioTab">
+      <van-radio name="1" checked-color="#BA9245" style="float:left;margin-right:70rpx">活动商品订单</van-radio>
+      <van-radio name="2" checked-color="#BA9245" style="float:left;">会员卡订单</van-radio>
+    </van-radio-group>
+  </view>
+  <view  class="list-box" wx:if="{{itemList.length}}">
+    <view wx:if="{{radio == '1'}}">
+      <view wx:for="{{itemList}}" wx:key="index"  class="list-box-item">
+        <view>创建时间：{{item.create_time}}</view>
+        <view wx:if="{{item.is_pay == 1}}" >是否付款：<text class="yifukuan">已付款</text></view>
+        <view wx:else>是否付款：<text class="weifukuan">未付款</text></view>
+        <view>用户电话：{{item.user_phone}}</view>
+      </view>
+    </view>
+    <view wx:else>
+      <view wx:for="{{itemList}}" wx:key="index"  class="list-box-item">
+        <view>会员卡：{{item.vip_info.name}}</view>
+        <view>用户：{{item.user_info.nickname}}</view>
+        <view>手机号：{{item.user_info.mobile}}</view>
+        <view>付款时间：{{item.complete_time}}</view>
+        <view>应付：<text>{{item.price}}</text></view>
+        <view>实付：<text>{{item.pay_price}}</text></view>
+        <view>有效期：{{item.start_time}} ~ {{item.end_time}}</view>
+        <view>相关描述：{{item.vip_info.desc}}</view>
+      </view>
+    </view>
+  </view>
+  <view wx:else style="text-align: center;padding: 150rpx;font-size: 40rpx;color: #999;">
+    暂无数据
+  </view>
+</view>

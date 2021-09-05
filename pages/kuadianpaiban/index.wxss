@@ -1,0 +1,25 @@
+/* pages/kuadianpaiban/index.wxss */
+.date-box{
+  display: flex;
+  height: 70rpx;
+  line-height: 70rpx;
+}
+.date-item{
+  flex: 1;
+}
+.store-item{
+  display: flex;
+  height: 70rpx;
+  line-height: 70rpx;
+  margin-top: 48rpx;
+}
+.store-item view{
+  flex: 1;
+}
+.item-box{
+  padding: 30rpx;
+  text-align: center;
+}
+.flag-box{
+  border: 1rpx solid #ccc;
+}

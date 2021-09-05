@@ -14,7 +14,7 @@
         <view>预付金额:{{shopInfo.sum_total_price}}</view>  
       </view>
   </view>
-  <view class="worker-name">
+  <view class="worker-name-box-item">
     <view  class="worker-name">店员数据</view>
     <view wx:for="{{workerList}}" wx:key="index" class="worker-box">
       <view class="worker-item">

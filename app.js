@@ -154,6 +154,8 @@ App({
     nickname:'',
     // 当前店铺的id
     shop_id:'',
+    openTime:'',  //门店开点时间
+    closeTime:'',  // 门店关门时间
     // 当前店员的id
     user_openId:'',
     worker_id:'',

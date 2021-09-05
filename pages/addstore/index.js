@@ -8,16 +8,40 @@ Page({
    * 页面的初始数据
    */
   data: {
+    currentDate: '12:00',
     fileList:[],
     name:'',
     address:'',
     jingdu:'',
     weidu:'',
-    // date: '',
+    time1: '',  //营业开始时间
+    time2: '',   //打烊时间
     show: false,
+    flag:''
+  },
+  onInput(event) {
+    this.setData({
+      currentDate: event.detail,
+    });
+    console.log(this.data.currentDate);
+    if(this.data.flag && this.data.flag == 1){
+      this.setData({
+        time1: this.data.currentDate
+      })
+    }
+    if(this.data.flag && this.data.flag == 2){
+      this.setData({
+        time2: this.data.currentDate
+      })
+    }
   },
   onDisplay() {
-    this.setData({ show: true });
+    // flag: 1 代表是开业时间
+    this.setData({ show: true,flag: 1 });
+  },
+  onDisplay2() {
+    // flag: 2 代表是打烊时间
+    this.setData({ show: true,flag: 2 });
   },
   onClose() {
     this.setData({ show: false });
@@ -104,8 +128,12 @@ Page({
           "longitude":this.data.jingdu,
           "latitude":this.data.weidu
       },
-      // "work_open_date":"08:00:00",
-      // "weekend_open_date":"23:30:00",
+      "work_open_date": this.data.time1 + ':00',
+      "weekend_open_date": this.data.time1 + ':00',
+      // 需要添加一个闭店时间
+      // "work_close_date": this.data.time2 + ':00',
+      // "weekend_close_date": this.data.time2 + ':00',
+
       "address":this.data.address,
       "atta_id":"",
       storeImg:this.data.fileList[0].url || ''

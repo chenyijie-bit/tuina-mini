@@ -31,6 +31,10 @@ Page({
         console.log(res)
         if(res.statusCode === 200){
             let data = res.data.data
+            let openTime =  data.shop.work_open_date || '7:30:00'  //开门时间
+            let closeTime = data.shop.work_close_date || '23:30:00'   //data.work_close_date  //关门时间
+            app.globalData.openTime = openTime
+            app.globalData.closeTime = closeTime
             let workerNum = data.worker.length
             if(workerNum){
               data.worker.map(e=>{
@@ -38,7 +42,7 @@ Page({
               })
             }
             that.setData( {
-                winHeight: 160*workerNum + 50,
+                winHeight: 160*workerNum + 120,
                 workList: data.worker
             });
         }

@@ -1,0 +1,33 @@
+/* pages/dingdanliebiao/index.wxss */
+.search-box .van-search {
+  /* padding: 0; */
+  flex: 1;
+}
+.search-box{
+  display: flex;
+  padding: 30rpx 28rpx 10rpx 10rpx;
+}
+.add-text-icon{
+  height: 108rpx;
+  line-height: 108rpx;
+  margin-top: -4rpx;
+}
+.list-box{
+  padding: 40rpx 30rpx 30rpx;
+}
+.list-box-item{
+  border: 1rpx solid #efefef;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  background: #efefef;
+  margin-bottom: 50rpx;
+}
+.list-box-item view{
+  padding: 8rpx 0;
+}
+.yifukuan{
+  color: green;
+}
+.weifukuan{
+  color: red;
+}

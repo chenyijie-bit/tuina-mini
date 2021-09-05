@@ -29,8 +29,14 @@
     "pages/addstore/index",
     "pages/shouyelunbo/index",
     "pages/tianjiahuiyuanka/index",
-    "pages/tianjialunbo/index"
-    
+    "pages/tianjialunbo/index",
+    "pages/yonghuhuodong/index",
+    "pages/yonghuhuiyuan/index",
+    "pages/dingdanliebiao/index",
+    "pages/wodehuiyuanka/index",
+    "pages/wodehuodongshangpin/index",
+    "pages/kuadianpaiban/index",
+    "pages/mendianpaibanxiangqing/index"
   ],
   "permission": {
     "scope.userLocation": {

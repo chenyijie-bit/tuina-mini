@@ -25,6 +25,12 @@
   background: green;
   margin-top: 10rpx;
 }
+.zhengchang-circle{
+  height: 16rpx;
+  width: 16rpx;
+  border-radius: 8rpx;
+  background: green;
+}
 .danger-circle{
   height: 16rpx;
   width: 16rpx;
@@ -45,4 +51,22 @@
 }
 .exple-circle{
   margin-right: 8rpx;
+}
+.shijianbuzu{
+  height: 16rpx;
+  width: 16rpx;
+  border-radius: 8rpx;
+  background: red;
+}
+.cishubugou{
+  height: 16rpx;
+  width: 16rpx;
+  border-radius: 8rpx;
+  background: #BA9245;
+}
+.youqingjia{
+  height: 16rpx;
+  width: 16rpx;
+  border-radius: 8rpx;
+  background: #888;
 }

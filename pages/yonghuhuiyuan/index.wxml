@@ -1,0 +1,14 @@
+<view>
+  <view style="padding:50rpx 30rpx">
+    <view wx:for="{{list}}" wx:key="index" class="item">
+      <view class="title">{{item.name}}</view>
+      <view>{{item.discount * 10}}折卡</view>
+      <view>价格：{{item.price}}</view>
+      <view>卡类型：{{item.type == 30 ? '月卡' : item.type == 90 ? '季卡' : item.type == 365 ? '年卡' : '普通会员卡'}}</view>
+      <view>用卡详情：{{item.desc}}</view>
+      <view style="text-align:right;">
+        <van-button  class="but-but" size="small" plain type="info" data-id="{{item.id}}"  bindtap="goumai">购买</van-button>
+      </view>
+    </view>
+  </view>
+</view>

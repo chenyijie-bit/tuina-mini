@@ -13,6 +13,7 @@
 				<swiper-item>
 					<!-- 推荐人及店铺list -->
 					<view class="recommend-person" wx:for="{{workList}}" wx:key="index">
+						<view class="gongfuzhi">功夫值99</view>
 						<view class="per-img">
 							<image mode="aspectFill" src="{{item.head_url || personImg}}"></image>
 							<view class="per-info">

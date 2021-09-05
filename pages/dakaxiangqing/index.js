@@ -49,9 +49,10 @@ Page({
               shifoubuka:true
             })
             let len = resDate.approve.bk.length
+            let bukaData = resDate.approve.bk[0].time_info
             this.setData({
-              bukaFirstDaka:resDate.approve.bk[0],
-              bukaLastDaka:resDate.approve.bk[len - 1] || '-'
+              bukaFirstDaka:bukaData[0].time.split(' ')[1],
+              bukaLastDaka:bukaData[bukaData.length - 1].time.split(' ')[1] || '-'
             })
           }  // 补卡
           if(resDate.approve.qj && resDate.approve.qj.length){

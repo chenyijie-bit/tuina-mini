@@ -123,9 +123,9 @@ Page({
         })
         setTimeout(() => {
           wx.redirectTo({
-            url: '../lunboshouye/index',
+            url: '../shouyelunbo/index',
           })
-        }, 1200);
+        }, 1000);
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,

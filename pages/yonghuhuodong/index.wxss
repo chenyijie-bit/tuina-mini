@@ -1,0 +1,19 @@
+/* pages/yonghuhuodong/index.wxss */
+.item-box{
+  border: 1px solid #efefef;
+  padding: 16rpx 20rpx 38rpx;
+  margin-bottom: 60rpx;
+  border-radius: 18rpx;
+  background: #efefef;
+}
+.item-box view{
+  padding: 12rpx 0;
+}
+.container{
+  padding: 20rpx 30rpx;
+}
+.but-but button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+  
+}

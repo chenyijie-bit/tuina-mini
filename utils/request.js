@@ -115,7 +115,10 @@ const API = {
     workerMarketingSet:(data)=>request(POST, `/worker/marketing/set`,data),
     // 海报列表
     workerMarketingList:(data)=>request(POST, `/worker/marketing/list`,data),
-
+    // 支付
+    marketingPay:(data)=>request(POST, `/marketing/pay`,data),
+    //  用户海报列表
+    marketingOrderList:(data)=>request(POST, `/marketing/order-list`,data),
     // 门店数据
     workerShopList:(data)=>request(POST, `/worker/shop/list`,data),
     // 门店详情
@@ -127,11 +130,19 @@ const API = {
     workerVipSet:(data)=>request(POST, `/worker/vip/set`,data),
     // 列表
     workerVipList:(data)=>request(POST, `/vip/list`,data),
+    // 购买
+    vipPay:(data)=>request(POST, `/vip/pay`,data),
+    // 会员卡订单列表
+    vipOrderList:(data)=>request(POST, `/vip/order-list`,data),
     // 轮播
     // 列表
     workerSystemPageDetailList:(data)=>request(POST, `/worker/system/page-detail-list`,data),
     // 添加轮播
     workerSystemPageDetailSet:(data)=>request(POST, `/worker/system/page-detail-set`,data),
+
+
+    // 店铺今日考勤
+    workerPunchShopDetail:(data)=>request(POST, `/worker/punch/shop-detail`,data),
 
 };
 module.exports = {

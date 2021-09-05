@@ -4,10 +4,10 @@
   <view class="swipe-box">
     <swiper class="swipe-box-swipe" indicator-dots="{{indicatorDots}}"
         autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{images}}" wx:key="index">
+      <block wx:for="{{imgBox}}" wx:key="index">
         <swiper-item>
           <view class="swiper-item">
-            <image mode="widthFix" src="{{item}}"></image>
+            <image mode="widthFix" src="{{item.base_url}}" data-type="{{item.link_type}}" bindtap="gotoUrl"></image>
           </view>
         </swiper-item>
       </block>
@@ -72,8 +72,8 @@
                 <!-- <view class="store-name">有一手1号店</view> -->
                 <view class="store-type">全身推拿+火罐/刮痧</view>
                 <view class="store-num">
-                  <!-- <view>一人正在排队</view>
-                  <view>老用户优惠</view> -->
+                  <view>五星店铺</view>
+                  <view>老用户优惠</view>
                 </view>
                 <view class="store-prace">
                   <text>￥{{item.min_price}}</text>

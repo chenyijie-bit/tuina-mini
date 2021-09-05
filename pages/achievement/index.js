@@ -10,6 +10,11 @@ Component({
         url: '../daka/index',
       })
     },
+    dingdanliebiao(){
+      wx.navigateTo({
+        url: '../dingdanliebiao/index',
+      })
+    },
     wodeyeji(){
       wx.navigateTo({
         url: '../wodeyeji/index',
@@ -58,6 +63,11 @@ Component({
     gerenxinxi(){
       wx.navigateTo({
         url: '../gerenxinxi/index',
+      })
+    },
+    kuadianpaiban(){
+      wx.navigateTo({
+        url: '../kuadianpaiban/index',
       })
     },
     tianjiayuangong(){

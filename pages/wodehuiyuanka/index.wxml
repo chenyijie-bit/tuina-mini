@@ -1,0 +1,14 @@
+<view>
+  <view class="list-box">
+    <view wx:for="{{itemList}}" wx:key="index"  class="list-box-item">
+      <view>会员卡：{{item.vip_info.name}}</view>
+      <view>用户：{{item.user_info.nickname}}</view>
+      <view>手机号：{{item.user_info.mobile}}</view>
+      <view>付款时间：{{item.complete_time}}</view>
+      <view>应付：<text>{{item.price}}</text></view>
+      <view>实付：<text>{{item.pay_price}}</text></view>
+      <view>有效期：{{item.start_time}} ~ {{item.end_time}}</view>
+      <view>相关描述：{{item.vip_info.desc}}</view>
+    </view>
+  </view>
+</view>

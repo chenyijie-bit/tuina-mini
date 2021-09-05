@@ -219,7 +219,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0rpx 0 32rpx;
+  padding: 0rpx 0 12rpx;
   /* margin-left: 20rpx; */
 }
 .store-info{
@@ -244,7 +244,9 @@
   color: #282828;
   line-height: 22rpx;
   opacity: 0.4;
-  font-size: 18rpx;
+  font-size: 20rpx;
+  line-height: 26rpx;
+  letter-spacing: 3rpx;
 }
 .store-address text{
   margin-left: 11rpx;

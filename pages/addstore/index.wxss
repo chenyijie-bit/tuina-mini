@@ -13,3 +13,12 @@
   margin-top: 80rpx;
   text-align: center;
 }
+.time-piker .van-picker{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+.active-style{
+  color: #BA9245;
+}

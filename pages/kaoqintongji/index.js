@@ -57,8 +57,10 @@ Page({
   },
   getDayInfo(e){
     let dataInfo = e.currentTarget.dataset.info
+    console.log(dataInfo);
     let date = dataInfo.key    // 2021-08-13
     wx.setStorageSync('selectDate', date)
+    if(dataInfo.notdaka) return false
     wx.navigateTo({
       url: '../dakaxiangqing/index',
     })
@@ -86,14 +88,58 @@ Page({
           if(e.key.split(' ')[0] == currentDay){
             flagIndex = i
           }
-          console.log(flagIndex);
           if(flagIndex || flagIndex===0 && i>=flagIndex){
-            console.log(i);
             e.notdaka = true
           }
         })
         // 1 判断满足不满足10小时  2 如果打卡不足2次 寻找补卡里有没有 有的话（1次）    没有的话
-
+        console.log(listArr);
+        listArr.map(e=>{
+          if(e.approve.qj.length){
+            //说明有请假
+            if(e.approve.qj[0].time_info && e.approve.qj[0].time_info.length){
+              e.youqingjia = true
+            }
+          }
+          // else if(e.punch && e.punch.length>1){
+          //   let len =  e.punch.length
+          //   if(new Date(e.punch[len - 1]).getTime() - new Date(e.punch[0]).getTime() >= this.data.manqinTime){
+          //     // 说明是满勤
+          //     e.manqin = true
+          //     return
+          //   }else{
+          //     if(e.approve.bk.length){
+          //       if(e.approve.bk.length > 1){
+          //         if(matchManQin(e.approve.bk[0],e.approve.bk[e.approve.bk.length - 1])){
+          //           e.manqin = true
+          //         }else if(matchManQin(e.approve.bk[0],e.punch[len - 1]) || matchManQin(e.approve.bk[e.approve.bk.length - 1],e.punch[0])){
+          //           e.manqin = true
+          //           return
+          //         }
+          //       }
+          //     }
+          //   }
+          //   e.manqin = false
+          // }else if(e.punch && e.punch.length <= 1){
+          //   // 打卡一次  先看有没有补卡 （没有补卡则次数不够） 在看几次补卡  超过一次的补卡  先用补卡最后一次减去第一次 如果不是满勤  那就用补卡第一次减去正常打卡的一次如果不是满勤就用补卡最后一次减去正常打卡的一次不是满勤则不满勤
+          //   // 没有打卡并且补卡次数也不够两次则次数不够
+          //   if(e.punch.length == 1){
+          //     if(!e.approve.bk.length){
+          //       e.cishubugou = true
+          //     }else{
+          //       if(e.approve.bk.length > 1){
+          //         if(matchManQin(e.approve.bk[0],e.approve.bk[e.approve.bk.length - 1])){
+          //           e.manqin = true
+          //         }else{
+          //           if(matchManQin(e.approve.bk[0],e.punch[0]) || matchManQin(e.approve.bk[e.approve.bk.length - 1],e.punch[0])){
+          //             e.manqin = true
+          //           }
+          //         }
+          //       }
+          //     }
+          //   }
+          // }
+        })
         // notdaka  当前时间还没到那一天
         this.setData({
           dateList: listArr
@@ -105,6 +151,13 @@ Page({
         })
       }
     })
+  },
+  matchManQin(fir,sec){
+    if(Math.abs(new Date(fir).getTime() - new Date(sec).getTime() >= this.data.manqinTime)){
+      return true
+    }else{
+      return false
+    }
   },
   /**
    * 生命周期函数--监听页面加载

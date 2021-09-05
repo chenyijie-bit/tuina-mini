@@ -1,2 +1,10 @@
-<!--pages/mendianpaiban/index.wxml-->
-<text>pages/mendianpaiban/index.wxml</text>
+<view>
+  <view class="container">
+    <view wx:for="{{storelist}}" wx:key="index" class="list-box" style="padding: 30rpx;">
+      <view class="item" bindtap="getStoreId" data-id="{{item.id}}">
+        <view>{{item.name}}</view>
+        <view><van-icon name="arrow" /></view>
+      </view>
+    </view>
+  </view>
+</view>
