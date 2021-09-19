@@ -7,16 +7,18 @@
         </view>
       </view>
       
-      <view wx:for="{{mendianList}}" wx:key="name" class="store-item">
-        <view>
+      <view wx:for="{{mendianList}}" wx:key="index"  class="store-item">
+        <view >
           {{item.name}}
         </view>
-        <view wx:for="{{item.dateList}}" wx:for-index="j" wx:key="j" class="flag-box" data-parent="{{index}}" data-index="{{j}}" bindtap="setFlag">
-          <van-icon wx:if="{{item.flag}}" name="success" class="success" color="green"/>
+        <view class="flag-bbbb">
+          <view wx:for="{{item.dateList}}" wx:for-index="j" wx:key="index" class="flag-box" data-parent="{{index}}" data-index="{{j}}" bindtap="setFlag">
+            <van-icon wx:if="{{item.flag}}" name="success" class="success" color="green"/>
+          </view>
         </view>
       </view>
     </view>
-    <view>
+    <view style="text-align:center;margin-top: 120rpx;margin-bottom: 120rpx;">
       <van-button  class="but-but" size="small" plain type="info"   bindtap="queren">确认</van-button>
     </view>
   </view>

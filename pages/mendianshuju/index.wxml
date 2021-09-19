@@ -5,7 +5,7 @@
   </view>
   <view wx:for="{{storeList}}" data-name="{{item.name}}" data-id="{{item.id}}" class="parent-box" bindtap="dianpuxiangqing" wx:key="index">
     <view class="item-box">
-      <view>{{item.name}}</view>
+      <view style="font-size: 40rpx;padding-bottom: 20rpx;">{{item.name}}</view>
       <view>订单总数：{{item.info.sum_count}}</view>
       <view>非首次订单数：{{item.info.rep_count}}</view>
       <view>实际支付金额：{{item.info.sum_pay_price}}</view>

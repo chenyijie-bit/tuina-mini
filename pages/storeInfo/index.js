@@ -72,26 +72,26 @@ Page({
       that.setData( { currentTab: e.detail.current });
       if(this.data.currentTab == 1 ){
         //评论
-        $api.workerOrderCommentList({
-          "openid": app.globalData.openId,
-          "worker_id": "",							//筛选 工作人员id
-          "user_id": ""	,							//筛选  用户 id
-          "approve": 10 ,								//筛选  10 通过   ；4 不通过
-          shop_id: app.globalData.shop_id	     //筛选  店铺id
-        }).then(res=>{
-          console.log(res);
-          if(res.data.code == 200){
-            let list = res.data.data.list
-            this.setData({
-              pinglunList: list
-            })
-          }else{
-            wx.showToast({
-              title: res.data.err || res.data.data.err,
-              icon:"none"
-            })
-          }
-        })
+        // $api.workerOrderCommentList({
+        //   "openid": app.globalData.openId,
+        //   "worker_id": "",							//筛选 工作人员id
+        //   "user_id": ""	,							//筛选  用户 id
+        //   "approve": 10 ,								//筛选  10 通过   ；4 不通过
+        //   shop_id: app.globalData.shop_id	     //筛选  店铺id
+        // }).then(res=>{
+        //   console.log(res);
+        //   if(res.data.code == 200){
+        //     let list = res.data.data.list
+        //     this.setData({
+        //       pinglunList: list
+        //     })
+        //   }else{
+        //     wx.showToast({
+        //       title: res.data.err || res.data.data.err,
+        //       icon:"none"
+        //     })
+        //   }
+        // })
       }
   },
 })

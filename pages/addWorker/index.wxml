@@ -39,7 +39,10 @@
           <van-button bindtap="delWorker"  wx:if="{{item.worker_info.status == 60 || item.worker_info.status == 56}}"  class="but-but-red"  size="small" plain type="info" data-id="{{item.worker_info.id}}">删除员工</van-button>
         </view>
       </view>
-      
+    </view>
+    <view wx:if="{{status == 56 || status == 60}}">
+      <view style="text-align:left;font-size:16px;margin:40rpx auto 30rpx;padding-left:30rpx;">点击下方店铺名称进行分配</view>
+      <view wx:for="{{storeList}}" class="store-list-item" wx:key="index" data-id="{{item.id}}" data-workid="{{workerid}}" bindtap="fenpeidianpu">{{item.name}}</view>
     </view>
   </view>
   <view  wx:else style="margin-top:40rpx;text-align: center;">{{listInfo}}</view>

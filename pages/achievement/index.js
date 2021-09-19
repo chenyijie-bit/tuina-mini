@@ -15,6 +15,11 @@ Component({
         url: '../dingdanliebiao/index',
       })
     },
+    huodongdingdan(){
+      wx.navigateTo({
+        url: '../huodongdingdan/index',
+      })
+    },
     wodeyeji(){
       wx.navigateTo({
         url: '../wodeyeji/index',

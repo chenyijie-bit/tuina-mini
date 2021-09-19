@@ -25,6 +25,11 @@
         <view wx:if="{{item.is_pay == 1}}" >是否付款：<text class="yifukuan">已付款</text></view>
         <view wx:else>是否付款：<text class="weifukuan">未付款</text></view>
         <view>用户电话：{{item.user_phone}}</view>
+        <view style="text-align:right">
+          <van-button wx:if="{{item.check_status === '1'}}" class="but-but-gray" size="small" plain data-id="{{item.id}}" type="info" >已使用</van-button> 
+          <van-button wx:else class="but-but-shiyong" size="small" plain data-id="{{item.id}}" type="info" bindtap="shiyong">使用</van-button>
+          <van-button wx:if="{{item.check_status != '1'}}" class="but-but-del" size="small" plain type="info" data-id="{{item.id}}" bindtap="shanchu">退款</van-button>
+        </view>
       </view>
     </view>
     <view wx:else>
@@ -37,6 +42,12 @@
         <view>实付：<text>{{item.pay_price}}</text></view>
         <view>有效期：{{item.start_time}} ~ {{item.end_time}}</view>
         <view>相关描述：{{item.vip_info.desc}}</view>
+        <view style="text-align:right">
+          <!-- <van-button wx:if="{{item.check_status === '1'}}" class="but-but-gray" size="small" plain data-id="{{item.id}}" type="info" >已使用</van-button> 
+          <van-button wx:else class="but-but-shiyong" size="small" plain data-id="{{item.id}}" type="info" bindtap="shiyong">使用</van-button> -->
+          <van-button wx:if="{{item.cancel_status == '2'}}" class="but-but-gray" size="small" plain type="info" data-id="{{item.id}}"  data-flag="1"   >已退款</van-button>
+          <van-button wx:if="{{item.cancel_status != '2'}}" class="but-but-del" size="small" plain type="info" data-id="{{item.id}}"  data-flag="1"   bindtap="shanchu">退款</van-button>
+        </view>
       </view>
     </view>
   </view>
@@ -44,3 +55,4 @@
     暂无数据
   </view>
 </view>
+<van-dialog id="van-dialog" />

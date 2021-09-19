@@ -17,7 +17,81 @@ Page({
     time1: '',  //营业开始时间
     time2: '',   //打烊时间
     show: false,
-    flag:''
+    flag:'',
+    aid:'',
+    resdata:'', // 修改信息时回显的数据
+    tinajiamokuai: false,
+    addname:'',
+    addtime:'',
+    addprice:'',
+    fuwuList:['全身推拿+火罐/刮痧(30分钟/￥68.00)','全身推拿+火罐/刮痧(30分钟/￥68.00)']
+  },
+  addfuwu(){
+    this.setData({
+      tinajiamokuai: true
+    })
+  },
+  delItem(e){
+    let index = e.currentTarget.dataset.index
+    let fuwuList = this.data.fuwuList
+    fuwuList.splice(index,1)
+    this.setData({
+      fuwuList
+    })
+  },
+  querentianjia(){
+    console.log(this.data.addname);
+    let addname = this.data.addname
+    let addtime = this.data.addtime
+    let addprice = this.data.addprice
+    if(addname && addtime && addprice){
+      let fuwuList = this.data.fuwuList
+      fuwuList.push(`${addname}(${addtime}分钟/${addprice}.00)`)
+      this.setData({
+        fuwuList
+      })
+    }
+    this.setData({
+      tinajiamokuai: false,
+      addname:'',
+      addtime:'',
+      addprice:''
+    })
+  },
+  getStoreList(){
+    $api.workerShopList({openid:app.globalData.openId}).then(res=>{
+      console.log(res);
+      if(res.data.code == 200){
+        let id = wx.getStorageSync('storeDataId')
+        let storeList = res.data.data.list
+        let resdata = ''
+        storeList.map(e=>{
+          if(e.id == id){
+            resdata = e
+          }
+        })
+        console.log(resdata);
+        if(resdata){
+          this.setData({
+            name:resdata.name,
+            address:resdata.address,
+            jingdu:resdata.location.longitude,
+            weidu:resdata.location.latitude,
+            time1: resdata.work_open_date,  //营业开始时间
+            time2: resdata.work_close_date,   //打烊时间
+            show: false,
+            // flag:resdata.,
+            // aid:resdata.,
+          })
+        }
+        
+      }else{
+        wx.showToast({
+          title: res.data.err,
+          icon:'none'
+        })
+      }
+    })
   },
   onInput(event) {
     this.setData({
@@ -121,6 +195,7 @@ Page({
       })
       return false
     }
+    let reqObj = {}
     $api.workerShopCreate({
       openid:app.globalData.openId,
       name: this.data.name,
@@ -131,12 +206,12 @@ Page({
       "work_open_date": this.data.time1 + ':00',
       "weekend_open_date": this.data.time1 + ':00',
       // 需要添加一个闭店时间
-      // "work_close_date": this.data.time2 + ':00',
+      "work_close_date": this.data.time2 + ':00',
       // "weekend_close_date": this.data.time2 + ':00',
 
       "address":this.data.address,
-      "atta_id":"",
-      storeImg:this.data.fileList[0].url || ''
+      "atta_id":this.data.aid,
+      'status': 200
     }).then(res=>{
       console.log(res);
       if(res.data.code == 200){
@@ -174,7 +249,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let id = wx.getStorageSync('storeDataId')
+    if(id){
+      this.getStoreList()
+    }
   },
 
   /**

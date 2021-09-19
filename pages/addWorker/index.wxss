@@ -42,3 +42,11 @@
   border-color: red;
   margin-left: 30rpx;
 }
+.store-list-item{
+  background-color: #dedede;
+  line-height: 50rpx;
+  padding: 21rpx;
+  margin-top: 30rpx;
+  margin: 30rpx 50rpx 30rpx;
+  border-radius: 16rpx;
+}

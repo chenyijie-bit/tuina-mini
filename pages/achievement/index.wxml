@@ -47,6 +47,12 @@
             </view>
             <text>跨店排班</text>
           </view>
+          <view class="item" bindtap="huodongdingdan">
+            <view>
+              <van-icon size="25px" color="#666" name="description" />
+            </view>
+            <text>活动订单</text>
+          </view>
         </view>
       </view>
       <view class="work-table-list-top work-table-list-top2">

@@ -6,7 +6,7 @@
   text-align: center;
   padding: 20rpx;
   padding-top: 0;
-  font-size: 34rpx;
+  font-size: 38rpx;
 }
 .store-name,.worker-name{
   padding: 30rpx 0;

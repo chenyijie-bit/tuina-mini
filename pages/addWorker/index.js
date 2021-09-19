@@ -13,7 +13,75 @@ Page({
     itemList:'',
     telWorker:'',
     listInfo:'',
-    meiyouInfo: false
+    meiyouInfo: false,
+    storeList:[],
+    status:'',
+    workerid:''
+  },
+  fenpeidianpu(e){
+    let id = e.currentTarget.dataset.id
+    const beforeClose = (action) => new Promise((resolve) => {
+      setTimeout(() => {
+        if (action === 'confirm') {
+          $api.workerUserBindShop({
+            openid: app.globalData.openId,
+            worker_id: this.data.workerid,
+            shop_id: id
+          }).then(
+            res=>{
+              console.log(res);
+              if(res.statusCode ==200 && res.data && res.data.data){
+                wx.showToast({
+                  title: "操作成功",
+                  duration: 1900
+                })
+              }else{
+                wx.showToast({
+                  title: res.err || res.data.err,
+                  icon: 'error',
+                  duration: 2000
+                })
+              }
+            }
+          )
+          resolve(true);
+        } else {
+          // 拦截取消操作
+          resolve(false);
+        }
+      }, 1000);
+    });
+    Dialog.confirm({
+      title: '标题',
+      message: '确认分配到此店铺？',
+      beforeClose
+    });
+  },
+  // 获取首页数据
+  getHomeData(){
+    let openid = app.globalData.openId
+    $api.getHomeData({openid}).then(
+      res=>{
+        if(res.statusCode ==200 && res.data && res.data.data){
+          let data = res.data.data
+          let shops = data.shops || []
+          let mendianList = []
+          data.shops.map(e=>{
+            mendianList.push({name:e.name,id:e.id, dateList:[{flag:''},{flag:''},{flag:''},{flag:''},{flag:''}]}) 
+          })
+          this.setData({
+            storeList:data.shops,
+            mendianList
+          })
+        }else{
+          wx.showToast({
+            title: res.msg,
+            icon: 'error',
+            duration: 4000
+          })
+        }
+      }
+    )
   },
   bindchange(e){
     this.setData({
@@ -53,6 +121,12 @@ Page({
           })
         }
         itemList2.map(e=>{
+          let status = e.worker_info.status
+          let id = e.worker_info.id
+          this.setData({
+            status,
+            workerid: id
+          })
           if(!e.worker_info.status){
             e.worker_info.status = 0
           }
@@ -180,7 +254,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getHomeData()
   },
 
   /**

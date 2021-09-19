@@ -58,6 +58,7 @@ Page({
    */
   onShow: function () {
     this.initData()
+    wx.setStorageSync('storeDataId', '')
   },
 
   /**

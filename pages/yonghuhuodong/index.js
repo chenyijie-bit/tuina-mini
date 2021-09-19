@@ -49,7 +49,7 @@ Page({
     })
   },
   initData(){
-    $api.workerMarketingList({
+    $api.marketingShow({
       name:'',
       openid:app.globalData.openId
     }).then(res=>{

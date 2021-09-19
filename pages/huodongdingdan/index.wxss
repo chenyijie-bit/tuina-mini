@@ -36,12 +36,12 @@
   border-color: red;
   margin-left: 40rpx;
 }
+.but-but-shiyong button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+}
 .but-but-gray button{
   color: #999 !important;
   border-color: #dedede;
   background: #dedede;
-}
-.but-but-shiyong button{
-  color: #BA9245 !important;
-  border-color: #BA9245;
 }

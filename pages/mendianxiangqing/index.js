@@ -12,6 +12,12 @@ Page({
     shopInfo:{},
     workerList:[]
   },
+  setStore(){
+    wx.navigateTo({
+      url: '../addstore/index',
+    })
+  },
+  
   initData(){
     let id = wx.getStorageSync('storeDataId')
     let name = wx.getStorageSync('storeDataName')

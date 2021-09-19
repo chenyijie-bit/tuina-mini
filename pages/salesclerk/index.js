@@ -496,9 +496,16 @@ Page({
       wx.hideLoading()
       if(res.statusCode==200 && res.data.code == 200){
         // 说明预约成功
-        wx.switchTab({
-          url: '../order/index',
-        })
+        // 如果是店员 就不跳转到订单列表页面了
+        if(!app.globalData.worker_id){
+          wx.switchTab({
+            url: '../order/index',
+          })
+        }else{
+          wx.switchTab({
+            url: '../survey/index',
+          })
+        }
       }else{
         console.log();
         wx.showToast({

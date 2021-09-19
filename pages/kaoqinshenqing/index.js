@@ -74,6 +74,7 @@ Page({
         shenqingyuanyin: '12'
       })
     }
+    let _this = this
     $api.workerPunchApplys({
       "openid": app.globalData.openId,
       type:1,
@@ -86,9 +87,11 @@ Page({
         wx.showToast({
           title: '操作成功'
         })
-        this.setData({
-          active : 1
-        })
+        setTimeout(() => {
+          _this.setData({
+            active : 1
+          })
+        }, .4);
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,

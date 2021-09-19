@@ -99,7 +99,7 @@ const API = {
     workerUserAgree:(data)=>request(POST, `/worker/user/agree`,data),
     // 发送评价
     orderCommentIn:(data)=>request(POST, `/order-comment/in`,data),
-    // 查看评价
+    // 店员查看评价
     workerOrderCommentList:(data)=>request(POST, `/worker/order-comment/list`,data),
    // 审核评价通过或者不通过
    workerOrderCommentCheck:(data)=>request(POST, `/worker/order-comment/check`,data),
@@ -117,8 +117,14 @@ const API = {
     workerMarketingList:(data)=>request(POST, `/worker/marketing/list`,data),
     // 支付
     marketingPay:(data)=>request(POST, `/marketing/pay`,data),
-    //  用户海报列表
+    //  gonzuorenyuan海报列表
     marketingOrderList:(data)=>request(POST, `/marketing/order-list`,data),
+    // 用户查看列表
+    marketingShow:(data)=>request(POST, `/marketing/show`,data),
+    // 海报退款
+    workerOrderRefundMarketing:(data)=>request(POST, `/worker/order/refund-marketing`,data),
+    // 海报订单审核
+    workerMarketingApply:(data)=>request(POST, `/worker/marketing/apply`,data),
     // 门店数据
     workerShopList:(data)=>request(POST, `/worker/shop/list`,data),
     // 门店详情
@@ -134,13 +140,19 @@ const API = {
     vipPay:(data)=>request(POST, `/vip/pay`,data),
     // 会员卡订单列表
     vipOrderList:(data)=>request(POST, `/vip/order-list`,data),
+    // 会员卡退款
+    workerOrderRefundVip:(data)=>request(POST, `/worker/order/refund-vip`,data),
     // 轮播
     // 列表
     workerSystemPageDetailList:(data)=>request(POST, `/worker/system/page-detail-list`,data),
     // 添加轮播
     workerSystemPageDetailSet:(data)=>request(POST, `/worker/system/page-detail-set`,data),
-
-
+    // 跨店排班列表
+    workerPunchTravelList:(data)=>request(POST, `/worker/punch/travel-list`,data),
+    // 跨店排班设置
+    workerPunchTravelSet:(data)=>request(POST, `/worker/punch/travel-set`,data),
+    // 分配店铺
+    workerUserBindShop:(data)=>request(POST, `/worker/user/bind-shop`,data),
     // 店铺今日考勤
     workerPunchShopDetail:(data)=>request(POST, `/worker/punch/shop-detail`,data),
 

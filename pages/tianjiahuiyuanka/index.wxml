@@ -23,7 +23,7 @@
       <van-radio-group value="{{ type }}" bind:change="onChangeRadioTab">
         <van-radio name="30" checked-color="#BA9245" style="float:left;margin-right:40rpx">月卡</van-radio>
         <van-radio name="90" checked-color="#BA9245" style="float:left;margin-right:40rpx">季卡</van-radio>
-        <van-radio name="365" checked-color="#BA9245" style="float:left;">年卡</van-radio>
+        <van-radio name="360" checked-color="#BA9245" style="float:left;">年卡</van-radio>
       </van-radio-group>
     </view>
   </van-cell-group>

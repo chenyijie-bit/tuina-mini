@@ -52,8 +52,48 @@
       <text style="display:inline-block;margin-right:30rpx;color:#646566;font-size: 26rpx;">门店图片</text>
       <van-uploader  file-list="{{ fileList }}" bind:after-read="afterRead"/>
     </van-cell-group>
+    <view class="add-jineng">
+      <text style="display:inline-block;margin-right:30rpx;color:#646566;font-size: 26rpx;" class="tit">添加服务</text>
+      <view class="list">
+        <view class="item" wx:for="{{ fuwuList }}" wx:key="index">{{item}} <van-icon size="16px" bindtap="delItem" name="close" data-index="{{index}}"/></view>
+        <van-button bindtap="addfuwu"  class="but-but-t"  size="small" plain type="info">添加服务</van-button>
+      </view>
+    </view>
+    <view class="add-fuwulist" wx:if="{{ tinajiamokuai }}">
+      <van-cell-group>
+        <van-field
+          model:value="{{ addname }}"
+          label="项目名称"
+          type="textarea"
+          placeholder="请输入项目名称"
+          autosize
+          border="{{ false }}"
+        />
+      </van-cell-group>
+      <van-cell-group>
+        <van-field
+          model:value="{{ addtime }}"
+          label="项目用时"
+          type="textarea"
+          placeholder="请输入项目用时"
+          autosize
+          border="{{ false }}"
+        />
+      </van-cell-group>
+      <van-cell-group>
+        <van-field
+          model:value="{{ addprice }}"
+          label="项目价格"
+          type="textarea"
+          placeholder="请输入项目价格"
+          autosize
+          border="{{ false }}"
+        />
+      </van-cell-group>
+      <van-button bindtap="querentianjia"  class="but-but-bot"  size="small" plain type="info">确认添加</van-button>
+    </view>
   </view>
-  <view class="queren-but">
+  <view class="queren-but" wx:if="{{!tianjiamokuai}}">
     <van-button plain hairline type="info" bindtap="oooo">确认信息</van-button>
   </view>
   <van-toast id="van-toast" />

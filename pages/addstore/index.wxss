@@ -22,3 +22,39 @@
 .active-style{
   color: #BA9245;
 }
+.add-jineng{
+  display: flex;
+  padding-left: 32rpx;
+  justify-content: center;
+  align-items: center;
+  padding-top: 26rpx;
+}
+.add-jineng .tit{
+
+}
+.add-jineng .list{
+  flex: 1;
+}
+.add-jineng .list .item{
+  line-height: 45rpx;
+  font-size: 30rpx;
+}
+.but-but-t button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+  margin-top: 12rpx;
+}
+.but-but-bot button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+  margin-top: 40rpx;
+}
+.add-fuwulist{
+  width: 90%;
+  margin: 50rpx auto 0;
+  background-color: #efefef;
+  padding: 38rpx 26rpx;
+  border-radius: 35rpx;
+  box-sizing: border-box;
+  text-align: center;
+}

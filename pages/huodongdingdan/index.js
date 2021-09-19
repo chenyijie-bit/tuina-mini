@@ -12,9 +12,6 @@ Page({
     searchValue:'',
     itemList: []
   },
-  huiyuantuikuan(){
-    workerOrderRefundVip
-  },
   shiyong(e){
     let _this = this
     let id = e.currentTarget.dataset.id
@@ -25,16 +22,16 @@ Page({
       message: '确认使用吗',
     })
       .then(() => {
-       $api.workerMarketingApply({
+       $api.XXXXXXXXX({
         openid:app.globalData.openId,
-        order_id:this.data.dataid,
+        id:this.data.dataid,
           }).then(res=>{
             console.log(res);
             if(res.data && res.data.code == 200){
               wx.showToast({
                 title: '操作成功',
               })
-              _this.searchOrder()
+              _this.workerNotificationList()
             }
           })
       })
@@ -45,11 +42,6 @@ Page({
   shanchu(e){
     let _this = this
     let id = e.currentTarget.dataset.id
-    let flag = e.currentTarget.dataset.flag
-    let defaultReq = $api.workerOrderRefundMarketing
-    if(flag == 1){
-      defaultReq = $api.workerOrderRefundVip
-    }
     this.setData({
       dataid:id
     })
@@ -57,9 +49,9 @@ Page({
       message: '确认退款吗',
     })
       .then(() => {
-        defaultReq({
+       $api.XXXXXXXXXXXX({
         openid:app.globalData.openId,
-        order_id:this.data.dataid,
+        id:this.data.dataid,
           }).then(res=>{
             console.log(res);
             if(res.data && res.data.code == 200){
@@ -67,7 +59,7 @@ Page({
               wx.showToast({
                 title: '退款成功',
               })
-              _this.searchOrder()
+              _this.workerNotificationList()
             }
           })
       })

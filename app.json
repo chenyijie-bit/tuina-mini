@@ -36,7 +36,8 @@
     "pages/wodehuiyuanka/index",
     "pages/wodehuodongshangpin/index",
     "pages/kuadianpaiban/index",
-    "pages/mendianpaibanxiangqing/index"
+    "pages/mendianpaibanxiangqing/index",
+    "pages/huodongdingdan/index"
   ],
   "permission": {
     "scope.userLocation": {
