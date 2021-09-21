@@ -1,0 +1,22 @@
+<view class="page">
+  <view wx:if="{{couponsList.length}}">
+    <view wx:for="{{couponsList}}" wx:key="index">
+      <view class="youhui-box">
+        <view class="l">￥<span>{{item.priceNum}}</span></view>
+        <view>
+          <view wx:if="{{item.name}}">{{item.name}}</view>
+          <view class="c">{{item.priceNum}}元优惠券</view>
+          <view class="r" wx:if="{{(item.edate && item.edate === '0000-00-00') || !item.edate}}"></view>
+          <!-- {{item.etime}} -->
+          <view wx:else class="date-text">截止日期：{{item.edate}}</view>
+        </view>
+        <view class="but">
+          <van-button bindtap="qushiyong"  class="but-but-bot"  size="small" plain type="info">去使用</van-button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:else>
+    暂无可用优惠券
+  </view>
+</view>

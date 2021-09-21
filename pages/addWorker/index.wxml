@@ -36,7 +36,7 @@
         </view>
         <view style="text-align: right;margin-top:20rpx;">
           <van-button wx:if="{{item.worker_info.status != 60 && item.worker_info.status != 56}}" bindtap="setWorker" data-status="{{item.worker_info.status}}" data-id="{{item.id}}" class="but-but" size="small" plain type="info">{{item.butText}}</van-button>
-          <van-button bindtap="delWorker"  wx:if="{{item.worker_info.status == 60 || item.worker_info.status == 56}}"  class="but-but-red"  size="small" plain type="info" data-id="{{item.worker_info.id}}">删除员工</van-button>
+          <van-button bindtap="delWorker"  wx:if="{{item.worker_info.status == 60 || item.worker_info.status == 56 || item.worker_info.status == 53}}"  class="but-but-red"  size="small" plain type="info" data-id="{{item.worker_info.id}}">删除员工</van-button>
         </view>
       </view>
     </view>

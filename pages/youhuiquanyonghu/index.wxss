@@ -1,0 +1,43 @@
+/* pages/youhuiquanyonghu/index.wxss */
+.youhui-box{
+  display: flex;
+  margin-top: 46rpx;
+  background: #fff;
+  padding: 30rpx;
+    border-radius: 14rpx;
+    align-items: center;
+    justify-content: space-between;
+}
+page{
+  background: #efefef;
+}
+.page{
+  padding: 20rpx 30rpx;
+}
+.l{
+  width: 70rpx;
+}
+.l span{
+  font-size: 72rpx;
+}
+.c{
+  flex:1;
+  margin: 10rpx 0;
+}
+.r{
+  width: 120rpx;
+}
+.date-text{
+  font-size: 22rpx;
+font-family: PingFang SC;
+font-weight: 500;
+color: #282828;
+opacity: 0.8;
+margin-top: 10rpx;
+}
+.but-but-bot button{
+  background: #BA9245;
+  color: #fff !important;
+  border:none;
+  border-radius: 30rpx;
+}

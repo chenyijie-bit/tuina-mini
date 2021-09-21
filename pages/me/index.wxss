@@ -39,9 +39,11 @@ page{
 .middle-list{
   padding: 45rpx;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 .middle-list .item{
+  width: 25%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,4 +63,7 @@ page{
   margin-top: 26rpx;
   display: inline-block;
   text-align: center;
+}
+button::after{
+  border:none;
 }

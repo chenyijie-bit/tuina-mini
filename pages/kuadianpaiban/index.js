@@ -58,7 +58,7 @@ Page({
     // 确认设置
     $api.workerPunchTravelSet({
       "openid": app.globalData.openId,
-      "worker_id": "5",
+      "worker_id": app.globalData.worker_id ,
       "group": resArr
     }).then(res=>{
       if(res.data.code == 200){
@@ -101,8 +101,8 @@ Page({
     // })
     $api.workerPunchTravelList({
       'openid': app.globalData.openId,
-      // 'worker_id': app.globalData.worker_id 
-      'worker_id': 5 
+      'worker_id': app.globalData.worker_id 
+      // 'worker_id': 5 
     }).then(res=>{
       if(res.data.code == 200){
         let dateList = res.data.data[0].date || []

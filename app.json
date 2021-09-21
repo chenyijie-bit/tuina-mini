@@ -37,6 +37,7 @@
     "pages/wodehuodongshangpin/index",
     "pages/kuadianpaiban/index",
     "pages/mendianpaibanxiangqing/index",
+    "pages/youhuiquanyonghu/index",
     "pages/huodongdingdan/index"
   ],
   "permission": {

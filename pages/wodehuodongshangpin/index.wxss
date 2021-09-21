@@ -1,1 +1,34 @@
 /* pages/wodehuodongshangpin/index.wxss */
+.list-box{
+  padding: 40rpx 30rpx 30rpx;
+}
+.list-box-item{
+  border: 1rpx solid #efefef;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  background: #efefef;
+  margin-bottom: 50rpx;
+}
+.list-box-item view{
+  padding: 8rpx 0;
+}
+.yifukuan{
+  color: green;
+}
+.weifukuan{
+  color: red;
+}
+.but-but-del button{
+  color: red !important;
+  border-color: red;
+  margin-left: 40rpx;
+}
+.but-but-shiyong button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+}
+.but-but-gray button{
+  color: #999 !important;
+  border-color: #dedede;
+  background: #dedede;
+}

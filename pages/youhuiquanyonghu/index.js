@@ -1,4 +1,4 @@
-// pages/wodehuiyuanka/index.js
+// pages/youhuiquanyonghu/index.js
 let app = getApp();
 const $api = require('../../utils/request').API;
 Page({
@@ -7,36 +7,28 @@ Page({
    * 页面的初始数据
    */
   data: {
-    itemList: []
+    couponsList:[]
+  },
+  qushiyong(){
+    wx.switchTab({
+      url: '../index/index',
+    })
   },
   initData(){
-    // 会员卡订单列表
-    $api.vipOrderList({
-      "openid": app.globalData.openId,
-      "edate":"",						//可选
-      "sdate":"",//可选
-      "order_code":"",//可选
-      "trade_no":"",//可选
-      "user_info_id":"",//可选
-      "vip_info_id":"",//可选
-      "vip_type":"",//可选
-      "user_phone":'',	
+    $api.orderShow({
+      openid: app.globalData.openId,
+      tap_type: 1
     }).then(res=>{
-      console.log(res);
-      if(res.data.code == 200){
-        let list = res.data.data.list || []
-        list.map(e=>{
-          e.start_time = e.start_time.split(' ')[0]
-          e.end_time = e.end_time.split(' ')[0]
-        })
-        this.setData({
-          itemList:list
-        })
-      }else{
-        wx.showToast({
-          title: res.data.err || res.data.data.err,
-          icon:'none'
-        })
+      if(res.statusCode==200 && res.data.code === 200){
+        let coupons = res.data.data.coupons
+        if(coupons && coupons.length){
+          coupons.map(e=>{
+            e.priceNum = e.price ? parseFloat(e.price) : 0
+          })
+          this.setData({
+            couponsList: coupons
+          })
+        }
       }
     })
   },

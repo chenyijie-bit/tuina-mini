@@ -13,6 +13,7 @@ Page({
     butOk:true
   },
   onChange(e){
+    console.log(e.detail);
     this.setData({
       value:e.detail
     })
@@ -41,7 +42,7 @@ Page({
     }else{
       setTimeout(() => {
         _this.reqSend(id,_this.data.value,_this.data.message)
-      }, 20);
+      }, 140);
     }
   },
   reqSend(id,value,message) {

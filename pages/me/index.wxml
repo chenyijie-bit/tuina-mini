@@ -8,23 +8,27 @@
       <text wx:if="{{nickName}}" class="name">{{nickName}}</text>
       <text wx:else class="name">{{nickNameCopy}}</text>
       <text wx:if="{{tel}}" class="tel" >{{tel}}</text>
+      <text bindtap="gotohuiyuandingdan" style="color:#BA9245;font-size:26rpx;margin-top:8rpx;">高级会员</text>
+      <!-- <text style="color:#666;font-size:26rpx;margin-top:8rpx;">普通会员</text> -->
     </view>
   </view>
   <view class="me-box-middle">
     <view class="middle-list">
       <view class="item" bindtap="goToOrder">
         <image src="../../assess/me/order.png"></image>
-        <text>订单</text>
+        <text>活动订单</text>
       </view>
-      <view class="item" bindtap="goToNoUse">
+      <!-- <view class="item" bindtap="goToNoUse">
         <image src="../../assess/me/like.png"></image>
         <text>我的收藏</text>
-      </view>
-      <view class="item" bindtap="goToNoUse">
+      </view> -->
+      <view class="item">
+      <button open-type="share" style="width:96rpx;padding: 0;border: none !important;overflow: hidden;background: none;line-height: 29rpx;border-color: #fff !important;">
         <image src="../../assess/me/add-friend.png"></image>
         <text>邀请好友</text>
+      </button>
       </view>
-      <view class="item" bindtap="goToNoUse">
+      <view class="item" bindtap="goToYouHuiQuan">
         <image src="../../assess/me/price.png"></image>
         <text>优惠券</text>
       </view>

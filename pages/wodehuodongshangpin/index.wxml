@@ -1,2 +1,25 @@
 <!--pages/wodehuodongshangpin/index.wxml-->
-<text>pages/wodehuodongshangpin/index.wxml</text>
+<!-- <view>
+  用户已购买活动商品列表
+</view> -->
+<view style="padding:30rpx;">
+  <view wx:if="{{itemList.length}}">
+    <view wx:for="{{itemList}}" wx:key="index"  class="list-box-item">
+        <view>购买时间：{{item.create_time}}</view>
+        <view wx:if="{{item.is_pay == 1}}" >是否付款：<text class="yifukuan">已付款</text></view>
+        <view wx:else>是否付款：<text class="weifukuan">未付款</text></view>
+        <view>用户电话：{{item.user_phone}}</view>
+        <!-- <view style="text-align:right">
+          <van-button  class="but-but-shiyong" size="small" plain type="info" bindtap="shiyong">使用</van-button>
+          
+        </view> -->
+        <view style="text-align:right">
+          <van-button wx:if="{{item.check_status === '1'}}" class="but-but-gray" size="small" plain data-id="{{item.id}}" type="info" >已使用</van-button> 
+          <van-button wx:else class="but-but-shiyong" size="small" plain data-id="{{item.id}}" type="info">待使用</van-button>
+        </view>
+      </view>
+  </view>
+  <view wx:else>
+    暂无信息
+  </view>
+</view>

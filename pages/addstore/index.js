@@ -72,16 +72,19 @@ Page({
         })
         console.log(resdata);
         if(resdata){
+          let jingdu = resdata.location ? JSON.parse(resdata.location).longitude : ''
+          let weidu = resdata.location ? JSON.parse(resdata.location).latitude : ''
           this.setData({
             name:resdata.name,
             address:resdata.address,
-            jingdu:resdata.location.longitude,
-            weidu:resdata.location.latitude,
+            jingdu,
+            weidu,
             time1: resdata.work_open_date,  //营业开始时间
-            time2: resdata.work_close_date,   //打烊时间
+            time2: resdata.work_close_date || '23:59:00',   //打烊时间
             show: false,
             // flag:resdata.,
-            // aid:resdata.,
+            aid:resdata.atta_id,
+            fileList:[{url:resdata.atta_url,name:1}]
           })
         }
         

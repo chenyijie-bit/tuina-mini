@@ -1,4 +1,6 @@
 // pages/wodehuodongshangpin/index.js
+let app = getApp();
+const $api = require('../../utils/request').API;
 Page({
 
   /**
@@ -21,12 +23,33 @@ Page({
   onReady: function () {
 
   },
-
+  searchOrder(tel=''){
+      $api.marketingOrderList({
+        "openid":app.globalData.openId,
+        "user_id":"",								//可选参数。
+        "phone":tel,						//可选参数。
+        "trade_no":"",	//可选参数。
+        "order_code":""		//可选参数。
+      }).then(res=>{
+        console.log(res);
+        if(res.data.code == 200){
+          let list = res.data.data.list || []
+          this.setData({
+            itemList:list
+          })
+        }else{
+          wx.showToast({
+            title: res.data.err || res.data.data.err,
+            icon:'none'
+          })
+        }
+      })
+    },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.searchOrder()
   },
 
   /**
