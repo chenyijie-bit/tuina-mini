@@ -31,6 +31,9 @@ Page({
         console.log(res)
         if(res.statusCode === 200){
             let data = res.data.data
+            this.setData({
+              pinglunList:data.shop.comments || []
+            })
             let openTime =  data.shop.work_open_date || '7:30:00'  //开门时间
             let closeTime = data.shop.work_close_date || '23:30:00'   //data.work_close_date  //关门时间
             app.globalData.openTime = openTime

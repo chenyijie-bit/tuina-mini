@@ -52,12 +52,19 @@ Page({
       this.setData({
         selectType: 1
       })
+      this.initData()
     }else{
       this.setData({
         selectType: 2
       })
+      let start = app.globalData.firstOrderTime+ ' ' + '00:00:00'
+      let date1 = new Date();
+      let year1 = date1.getFullYear()
+      let month1 = date1.getMonth()+1
+      let day1 = date1.getDate()
+      let endStr = year1 + '-' + month1+'-'+day1+ ' ' + '23:59:59'
+      this.initData(start,endStr)
     }
-    this.initData()
   },
   initData(sdate,edate){
     $api.workerUserPerformance({
@@ -71,6 +78,12 @@ Page({
       console.log(res);
       if(res.data.code == 200){
         let list  = res.data.data.list
+        for (const key in list) {
+          const element = list[key];
+            if(!element.date){
+              element.date = key
+            }
+        }
         this.setData({
           resList : list
         })
@@ -101,6 +114,7 @@ Page({
    */
   onShow: function () {
     this.initData('','')
+    console.log(app.globalData.firstOrderTime);
   },
 
   /**

@@ -24,26 +24,99 @@ Page({
     addname:'',
     addtime:'',
     addprice:'',
-    fuwuList:['全身推拿+火罐/刮痧(30分钟/￥68.00)','全身推拿+火罐/刮痧(30分钟/￥68.00)']
+    fuwuList:[],
+    isSetStoreInfo: false
   },
   addfuwu(){
     this.setData({
       tinajiamokuai: true
     })
   },
-  delItem(e){
-    let index = e.currentTarget.dataset.index
-    let fuwuList = this.data.fuwuList
-    fuwuList.splice(index,1)
-    this.setData({
-      fuwuList
+  getfuwulist(){
+    $api.workerServiceList({openid:app.globalData.openId}).then(res=>{
+      console.log(res);
+      if(res.data.code == 200){
+        let list = res.data.data.list || []
+        let reslist = list.map(e=>{
+          return {name:`${e.name}/${parseFloat(e.price)}元/${e.duration}分钟`,id:e.id}
+        })
+        console.log(reslist);
+        this.setData({
+          fuwuList:reslist
+        })
+      }else{
+        wx.showToast({
+          title: res.data.err || res.data.data.err,
+          icon:'none'
+        })
+      }
     })
   },
+  delItem(e){
+    console.log(e);
+    let id = e.currentTarget.dataset.id
+    console.log(id);
+    let fuwuList = this.data.fuwuList
+    $api.workerServiceDel({openid:app.globalData.openId,id}).then(res=>{
+      console.log(res);
+      if(res.data.code == 200){
+        wx.showToast({
+          title: '删除成功'
+        })
+        this.getfuwulist()
+        // let list = res.data.data.list || []
+        // let reslist = list.map(e=>{
+        //   return `${e.name}/${parseFloat(e.price)}元/${e.duration}分钟`
+        // })
+        // console.log(reslist);
+        // this.setData({
+        //   fuwuList:reslist
+        // })
+      }else{
+        wx.showToast({
+          title: res.data.err || res.data.data.err,
+          icon:'none'
+        })
+      }
+    })
+    // fuwuList.splice(index,1)
+    // this.setData({
+    //   fuwuList
+    // })
+  },
   querentianjia(){
-    console.log(this.data.addname);
+    let id = wx.getStorageSync('storeDataId')
     let addname = this.data.addname
     let addtime = this.data.addtime
     let addprice = this.data.addprice
+    // "name":"服务项目",
+		//     "duration":"1",
+		//     "price":"0.4",
+		//     "desc":"descdescdescdescdesc"
+
+    $api.workerServiceAdd({
+      openid:app.globalData.openId,
+      name:addname,
+      duration:addtime,
+      price:addprice,
+      desc:'213sd',
+      shop_id:id
+    }).then(res=>{
+      console.log(res);
+      if(res.data.code == 200){
+        wx.showToast({
+          title: '添加成功'
+        })
+        this.getfuwulist()
+      }else{
+        wx.showToast({
+          title: res.data.err || res.data.data.err,
+          icon:'none'
+        })
+      }
+    })
+    console.log(this.data.addname);
+    
     if(addname && addtime && addprice){
       let fuwuList = this.data.fuwuList
       fuwuList.push(`${addname}(${addtime}分钟/${addprice}.00)`)
@@ -199,19 +272,29 @@ Page({
       return false
     }
     let reqObj = {}
-    $api.workerShopCreate({
+    let reqCC = ''
+    let idObj = {}
+    if(this.data.isSetStoreInfo){
+      // 说明是修改店铺数据
+      reqCC = $api.workerShopSet
+      idObj.id =  wx.getStorageSync('storeDataId') || ''
+    }else{
+      // 说明是添加新的店铺
+      reqCC = $api.workerShopCreate
+    }
+    reqCC({
+      ...idObj,
       openid:app.globalData.openId,
       name: this.data.name,
       "location":{
           "longitude":this.data.jingdu,
           "latitude":this.data.weidu
       },
-      "work_open_date": this.data.time1 + ':00',
-      "weekend_open_date": this.data.time1 + ':00',
+      "work_open_date": this.data.time1 && this.data.time1.length > 6 ? this.data.time1: this.data.time1 + ':00' ,
+      "weekend_open_date": this.data.time1 && this.data.time1.length > 6 ? this.data.time1: this.data.time1 + ':00' ,
       // 需要添加一个闭店时间
-      "work_close_date": this.data.time2 + ':00',
+      "work_close_date": this.data.time2 && this.data.time2.length > 6 ? this.data.time2: this.data.time2 + ':00' ,
       // "weekend_close_date": this.data.time2 + ':00',
-
       "address":this.data.address,
       "atta_id":this.data.aid,
       'status': 200
@@ -220,12 +303,14 @@ Page({
       if(res.data.code == 200){
         // 说明是修改信息成功了
         wx.showToast({
-          title: '  ',
+          title: '修改成功',
           icon:'none'
         })
-        wx.navigateTo({
-          url: '../mendianshuju/index'
-        })
+        setTimeout(() => {
+          wx.navigateTo({
+            url: '../mendianshuju/index'
+          })
+        }, 1200);
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,
@@ -252,9 +337,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getfuwulist()
     let id = wx.getStorageSync('storeDataId')
     if(id){
+      this.setData({
+        isSetStoreInfo:true
+      })
       this.getStoreList()
+    }else{
+      this.setData({
+        isSetStoreInfo:false
+      })
     }
   },
 

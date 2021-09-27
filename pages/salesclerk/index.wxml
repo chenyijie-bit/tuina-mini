@@ -39,10 +39,10 @@
 			<view class="type-title">服务项目价格</view>
 			<view class="type-item"  bindtap="changeType" data-needtime="{{item.service_duration}}"  data-type="{{item.id}}" wx:for="{{shopInfo.skill}}" wx:key="index">
 				<view class="type-item-name">
-					{{item.service_name}}
+					{{item.name}}
 				<view class="time-money-box">
-					<text class="time">({{item.service_duration}}分钟/</text>
-					<text class="item-prace">￥{{item.service_price}}</text>
+					<text class="time">({{item.duration}}分钟/</text>
+					<text class="item-prace">￥{{item.price}}</text>
 					<text class="time">)</text>
 				</view>
 				</view>

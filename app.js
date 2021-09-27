@@ -154,12 +154,13 @@ App({
     nickname:'',
     // 当前店铺的id
     shop_id:'',
-    openTime:'',  //门店开点时间
-    closeTime:'',  // 门店关门时间
+    openTime:'07:30:00',  //门店开点时间
+    closeTime:'23:30:00',  // 门店关门时间
     // 当前店员的id
     user_openId:'',
     worker_id:'',
     worker_name:'',
+    firstOrderTime:'', //店员首单时间
     // 所有优惠券
     couponsList:[],
     // 用户的地址

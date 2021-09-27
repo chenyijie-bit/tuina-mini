@@ -12,6 +12,19 @@ function request(method, url, data) {
             // 'Content-Type': (method!='POST' ? 'application/json' : 'application/x-www-form-urlencoded'),
             'Content-Type': (method!='POST' ? 'application/json' : 'application/json'),
         };
+        console.log(data);
+        let objSign = {sign:''}
+        let str = ''
+        for (const key in data) {
+            const element = data[key];
+            if(element || element === 0 || element==='0'){
+                str+= (key.toLowerCase()+'='+ (typeof element === 'object' ? JSON.stringify(element).toLowerCase() : String(element).toLowerCase()))+'&'
+            }
+                
+        }
+        str = str.slice(0,str.length-1)
+        str+='a286d0'
+        console.log(str);
         wx.request({
             url: baseURL + url,
             method: method,
@@ -131,6 +144,8 @@ const API = {
     workerShopDetail:(data)=>request(POST, `/worker/shop/detail`,data),
     // 添加店铺
     workerShopCreate:(data)=>request(POST, `/worker/shop/create`,data),
+    // 修改店铺
+    workerShopSet:(data)=>request(POST, `/worker/shop/up`,data),
     // 会员卡
     // 添加
     workerVipSet:(data)=>request(POST, `/worker/vip/set`,data),
@@ -155,7 +170,12 @@ const API = {
     workerUserBindShop:(data)=>request(POST, `/worker/user/bind-shop`,data),
     // 店铺今日考勤
     workerPunchShopDetail:(data)=>request(POST, `/worker/punch/shop-detail`,data),
-
+    // 添加服务
+    workerServiceAdd:(data)=>request(POST, `/worker/service/add`,data),
+    // 删除服务
+    workerServiceDel:(data)=>request(POST, `/worker/service/del`,data),
+    // 服务列表
+    workerServiceList:(data)=>request(POST, `/worker/service/list`,data),
 };
 module.exports = {
     API: API

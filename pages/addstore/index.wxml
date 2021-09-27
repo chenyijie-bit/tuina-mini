@@ -55,7 +55,7 @@
     <view class="add-jineng">
       <text style="display:inline-block;margin-right:30rpx;color:#646566;font-size: 26rpx;" class="tit">添加服务</text>
       <view class="list">
-        <view class="item" wx:for="{{ fuwuList }}" wx:key="index">{{item}} <van-icon size="16px" bindtap="delItem" name="close" data-index="{{index}}"/></view>
+        <view class="item" wx:for="{{ fuwuList }}" wx:key="index">{{item.name}} <van-icon size="16px" bindtap="delItem" name="close" data-id="{{item.id}}"/></view>
         <van-button bindtap="addfuwu"  class="but-but-t"  size="small" plain type="info">添加服务</van-button>
       </view>
     </view>

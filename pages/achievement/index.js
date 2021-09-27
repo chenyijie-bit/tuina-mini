@@ -88,6 +88,9 @@ Component({
     getUserInfo(){
       $api.userInfo({"openid":app.globalData.openId}).then(res=>{
         if(res.data && res.data.code==200){
+          if(res.data.data.worker_info && res.data.data.worker_info.first_order && res.data.data.worker_info.first_order.create_time){
+            app.globalData.firstOrderTime = res.data.data.worker_info.first_order.create_time.split(' ')[0]
+          }
           if(res.data.data && res.data.data.worker_info.status && res.data.data.worker_info.status==50){
             // 说明是管理员已把他设置为员工但是还没有完善员工信息
             wx.navigateTo({

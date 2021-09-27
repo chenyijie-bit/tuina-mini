@@ -3,7 +3,7 @@
   <view class="title">
     {{name}}
   </view>
-  <view style="text-align:right;" bindtap="setStore" data-id="">门店设置<van-icon name="arrow" /></view>
+  <view style="text-align:right;" bindtap="setStore" data-id="4">门店设置<van-icon name="arrow" /></view>
   <view class="store-box">
     <view class="store-name">门店数据</view>
       <view class="store-item">

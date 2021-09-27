@@ -50,7 +50,7 @@
 								<view class="flex-l">
 									<view style="margin-bottom:10rpx;">  
 										<text class="first-text">{{item.grade}}.0</text>
-										<text style="color:#777;">{{item.user.nickname}}</text>
+										<text style="color:#777;">{{item.user.nickname || '--'}}</text>
 									</view>
 									<view>
 										<van-rate
