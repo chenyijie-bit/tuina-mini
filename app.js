@@ -152,6 +152,8 @@ App({
     head_url:'',
     mobile:'',
     nickname:'',
+    min_price:'', //店铺的最低消费
+    min_price_c:'',
     // 当前店铺的id
     shop_id:'',
     openTime:'07:30:00',  //门店开点时间

@@ -3,14 +3,22 @@
   <view style="text-align: right;padding: 30rpx 41rpx 28rpx;" bindtap="addStore">
     <text>添加店铺</text><van-icon bindtap="tianjiatongzhi" style="vertical-align: middle;margin-left: 10rpx;" name="add-o" color="333" size="25px"/>
   </view>
-  <view wx:for="{{storeList}}" data-name="{{item.name}}" data-id="{{item.id}}" class="parent-box" bindtap="dianpuxiangqing" wx:key="index">
+  <view wx:for="{{storeList}}" class="parent-box"  wx:key="index">
     <view class="item-box">
-      <view style="font-size: 40rpx;padding-bottom: 20rpx;">{{item.name}}</view>
-      <view>订单总数：{{item.info.sum_count}}</view>
-      <view>非首次订单数：{{item.info.rep_count}}</view>
-      <view>实际支付金额：{{item.info.sum_pay_price}}</view>
-      <view>优惠金额：{{item.info.sum_promotion_price}}</view>
-      <view>预收款总金额：{{item.info.sum_total_price}}</view>
+      <view class="left">
+        <view style="font-size: 40rpx;padding-bottom: 20rpx;">{{item.name}}</view>
+        <view>订单总数：{{item.info.sum_count}}</view>
+        <view>非首次订单数：{{item.info.rep_count}}</view>
+        <view>实际支付金额：{{item.info.sum_pay_price}}</view>
+        <view>优惠金额：{{item.info.sum_promotion_price}}</view>
+        <view>预收款总金额：{{item.info.sum_total_price}}</view>
+      </view>
+      <view class="right">
+        <van-button  data-name="{{item.name}}" data-id="{{item.id}}" bindtap="dianpuxiangqing"  class="but-but-t"  size="small" plain type="info">查看详情</van-button>
+        <van-button bindtap="delShop" data-name="{{item.name}}" data-id="{{item.id}}" class="but-but-del"  size="small" plain type="info">删除店铺</van-button>
+      </view>
+      
     </view>
   </view>
 </view>
+<van-dialog id="van-dialog" />

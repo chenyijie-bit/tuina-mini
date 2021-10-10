@@ -1,14 +1,18 @@
 /* pages/yonghuhuiyuan/index.wxss */
+page{
+  background: #efefef;
+}
 .item{
   padding: 26rpx;
     line-height: 56rpx;
-    background: #efefef;
+    background: #fff;
     margin-bottom: 50rpx;
     border-radius: 12rpx;
 }
 .but-but button{
   color: #BA9245 !important;
   border-color: #BA9245;
+  border-radius: 36rpx;
 }
 .title{
   text-align: center;

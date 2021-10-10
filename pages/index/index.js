@@ -160,6 +160,9 @@ Component({
             let tuijianWorker = {}
             if(data.recommend[0] && data.recommend[0].worder_list && data.recommend[0].worder_list[0]){
               tuijianWorker = data.recommend[0].worder_list[0]
+              if(tuijianWorker.low_price){
+                tuijianWorker.low_price_c =  parseInt(parseInt(tuijianWorker.low_price)*1.3)
+              }
               if(tuijianWorker.wait_time == 0){
                 tuijianWorker.waitStr = '无需等待，可立即服务'
               }else{
@@ -173,6 +176,9 @@ Component({
               console.log('进来了');
               copyWorkerList = [tuijianWorker]
             }
+            data.shops.map(e=>{
+              e.min_price_c = parseInt(parseInt(e.min_price)*1.3 + 1)
+            })
             this.setData({
               storeList:data.shops,
               workerList: copyWorkerList,
@@ -337,6 +343,10 @@ Component({
     },
     goToStoreInfo(e){
       app.globalData.shop_id = e.currentTarget.dataset.id
+      app.globalData.min_price = e.currentTarget.dataset.min
+      app.globalData.min_price_c = e.currentTarget.dataset.minc
+      console.log(e);
+      console.log(app.globalData.min_price_c);
       wx.navigateTo({
         url: '../storeInfo/index',
       })

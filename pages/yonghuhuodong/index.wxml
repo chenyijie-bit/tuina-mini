@@ -4,7 +4,7 @@
   <view class="container">
     <view wx:for="{{huodonglist}}" wx:key="index" class="item-box">
       <view style="text-align:center; font-size:36rpx;">{{item.name}}</view>
-      <view>价格：￥{{item.price}}元</view>
+      <view>价格：<text style="color:#BA9245">￥{{item.price}}</text></view>
       <view>详情：{{item.desc}}</view>
       <!-- <view>
         <image src="{{item.atta_url}}" alt="" mode="widthFix"/>

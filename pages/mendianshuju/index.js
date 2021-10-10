@@ -1,6 +1,7 @@
 // pages/mendianshuju/index.js
 let app = getApp();
 const $api = require('../../utils/request').API;
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Page({
 
   /**
@@ -23,6 +24,31 @@ Page({
     wx.navigateTo({
       url: '../mendianxiangqing/index',
     })
+  },
+  delShop(e){
+    let id= e.currentTarget.dataset.id
+    let name= e.currentTarget.dataset.name
+    Dialog.confirm({
+      message: `确认删除 ${name} 店铺吗`,
+    }).then(() => {
+      $api.workerShopDel({openid:app.globalData.openId,id:id,is_delete:1}).then(res=>{
+        console.log(res);
+        if(res.data.code == 200){
+          wx.showToast({
+            title: '操作成功',
+          })
+          this.initData()
+        }else{
+          wx.showToast({
+            title: res.data.err || res.data.data.err,
+            icon:'none'
+          })
+        }
+      })
+    })
+    .catch(() => {
+      // on cancel
+    });
   },
   initData(){
     $api.workerShopList({openid:app.globalData.openId}).then(res=>{

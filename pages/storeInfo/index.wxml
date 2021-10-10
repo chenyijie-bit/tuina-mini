@@ -19,8 +19,8 @@
 							<view class="per-info">
 								<text class="per-name">{{item.name}}</text>
 								<view class="price">
-									<text class="first-price">￥{{item.low_price || 68}}</text>
-									<text class="sec-price">￥128</text>
+									<text class="first-price">￥{{minPrice || 68}}</text>
+									<text class="sec-price">￥{{minPricec|| 128}}</text>
 								</view>
 								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
 								<view style="text-align: left;">

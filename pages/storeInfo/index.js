@@ -8,7 +8,9 @@ Page({
       personImg:'../../assess/images/123.jpeg',
       waitIcon:'../../assess/images/waiticon.png',
       workList:[],
-      pinglunList:[]
+      pinglunList:[],
+      minPrice: app.globalData.min_price,
+      minPricec: app.globalData.min_price_c
   },
   getDuration: function(second) {
       var days = Math.floor(second / 86400);
@@ -20,6 +22,10 @@ Page({
   },
   onShow: function() {
     // console.log(this.getDuration(999))
+    this.setData({
+      minPrice: app.globalData.min_price,
+      minPricec: app.globalData.min_price_c
+    })
   },
   onLoad: function() {
     console.log(123);

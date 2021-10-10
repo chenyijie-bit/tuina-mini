@@ -1,12 +1,14 @@
 /* pages/wodehuodongshangpin/index.wxss */
+page{
+  background-color: #efefef;
+}
 .list-box{
   padding: 40rpx 30rpx 30rpx;
 }
 .list-box-item{
-  border: 1rpx solid #efefef;
   padding: 20rpx;
   border-radius: 12rpx;
-  background: #efefef;
+  background: #fff;
   margin-bottom: 50rpx;
 }
 .list-box-item view{
@@ -31,4 +33,5 @@
   color: #999 !important;
   border-color: #dedede;
   background: #dedede;
+  border-radius: 36rpx;
 }

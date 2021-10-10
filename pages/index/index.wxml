@@ -45,7 +45,7 @@
             <text class="per-name">{{item.name}}</text>
             <view class="price">
               <text class="first-price">￥{{item.low_price}}</text>
-              <text class="sec-price">￥{{120}}</text>
+              <text class="sec-price">￥{{item.low_price_c}}</text>
             </view>
             <image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
             <view>
@@ -77,7 +77,7 @@
                 </view>
                 <view class="store-prace">
                   <text>￥{{item.min_price}}</text>
-                  <text>￥128</text>
+                  <text>￥{{item.min_price_c}}</text>
                 </view>
                 <view class="store-address">
                   <van-icon name="location" size="10"/>
@@ -90,7 +90,7 @@
                   <!-- <text class="store-shangci">上次光临</text> -->
                 </view>
                 <view class="store-start-but">
-                  <van-button type="default" class="yuding" bindtap="goToStoreInfo" data-id="{{item.id}}">预定</van-button>
+                  <van-button type="default" class="yuding" bindtap="goToStoreInfo" data-min="{{item.min_price}}" data-minc="{{item.min_price_c}}" data-id="{{item.id}}">预定</van-button>
                 </view>
               </view>
             </view>

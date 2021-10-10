@@ -1,10 +1,31 @@
 /* pages/mendianshuju/index.wxss */
+page{
+  background: #efefef;
+}
 .item-box{
   padding: 20rpx;
-    background: #efefef;
+    background: #fff;
+    border: 1rpx solid #BA9245;
     border-radius: 12rpx;
+    display: flex;
 }
 .parent-box{
   margin-bottom: 30rpx;
   padding: 12rpx 30rpx;
+}
+.but-but-t button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+  margin-top: 40rpx;
+}
+.but-but-del button{
+  color: red !important;
+  border-color: red;
+  margin-top: 100rpx;
+}
+.left{
+  flex: 1;
+}
+.right{
+  width: 160rpx;
 }

@@ -19,12 +19,6 @@
           "scene": null
         },
         {
-          "name": "pages/index2/index",
-          "pathName": "pages/index2/index",
-          "query": "",
-          "scene": null
-        },
-        {
           "name": "店铺信息",
           "pathName": "pages/storeInfo/index",
           "query": "",
