@@ -37,7 +37,7 @@ Page({
     
     $api.getWorkerData({
       openid:app.globalData.openId,
-      worker_id:app.globalData.worker_id,
+      worker_id:app.globalData.select_worker_id,
       shop_id:app.globalData.shop_id
     }).then(res=>{
       console.log(res)
@@ -215,7 +215,7 @@ Page({
           $api.workerFutureList({
             // 上线要改成真实数据 改成工作人员的open
             openid:app.globalData.openId,
-            worker_id:app.globalData.worker_id,
+            worker_id:app.globalData.select_worker_id,
           }).then(res=>{
             console.log(res);
             if(res.statusCode ==200 && res.data.code == 200){
@@ -292,7 +292,7 @@ Page({
       $api.workerFutureList({
         // 上线要改成真实数据 改成工作人员的open
         openid:app.globalData.openId,
-        worker_id:app.globalData.worker_id,
+        worker_id:app.globalData.select_worker_id,
       }).then(res=>{
         console.log(res);
         if(res.statusCode ==200 && res.data.code == 200){
@@ -491,11 +491,10 @@ Page({
       "openid": app.globalData.openId,
       "shop_id": app.globalData.shop_id, 
       "type_id": this.data.appointmentType,    //1 为立即下单 ； 2 预约，763022
-      "worker_id": app.globalData.worker_id,
+      "worker_id": app.globalData.select_worker_id,
       "reserve_date":this.data.reserve_date,
       "service_id": service_id
     }
-    
     $api.orderSubmit(data).then(res=>{
       console.log(res);
       wx.hideLoading()

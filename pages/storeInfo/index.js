@@ -58,7 +58,7 @@ Page({
       })
   },
   goToStaffInfo(e){
-    app.globalData.worker_id = e.currentTarget.dataset.id
+    app.globalData.select_worker_id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../salesclerk/index',
     })

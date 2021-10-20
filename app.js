@@ -161,6 +161,7 @@ App({
     // 当前店员的id
     user_openId:'',
     worker_id:'',
+    select_worker_id:'', // 用户要预约的店员id
     worker_name:'',
     firstOrderTime:'', //店员首单时间
     // 所有优惠券

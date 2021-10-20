@@ -19,7 +19,7 @@
 						data-mobile="{{item.mobile}}"
 						bind:close="onCloseItem"
 					>
-						<view slot="left" style="width:40rpx;">移至首位</view>
+						<view slot="left" style="width:40rpx;height:100%;">移至首位</view>
 						<view class="order-contain">
 							<view class="info-box">
 								<view class="tel marbot28">
@@ -51,7 +51,7 @@
 							</view>
 						</view>
 						<!-- bindtap="giveUp" -->
-						<view slot="right"  data-id="{{item.id}}">删除</view>
+						<view slot="right" style="width:40rpx;height:100%;" data-id="{{item.id}}">删除</view>
 					</van-swipe-cell>
 				</view>
 			</view>
