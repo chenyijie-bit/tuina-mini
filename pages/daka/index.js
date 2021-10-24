@@ -51,7 +51,6 @@ Page({
       dakafanwei: false
     })
     $api.workerPunchClock({openid:app.globalData.openId}).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         // 这里打卡成功回调打卡成功回显接口
         this.init()
@@ -87,16 +86,13 @@ Page({
           const element = listjingweidu[index];
           // element.longitude ? '' : element.longitude = _this.data.defaultAddressInfo.Long
           // element.latitude ? '' : element.latitude = _this.data.defaultAddressInfo.Lat
-          console.log(element.latitude,element.longitude,app.globalData.userAddressInfo.Lat,app.globalData.userAddressInfo.Long);
           let juliItem =  $Distance(element.latitude,element.longitude,app.globalData.userAddressInfo.Lat,app.globalData.userAddressInfo.Long)
           juliArr.push(juliItem)
         }
-        console.log(juliArr);
         if(juliArr && juliArr.length){
           for (let index = 0; index < juliArr.length; index++) {
             const element = juliArr[index];
             if(element<=1){
-              console.log(2312312);
               this.setData({
                 dakafanwei:true
               })

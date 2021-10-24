@@ -16,7 +16,6 @@ Page({
       worker_id:'',
       shop_id: this.data.storeId
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let itemList = res.data.data
         this.setData({
@@ -34,7 +33,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
     this.setData({
       storeId : options.id
     })
@@ -51,7 +49,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log('show');
     this.initData()
   },
 

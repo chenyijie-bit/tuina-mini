@@ -16,7 +16,6 @@ Page({
     this.getList()
   },
   shenhetongguo(e){
-    console.log(e);
     let pinglunid = e.currentTarget.dataset.pinglunid
     let workerid = e.currentTarget.dataset.workerid
     let approveid = e.currentTarget.dataset.approveid
@@ -31,7 +30,6 @@ Page({
       "worker_id": workerid,							//被评论的工作人员id
       "id": pinglunid		
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         wx.showToast({
           title: '操作成功'
@@ -53,7 +51,6 @@ Page({
       "approve": '',							
       shop_id : ''	
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let list = []
         if(res.data && res.data.data){

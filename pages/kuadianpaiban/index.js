@@ -40,7 +40,6 @@ Page({
     )
   },
   queren(){
-    console.log(this.data.dateList);
     let mendianList = this.data.mendianList
     let resArr = []
     mendianList.map((e,i)=>{
@@ -81,7 +80,6 @@ Page({
       e.dateList[currentIndex].flag = false
     })
     mendianListCopy[parentIndex].dateList[currentIndex].flag = true
-    console.log(mendianListCopy);
     this.setData({
       mendianList: mendianListCopy
     })
@@ -111,7 +109,6 @@ Page({
         //   const element = dateObj[key];
         //   dateList.push({[key]: element})
         // }
-        console.log(dateList);
         dateList = dateList.slice(0,5)
         let newArr = []
         dateList.map(e=>{
@@ -131,7 +128,6 @@ Page({
                 mendianList.map((s,n)=>{
                   if(s.id === e.shop_id){
                     mendianList[n].dateList[i].flag = true
-                    console.log(mendianList);
                     this.setData({
                       mendianList
                     })

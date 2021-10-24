@@ -12,19 +12,18 @@ function request(method, url, data) {
             // 'Content-Type': (method!='POST' ? 'application/json' : 'application/x-www-form-urlencoded'),
             'Content-Type': (method!='POST' ? 'application/json' : 'application/json'),
         };
-        console.log(data);
         let objSign = {sign:''}
         let str = ''
-        for (const key in data) {
+        let res = Object.keys(data).sort();
+        res.map(key=>{
             const element = data[key];
             if(element || element === 0 || element==='0'){
                 str+= (key.toLowerCase()+'='+ (typeof element === 'object' ? JSON.stringify(element).toLowerCase() : String(element).toLowerCase()))+'&'
             }
-                
-        }
+        })
         str = str.slice(0,str.length-1)
         str+='a286d0'
-        console.log(str);
+
         objSign.sign = md5.hexMD5(str)
         wx.request({
             url: baseURL + url,

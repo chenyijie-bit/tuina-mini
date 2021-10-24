@@ -37,8 +37,6 @@ Page({
     let day2 = date2.getDate()
     let startStr = year1 + '-' + month1+'-'+day1+ ' ' + '00:00:00'
     let endStr = year2 + '-' + month2+'-'+day2+ ' ' + '23:59:59'
-    console.log(startStr);
-    console.log(endStr);
     this.initData(startStr,endStr)
     this.setData({
       showcalendar: false,
@@ -46,7 +44,6 @@ Page({
     });
   },
   search(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
     if(id == 1){
       this.setData({
@@ -75,7 +72,6 @@ Page({
       "shop_id":"",
       date_unit: this.data.selectType == 1 ? '2' : '1'
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let list  = res.data.data.list
         for (const key in list) {
@@ -114,7 +110,6 @@ Page({
    */
   onShow: function () {
     this.initData('','')
-    console.log(app.globalData.firstOrderTime);
   },
 
   /**

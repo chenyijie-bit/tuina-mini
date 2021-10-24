@@ -16,7 +16,6 @@ Page({
     })
   },
   guanbi(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
     let name = e.currentTarget.dataset.name
     let attaid = e.currentTarget.dataset.attaid
@@ -26,7 +25,6 @@ Page({
     this.xiugaishangpin(id,attaid,desc,price,name,status)
   },
   kaiqi(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
     let name = e.currentTarget.dataset.name
     let attaid = e.currentTarget.dataset.attaid
@@ -36,7 +34,6 @@ Page({
     this.xiugaishangpin(id,attaid,desc,price,name,status)
   },
   shanchu(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
     let name = e.currentTarget.dataset.name
     let attaid = e.currentTarget.dataset.attaid
@@ -57,7 +54,6 @@ Page({
       price,
       shop_id:''
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         this.initData()
         // 说明是修改信息成功了
@@ -75,21 +71,14 @@ Page({
         })
       }
     })
-    console.log(this.data.name);
-    console.log(this.data.tel);
-    console.log(this.data.age);
-    console.log(this.data.shangjia);
-    console.log(this.data.message);
   },
   initData(){
     $api.workerMarketingList({
       "openid": app.globalData.openId,
 			"name":""	
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let itemList = res.data.data.list
-        console.log(itemList);
         this.setData({
           list: itemList
         })

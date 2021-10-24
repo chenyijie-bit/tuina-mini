@@ -57,7 +57,6 @@ Page({
   },
   getDayInfo(e){
     let dataInfo = e.currentTarget.dataset.info
-    console.log(dataInfo);
     let date = dataInfo.key    // 2021-08-13
     wx.setStorageSync('selectDate', date)
     if(dataInfo.notdaka) return false
@@ -93,7 +92,6 @@ Page({
           }
         })
         // 1 判断满足不满足10小时  2 如果打卡不足2次 寻找补卡里有没有 有的话（1次）    没有的话
-        console.log(listArr);
         listArr.map(e=>{
           if(e.approve.qj.length){
             //说明有请假

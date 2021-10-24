@@ -30,15 +30,12 @@ Page({
       let listArr = []
       if(res.data && res.data.code == 200){
         let data = res.data.data.list
-        console.log(data);
         if(data){
           let resDate = data[dateTime]
           if(resDate.punch){
             let len = resDate.punch.length
             let firstDaka = resDate.punch[0] || '无打卡记录'
             let lastDaka = resDate.punch[len - 1] || '无打卡记录'
-            console.log('firstDaka',firstDaka);
-            console.log('lastDaka',lastDaka);
             this.setData({
               firstDaka,
               lastDaka

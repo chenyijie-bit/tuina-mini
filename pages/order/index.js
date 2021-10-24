@@ -42,7 +42,6 @@ Component({
     // 去评价
     gotopingjia(e){
       let queue_id = e.currentTarget.dataset.orderid-0
-      console.log(queue_id);
       wx.setStorageSync('pingjiaid', queue_id)
       wx.navigateTo({
         url: '../qupingjia/index',
@@ -61,13 +60,10 @@ Component({
     //   }, 3000)
     // },
     // onPulling(e) {
-    //   console.log('onPulling:', e)
     // },
     // onRestore(e) {
-    //   console.log('onRestore:', e)
     // },
     // onAbort(e) {
-    //   console.log('onAbort', e)
     // },
     //获取所有优惠券
     getCoupontsAll(){
@@ -112,7 +108,6 @@ Component({
       })
     },
     onChangeCouponsId(e){
-      console.log(e);
       let _this = this
       let changedId = e.detail
       for (let index = 0; index < this.data.couponsList.length; index++) {
@@ -158,7 +153,6 @@ Component({
         this.setData({
           loading: false
         })
-        console.log(res);
         if(res.statusCode==200 && res.data.code === 200){
           let resList = res.data.data.list
           let coupons = res.data.data.coupons
@@ -268,7 +262,6 @@ Component({
       this.setData({
         activeTab: event.detail.name,
       });
-      console.log('onChange');
       this.getOrder()
     },
     cancelServe(e){
@@ -291,7 +284,6 @@ Component({
               }
             })
           } else if (res.cancel) {
-            // console.log('用户点击取消')
           }
         }
       })
@@ -320,7 +312,6 @@ Component({
                 }
               })
             } else if (res.cancel) {
-              // console.log('用户点击取消')
             }
           }
         })
@@ -349,7 +340,6 @@ Component({
         }
         // 上线需要改成正确id
         $api.orderPaydata({...defaultObj,...reqObj}).then(res=>{
-          console.log(res)
           if(res.statusCode == 200 && res.data.code == 200){
             this.setData({
               payData:res.data.data.jsApiParams,
@@ -364,7 +354,6 @@ Component({
               "signType": "HMAC-SHA256",
               "paySign": this.data.payData.jsApiParameters.paySign,
               "success":function(res){
-                console.log(res);
                 //需要重新获取列表信息
                 // wx.showToast({
                 //   title: '支付成功'
@@ -388,7 +377,6 @@ Component({
                 // no: "AM2021060618011355176"
               },
               "fail":function(res){
-                console.log(res);
               },
               "complete":function(res){}
               })

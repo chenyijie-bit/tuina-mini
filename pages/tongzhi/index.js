@@ -21,7 +21,6 @@ Page({
   workerNotificationList(){
     let _this = this
     $api.workerNotificationList({openid:app.globalData.openId}).then(res=>{
-      console.log(res);
       if(res.statusCode == 200 && res.data.code == 200){
         let list =  res.data.data.list || []
         list.map(e=>{
@@ -39,13 +38,11 @@ Page({
     })
   },
   getInputValue(e){
-    console.log(e);
     this.setData({
       content:e.detail.value
     })
   },
   // bindTextAreaBlur(e){
-  //   console.log(e.detail.value);
   //   if(e.detail.value && e.detail.value.trim()){
   //     this.setData({
   //       content:e.detail.value
@@ -61,7 +58,6 @@ Page({
   querenfasong(){
     let text = this.data.content
     let _this = this
-    console.log(text)
     if(!text){
       wx.showToast({
         title: '请写入内容',
@@ -73,7 +69,6 @@ Page({
       "openid":app.globalData.openId,
       "content": text
     }).then(res=>{
-      console.log(res)
       if(res.statusCode == 200 && res.data.code==200){
         this.setData({
           xianshitianjia:false
@@ -91,8 +86,6 @@ Page({
     })
   },
   // xiugai(e){
-  //   console.log(e);
-  //   console.log(e.currentTarget.dataset.id);
   //   let id = e.currentTarget.dataset.id
   //   this.setData({
   //     dataid:id
@@ -117,7 +110,6 @@ Page({
         openid:app.globalData.openId,
         id:this.data.dataid,
           }).then(res=>{
-            console.log(res);
             if(res.data && res.data.code == 200){
               //说明删除成功了
               wx.showToast({

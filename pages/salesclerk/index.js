@@ -32,15 +32,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('onload');
     let _this = this
-    
+    // shop_id:app.globalData.shop_id,
     $api.getWorkerData({
       openid:app.globalData.openId,
       worker_id:app.globalData.select_worker_id,
-      shop_id:app.globalData.shop_id
+      type:2
     }).then(res=>{
-      console.log(res)
       if(res.statusCode == 200){
         let data = res.data.data
         let resData = Object.assign({},data)
@@ -92,7 +90,6 @@ Page({
     ]
     let openTime = app.globalData.openTime || '07:30:00'
     let closeTime = app.globalData.closeTime || '23:30:00'
-    console.log(openTime,closeTime);
     let newArr = []
     timeSelectModel.map(e=>{
       if( ( (e.time.split(':')[0]*3600 + e.time.split(':')[1]*60) >= (openTime.split(':')[0]*3600 + openTime.split(':')[1]*60) )  && 
@@ -143,13 +140,11 @@ Page({
     })
   },
   onChange(event) {
-    console.log(event);
     this.setData({
       typeRadio: event.detail,
     });
   },
   changeType(data){
-    console.log(this.data.currentTab);
     for (let index = 0; index < 5; index++) {
       this.setData({
         ['indexTabDateCur['+index+']'] : []
@@ -180,8 +175,6 @@ Page({
   /////需要加个判断就是首页拿到手机号的时候就不用在授权了
   // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
-    console.log(111111111111);
-    console.log(e);
     if(e.detail.errMsg && e.detail.errMsg.indexOf('fail')>0){
       // 说明拒绝授权手机号
       return false
@@ -189,7 +182,6 @@ Page({
     this.setData({
       appointmentType:e.currentTarget.dataset.type
     })
-    console.log(this.data.appointmentType);
     // 如果系统中没有电话号码
     $api.getTelNumber({
       openid:app.globalData.openId,
@@ -199,7 +191,6 @@ Page({
     }).then(res=>{
       if(res.statusCode == 200 && res.data.code == 200){
         //立即下单
-        console.log(this.data.appointmentType);
         if(this.data.appointmentType == 1){
           this.setData({
             yuyuekongjianIsShow:false,
@@ -217,7 +208,6 @@ Page({
             openid:app.globalData.openId,
             worker_id:app.globalData.select_worker_id,
           }).then(res=>{
-            console.log(res);
             if(res.statusCode ==200 && res.data.code == 200){
               let dateData = res.data.data
               let arr = []
@@ -252,7 +242,6 @@ Page({
               })
               let resData = []
               resData[this.data.currentTab] = timeSelectModel
-              console.log(resData);
               this.setData({
                 timeSelectModelBox: resData
               })
@@ -275,7 +264,6 @@ Page({
     this.setData({
       appointmentType:e.currentTarget.dataset.type
     })
-    console.log(this.data.appointmentType);
     if(this.data.appointmentType == 1){
       this.setData({
         showPopup:true,
@@ -294,7 +282,6 @@ Page({
         openid:app.globalData.openId,
         worker_id:app.globalData.select_worker_id,
       }).then(res=>{
-        console.log(res);
         if(res.statusCode ==200 && res.data.code == 200){
           let dateData = res.data.data.future_list
           let arr = []
@@ -325,7 +312,6 @@ Page({
             // 在这里判断 如果选择的时间数组里面的时间早于开店时间或者晚于关店时间都要disabled = true
             // 
           })
-          console.log(timeSelectModel);
           let resData = []
           resData[this.data.currentTab] = timeSelectModel
           this.setData({
@@ -360,7 +346,6 @@ Page({
     for (let index = 0; index < yuyueList.length; index++) {
       const element = yuyueList[index];
       // element是预约的item
-      // console.log(element);
       for (let j = 0; j < this.data.timeSelectModelBox[this.data.currentTab].length; j++) {
         // item是固定时间item
         const item = this.data.timeSelectModelBox[this.data.currentTab][j];
@@ -395,9 +380,7 @@ Page({
           }
         }
         // debugger
-        // console.log(this.data.deftypeTimeStr);
         if(((Number(item.datestr) + Number(this.data.deftypeTimeStr)*60*1000)  >= ((Number(element.st)*1000))) && ((Number(item.datestr) + Number(this.data.deftypeTimeStr)*60*1000)<= ((Number(element.et)*1000)))){
-          // console.log(j)
           let data = this.data.indexTabDateCur[this.data.currentTab]
             if(Array.isArray(data)){
               data.push(j)
@@ -420,13 +403,11 @@ Page({
         }
       }
     }
-    console.log(this.data.indexTabDateCur);
       // this.setData({
       //   indexTabDateCur:indexTabDateCur
       // })
       if(this.data.indexTabDateCur[this.data.currentTab]){
         this.data.indexTabDateCur[this.data.currentTab].map((e,i)=>{
-          // console.log(e);
           this.setData({
             ['timeSelectModelBox['+this.data.currentTab+']['+Number(e)+'].disabled']:  true
           })
@@ -434,7 +415,6 @@ Page({
       }
   },
   selectTime(e){
-    console.log(e);
     let disabled = e.currentTarget.dataset.disabled
     if(disabled) {
       wx.showToast({
@@ -444,9 +424,7 @@ Page({
       return false
     }
     let time = e.currentTarget.dataset.time
-    console.log(time);
     let index = e.currentTarget.dataset.current
-    console.log(index);
     this.setData({
       currentTime:time,
       selectFlagTab:index
@@ -496,7 +474,6 @@ Page({
       "service_id": service_id
     }
     $api.orderSubmit(data).then(res=>{
-      console.log(res);
       wx.hideLoading()
       if(res.statusCode==200 && res.data.code == 200){
         // 说明预约成功
@@ -511,7 +488,6 @@ Page({
           })
         }
       }else{
-        console.log();
         wx.showToast({
           title: res.data.err || '创建失败请重试',
           icon:'none'
@@ -555,8 +531,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log('show');
-    console.log(app.globalData.mobile)
     if(app.globalData.mobile){
       this.setData({
         hasPhoneNumber:true

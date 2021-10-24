@@ -34,13 +34,11 @@ Page({
     })
   },
   onInputTime(e){
-    console.log(e);
     this.setData({
       // currentDateStartStr: event.detail,
     });
   },
   selectDateTime(e){
-    console.log(e);
     if(this.data.selectItem == 5){
       this.setData({
         currentTimeStart: e.detail,
@@ -82,7 +80,6 @@ Page({
       edate :endStr,
       content:this.data.shenqingyuanyin
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         wx.showToast({
           title: '操作成功'
@@ -106,7 +103,6 @@ Page({
     })
   },
   inputText(e){
-    console.log(e);
     let value = e.detail.value
     this.setData({
       shenqingyuanyin:value
@@ -120,7 +116,6 @@ Page({
     let startTime = this.data.startTime    // 请假的上午还是下午
     let endTime = this.data.endTime    // 请假的上午还是下午
     let qingjiayuanyin   =  this.data.shenqingyuanyin
-    console.log(type,startTimeDate,endTimeDate,startTime,endTime,qingjiayuanyin);
     let qingjiaStartStr=''
     let qingjiaEndStr=''
     // let bukaStartStr=''
@@ -152,7 +147,6 @@ Page({
       "edate":qingjiaEndStr,			// type = 1 选填  二选一 伙全选;   // type = 2 必填
       "content":qingjiayuanyin	
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         wx.showToast({
           title: '申请成功'
@@ -166,7 +160,6 @@ Page({
     })
   },
   showDatePickerFn(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
     this.setData({
       showDatePicker: true,
@@ -181,7 +174,6 @@ Page({
     })
   },
   showTimePickerFn(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
     this.setData({
       showTimePicker: true,
@@ -208,7 +200,6 @@ Page({
     })
   },
   onChange(event) {
-    console.log(event.detail.name);  //0  1
     let tabId = event.detail.name
     if(tabId == 1){
       $api.workerPunchApproveList({
@@ -220,7 +211,6 @@ Page({
 	    		end_date:''            //请假的结束时间
 
       }).then(res=>{
-        console.log(res);
         if(res.data.code == 200){
           this.setData({
             lishiList : res.data.data.list
@@ -235,7 +225,6 @@ Page({
     }
   },
   onInput(event) {
-    console.log(event);
     // if(this.data.selectItem == 1){
     //   this.setData({
     //     currentDateStartStr: event.detail,
@@ -277,7 +266,6 @@ Page({
       })
     }
 
-    console.log(resultDate);
     // let formDate = resultDate.split('/')
     // this.setData({
     //   currentY:formDate[0],

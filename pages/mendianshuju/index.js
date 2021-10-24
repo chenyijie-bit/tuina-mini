@@ -16,7 +16,6 @@ Page({
     })
   },
   dianpuxiangqing(e){
-    console.log(e);
     let id= e.currentTarget.dataset.id
     let name= e.currentTarget.dataset.name
     wx.setStorageSync('storeDataId', id)
@@ -32,7 +31,6 @@ Page({
       message: `确认删除 ${name} 店铺吗`,
     }).then(() => {
       $api.workerShopDel({openid:app.globalData.openId,id:id,is_delete:1}).then(res=>{
-        console.log(res);
         if(res.data.code == 200){
           wx.showToast({
             title: '操作成功',
@@ -52,7 +50,6 @@ Page({
   },
   initData(){
     $api.workerShopList({openid:app.globalData.openId}).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         this.setData({
           storeList: res.data.data.list

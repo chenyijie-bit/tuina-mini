@@ -23,7 +23,6 @@ Page({
   //   })
   // },
   onChangeRadioTab(e){
-    console.log(e);
     let detail = e.detail
     this.setData({
       type: detail
@@ -37,7 +36,6 @@ Page({
       loadingType: 'spinner',
     });
     const { file } = event.detail;
-    console.log(file);
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
     wx.uploadFile({
       url: 'https://www.giacomo.top/api/file/images', // 仅为示例，非真实的接口地址
@@ -47,7 +45,6 @@ Page({
       formData: { openid: app.globalData.openId },
       Filedata: file,
       success(res) {
-        console.log(res); 
         if(res.statusCode == 200){
           let jsonData = JSON.parse(res.data)
           if(jsonData && jsonData.code == 200){
@@ -66,7 +63,6 @@ Page({
               icon:'none'
             })
           }
-          console.log(jsonData);
         }else{
           wx.showToast({
             title: res.data.err || res.data.data.err,
@@ -108,7 +104,6 @@ Page({
       "desc":this.data.desc,
       "price":this.data.money   //价格
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         // 说明是修改信息成功了
         wx.showToast({
@@ -127,11 +122,6 @@ Page({
         })
       }
     })
-    console.log(this.data.name);
-    console.log(this.data.tel);
-    console.log(this.data.age);
-    console.log(this.data.shangjia);
-    console.log(this.data.message);
   },
   /**
    * 生命周期函数--监听页面加载

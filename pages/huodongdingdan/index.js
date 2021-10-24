@@ -26,7 +26,6 @@ Page({
         openid:app.globalData.openId,
         id:this.data.dataid,
           }).then(res=>{
-            console.log(res);
             if(res.data && res.data.code == 200){
               wx.showToast({
                 title: '操作成功',
@@ -53,7 +52,6 @@ Page({
         openid:app.globalData.openId,
         id:this.data.dataid,
           }).then(res=>{
-            console.log(res);
             if(res.data && res.data.code == 200){
               //说明退款成功了
               wx.showToast({
@@ -72,7 +70,6 @@ Page({
     this.setData({
       telWorker:tel
     })
-    console.log(!tel);
     if(tel) tel = tel.trim()
     if(tel && tel.length==11){
       this.searchOrder(tel)
@@ -92,7 +89,6 @@ Page({
     this.setData({
       radio: event.detail,
     });
-    console.log(12312312312);
     this.searchOrder(this.data.searchValue)
   },
   searchOrder(tel=''){
@@ -104,7 +100,6 @@ Page({
         "trade_no":"",	//可选参数。
         "order_code":""		//可选参数。
       }).then(res=>{
-        console.log(res);
         if(res.data.code == 200){
           let list = res.data.data.list || []
           this.setData({
@@ -130,7 +125,6 @@ Page({
         "vip_type":"",//可选
         "user_phone":tel,	
       }).then(res=>{
-        console.log(res);
         if(res.data.code == 200){
           let list = res.data.data.list || []
           list.map(e=>{

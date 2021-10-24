@@ -10,7 +10,6 @@ Page({
 
   },
   tongguo(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
     this.shenhe(id,1)
   },
@@ -24,7 +23,6 @@ Page({
 	    "approve" : state,		//审批情况	1 通过   2 未通过   0 未审核
 	    id				//审批的id
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         wx.showToast({
           title: '操作成功'
@@ -49,7 +47,6 @@ Page({
         end_date:''            //请假的结束时间
 
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         this.setData({
           lishiList : res.data.data.list

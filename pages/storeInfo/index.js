@@ -21,20 +21,17 @@ Page({
       return duration;
   },
   onShow: function() {
-    // console.log(this.getDuration(999))
     this.setData({
       minPrice: app.globalData.min_price,
       minPricec: app.globalData.min_price_c
     })
   },
   onLoad: function() {
-    console.log(123);
       var that = this;
       $api.getShopData({
         openid: app.globalData.openId,
         shop_id : app.globalData.shop_id
       }).then(res=>{
-        console.log(res)
         if(res.statusCode === 200){
             let data = res.data.data
             this.setData({
@@ -65,7 +62,6 @@ Page({
   },
 //  tab切换逻辑
   swichNav: function( e ) {
-    console.log(123);
       var that = this;
       if( this.data.currentTab === e.target.dataset.current ) {
           return false;
@@ -76,7 +72,6 @@ Page({
       }
   },
   bindChange: function( e ) {
-    console.log(5543);
       var that = this;
       that.setData( { currentTab: e.detail.current });
       if(this.data.currentTab == 1 ){
@@ -88,7 +83,6 @@ Page({
         //   "approve": 10 ,								//筛选  10 通过   ；4 不通过
         //   shop_id: app.globalData.shop_id	     //筛选  店铺id
         // }).then(res=>{
-        //   console.log(res);
         //   if(res.data.code == 200){
         //     let list = res.data.data.list
         //     this.setData({

@@ -15,7 +15,6 @@ Page({
       id,
       openid:app.globalData.openId
     }).then(res=>{
-      console.log(res);
       let _this = this
       if(res.statusCode == 200 && res.data.code == 200){
         let payData = res.data.data.jsApiParams
@@ -28,7 +27,6 @@ Page({
           "signType": "HMAC-SHA256",
           "paySign": payData.jsApiParameters.paySign,
           "success":function(res){
-            console.log(res);
             需要重新获取列表信息
             wx.showToast({
               title: '支付成功'
@@ -36,7 +34,6 @@ Page({
             // 在这里跳转到购买完成页面
           },
           "fail":function(res){
-            console.log(res);
           },
           "complete":function(res){}
           })
@@ -53,7 +50,6 @@ Page({
       name:'',
       openid:app.globalData.openId
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let list = res.data.data.list || []
         this.setData({

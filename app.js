@@ -21,7 +21,6 @@ App({
   getOpenid(code){
     $api.getOpenid({code})
     .then(res => {
-      console.log(res.data.data);
       //请求成功
       if(res.data  && res.data.data 
         && res.data.data.openid){
@@ -42,19 +41,16 @@ App({
     })
   },
   checkSessionAndLogin(){
-    console.log(this.globalData.openId);
     let _this = this
     return new Promise((resolve)=>{
       if(!this.globalData.openId){
         wx.login({
           success:  res => {
-            console.log(4353);
             this.globalData.code = res.code
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
             // 调用接口获取openid
             if(!this.globalData.openId){
              return  $api.getOpenid({code:res.code}).then(res => {
-                console.log(res.data.data);
                 //请求成功
                 if(res.data  && res.data.data 
                   && res.data.data.openid){
@@ -72,7 +68,6 @@ App({
                 }
                 if(wx.getStorageSync('statu')!=1){
                   $api.userInfo({openid:this.globalData.openId}).then(res=>{
-                    console.log(res);
                     let data = res.data
                     if(data && data.code == 200){
                       if(data.data && data.data.worker_info && (data.data.worker_info.status == 50 || data.data.worker_info.status == 53)){
@@ -99,7 +94,6 @@ App({
       }
       wx.checkSession({
         success () {
-          console.log(123);
           //session_key 未过期，并且在本生命周期一直有效
         },
         fail () {
@@ -107,13 +101,11 @@ App({
           // 登录
           wx.login({
             success:  res => {
-              console.log(4353);
               _this.globalData.code = res.code
               // 发送 res.code 到后台换取 openId, sessionKey, unionId
               // 调用接口获取openid
                 if(!_this.globalData.openId){
                  return  $api.getOpenid({code:res.code}).then(res => {
-                    console.log(res.data.data);
                     //请求成功
                     if(res.data  && res.data.data 
                       && res.data.data.openid){
@@ -139,7 +131,6 @@ App({
         }
       })
     }).catch(err=>{
-      console.log(err);
     })
   },
   globalData: {

@@ -29,7 +29,6 @@ Page({
             shop_id: id
           }).then(
             res=>{
-              console.log(res);
               if(res.statusCode ==200 && res.data && res.data.data){
                 wx.showToast({
                   title: "操作成功",
@@ -93,7 +92,6 @@ Page({
     this.setData({
       telWorker:tel
     })
-    console.log(!tel);
     if(tel) tel = tel.trim()
     if(tel && tel.length==11){
       this.searchWorker(tel)
@@ -108,7 +106,6 @@ Page({
     this.setData({
       loading:true
     })
-    console.log(app.globalData)
     // searchWorker
     
     $api.requestWorkerList({phone:data,openid:app.globalData.openId}).then(res=>{
@@ -162,7 +159,6 @@ Page({
           $api.workerUserDel({
             openid:app.globalData.openId,worker_id:id
           }).then(res=>{
-            console.log(res);
             if(res.data.code == 200){
               wx.showToast({
                 title: '已删除该员工'
@@ -193,7 +189,6 @@ Page({
     let status = e.currentTarget.dataset.status
     if(!status || status == '-2'){
       $api.setForWorker({openid:app.globalData.openId,user_info_id:id}).then(res=>{
-        console.log(res)
         if(res.data && res.data.code == 200){
           wx.showToast({
             title: '通知员工后台添加信息',
@@ -215,7 +210,6 @@ Page({
     }else if(status && status == 53){
       // 信息填写完毕  可以确认设置为员工
       $api.workerUserAgree({openid:app.globalData.openId,worker_id:id}).then(res=>{
-        console.log(res)
         if(res.data && res.data.code == 200){
           wx.showToast({
             title: '添加成功'

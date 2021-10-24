@@ -50,11 +50,8 @@ Component({
         });
     },
     deletOrder(event){
-      console.log(213);
-      console.log(event);
     },
     onCloseItem(event) {
-      console.log(event);
       let queue_id = event.currentTarget.dataset.id
       let mobile = event.currentTarget.dataset.mobile
       let index = event.currentTarget.dataset.index
@@ -90,7 +87,6 @@ Component({
     // 移至首位
     moveToFirst(index){
       let _this = this
-      console.log(index);
       let newIndex=''
       if(index === 0){
         wx.showToast({
@@ -126,11 +122,9 @@ Component({
       currentItem.st = parseInt(st)
       currentItem.et = parseInt((st + needTimeStr))
       let newObjCopycurrentItem = JSON.parse(JSON.stringify(currentItem))
-      console.log(currentItem);
       for (let i = 0; i < todayDataList.length; i++) {
         const element = todayDataList[i];
         if(element.type!==0 && i!= newIndex){
-          console.log(i);
           if(element.st-0 < newObjCopycurrentItem.et){
             // 说明有重合
             // coincidenceTime//重合时间
@@ -158,7 +152,6 @@ Component({
       // this.setData({
       //   optionsListData:todayDataList
       // })
-      console.log(this.data.optionsListData);
       // let arr22 = this.data.nouserArr
       $api.workerQueueSet({
         list:[...newDataList,...nouserArr],
@@ -213,7 +206,6 @@ Component({
         queue_id:queue_id
       })
       let statusCode = e.currentTarget.dataset.status
-      console.log(statusCode);
       if(statusCode == 170){
         // 正在排队 点击这个相当于开始服务
         // 这里应该来个showtoast  让员工确认已经可以开始服务了
@@ -221,7 +213,6 @@ Component({
           message: `确认尾号 ${submobile} 的客户可以开始服务？`,
         }).then(() => {
           // on confirm
-          console.log('可以开始');
           $api.startServe({
             "openid": app.globalData.openId,
             "queue_id": queue_id
@@ -243,7 +234,6 @@ Component({
           })
         })
         .catch(() => {
-          console.log('取消');
         });
       }else if(statusCode == 173){
         // 这个相当于让客户去付款
@@ -254,7 +244,6 @@ Component({
       }
     },
     onChangeTab(e){
-      console.log(e);
       let name = e.detail.name //从0开始的
       this.setData({
         active: name
@@ -374,7 +363,6 @@ Component({
               nouserArrObj: nouserArrObj
             })
             resData = JSON.parse(JSON.stringify(arr))
-            console.log(resData);
           }
           // for (let index = 0; index < resData.length; index++) {
           //   const element = resData[index];
@@ -394,7 +382,6 @@ Component({
       })
     },
     // drawImg: function () {
-    //   console.log(this.data.codeText);
     //   var imgData = QR.drawImg(this.data.codeText, {
     //     typeNumber: 4,
     //     errorCorrectLevel: 'M',
@@ -418,14 +405,12 @@ Component({
             "openid": app.globalData.openId,
             "list_id":list_id,
           }).then(res=>{
-            console.log(res);
             if(res.statusCode == 200 && res.data.code == 200){
               let  imgData = QR.drawImg(res.data.data.url, {
                 typeNumber: 4,
                 errorCorrectLevel: 'M',
                 size: 500
               })
-              console.log(imgData);
               _this.setData({
                 showQrCodeBox: true,
                 qrCodeUrl: imgData

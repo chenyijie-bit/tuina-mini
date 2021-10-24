@@ -33,7 +33,6 @@ Page({
       "status":status,					//可选  200 启用；   201 禁用  ； 可不传
       "price":""		
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let itemlist = res.data.data.list
         this.setData({
@@ -57,7 +56,6 @@ Page({
       openid: app.globalData.openId,
       id,status
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         wx.showToast({
           title: '操作成功',
@@ -77,7 +75,6 @@ Page({
     })
   },
   guanbi(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
     let status = 210
     this.setHuiyuanka(id,status)

@@ -17,7 +17,6 @@ Page({
       "status":status,					//可选  200 启用；   201 禁用  ； 可不传
       "price":""		
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let itemlist = res.data.data.list
         let statusOkList = []
@@ -55,7 +54,6 @@ Page({
           "signType": "HMAC-SHA256",
           "paySign": payData.jsApiParameters.paySign,
           "success":function(res){
-            console.log(res);
             需要重新获取列表信息
             wx.showToast({
               title: '支付成功'
@@ -66,7 +64,6 @@ Page({
             })
           },
           "fail":function(res){
-            console.log(res);
           },
           "complete":function(res){}
           })

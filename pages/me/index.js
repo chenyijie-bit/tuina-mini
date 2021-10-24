@@ -14,14 +14,12 @@ Component({
           selected: 2
         })
       }
-      console.log(app.globalData.nickname);
       if(!app.globalData.nickname){
         // wx.navigateTo({
         //   url: '../loginPage/index',
         // })
       }else{
         let userInfo = wx.getStorageSync('userInfo')
-        console.log(userInfo)
         this.setData({
           avatarUrl :app.globalData.head_url,
           nickName:app.globalData.nickname
@@ -59,7 +57,6 @@ Component({
       })
     },
     goToLogin(){
-      console.log(app.globalData.nickname);
       if(!app.globalData.nickname){
         wx.navigateTo({
           url: '../loginPage/index',

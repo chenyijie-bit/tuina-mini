@@ -69,7 +69,6 @@ Component({
       // wx.checkSession({
       //   success () {
       //     //session_key 未过期，并且在本生命周期一直有效
-      //     console.log(`12`);
       //   },
       //   fail () {
       //     // session_key 已经失效，需要重新执行登录流程
@@ -90,7 +89,6 @@ Component({
   },
   methods:{
     gotoUrl(e){
-      console.log(e);
       let type = e.currentTarget.dataset.type
       if(type){
         if(type == 3){
@@ -115,7 +113,6 @@ Component({
     getOpenid(code){
       $api.getOpenid({code})
       .then(res => {
-        console.log(res.data.data);
         //请求成功
         if(res.data  && res.data.data 
           && res.data.data.openid){
@@ -170,10 +167,8 @@ Component({
                 tuijianWorker.waitStr = `需等待${min}分钟`
               } 
             }
-            console.log(tuijianWorker);
             let copyWorkerList = []
             if(JSON.stringify(tuijianWorker) != "{}"){
-              console.log('进来了');
               copyWorkerList = [tuijianWorker]
             }
             data.shops.map(e=>{
@@ -333,8 +328,7 @@ Component({
       // this.onLoad()
     },
     goToStaffInfo(e){
-      console.log(e);
-      app.globalData.worker_id = e.currentTarget.dataset.id
+      app.globalData.select_worker_id = e.currentTarget.dataset.id
       app.globalData.worker_name = e.currentTarget.dataset.name
       app.globalData.shop_id = e.currentTarget.dataset.shopid
       wx.navigateTo({
@@ -345,8 +339,6 @@ Component({
       app.globalData.shop_id = e.currentTarget.dataset.id
       app.globalData.min_price = e.currentTarget.dataset.min
       app.globalData.min_price_c = e.currentTarget.dataset.minc
-      console.log(e);
-      console.log(app.globalData.min_price_c);
       wx.navigateTo({
         url: '../storeInfo/index',
       })

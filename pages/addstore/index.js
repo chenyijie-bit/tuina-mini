@@ -34,13 +34,11 @@ Page({
   },
   getfuwulist(){
     $api.workerServiceList({openid:app.globalData.openId}).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let list = res.data.data.list || []
         let reslist = list.map(e=>{
           return {name:`${e.name}/${parseFloat(e.price)}元/${e.duration}分钟`,id:e.id}
         })
-        console.log(reslist);
         this.setData({
           fuwuList:reslist
         })
@@ -53,12 +51,9 @@ Page({
     })
   },
   delItem(e){
-    console.log(e);
     let id = e.currentTarget.dataset.id
-    console.log(id);
     let fuwuList = this.data.fuwuList
     $api.workerServiceDel({openid:app.globalData.openId,id}).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         wx.showToast({
           title: '删除成功'
@@ -68,7 +63,6 @@ Page({
         // let reslist = list.map(e=>{
         //   return `${e.name}/${parseFloat(e.price)}元/${e.duration}分钟`
         // })
-        // console.log(reslist);
         // this.setData({
         //   fuwuList:reslist
         // })
@@ -102,7 +96,6 @@ Page({
       desc:'213sd',
       shop_id:id
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         wx.showToast({
           title: '添加成功'
@@ -115,7 +108,6 @@ Page({
         })
       }
     })
-    console.log(this.data.addname);
     
     if(addname && addtime && addprice){
       let fuwuList = this.data.fuwuList
@@ -133,7 +125,6 @@ Page({
   },
   getStoreList(){
     $api.workerShopList({openid:app.globalData.openId}).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         let id = wx.getStorageSync('storeDataId')
         let storeList = res.data.data.list
@@ -143,7 +134,6 @@ Page({
             resdata = e
           }
         })
-        console.log(resdata);
         if(resdata){
           let jingdu = resdata.location ? JSON.parse(resdata.location).longitude : ''
           let weidu = resdata.location ? JSON.parse(resdata.location).latitude : ''
@@ -173,7 +163,6 @@ Page({
     this.setData({
       currentDate: event.detail,
     });
-    console.log(this.data.currentDate);
     if(this.data.flag && this.data.flag == 1){
       this.setData({
         time1: this.data.currentDate
@@ -214,7 +203,6 @@ Page({
       loadingType: 'spinner',
     });
     const { file } = event.detail;
-    console.log(file);
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
     wx.uploadFile({
       url: 'https://www.giacomo.top/api/file/images', // 仅为示例，非真实的接口地址
@@ -224,7 +212,6 @@ Page({
       formData: { openid: app.globalData.openId },
       Filedata: file,
       success(res) {
-        console.log(res); 
         if(res.statusCode == 200){
           let jsonData = JSON.parse(res.data)
           if(jsonData && jsonData.code == 200){
@@ -243,7 +230,6 @@ Page({
               icon:'none'
             })
           }
-          console.log(jsonData);
         }else{
           wx.showToast({
             title: res.data.err || res.data.data.err,
@@ -299,7 +285,6 @@ Page({
       "atta_id":this.data.aid,
       'status': 200
     }).then(res=>{
-      console.log(res);
       if(res.data.code == 200){
         // 说明是修改信息成功了
         wx.showToast({
