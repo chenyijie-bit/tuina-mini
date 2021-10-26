@@ -60,7 +60,7 @@ Page({
     })
   },
   tianjialunbo(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../tianjialunbo/index',
     })
   },

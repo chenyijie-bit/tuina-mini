@@ -13,7 +13,7 @@ Page({
     workerList:[]
   },
   setStore(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../addstore/index',
     })
   },

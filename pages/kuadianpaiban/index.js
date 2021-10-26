@@ -40,13 +40,16 @@ Page({
     )
   },
   queren(){
+    let _this = this
     let mendianList = this.data.mendianList
     let resArr = []
     mendianList.map((e,i)=>{
       e.dateList.map((s,n)=>{
         if(s.flag){
-          let date = this.data.biaozhundate[n].date
-          let id = this.data.mendianList[i].id
+          console.log(_this.data.biaozhundate);
+          console.log(n);
+          let date = _this.data.biaozhundate[n].date
+          let id = _this.data.mendianList[i].id
           resArr.push({
             'date': date,
             'shop_id': id
@@ -103,7 +106,8 @@ Page({
       // 'worker_id': 5 
     }).then(res=>{
       if(res.data.code == 200){
-        let dateList = res.data.data[0].date || []
+        console.log(res.data.data);
+        let dateList = res.data.data[0] && res.data.data[0].date || []
         // let dateList = []
         // for (const key in dateObj) {
         //   const element = dateObj[key];

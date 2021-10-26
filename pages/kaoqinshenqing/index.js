@@ -88,7 +88,7 @@ Page({
           _this.setData({
             active : 1
           })
-        }, .4);
+        }, 100);
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,

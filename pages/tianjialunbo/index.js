@@ -46,6 +46,14 @@ Page({
       })
     }
   },
+  asssad(e){
+    if(e.detail && e.detail.file && e.detail.file.size > 2000000){
+      wx.showToast({
+        title: '请上传小于2M的图片',
+        icon:'none'
+      })
+    }
+  },
   onChangeRadioTab(e){
     let detail = e.detail
     this.setData({

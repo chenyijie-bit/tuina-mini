@@ -27,6 +27,14 @@ Page({
     fuwuList:[],
     isSetStoreInfo: false
   },
+  asssad(e){
+    if(e.detail && e.detail.file && e.detail.file.size > 2000000){
+      wx.showToast({
+        title: '请上传小于2M的图片',
+        icon:'none'
+      })
+    }
+  },
   addfuwu(){
     this.setData({
       tinajiamokuai: true
@@ -292,7 +300,7 @@ Page({
           icon:'none'
         })
         setTimeout(() => {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '../mendianshuju/index'
           })
         }, 1200);

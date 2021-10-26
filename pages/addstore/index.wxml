@@ -50,7 +50,7 @@
     </van-cell-group>
     <van-cell-group class="top-file">
       <text style="display:inline-block;margin-right:30rpx;color:#646566;font-size: 26rpx;">门店图片</text>
-      <van-uploader  file-list="{{ fileList }}" bind:after-read="afterRead"/>
+      <van-uploader max-size="2000000" bind:oversize="asssad" file-list="{{ fileList }}" bind:after-read="afterRead"/>
     </van-cell-group>
     <view class="add-jineng">
       <text style="display:inline-block;margin-right:30rpx;color:#646566;font-size: 26rpx;" class="tit">添加服务</text>
