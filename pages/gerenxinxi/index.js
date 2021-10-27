@@ -111,9 +111,11 @@ Page({
           title: '通知管理员已更新信息',
           icon:'none'
         })
-        wx.navigateTo({
-          url: '../achievement/index',
-        })
+        setTimeout(()=>{
+          wx.switchTab({
+            url: '../achievement/index',
+          })
+        },1400)
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,

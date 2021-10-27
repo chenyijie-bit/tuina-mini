@@ -24,10 +24,10 @@
     </view>
     <view class="button-box">
       <view>
-        <van-button class="but-but-red" size="small" plain type="info" data-id="1" bindtap="butongguo">不通过</van-button>
+        <van-button class="but-but-red" size="small" plain type="info" data-id="{{item.id}}" bindtap="butongguo">不通过</van-button>
       </view>
       <view>
-        <van-button class="but-but-green" size="small" plain type="info" data-id="2" bindtap="tongguo">通过</van-button>
+        <van-button class="but-but-green" size="small" plain type="info" data-id="{{item.id}}" bindtap="tongguo">通过</van-button>
       </view>
     </view>
   </view>
