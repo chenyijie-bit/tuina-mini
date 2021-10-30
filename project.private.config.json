@@ -83,6 +83,12 @@
           "pathName": "pages/qupingjia/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/wodehuiyuanka/index",
+          "pathName": "pages/wodehuiyuanka/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

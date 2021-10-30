@@ -54,14 +54,18 @@ Page({
           "signType": "HMAC-SHA256",
           "paySign": payData.jsApiParameters.paySign,
           "success":function(res){
-            需要重新获取列表信息
+            console.log(res);
+            // 需要重新获取列表信息
             wx.showToast({
               title: '支付成功'
             })
             // 在这里跳转到购买完成页面
-            wx.navigateTo({
-              url: '../wodehuiyuanka/index',
-            })
+            setTimeout(() => {
+              wx.redirectTo({
+                url: '../wodehuiyuanka/index',
+              })
+            }, 1300);
+            
           },
           "fail":function(res){
           },

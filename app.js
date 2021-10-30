@@ -31,6 +31,7 @@ App({
           app.globalData.nickname = res.data.data.nickname
           app.globalData.worker_id = res.data.data.worker_id
           app.globalData.is_worker = res.data.data.is_worker || 0
+          this.globalData.is_vip = res.data.data.is_vip || 0
           if(wx.getStorageSync('statu')!=1){
             wx.setStorageSync('statu', res.data.data.is_worker)
           }
@@ -62,6 +63,7 @@ App({
                     this.globalData.nickname = res.data.data.nickname
                     this.globalData.worker_id = res.data.data.worker_id
                     this.globalData.is_worker = res.data.data.is_worker
+                    this.globalData.is_vip = res.data.data.is_vip || 0
                     // if(wx.getStorageSync('statu')!=1){
                       wx.setStorageSync('statu', res.data.data.is_worker)
                     // }
@@ -118,6 +120,7 @@ App({
                         _this.globalData.nickname = res.data.data.nickname
                         _this.globalData.worker_id = res.data.data.worker_id
                         this.globalData.is_worker = res.data.data.is_worker
+                        this.globalData.is_vip = res.data.data.is_vip || 0
                         if(wx.getStorageSync('statu')!=1){
                           wx.setStorageSync('statu', res.data.data.is_worker)
                         }
@@ -157,6 +160,7 @@ App({
     user_openId:'',
     worker_id:'',
     select_worker_id:'', // 用户要预约的店员id
+    is_vip:0,
     worker_name:'',
     firstOrderTime:'', //店员首单时间
     // 所有优惠券

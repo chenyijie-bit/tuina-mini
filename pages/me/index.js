@@ -4,7 +4,8 @@ Component({
     avatarUrl:'../../assess/tabicons/me.png',
     nickNameCopy:'点击登录 >',
     nickName:'',
-    tel:''
+    tel:'',
+    is_vip: app.globalData.is_vip === 1 ? true : false
   },
   pageLifetimes: {
     show() {
@@ -40,10 +41,13 @@ Component({
         imageUrl: 'http://amsiyou.oss-cn-beijing.aliyuncs.com/xcx/202109/45/09/4509361434f4f622a1.jpg'
       }
     },
-    goToNoUse(){
-      wx.showToast({
-        title: '敬请期待',
-        icon: 'none'
+    goToYiGouHuiYuan(){
+      // wx.showToast({
+      //   title: '敬请期待',
+      //   icon: 'none'
+      // })
+      wx.navigateTo({
+        url: '../wodehuiyuanka/index',
       })
     },
     goToYouHuiQuan(){
