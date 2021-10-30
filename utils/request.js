@@ -107,6 +107,8 @@ const API = {
     userInfo:(data)=>request(POST, `/user/info`,data),
     //用户补充信息
     userWorkerRegister:(data)=>request(POST, `/user/worker-register`,data),
+    // 店员修改个人信息
+    workerUserUp:(data)=>request(POST, `/worker/user/up`,data),
     // 管理员删除员工
     workerUserDel:(data)=>request(POST, `/worker/user/del`,data),
     //  管理员确认
@@ -127,10 +129,14 @@ const API = {
     workerUserPerformance:(data)=>request(POST, `/worker/user/performance`,data),
     // 添加海报
     workerMarketingSet:(data)=>request(POST, `/worker/marketing/set`,data),
-    // 海报列表
+    // 海报列表 店员端
     workerMarketingList:(data)=>request(POST, `/worker/marketing/list`,data),
+    // 海报列表 用户端
+    userMarketingList:(data)=>request(POST, `/marketing/list`,data),
     // 支付
     marketingPay:(data)=>request(POST, `/marketing/pay`,data),
+    // 用户完善信息时获取信息
+    workerUserInfo:(data)=>request(POST, `/worker/user/info`,data),
     //  gonzuorenyuan海报列表
     marketingOrderList:(data)=>request(POST, `/marketing/order-list`,data),
     // 用户查看列表

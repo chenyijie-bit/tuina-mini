@@ -30,7 +30,7 @@
   </van-cell-group> -->
   <van-cell-group>
     <van-cell title="工作年限（年）" border="{{ false }}">
-      <van-stepper slot="right-icon" label="工作年限" value="{{ nianxian }}" bind:change="onChangeAge" />
+      <van-stepper slot="right-icon" label="工作年限" value="{{ age }}" bind:change="onChangeAge" />
     </van-cell>
     
   </van-cell-group>

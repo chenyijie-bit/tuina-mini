@@ -89,7 +89,34 @@ Page({
       },
     });
   },
+  initData(){
+    if(app.globalData.is_worker==1){
+      //说明是店员员工  员工一般是有信息的
+      $api.workerUserInfo({
+        openid:app.globalData.openId,
+        worker_id:app.globalData.worker_id
+      }).then(res=>{
+        if(res.data.code == 200){
+          let data = res.data.data
+          let url = data.atta_url
+          let is_travel_worker = data.is_travel_worker  //1跨店
+          let name = data.name
+          let age = data.work_years
+          let remark = data.remark
+          this.setData({
+            fileList:[{url}],
+            name,
+            age, // 工龄
+            kuadian: is_travel_worker==1 ? true:false, // 是否跨店
+            message:remark,
+            aid: data.atta_id
+          })
+        }
+      })
+    }
+  },
   oooo(){
+    let _this = this
     // name:'',
     // tel:'',
     // // sex:1, // 1男  2女
@@ -97,32 +124,63 @@ Page({
     // kuadian: false, // 是否跨店
     // message:'',
     // aid:''
-    $api.userWorkerRegister({
-      openid:app.globalData.openId,
-      atta_id:this.data.aid,
-      name:this.data.name,
-      type: this.data.kuadian ? 1 : 0, // 0普通员工  1跨店员工
-      worker_age: this.data.age,  //工作年限
-      skilled_in: this.data.message  //擅长项目
-    }).then(res=>{
-      if(res.data.code == 200){
-        // 说明是修改信息成功了
-        wx.showToast({
-          title: '通知管理员已更新信息',
-          icon:'none'
-        })
-        setTimeout(()=>{
-          wx.switchTab({
-            url: '../achievement/index',
+    if(app.globalData.is_worker==1){
+      //说明是修改信息 不是从用户到员工的添加信息
+      $api.workerUserUp({
+        "openid": app.globalData.openId,
+        "worker_id": app.globalData.worker_id,
+        name: _this.data.name,
+        "work_years":_this.data.age,
+        "remark": this.data.message,
+        "atta_id": this.data.aid,
+        "travel_status": _this.data.kuadian ? 1 : 0  //。1 流动员工。; 0 普通员工。  备注 权限控制,不能随意更改
+      }).then(res=>{
+        if(res.data.code == 200){
+          // 说明是修改信息成功了
+          wx.showToast({
+            title: '已更新信息',
+            icon:'none'
           })
-        },1400)
-      }else{
-        wx.showToast({
-          title: res.data.err || res.data.data.err,
-          icon:'none'
-        })
-      }
-    })
+          setTimeout(()=>{
+            wx.switchTab({
+              url: '../achievement/index',
+            })
+          },1400)
+        }else{
+          wx.showToast({
+            title: res.data.err || res.data.data.err,
+            icon:'none'
+          })
+        }
+      })
+    }else{
+      $api.userWorkerRegister({
+        openid:app.globalData.openId,
+        atta_id:this.data.aid,
+        name:this.data.name,
+        type: this.data.kuadian ? 1 : 0, // 0普通员工  1跨店员工
+        worker_age: this.data.age,  //工作年限
+        skilled_in: this.data.message  //擅长项目
+      }).then(res=>{
+        if(res.data.code == 200){
+          // 说明是修改信息成功了
+          wx.showToast({
+            title: '通知管理员已更新信息',
+            icon:'none'
+          })
+          setTimeout(()=>{
+            wx.switchTab({
+              url: '../achievement/index',
+            })
+          },1400)
+        }else{
+          wx.showToast({
+            title: res.data.err || res.data.data.err,
+            icon:'none'
+          })
+        }
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -135,14 +193,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.initData()
   },
 
   /**

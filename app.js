@@ -30,6 +30,7 @@ App({
           app.globalData.head_url = res.data.data.head_url
           app.globalData.nickname = res.data.data.nickname
           app.globalData.worker_id = res.data.data.worker_id
+          app.globalData.is_worker = res.data.data.is_worker || 0
           if(wx.getStorageSync('statu')!=1){
             wx.setStorageSync('statu', res.data.data.is_worker)
           }
@@ -60,6 +61,7 @@ App({
                     this.globalData.head_url = res.data.data.head_url
                     this.globalData.nickname = res.data.data.nickname
                     this.globalData.worker_id = res.data.data.worker_id
+                    this.globalData.is_worker = res.data.data.is_worker
                     // if(wx.getStorageSync('statu')!=1){
                       wx.setStorageSync('statu', res.data.data.is_worker)
                     // }
@@ -115,6 +117,7 @@ App({
                         _this.globalData.head_url = res.data.data.head_url
                         _this.globalData.nickname = res.data.data.nickname
                         _this.globalData.worker_id = res.data.data.worker_id
+                        this.globalData.is_worker = res.data.data.is_worker
                         if(wx.getStorageSync('statu')!=1){
                           wx.setStorageSync('statu', res.data.data.is_worker)
                         }
@@ -147,6 +150,7 @@ App({
     min_price_c:'',
     // 当前店铺的id
     shop_id:'',
+    is_worker:0,
     openTime:'07:30:00',  //门店开点时间
     closeTime:'23:30:00',  // 门店关门时间
     // 当前店员的id
