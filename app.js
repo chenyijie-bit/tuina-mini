@@ -31,7 +31,8 @@ App({
           app.globalData.nickname = res.data.data.nickname
           app.globalData.worker_id = res.data.data.worker_id
           app.globalData.is_worker = res.data.data.is_worker || 0
-          this.globalData.is_vip = res.data.data.is_vip || 0
+          app.globalData.is_vip = res.data.data.is_vip || 0
+          app.globalData.worker_type = res.data.data.worker_type || 0
           if(wx.getStorageSync('statu')!=1){
             wx.setStorageSync('statu', res.data.data.is_worker)
           }
@@ -56,14 +57,15 @@ App({
                 //请求成功
                 if(res.data  && res.data.data 
                   && res.data.data.openid){
-                    this.globalData.openId = res.data.data.openid
-                    // this.globalData.openid = res.data.data.openid || ''
-                    this.globalData.mobile = res.data.data.mobile
-                    this.globalData.head_url = res.data.data.head_url
-                    this.globalData.nickname = res.data.data.nickname
-                    this.globalData.worker_id = res.data.data.worker_id
-                    this.globalData.is_worker = res.data.data.is_worker
-                    this.globalData.is_vip = res.data.data.is_vip || 0
+                    _this.globalData.openId = res.data.data.openid
+                    // _this.globalData.openid = res.data.data.openid || ''
+                    _this.globalData.mobile = res.data.data.mobile
+                    _this.globalData.head_url = res.data.data.head_url
+                    _this.globalData.nickname = res.data.data.nickname
+                    _this.globalData.worker_id = res.data.data.worker_id
+                    _this.globalData.is_worker = res.data.data.is_worker
+                    _this.globalData.is_vip = res.data.data.is_vip || 0
+                    _this.globalData.worker_type = res.data.data.worker_type || 0
                     // if(wx.getStorageSync('statu')!=1){
                       wx.setStorageSync('statu', res.data.data.is_worker)
                     // }
@@ -119,8 +121,9 @@ App({
                         _this.globalData.head_url = res.data.data.head_url
                         _this.globalData.nickname = res.data.data.nickname
                         _this.globalData.worker_id = res.data.data.worker_id
-                        this.globalData.is_worker = res.data.data.is_worker
-                        this.globalData.is_vip = res.data.data.is_vip || 0
+                        _this.globalData.is_worker = res.data.data.is_worker
+                        _this.globalData.is_vip = res.data.data.is_vip || 0
+                        _this.globalData.worker_type = res.data.data.worker_type || 0
                         if(wx.getStorageSync('statu')!=1){
                           wx.setStorageSync('statu', res.data.data.is_worker)
                         }
@@ -147,6 +150,7 @@ App({
     code:'',
     openId:'',
     head_url:'',
+    worker_type:'', //1管理员 
     mobile:'',
     nickname:'',
     min_price:'', //店铺的最低消费

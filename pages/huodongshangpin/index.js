@@ -11,7 +11,7 @@ Page({
     list:[]
   },
   addStore(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../tianjiahuodongshangpin/index',
     })
   },

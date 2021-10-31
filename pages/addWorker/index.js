@@ -16,7 +16,8 @@ Page({
     meiyouInfo: false,
     storeList:[],
     status:'',
-    workerid:''
+    workerid:'',
+    is_user: false
   },
   fenpeidianpu(e){
     let id = e.currentTarget.dataset.id
@@ -113,7 +114,7 @@ Page({
         let itemList2 = res.data.data.list
         if(!itemList2 || !itemList2.length){
           this.setData({
-            listInfo:'没有信息',
+            listInfo:'没有信息，先让用户登录小程序',
             meiyouInfo: true
           })
         }
@@ -126,9 +127,15 @@ Page({
           })
           if(!e.worker_info.status){
             e.worker_info.status = 0
+            this.setData({
+              status:0
+            })
           }
           if(e.worker_info.status == 0){
             e.butText = '设置为员工'
+            this.setData({
+              is_user: true
+            })
           }else if(e.worker_info.status == 50){
             e.butText = '完善信息中'
           }else if(e.worker_info.status == 53){
@@ -186,6 +193,7 @@ Page({
   },
   setWorker(e){
     let id = e.currentTarget.dataset.id
+    let userid = e.currentTarget.dataset.userid
     let status = e.currentTarget.dataset.status
     if(!status || status == '-2'){
       $api.setForWorker({openid:app.globalData.openId,user_info_id:id}).then(res=>{
@@ -209,7 +217,7 @@ Page({
 
     }else if(status && status == 53){
       // 信息填写完毕  可以确认设置为员工
-      $api.workerUserAgree({openid:app.globalData.openId,worker_id:id}).then(res=>{
+      $api.workerUserAgree({openid:app.globalData.openId,worker_id:userid}).then(res=>{
         if(res.data && res.data.code == 200){
           wx.showToast({
             title: '添加成功'

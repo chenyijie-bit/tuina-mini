@@ -33,15 +33,16 @@ Page({
    */
   onLoad: function (options) {
     let _this = this
-    // shop_id:app.globalData.shop_id,
     $api.getWorkerData({
       openid:app.globalData.openId,
+      shop_id:app.globalData.shop_id,
       worker_id:app.globalData.select_worker_id,
       type:2
     }).then(res=>{
       if(res.statusCode == 200){
         let data = res.data.data
         let resData = Object.assign({},data)
+        if(!resData.shop) return false
         app.globalData.shop_id = resData.shop.id
         if(resData.shop && resData.shop.location){
           resData.distance = $Distance(resData.shop.location.latitude,resData.shop.location.longitude,app.globalData.userAddressInfo.Lat,app.globalData.userAddressInfo.Long)
@@ -209,7 +210,7 @@ Page({
             worker_id:app.globalData.select_worker_id,
           }).then(res=>{
             if(res.statusCode ==200 && res.data.code == 200){
-              let dateData = res.data.data
+              let dateData = res.data.future_list
               let arr = []
               let longDateList = []
               let quedateList = []

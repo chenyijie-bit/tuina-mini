@@ -2,7 +2,6 @@ page{
 	background: rgb(247, 248, 249);
 }
 .contain-box{
-	background:#efefef;
 	padding-bottom: 30rpx;
 }
 .sale-top-box{

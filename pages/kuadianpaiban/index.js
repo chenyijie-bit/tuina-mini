@@ -48,7 +48,14 @@ Page({
         if(s.flag){
           console.log(_this.data.biaozhundate);
           console.log(n);
-          let date = _this.data.biaozhundate[n].date
+          let date = _this.data.biaozhundate && _this.data.biaozhundate[n] ? _this.data.biaozhundate[n].date : ''
+          if(!date){
+            wx.showToast({
+              title: '获取时段出错',
+              icon:'error'
+            })
+            return false
+          }
           let id = _this.data.mendianList[i].id
           resArr.push({
             'date': date,
@@ -67,6 +74,11 @@ Page({
         wx.showToast({
           title: '操作成功'
         })
+        setTimeout(() => {
+          wx.switchTab({
+            url: '../achievement/index',
+          })
+        }, 1200);
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,
