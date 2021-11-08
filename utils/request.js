@@ -127,8 +127,10 @@ const API = {
     workerUserPerformance:(data)=>request(POST, `/worker/user/performance`,data),
     // 添加海报
     workerMarketingSet:(data)=>request(POST, `/worker/marketing/set`,data),
-    // 海报列表
+    // 海报列表 工作人员
     workerMarketingList:(data)=>request(POST, `/worker/marketing/list`,data),
+    // 海报列表 用户
+    userMarketingList:(data)=>request(POST, `/marketing/list`,data),
     // 支付
     marketingPay:(data)=>request(POST, `/marketing/pay`,data),
     //  gonzuorenyuan海报列表

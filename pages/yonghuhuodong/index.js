@@ -46,7 +46,7 @@ Page({
     })
   },
   initData(){
-    $api.workerMarketingList({
+    $api.userMarketingList({
       name:'',
       openid:app.globalData.openId
     }).then(res=>{
