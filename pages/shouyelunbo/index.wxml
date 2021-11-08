@@ -9,7 +9,7 @@
       <view class="padding-item-20">名称：{{item.pageImage.name}}</view>
       <view class="padding-item-20" wx:if="{{item.pageImage.link_type}}">类型：{{item.pageImage.link_type == 3 ? '活动商品' : item.pageImage.link_type == 0 ? '普通轮播' : '会员卡'}}</view>
       <view style="text-align:right;">
-        <van-button  class="but-but-red" size="small" plain type="info" data-image_link_type="{{item.pageImage.link_type}}" data-image_atta_id="{{item.pageImage.atta_id}}" data-image_name="{{item.pageImage.name}}" data-id="{{item.id}}"  bindtap="delete">删除</van-button>
+        <van-button wx:if="{{list.length>1}}"  class="but-but-red" size="small" plain type="info" data-image_link_type="{{item.pageImage.link_type}}" data-image_atta_id="{{item.pageImage.atta_id}}" data-image_name="{{item.pageImage.name}}" data-id="{{item.id}}"  bindtap="delete">删除</van-button>
       </view>
     </view>
   </view>

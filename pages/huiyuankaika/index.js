@@ -47,7 +47,7 @@ Page({
     })
   },
   tianjiahuiyuanka(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../tianjiahuiyuanka/index',
     })
   },

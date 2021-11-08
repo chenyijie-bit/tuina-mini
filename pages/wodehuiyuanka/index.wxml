@@ -12,5 +12,5 @@
       <view>相关描述：{{item.vip_info.desc}}</view>
     </view>
   </view>
-  <view>暂无信息</view>
+  <view wx:else>暂无信息</view>
 </view>

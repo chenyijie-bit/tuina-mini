@@ -8,6 +8,7 @@ Page({
       personImg:'../../assess/images/123.jpeg',
       waitIcon:'../../assess/images/waiticon.png',
       workList:[],
+      shopList:{},
       pinglunList:[],
       minPrice: app.globalData.min_price,
       minPricec: app.globalData.min_price_c
@@ -49,12 +50,14 @@ Page({
             }
             that.setData( {
                 winHeight: 160*workerNum + 120,
-                workList: data.worker
+                workList: data.worker,
+                shopList: data.shop,
             });
         }
       })
   },
   goToStaffInfo(e){
+    app.globalData.shop_id = e.currentTarget.dataset.shopid
     app.globalData.select_worker_id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../salesclerk/index',

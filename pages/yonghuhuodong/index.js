@@ -27,11 +27,16 @@ Page({
           "signType": "HMAC-SHA256",
           "paySign": payData.jsApiParameters.paySign,
           "success":function(res){
-            需要重新获取列表信息
+            // 需要重新获取列表信息
             wx.showToast({
               title: '支付成功'
             })
             // 在这里跳转到购买完成页面
+            setTimeout(() => {
+              wx.redirectTo({
+                url: '../wodehuodongshangpin/index',
+              })
+            }, 1000);
           },
           "fail":function(res){
           },
