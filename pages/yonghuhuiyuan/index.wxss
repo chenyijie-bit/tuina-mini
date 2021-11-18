@@ -3,16 +3,30 @@ page{
   background: #efefef;
 }
 .item{
-  padding: 26rpx;
+  /* padding: 26rpx; */
     line-height: 56rpx;
     background: #fff;
     margin-bottom: 50rpx;
     border-radius: 12rpx;
+    overflow: hidden;
+  position: relative;
+}
+.absolute-but{
+  position: absolute;
+  bottom: 60rpx;
+  z-index: 1000;
+  width: 100%;
+}
+.item image{
+
 }
 .but-but button{
   color: #BA9245 !important;
   border-color: #BA9245;
   border-radius: 36rpx;
+  width: 110rpx;
+  font-size: 28rpx;
+  height: 60rpx;
 }
 .title{
   text-align: center;

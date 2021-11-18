@@ -3,13 +3,21 @@ page{
   background: #efefef;
 }
 .item-box{
-  padding: 16rpx 20rpx 38rpx;
+  /* padding: 16rpx 20rpx 38rpx; */
   margin-bottom: 60rpx;
   border-radius: 18rpx;
   background: #fff;
+  overflow: hidden;
+  position: relative;
 }
 .item-box view{
-  padding: 12rpx 0;
+  /* padding: 12rpx 0; */
+}
+.absolute-but{
+  position: absolute;
+  bottom: 60rpx;
+  z-index: 1000;
+  width: 100%;
 }
 .container{
   padding: 20rpx 30rpx;
@@ -18,4 +26,7 @@ page{
   color: #BA9245 !important;
   border-color: #BA9245;
   border-radius: 36rpx;
+  width: 160rpx;
+  font-size: 28rpx;
+  height: 63rpx;
 }
