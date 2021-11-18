@@ -27,7 +27,7 @@ Page({
     console.log(app.globalData);
       $api.marketingOrderList({
         "openid":app.globalData.openId,
-        "user_id":app.globalData.user_id,								//可选参数。
+        "user_id":app.globalData.userId,								//可选参数。
         "phone":tel,						//可选参数。
         "trade_no":"",	//可选参数。
         "order_code":""		//可选参数。
