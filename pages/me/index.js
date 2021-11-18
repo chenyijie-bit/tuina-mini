@@ -5,10 +5,11 @@ Component({
     nickNameCopy:'点击登录 >',
     nickName:'',
     tel:'',
-    is_vip: app.globalData.is_vip === 1 ? true : false
+    is_vip: false
   },
   pageLifetimes: {
     show() {
+      console.log(app.globalData.is_vip == 1);
       if (typeof this.getTabBar === 'function' &&
         this.getTabBar()) {
         this.getTabBar().setData({
@@ -23,7 +24,8 @@ Component({
         let userInfo = wx.getStorageSync('userInfo')
         this.setData({
           avatarUrl :app.globalData.head_url,
-          nickName:app.globalData.nickname
+          nickName:app.globalData.nickname,
+          is_vip: (app.globalData.is_vip === 1 ? true : false)
         })
       }
     }

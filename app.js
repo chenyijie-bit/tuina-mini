@@ -29,6 +29,7 @@ App({
           app.globalData.mobile = res.data.data.mobile
           app.globalData.head_url = res.data.data.head_url
           app.globalData.nickname = res.data.data.nickname
+          app.globalData.userId = res.data.data.id
           app.globalData.worker_id = res.data.data.worker_id
           app.globalData.is_worker = res.data.data.is_worker || 0
           app.globalData.is_vip = res.data.data.is_vip || 0
@@ -62,6 +63,7 @@ App({
                     _this.globalData.mobile = res.data.data.mobile
                     _this.globalData.head_url = res.data.data.head_url
                     _this.globalData.nickname = res.data.data.nickname
+                    _this.globalData.userId = res.data.data.id
                     _this.globalData.worker_id = res.data.data.worker_id
                     _this.globalData.is_worker = res.data.data.is_worker
                     _this.globalData.is_vip = res.data.data.is_vip || 0
@@ -121,6 +123,7 @@ App({
                         _this.globalData.head_url = res.data.data.head_url
                         _this.globalData.nickname = res.data.data.nickname
                         _this.globalData.worker_id = res.data.data.worker_id
+                        _this.globalData.userId = res.data.data.id
                         _this.globalData.is_worker = res.data.data.is_worker
                         _this.globalData.is_vip = res.data.data.is_vip || 0
                         _this.globalData.worker_type = res.data.data.worker_type || 0
@@ -146,6 +149,7 @@ App({
     //用户的位置信息
     userAddrInfo:null,
     userInfo: null,
+    userId:'',
     statu:0,
     code:'',
     openId:'',
