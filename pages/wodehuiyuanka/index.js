@@ -17,7 +17,7 @@ Page({
       "sdate":"",//可选
       "order_code":"",//可选
       "trade_no":"",//可选
-      "user_info_id":"",//可选
+      "user_info_id":app.globalData.userId,//可选
       "vip_info_id":"",//可选
       "vip_type":"",//可选
       "user_phone":'',	
