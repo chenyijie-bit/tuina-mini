@@ -2,7 +2,8 @@ let app = getApp();
 const $api = require('../../utils/request').API;
 Component({
   data: {
-    personImg:'../../assess/images/banner1.png'
+    personImg:'../../assess/images/banner1.png',
+    worker_type:0
   },
   methods:{
     daka(){
@@ -110,6 +111,9 @@ Component({
         })
       }
       this.getUserInfo()
+      this.setData({
+        worker_type: app.globalData.worker_type
+      })
     },
   }
 })

@@ -11,7 +11,8 @@ Page({
     tongzhiliebiao:[],
     xianshitianjia: false,
     content:'',
-    dataid:''
+    dataid:'',
+    worker_type: ''
   },
   tianjiatongzhi(){
     this.setData({
@@ -127,6 +128,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      worker_type:app.globalData.worker_type
+    })
     this.workerNotificationList()
   },
   /**

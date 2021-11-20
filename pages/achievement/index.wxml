@@ -7,6 +7,7 @@
       <!-- <view>
         <image style="width:100;" mode="aspectFill" src="{{personImg}}"></image>
       </view> -->
+      <!-- wx:if="{{worker_type === 0 || worker_type === 1}}" -->
       <view class="work-table-list-top">
         <view class="title">常用</view>
         <view class="list-box">
@@ -41,7 +42,7 @@
             </view>
             <text>个人信息</text>
           </view>
-          <view class="item" bindtap="kuadianpaiban">
+          <view class="item" bindtap="kuadianpaiban" wx:if="{{worker_type === 1}}">
             <view>
               <van-icon size="25px" color="#666" name="send-gift-o" />
             </view>
@@ -55,7 +56,7 @@
           </view>
         </view>
       </view>
-      <view class="work-table-list-top work-table-list-top2">
+      <view class="work-table-list-top work-table-list-top2" wx:if="{{worker_type === 10}}">
         <view class="title title-lag">店长工具</view>
         <view class="list-box">
           <view class="item" bindtap="mendianshuju">

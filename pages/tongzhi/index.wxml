@@ -1,6 +1,6 @@
 <!--pages/tongzhi/index.wxml-->
 <view class="tongzhi" style="padding-bottom:120rpx;">
-  <view style="text-align: right;padding: 30rpx 41rpx 28rpx;">
+  <view style="text-align: right;padding: 30rpx 41rpx 28rpx;" wx:if="{{worker_type === 10}}">
     <van-icon bindtap="tianjiatongzhi" name="add-o" color="333" size="25px"/>
   </view>
   <view class="xierutongzhi-box" wx:if="{{xianshitianjia}}">
@@ -14,7 +14,7 @@
       <view style="padding: 10rpx 10px 25rpx;line-height: 54rpx;">{{item.content}}</view>
       <view class="content-but-box" style="text-align:right;font-size:24rpx;color: #999;">
       <!-- 根据身份来是否显示 -->
-        <view class="content-but">
+        <view class="content-but"  wx:if="{{worker_type === 10}}">
           <!-- <van-button size="mini" class="but-but" bindtap="xiugai" data-id="{{item.id}}">修改</van-button> -->
           <van-button size="mini" class="but-but" bindtap="shanchu" data-id="{{item.id}}">删除</van-button>
         </view>

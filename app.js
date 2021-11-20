@@ -154,7 +154,7 @@ App({
     code:'',
     openId:'',
     head_url:'',
-    worker_type:'', //1管理员 
+    worker_type:'', //10管理员  1流动  0普通
     mobile:'',
     nickname:'',
     min_price:'', //店铺的最低消费
