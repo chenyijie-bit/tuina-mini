@@ -1,5 +1,5 @@
 <view>
-  <view style="padding:30rpx 30rpx;">已购会员卡</view>
+  <!-- <view style="padding:30rpx 30rpx;">已购会员卡</view> -->
   <view class="list-box" wx:if="{{itemList.length}}">
     <view wx:for="{{itemList}}" wx:key="index"  class="list-box-item">
       <view>会员卡：{{item.vip_info.name}}</view>
@@ -12,5 +12,5 @@
       <view>相关描述：{{item.vip_info.desc}}</view>
     </view>
   </view>
-  <view wx:else>暂无信息</view>
+  <view wx:else style="text-align:center;">暂无信息</view>
 </view>
