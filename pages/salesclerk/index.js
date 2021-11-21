@@ -53,7 +53,8 @@ Page({
         let deftypeTimeStr  = ''
         if(resData.skill && resData.skill.length && resData.skill[0].id){
           deftypeRadio = resData.skill[0].id
-          deftypeTimeStr = resData.skill[0].service_duration - 5
+          // deftypeTimeStr = resData.skill[0].service_duration - 5  之前是service_duration属性代表每个项目的时长  现在是duration了 11-21
+          deftypeTimeStr = resData.skill[0].duration - 5
         }
         resData.skill && resData.skill.map(e=>{
           e.price = parseFloat(e.price)
@@ -381,6 +382,7 @@ Page({
           }
         }
         // debugger
+        console.log(this.data.deftypeTimeStr);
         if(((Number(item.datestr) + Number(this.data.deftypeTimeStr)*60*1000)  >= ((Number(element.st)*1000))) && ((Number(item.datestr) + Number(this.data.deftypeTimeStr)*60*1000)<= ((Number(element.et)*1000)))){
           let data = this.data.indexTabDateCur[this.data.currentTab]
             if(Array.isArray(data)){

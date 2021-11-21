@@ -46,7 +46,7 @@
 							<view class="but-box">
 								<!-- <van-button type="default">叫号</van-button> -->
 								<van-button type="default" bindtap="startServe" data-mobile="{{item.mobile}}" data-status="{{item.status}}" data-id="{{item.id}}" class="{{item.status == 170 && index == 0 ? 'default-but' : 'nouser-but'}}">开始服务</van-button>
-								<van-button type="default" bindtap="startServe" data-mobile="{{item.mobile}}" data-status="{{item.status}}"  data-id="{{item.id}}" class="{{item.status == 173 && index == 0 ? 'default-but' : 'nouser-but'}}"> 让顾客付款 </van-button>
+								<van-button type="default" bindtap="startServe" data-price="{{item.order.total_price}}" data-mobile="{{item.mobile}}" data-status="{{item.status}}"  data-id="{{item.id}}" class="{{item.status == 173 && index == 0 ? 'default-but' : 'nouser-but'}}"> 让顾客付款 </van-button>
 								<van-button type="default" bindtap="shouQrCode"  class="qr-button" data-list_id="{{item.id}}">二维码支付</van-button>
 							</view>
 						</view>

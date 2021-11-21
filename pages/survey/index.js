@@ -5,6 +5,7 @@ const QR = require('../../utils/weapp-qrcode.js')
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Component({
   data: {
+    shouldPrice:'',
     todayDataList:[], //今天的订单数据
     todayData:'', //今天的日期
     qrCodeUrl: '',
@@ -196,6 +197,17 @@ Component({
     // 开始服务 // 结束服务
     startServe(e){
       let _this = this
+      let price = e.currentTarget.dataset.price
+      if(price){
+        price = parseFloat(price)
+        this.setData({
+          modalValue: price  //应该支付的金额
+        })
+      }else{
+        this.setData({
+          modalValue: '请手动输入'  //应该支付的金额
+        })
+      }
       let queue_id = e.currentTarget.dataset.id
       let mobile = e.currentTarget.dataset.mobile
       let submobile
@@ -326,9 +338,41 @@ Component({
           let resData
           if(res.data.data){
             let data = res.data.data
+            console.log(data);
             let arr = []
             let nouserArrObj = {}
             let nouserArr = []
+            let hasDataArrList = []
+            // if(this.data.active === '1'){
+            //   // 只有在待服务的时候才做格式化
+            //   if(arr&&arr.length){
+            //     let topArr = [],lastArr = [],flagIndex=0
+            //     arr.map((e,i)=>{
+            //       if(e.is_today === 1){
+            //         flagIndex = i
+            //       }
+            //     })
+            //     arr.map((e,i)=>{
+            //       if(i<=flagIndex){
+            //         topArr.unshift(e)
+            //       }else{
+            //         lastArr.push(e)
+            //       }
+            //     })
+            //     arr = topArr.concat(lastArr)
+            //   }
+            // }
+
+
+            let topArr = [],lastArr = []
+            let flagIndex = 0 
+            if(this.data.active === '1'){
+              data.map((e,i)=>{
+                if(e.is_today === 1){
+                  flagIndex = i
+                }
+              })
+            }
             data.map((e,i)=>{
               if(e.is_today && e.is_today==1){
                 this.setData({
@@ -336,6 +380,16 @@ Component({
                   todayDataList: e.list
                 })
               }
+              if(flagIndex){
+                if(i<=flagIndex){
+                  topArr.unshift(e)
+                }else{
+                  lastArr.push(e)
+                }
+              }
+              hasDataArrList = topArr.concat(lastArr)
+              console.log(hasDataArrList);
+              
               if(e.list && e.list.length){
                 e.list.map(s=>{
                   if(i==0){
@@ -343,7 +397,9 @@ Component({
                     s.first = true
                   }
                   if(s.type!==0){
-                    arr.push(s)
+                    if(this.data.active != '1'){
+                      arr.push(s)
+                    }
                   }else{
                     if(i==0){
                       nouserArr.push(s)
@@ -358,10 +414,23 @@ Component({
               //   nouserArr.push(e)
               // }
             })
+            hasDataArrList.map(e=>{
+              if(e.list && e.list.length){
+                e.list.map(x=>{
+                  if(x.type!==0){
+                    arr.push(x)
+                  }
+                })
+              }
+            })
             this.setData({
               nouserArr:nouserArr,
               nouserArrObj: nouserArrObj
             })
+            //这里是为了把今天之后的数据顺序排列 从今天到明天后天  今天之前的数据就按倒序就行  昨天前天  因为要展示今天之前和之后的数据
+            console.log(arr);
+            
+            console.log(arr);
             resData = JSON.parse(JSON.stringify(arr))
           }
           // for (let index = 0; index < resData.length; index++) {

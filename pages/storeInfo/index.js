@@ -35,6 +35,7 @@ Page({
       }).then(res=>{
         if(res.statusCode === 200){
             let data = res.data.data
+            console.log(data);
             this.setData({
               pinglunList:data.shop.comments || []
             })
@@ -42,15 +43,15 @@ Page({
             let closeTime = data.shop.work_close_date || '23:30:00'   //data.work_close_date  //关门时间
             app.globalData.openTime = openTime
             app.globalData.closeTime = closeTime
-            let workerNum = data.worker.length
+            let workerNum = data.worker && data.worker.length
             if(workerNum){
               data.worker.map(e=>{
                 e.waitStr = parseInt(e.wait) == 0 ? '无需等待' : this.getDuration(parseInt(e.wait))
               })
             }
             that.setData( {
-                winHeight: 160*workerNum + 120,
-                workList: data.worker,
+                winHeight: 160*workerNum + 120 || 200,
+                workList: data.worker || [],
                 shopList: data.shop,
             });
         }

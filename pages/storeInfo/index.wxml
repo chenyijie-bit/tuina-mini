@@ -12,28 +12,33 @@
 		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px;" bindchange="bindChange">
 				<swiper-item>
 					<!-- 推荐人及店铺list -->
-					<view class="recommend-person" wx:for="{{workList}}" wx:key="index">
-						<view class="gongfuzhi">功夫值99</view>
-						<view class="per-img">
-							<image mode="aspectFill" src="{{item.head_url || personImg}}"></image>
-							<view class="per-info">
-								<text class="per-name">{{item.name}}</text>
-								<view class="price">
-									<text class="first-price">￥{{minPrice || 68}}</text>
-									<text class="sec-price">￥{{minPricec|| 128}}</text>
-								</view>
-								<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
-								<view style="text-align: left;">
-									<!-- <view class="dengdaikuang">{{item.waitStr}}</view> -->
-									<view class="dengdaikuang">五星推荐</view>
+					<view wx:if="{{workList.length}}">
+						<view class="recommend-person" wx:for="{{workList}}" wx:key="index">
+							<view class="gongfuzhi">功夫值99</view>
+							<view class="per-img">
+								<image mode="aspectFill" src="{{item.head_url || personImg}}"></image>
+								<view class="per-info">
+									<text class="per-name">{{item.name}}</text>
+									<view class="price">
+										<text class="first-price">￥{{minPrice || 68}}</text>
+										<text class="sec-price">￥{{minPricec|| 128}}</text>
+									</view>
+									<image mode="aspectFit" class="wait-icon" src="{{waitIcon}}"></image>
+									<view style="text-align: left;">
+										<!-- <view class="dengdaikuang">{{item.waitStr}}</view> -->
+										<view class="dengdaikuang">五星推荐</view>
+									</view>
 								</view>
 							</view>
+							<view class="per-start">
+								<block>
+									<van-button type="default" class="go-spa" bindtap="goToStaffInfo" data-shopid="{{shopList.id}}" data-id="{{item.id}}">点TA</van-button>
+								</block>
+							</view>
 						</view>
-						<view class="per-start">
-							<block>
-								<van-button type="default" class="go-spa" bindtap="goToStaffInfo" data-shopid="{{shopList.id}}" data-id="{{item.id}}">点TA</van-button>
-							</block>
-						</view>
+					</view>
+					<view wx:else>
+						<view style="color:#aaa;margin-top:30rpx;">该店铺暂无可预约员工</view>
 					</view>
 				</swiper-item>
 				<swiper-item>
