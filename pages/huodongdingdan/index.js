@@ -31,6 +31,11 @@ Page({
                 title: '操作成功',
               })
               _this.searchOrder()
+            }else{
+              wx.showToast({
+                title: res.data.err || '操作出错',
+                icon: 'none'
+              })
             }
           })
       })

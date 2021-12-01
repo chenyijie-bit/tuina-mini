@@ -25,10 +25,12 @@
           
         </view> -->
         <view style="text-align:right">
+          <!-- item.check_status == '1' 已使用 -->
+          <!-- item.cancel_status == '2' 已退款 -->
           <van-button wx:if="{{item.check_status === '1'}}" class="but-but-gray" size="small" plain data-id="{{item.id}}" type="info" >已使用</van-button> 
-          <van-button wx:if="{{item.check_status != '1' && item.check_status != '2'}}" class="but-but-shiyong" size="small" plain data-id="{{item.id}}" type="info" bindtap="shiyong">使用</van-button>
-          <van-button wx:if="{{item.check_status === '2'}}" class="but-but-gray" size="small" plain data-id="{{item.id}}" type="info" >已退款</van-button> 
-          <van-button wx:if="{{item.check_status != '1' && item.check_status != '2'}}" class="but-but-del" size="small" plain type="info" data-id="{{item.id}}" bindtap="shanchu">退款</van-button>
+          <van-button wx:if="{{item.check_status != '1' && item.cancel_status != '2'}}" class="but-but-shiyong" size="small" plain data-id="{{item.id}}" type="info" bindtap="shiyong">使用</van-button>
+          <van-button wx:if="{{item.cancel_status === '2'}}" class="but-but-gray" size="small" plain data-id="{{item.id}}" type="info" >已退款</van-button> 
+          <van-button wx:if="{{item.check_status != '1' && item.cancel_status != '2'}}" class="but-but-del" size="small" plain type="info" data-id="{{item.id}}" bindtap="shanchu">退款</van-button>
         </view>
       </view>
     </view>
