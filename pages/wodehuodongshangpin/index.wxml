@@ -15,7 +15,7 @@
         </view> -->
         <view style="text-align:right">
           <van-button wx:if="{{item.check_status === '1'}}" class="but-but-gray" size="small" plain data-id="{{item.id}}" type="info" >已使用</van-button> 
-          <van-button  wx:if="{{item.check_status === '0' && item.cancel_status !== '2'}}" class="but-but-shiyong" size="small" plain data-id="{{item.id}}" type="info">待使用</van-button>
+          <van-button wx:if="{{item.check_status === '0' && item.cancel_status !== '2'}}" class="but-but-shiyong" size="small" plain data-id="{{item.id}}" type="info">待使用</van-button>
           <van-button wx:if="{{item.cancel_status === '2'}}" class="but-but-gray" size="small" plain data-id="{{item.id}}" type="info" >已退款</van-button> 
         </view>
       </view>
