@@ -22,15 +22,15 @@ Page({
       message: '确认使用吗',
     })
       .then(() => {
-       $api.XXXXXXXXX({
+       $api.workerMarketingApply({
         openid:app.globalData.openId,
-        id:this.data.dataid,
+        order_id:this.data.dataid,
           }).then(res=>{
             if(res.data && res.data.code == 200){
               wx.showToast({
                 title: '操作成功',
               })
-              _this.workerNotificationList()
+              _this.searchOrder()
             }
           })
       })
@@ -48,16 +48,16 @@ Page({
       message: '确认退款吗',
     })
       .then(() => {
-       $api.XXXXXXXXXXXX({
+       $api.workerOrderRefundMarketing({
         openid:app.globalData.openId,
-        id:this.data.dataid,
+        order_id:this.data.dataid,
           }).then(res=>{
             if(res.data && res.data.code == 200){
               //说明退款成功了
               wx.showToast({
                 title: '退款成功',
               })
-              _this.workerNotificationList()
+              _this.searchOrder()
             }
           })
       })
