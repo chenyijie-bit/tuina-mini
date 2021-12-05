@@ -16,17 +16,22 @@
     <view>日期</view>
     <view>单量</view>
     <view>金额</view>
+  </view> 
+  <view wx:if="{{resList.length}}">
+    <view wx:for="{{resList}}" class="width3th" wx:key='index'>
+      <view>
+        {{item.date}}
+      </view>
+      <view>
+        {{item.order_count}}
+      </view>
+      <view>
+        {{item.order_sum}}
+      </view>
+    </view>
   </view>
-  <view wx:for="{{resList}}" class="width3th" wx:key='index'>
-    <view>
-      {{item.date}}
-    </view>
-    <view>
-      {{item.order_count}}
-    </view>
-    <view>
-      {{item.order_sum}}
-    </view>
+  <view wx:else>
+    <view  style="padding-top:50px;text-align:center;color:#777;">暂无数据</view>
   </view>
   <!-- <view wx:if="{{!resList.length}}" style="text-align: center;padding: 150rpx;font-size: 40rpx;color: #999;"> 暂无数据</view> -->
   <van-calendar show="{{ showcalendar }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" allow-same-day type="range" show-confirm="{{ false }}" bind:close="onClose" bind:confirm="onConfirm"/>

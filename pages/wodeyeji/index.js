@@ -64,6 +64,13 @@ Page({
     }
   },
   initData(sdate,edate){
+    if(this.data.selectType !== 1){
+      sdate = ''
+      edate = ''
+      this.setData({
+        date: ''
+      })
+    }
     $api.workerUserPerformance({
       "openid": app.globalData.openId,
       "worker_id": app.globalData.worker_id,					
@@ -74,14 +81,16 @@ Page({
     }).then(res=>{
       if(res.data.code == 200){
         let list  = res.data.data.list
+        let arr = []
         for (const key in list) {
           const element = list[key];
             if(!element.date){
               element.date = key
             }
+            arr.push(element)
         }
         this.setData({
-          resList : list
+          resList : arr
         })
       }else{
         wx.showToast({

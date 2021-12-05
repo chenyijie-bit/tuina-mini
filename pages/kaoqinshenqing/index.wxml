@@ -81,7 +81,7 @@
       </view>
     </van-tab>
     <van-tab title="申请历史">
-      <view class="box-list">
+      <view class="box-list" wx:if="{{lishiList.length}}">
         <view wx:for="{{lishiList}}" wx:key="index"  class="list-item">
           <view>是否处理：{{item.approve_info.desc}}</view>
           <view>申请类型：{{item.type_info.id == 1 ? '补卡' : '请假'}}</view>
@@ -104,6 +104,9 @@
             </view>
           </view>
         </view>
+      </view>
+      <view wx:else style="padding-top:50px;text-align:center;color:#777;">
+        暂无历史
       </view>
     </van-tab>
   </van-tabs>

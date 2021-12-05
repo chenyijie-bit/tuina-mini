@@ -9,6 +9,15 @@ Page({
   data: {
 
   },
+  preview(event) {
+    let currentUrl = event.currentTarget.dataset.src
+    let arr = []
+    arr.push(currentUrl)
+    wx.previewImage({
+      current: currentUrl, // 当前显示图片的http链接
+      urls: arr // 需要预览的图片http链接列表
+    })
+  },
   querengoumai(e){
     let id = e.currentTarget.dataset.id;
     $api.marketingPay({

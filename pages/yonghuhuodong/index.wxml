@@ -7,7 +7,7 @@
       <view>价格：<text style="color:#BA9245">￥{{item.price}}</text></view>
       <view>详情：{{item.desc}}</view> -->
       <!-- <image src="{{item.atta_id}}" mode="aspectFill" alt=""> -->
-      <image src="{{item.atta_id}}" alt="" mode="widthFix" style="width:100%;float:left;"/>
+      <image  bindtap="preview" data-src="{{item.atta_id}}" src="{{item.atta_id}}" alt="" mode="widthFix" style="width:100%;float:left;"/>
       <view class="absolute-but" style="text-align:center;margin-top:30rpx;">
         <van-button class="but-but" size="small" plain type="info" data-id="{{item.id}}" bindtap="querengoumai">确认购买</van-button>
       </view>
