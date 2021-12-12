@@ -252,7 +252,7 @@ Page({
                 })
               })
               isShowArr.map((e,i)=>{
-                arr[i].isShow = false
+                arr[e].isShow = false
               })
               console.log(arr);
               this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
@@ -304,7 +304,6 @@ Page({
   },
   getPhoneNumber2(e){
     console.log(this.data.currentTab);
-    
     this.setData({
       appointmentType:e.currentTarget.dataset.type
     })
@@ -364,8 +363,9 @@ Page({
               }
             })
           })
+          console.log(isShowArr);
           isShowArr.map((e,i)=>{
-            arr[i].isShow = false
+            arr[e].isShow = false
             if(arr[0].isShow === false){
               this.setData({
                 isShowDefaultTimeDuan: false
@@ -403,7 +403,6 @@ Page({
           })
           let resData = []
           resData[this.data.currentTab] = timeSelectModel
-          console.log(resData);
           this.setData({
             timeSelectModelBox: resData
           })
@@ -470,7 +469,6 @@ Page({
           }
         }
         // debugger
-        console.log(this.data.deftypeTimeStr);
         if(((Number(item.datestr) + Number(this.data.deftypeTimeStr)*60*1000)  >= ((Number(element.st)*1000))) && ((Number(item.datestr) + Number(this.data.deftypeTimeStr)*60*1000)<= ((Number(element.et)*1000)))){
           let data = this.data.indexTabDateCur[this.data.currentTab]
             if(Array.isArray(data)){
@@ -588,7 +586,6 @@ Page({
   },
     //  tab切换逻辑
     swichNav: function( e ) {
-      console.log(e);
       var that = this;
       let index = e.target.dataset.current
       if( this.data.currentTab === index ) {
@@ -612,7 +609,6 @@ Page({
       this.changeTabGetTime()
     },
     bindChange: function( e ) {
-      console.log(e);
         var that = this;
         that.setData( { currentTab: e.detail.current });
         if(this.data.dateTit[e.detail.current] && this.data.dateTit[e.detail.current].isShow === false){
