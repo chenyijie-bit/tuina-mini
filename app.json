@@ -37,7 +37,9 @@
     "pages/kuadianpaiban/index",
     "pages/mendianpaibanxiangqing/index",
     "pages/youhuiquanyonghu/index",
-    "pages/huodongdingdan/index"
+    "pages/huodongdingdan/index",
+    "pages/setStoreManage/index",
+    "pages/mendianshezhiyuangong/index"
   ],
   "permission": {
     "scope.userLocation": {

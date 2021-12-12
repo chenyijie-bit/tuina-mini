@@ -1,0 +1,11 @@
+<!--pages/mendianshezhiyuangong/index.wxml-->
+<view class="content" style="padding: 40rpx 30rpx;" wx:if="{{workerList.length}}">
+  <view wx:for="{{workerList}}" wx:key="index" class="item-item">
+    <van-radio-group value="{{ radio }}" bind:change="onChangeRadioTab">
+      <van-radio name="{{index}}" checked-color="#BA9245" style="float:left;margin-right:60rpx">{{item.worker.name}}</van-radio>
+    </van-radio-group>
+  </view>
+  <view class="but-box">
+    <van-button class="but-but-shiyong" size="small" plain data-id="{{item.worker.id}}" type="info" bindtap="shiyong">确认为店长</van-button>
+  </view>
+</view>

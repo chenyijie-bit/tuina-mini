@@ -17,12 +17,12 @@
               <view data-id="1" bindtap="showDatePickerFn">{{currentDateStart}}<van-icon name="arrow" /></view>
             </view>
           </view>
-          <view class="shenqing-box margin-large">
+          <view class="shenqing-box">
             <view></view>
             <view>
               <van-radio-group value="{{ startTime }}" bind:change="onChangeRadio1">
-                <van-radio name="1" checked-color="#BA9245" style="float:left;margin-right:40rpx">上午</van-radio>
-                <van-radio name="2" checked-color="#BA9245" style="float:left;">下午</van-radio>
+                <van-radio name="1" checked-color="#BA9245" style="float:left; display:none;">上午</van-radio>
+                <!-- <van-radio name="2" checked-color="#BA9245" style="float:left;">下午</van-radio> -->
               </van-radio-group>
             </view>
           </view>
@@ -36,8 +36,8 @@
             <view></view>
             <view>
               <van-radio-group value="{{ endTime }}" bind:change="onChangeRadio2">
-                <van-radio name="1" checked-color="#BA9245" style="float:left;margin-right:40rpx">上午</van-radio>
-                <van-radio name="2" checked-color="#BA9245" style="float:left;">下午</van-radio>
+                <!-- <van-radio name="1" checked-color="#BA9245" style="float:left;margin-right:40rpx">上午</van-radio> -->
+                <van-radio name="2" checked-color="#BA9245" style="float:left; display:none;">下午</van-radio>
               </van-radio-group>
             </view>
           </view>
@@ -53,7 +53,7 @@
         </view>
       </view>
       
-      <view wx:if="{{type == 'buka'}}">
+      <view wx:if="{{type == 'buka'}}" style="padding:0 40rpx">
         <view class="shenqing-box">
           <view>申请日期:</view>
           <view wx:if="{{radio == 1}}">

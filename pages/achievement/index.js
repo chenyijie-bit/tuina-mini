@@ -11,6 +11,11 @@ Component({
         url: '../daka/index',
       })
     },
+    setStoreManage(){
+      wx.navigateTo({
+        url: '../setStoreManage/index',
+      })
+    },
     dingdanliebiao(){
       wx.navigateTo({
         url: '../dingdanliebiao/index',

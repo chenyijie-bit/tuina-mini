@@ -57,7 +57,7 @@
         </view>
       </view>
       <!-- wx:if="{{worker_type === 10}}" -->
-      <view class="work-table-list-top work-table-list-top2" wx:if="{{worker_type === 10}}">
+      <view class="work-table-list-top work-table-list-top2">
         <view class="title title-lag">店长工具</view>
         <view class="list-box">
           <view class="item" bindtap="mendianshuju">
@@ -119,6 +119,12 @@
               <van-icon size="25px" color="#666" name="description" />
             </view>
             <text>订单列表</text>
+          </view>
+          <view class="item" bindtap="setStoreManage">
+            <view>
+              <van-icon size="25px" color="#666" name="friends-o" />
+            </view>
+            <text>设置店长</text>
           </view>
         </view>
       </view>

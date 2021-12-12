@@ -1,0 +1,11 @@
+<!--pages/setStoreManage/index.wxml-->
+<view>
+  <view class="container"  wx:if="{{storeList.length}}">
+    <view wx:for="{{storeList}}" wx:key="index" class="list-box" style="padding: 30rpx;">
+        <view class="item" bindtap="getStoreId" data-id="{{item.id}}">
+          <view>{{item.name}}</view>
+          <view><van-icon name="arrow" /></view>
+        </view>
+      </view>
+    </view>
+</view>

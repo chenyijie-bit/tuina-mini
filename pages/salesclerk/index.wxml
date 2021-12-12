@@ -100,7 +100,7 @@
 
 		<!-- ////// -->
 		<view class="swiper-tab" wx:if="{{dateTit.length}}">
-			<view class="swiper-tab-list {{currentTab==index ? 'on' : ''}}" data-current="{{index}}" bindtap="swichNav" wx:for="{{dateTit}}" wx:key="index">{{item}}</view>
+			<view class="swiper-tab-list {{currentTab==index ? 'on' : ''}}" data-current="{{index}}" bindtap="swichNav" wx:for="{{dateTit}}" wx:key="index">{{item.time}}</view>
 			<!-- <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">6/02</view>
 			<view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">6/03</view>
 			<view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">6/04</view>
@@ -108,14 +108,14 @@
 		</view>
 
 		<!-- 切换tab组件 -->
-		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:1150px;padding-bottom:60rpx;" bindchange="bindChange" bindanimationfinish="bindanimationfinish" >
-				<swiper-item wx:for="{{[1,2,3,4,5]}}" wx:key="index">
-					<view class="yuyuebutton-box">
-						<van-button  data-current="{{currentTab}}"  data-time="{{item.time}}" data-disabled="{{item.disabled}}" bindtap="selectTime" class="yuyuekongjian-button {{currentTime==item.time && !item.disabled && currentTab == selectFlagTab ? 'on-time' : ''}} {{item.disabled ? 'disabledStyle':''}}" wx:for="{{timeSelectModelBox[currentTab]}}" wx:key="index">{{item.time}}</van-button>
-					</view>
-				</swiper-item>
+		<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:1150px;padding-bottom:60rpx;" bindchange="bindChange" bindanimationfinish="bindanimationfinish">
+			<swiper-item wx:for="{{[1,2,3,4,5]}}" wx:key="index">
+				<view class="yuyuebutton-box"  wx:if="{{isShowDefaultTimeDuan}}">
+					<van-button  data-current="{{currentTab}}"  data-time="{{item.time}}" data-disabled="{{item.disabled}}" bindtap="selectTime" class="yuyuekongjian-button {{currentTime==item.time && !item.disabled && currentTab == selectFlagTab ? 'on-time' : ''}} {{item.disabled ? 'disabledStyle':''}}" wx:for="{{timeSelectModelBox[currentTab]}}" wx:key="index">{{item.time}}</van-button>
+				</view>
+				<view wx:else style="padding: 20px;text-align: center;font-size: 36rpx;color: #888;">今日休息</view>
+			</swiper-item>
 		</swiper>
-		
 		<view class="position-but">
 			<van-button class="position-but-ok" data-type="2" bindtap="creatOrder">确认选择</van-button>
 		</view>	

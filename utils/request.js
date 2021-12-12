@@ -185,6 +185,8 @@ const API = {
     workerServiceDel:(data)=>request(POST, `/worker/service/del`,data),
     // 服务列表
     workerServiceList:(data)=>request(POST, `/worker/service/list`,data),
+     // 选为店长
+     workerConfigSet:(data)=>request(POST, `/worker/config/set`,data),
 };
 module.exports = {
     API: API

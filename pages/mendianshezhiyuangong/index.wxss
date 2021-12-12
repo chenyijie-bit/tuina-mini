@@ -1,0 +1,13 @@
+/* pages/mendianshezhiyuangong/index.wxss */
+.but-but-shiyong button{
+  color: #BA9245 !important;
+  border-color: #BA9245;
+}
+.item-item{
+  display: block;
+  height: 100rpx;
+}
+.but-box{
+  text-align: center;
+    margin-top: 300rpx;
+}

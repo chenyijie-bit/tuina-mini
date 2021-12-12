@@ -4,6 +4,7 @@ const formatDate = require('../../utils/util')
 const $Distance = require('../../utils/util').Distance;
 Page({
   data: {
+    isShowDefaultTimeDuan: true,
     head_url:'../../assess/images/123.jpeg',
     rate:5,
     typeRadio:'1',
@@ -177,6 +178,8 @@ Page({
   /////需要加个判断就是首页拿到手机号的时候就不用在授权了
   // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
+    console.log(this.data.currentTab);
+    
     if(e.detail.errMsg && e.detail.errMsg.indexOf('fail')>0){
       // 说明拒绝授权手机号
       return false
@@ -211,7 +214,14 @@ Page({
             worker_id:app.globalData.select_worker_id,
           }).then(res=>{
             if(res.statusCode ==200 && res.data.code == 200){
-              let dateData = res.data.future_list
+              let dateData = res.data.future_list || res.data.data.future_list || []
+              let qingjiaList = res.data.punch_clock_list || res.data.data.punch_clock_list || []
+              let qingjiaListFormat = qingjiaList.map(e=>{
+                let obj = {}
+                obj.s_date = e.s_date.split(' ')[0] + ' 00:00:00'
+                obj.e_date = e.e_date.split(' ')[0] + ' 23:59:59'
+                return obj
+              })
               let arr = []
               let longDateList = []
               let quedateList = []
@@ -224,11 +234,40 @@ Page({
                   if(keyStrArr && keyStrArr.length){
                     keyStr = `${keyStrArr[1]}/${keyStrArr[2]}`
                   }
-                  arr.push(keyStr)
+                  arr.push({time: keyStr, isShow:true})
                 }
               }
+              //要写两遍
+              let future_listTime =  longDateList.map(e=>{
+                e = e + ' 12:00:00'
+                return e
+              })
+              let isShowArr = []
+              future_listTime.map((e,i)=>{
+                qingjiaListFormat.map(s =>{
+                  if(s && e){
+                    if((new Date(s.s_date).getTime() < new Date(e).getTime()) && (new Date(e).getTime() < new Date(s.e_date).getTime())){
+                      isShowArr.push(i)                }
+                  }
+                })
+              })
+              isShowArr.map((e,i)=>{
+                arr[i].isShow = false
+              })
+              console.log(arr);
               this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
               // this.changeTabGetTime()
+              let tabIndex = this.data.currentTab
+              if(this.data.dateTit[tabIndex] && this.data.dateTit[tabIndex].isShow === false){
+                this.setData({
+                  isShowDefaultTimeDuan: false
+                })
+              }
+              if(this.data.dateTit[tabIndex] && this.data.dateTit[tabIndex].isShow === true){
+                this.setData({
+                  isShowDefaultTimeDuan: true
+                })
+              }
               let timeSelectModel = this.createTimeSelectModel()
               timeSelectModel.map((e,i)=>{
                 let pinjieTime = `${this.data.longDateList[this.data.currentTab]} ${e.time}`
@@ -244,6 +283,7 @@ Page({
               })
               let resData = []
               resData[this.data.currentTab] = timeSelectModel
+              console.log(resData);
               this.setData({
                 timeSelectModelBox: resData
               })
@@ -263,6 +303,8 @@ Page({
     })
   },
   getPhoneNumber2(e){
+    console.log(this.data.currentTab);
+    
     this.setData({
       appointmentType:e.currentTarget.dataset.type
     })
@@ -285,7 +327,14 @@ Page({
         worker_id:app.globalData.select_worker_id,
       }).then(res=>{
         if(res.statusCode ==200 && res.data.code == 200){
-          let dateData = res.data.data.future_list
+          let dateData = res.data.data.future_list || []
+          let qingjiaList = res.data.data.punch_clock_list || []
+          let qingjiaListFormat = qingjiaList.map(e=>{
+            let obj = {}
+            obj.s_date = e.s_date.split(' ')[0] + ' 00:00:00'
+            obj.e_date = e.e_date.split(' ')[0] + ' 23:59:59'
+            return obj
+          })
           let arr = []
           let longDateList = []
           let quedateList = []
@@ -298,10 +347,48 @@ Page({
               if(keyStrArr && keyStrArr.length){
                 keyStr = `${keyStrArr[1]}/${keyStrArr[2]}`
               }
-              arr.push(keyStr)
+              arr.push({time: keyStr, isShow:true})
             }
           }
+          //要写两遍
+          let future_listTime =  longDateList.map(e=>{
+            e = e + ' 12:00:00'
+            return e
+          })
+          let isShowArr = []
+          future_listTime.map((e,i)=>{
+            qingjiaListFormat.map(s =>{
+              if(s && e){
+                if((new Date(s.s_date).getTime() < new Date(e).getTime()) && (new Date(e).getTime() < new Date(s.e_date).getTime())){
+                  isShowArr.push(i)                }
+              }
+            })
+          })
+          isShowArr.map((e,i)=>{
+            arr[i].isShow = false
+            if(arr[0].isShow === false){
+              this.setData({
+                isShowDefaultTimeDuan: false
+              })
+            }else{
+              this.setData({
+                isShowDefaultTimeDuan: true
+              })
+            }
+          })
+          console.log(future_listTime);
           this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
+          let tabIndex = this.data.currentTab
+          if(this.data.dateTit[tabIndex] && this.data.dateTit[tabIndex].isShow === false){
+            this.setData({
+              isShowDefaultTimeDuan: false
+            })
+          }
+          if(this.data.dateTit[tabIndex] && this.data.dateTit[tabIndex].isShow === true){
+            this.setData({
+              isShowDefaultTimeDuan: true
+            })
+          }
           let timeSelectModel = this.createTimeSelectModel()
           timeSelectModel.map((e,i)=>{
             let pinjieTime = `${this.data.longDateList[this.data.currentTab]} ${e.time}`
@@ -316,6 +403,7 @@ Page({
           })
           let resData = []
           resData[this.data.currentTab] = timeSelectModel
+          console.log(resData);
           this.setData({
             timeSelectModelBox: resData
           })
@@ -500,20 +588,43 @@ Page({
   },
     //  tab切换逻辑
     swichNav: function( e ) {
+      console.log(e);
       var that = this;
-      if( this.data.currentTab === e.target.dataset.current ) {
+      let index = e.target.dataset.current
+      if( this.data.currentTab === index ) {
           return false;
       } else {
           that.setData( {
               // selectFlagTab : e.target.dataset.current,
-              currentTab: e.target.dataset.current
+              currentTab: index
           })
+      }
+      if(this.data.dateTit[index] && this.data.dateTit[index].isShow === false){
+        this.setData({
+          isShowDefaultTimeDuan: false
+        })
+      }
+      if(this.data.dateTit[index] && this.data.dateTit[index].isShow === true){
+        this.setData({
+          isShowDefaultTimeDuan: true
+        })
       }
       this.changeTabGetTime()
     },
     bindChange: function( e ) {
+      console.log(e);
         var that = this;
         that.setData( { currentTab: e.detail.current });
+        if(this.data.dateTit[e.detail.current] && this.data.dateTit[e.detail.current].isShow === false){
+          this.setData({
+            isShowDefaultTimeDuan: false
+          })
+        }
+        if(this.data.dateTit[e.detail.current] && this.data.dateTit[e.detail.current].isShow === true){
+          this.setData({
+            isShowDefaultTimeDuan: true
+          })
+        }
     },
     bindanimationfinish:function(e){
       let currentTab = e.detail.current

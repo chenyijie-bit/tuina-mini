@@ -41,7 +41,8 @@ Page({
     })
   },
   getfuwulist(){
-    $api.workerServiceList({openid:app.globalData.openId}).then(res=>{
+    let id = wx.getStorageSync('storeDataId')
+    $api.workerServiceList({openid:app.globalData.openId,shop_id:id}).then(res=>{
       if(res.data.code == 200){
         let list = res.data.data.list || []
         let reslist = list.map(e=>{

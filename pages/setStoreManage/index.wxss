@@ -1,0 +1,9 @@
+/* pages/setStoreManage/index.wxss */
+.item{
+  border: 1rpx solid #eee;
+    padding: 30rpx;
+    background: #efefef;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 12rpx;
+}
