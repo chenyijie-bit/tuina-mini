@@ -6,6 +6,6 @@
     </van-radio-group>
   </view>
   <view class="but-box">
-    <van-button class="but-but-shiyong" size="small" plain data-id="{{item.worker.id}}" type="info" bindtap="shiyong">确认为店长</van-button>
+    <van-button class="but-but-shiyong" size="small" plain data-id="{{item.worker.id}}" type="info" bindtap="querendianzhang">确认为店长</van-button>
   </view>
 </view>

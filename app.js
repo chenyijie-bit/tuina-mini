@@ -24,6 +24,13 @@ App({
       //请求成功
       if(res.data  && res.data.data 
         && res.data.data.openid){
+          let arrConf = res.data.data.conf
+            let arr = []
+            if(arrConf){
+              arr = JSON.parse(arrConf)
+            }
+            console.log(arr);
+            app.globalData.setDianZhangArr = arr
           app.globalData.openId = res.data.data.openid
           // app.globalData.openid = res.data.data.openid || ''
           app.globalData.mobile = res.data.data.mobile
@@ -58,6 +65,13 @@ App({
                 //请求成功
                 if(res.data  && res.data.data 
                   && res.data.data.openid){
+                    let arrConf = res.data.data.conf
+                    let arr = []
+                    if(arrConf){
+                      arr = JSON.parse(arrConf)
+                    }
+                    console.log(arr);
+                    _this.globalData.setDianZhangArr = arr
                     _this.globalData.openId = res.data.data.openid
                     // _this.globalData.openid = res.data.data.openid || ''
                     _this.globalData.mobile = res.data.data.mobile
@@ -146,6 +160,7 @@ App({
     })
   },
   globalData: {
+    setDianZhangArr:[],
     //用户的位置信息
     userAddrInfo:null,
     userInfo: null,

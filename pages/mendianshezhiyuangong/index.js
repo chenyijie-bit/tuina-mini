@@ -10,7 +10,8 @@ Page({
     storeId:'',
     workerList: [],
     radio: '',
-    workId:''
+    workId:'',
+    getGlobalWorkId: ''
   },
   onChangeRadioTab(event) {
     console.log();
@@ -23,7 +24,7 @@ Page({
       radio: index
     });
   },
-  shiyong(){
+  querendianzhang(){
     let dataStr = '',dataObj={}
     if(!this.data.workId || !this.data.storeId){
       wx.showToast({
@@ -33,10 +34,15 @@ Page({
       return false
     }
     // openId: XXX, shopId: XXX, shopName: XXX
-    dataObj.openId = this.data.workId
-    dataObj.shopName = this.data.workId
+    let arr = app.globalData.setDianZhangArr || []
+    let index = arr.findIndex(e=>e.shopId == this.data.storeId)
+    if(index !== -1){
+      arr.splice(index,1)
+    }
+    dataObj.workId = this.data.workId
     dataObj.shopId = this.data.storeId
-    dataStr = JSON.stringify(dataObj)
+    arr.push(dataObj)
+    dataStr = JSON.stringify(arr)
     console.log(dataStr);
     $api.workerConfigSet({
       "openid": app.globalData.openId,
@@ -70,6 +76,27 @@ Page({
         this.setData({
           workerList: itemList
         })
+        if(app.globalData.setDianZhangArr){
+          console.log(app.globalData.setDianZhangArr);
+          app.globalData.setDianZhangArr.map(e=>{
+            if(this.data.storeId == e.shopId){
+              let workId = e.workId - 0
+              this.setData({
+                getGlobalWorkId: workId
+              })
+            }
+          })
+          itemList.map((s,i)=>{
+            console.log(s.worker.id);
+            console.log(this.data.getGlobalWorkId);
+            if(s.worker.id==this.data.getGlobalWorkId){
+              this.setData({
+                radio: i,
+                workId: Number(this.data.getGlobalWorkId)
+              })
+            }
+          })
+        }
       }else{
         wx.showToast({
           title: res.data.err || res.data.data.err,

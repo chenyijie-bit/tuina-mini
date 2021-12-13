@@ -11,7 +11,7 @@ Page({
   },
   getStoreId(e){
     let id = e.currentTarget.dataset.id
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../mendianshezhiyuangong/index?id=' + id,
     })
   },
