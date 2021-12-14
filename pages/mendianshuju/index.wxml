@@ -1,6 +1,6 @@
 <!--pages/mendianshuju/index.wxml-->
 <view class="">
-  <view style="text-align: right;padding: 30rpx 41rpx 28rpx;" bindtap="addStore">
+  <view style="text-align: right;padding: 30rpx 41rpx 28rpx;" bindtap="addStore" wx:if="{{isShowAddStore}}">
     <text>添加店铺</text><van-icon bindtap="tianjiatongzhi" style="vertical-align: middle;margin-left: 10rpx;" name="add-o" color="333" size="25px"/>
   </view>
   <view wx:for="{{storeList}}" class="parent-box"  wx:key="index">

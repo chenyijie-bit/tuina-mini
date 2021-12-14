@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    storeList:[]
+    storeList:[],
+    isShowAddStore: true
   },
   addStore(){
     wx.navigateTo({
@@ -51,8 +52,21 @@ Page({
   initData(){
     $api.workerShopList({openid:app.globalData.openId}).then(res=>{
       if(res.data.code == 200){
+        let resData = []
+        console.log(res.data.data);
+        let data = res.data.data.list
+        if(app.globalData.worker_type!=10){
+          //说明是普通店员
+          console.log(999);
+          let a = data.find(e => e.id == app.globalData.curSuoShuStoreId)
+          console.log(app.globalData.curSuoShuStoreId);
+          resData.push(data.find(e => e.id == app.globalData.curSuoShuStoreId))
+        }else{
+          resData = [...data]
+        }
+        console.log(resData);
         this.setData({
-          storeList: res.data.data.list
+          storeList: resData
         })
       }else{
         wx.showToast({
@@ -82,6 +96,15 @@ Page({
   onShow: function () {
     this.initData()
     wx.setStorageSync('storeDataId', '')
+    if(app.globalData.worker_type == 10){
+      this.setData({
+        isShowAddStore: true
+      })
+    }else{
+      this.setData({
+        isShowAddStore: false
+      })
+    }
   },
 
   /**

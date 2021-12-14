@@ -12,6 +12,7 @@ page{
 .parent-box{
   margin-bottom: 30rpx;
   padding: 12rpx 30rpx;
+  margin-top: 30rpx;
 }
 .but-but-t button{
   color: #BA9245 !important;

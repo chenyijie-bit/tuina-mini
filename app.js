@@ -174,6 +174,8 @@ App({
     nickname:'',
     min_price:'', //店铺的最低消费
     min_price_c:'',
+    // 店员所属门店的id
+    curSuoShuStoreId: '',
     // 当前店铺的id
     shop_id:'',
     is_worker:0,

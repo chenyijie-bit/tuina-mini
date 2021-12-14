@@ -54,6 +54,18 @@
             </view>
             <text>活动订单</text>
           </view>
+          <view class="item" bindtap="mendianshuju" wx:if="{{zhanshimendianshuju}}">
+            <view>
+              <van-icon size="25px" color="#666" name="chart-trending-o" />
+            </view>
+            <text>门店数据</text>
+          </view>
+          <!-- <view class="item" bindtap="setStoreManage">
+            <view>
+              <van-icon size="25px" color="#666" name="friends-o" />
+            </view>
+            <text>设置店长</text>
+          </view> -->
         </view>
       </view>
       <!-- wx:if="{{worker_type === 10}}" -->

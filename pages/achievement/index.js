@@ -3,7 +3,9 @@ const $api = require('../../utils/request').API;
 Component({
   data: {
     personImg:'../../assess/images/banner1.png',
-    worker_type:0
+    worker_type:0,
+    curSuoShuStoreId: '', //店员所在的店铺Id
+    zhanshimendianshuju: false
   },
   methods:{
     daka(){
@@ -97,11 +99,36 @@ Component({
           if(res.data.data.worker_info && res.data.data.worker_info.first_order && res.data.data.worker_info.first_order.create_time){
             app.globalData.firstOrderTime = res.data.data.worker_info.first_order.create_time.split(' ')[0]
           }
+          console.log(res.data.data);
           if(res.data.data && res.data.data.worker_info.status && res.data.data.worker_info.status==50){
             // 说明是管理员已把他设置为员工但是还没有完善员工信息
             wx.navigateTo({
               url: '../gerenxinxi/index',
             })
+          }else if(res.data.data && res.data.data.worker_info.status && res.data.data.worker_info.status==60){
+            //说明是已经绑定店铺
+            let workId = res.data.data.worker_info.id
+            if(workId){
+              console.log(workId);
+              let setdianzhangobj = app.globalData.setDianZhangArr || []
+              if(setdianzhangobj && setdianzhangobj.length){
+                setdianzhangobj.map(e=>{
+                  if(workId == e.workId){
+                    console.log(1111);
+                    app.globalData.curSuoShuStoreId = e.shopId
+                  }
+                })
+              }
+              if(app.globalData.curSuoShuStoreId){
+                this.setData({
+                  zhanshimendianshuju: true
+                })
+              }else{
+                this.setData({
+                  zhanshimendianshuju: false
+                })
+              }
+            }
           }
         }
       })
