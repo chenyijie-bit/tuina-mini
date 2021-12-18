@@ -69,7 +69,7 @@
         </view>
       </view>
       <!-- wx:if="{{worker_type === 10}}" -->
-      <view class="work-table-list-top work-table-list-top2">
+      <view class="work-table-list-top work-table-list-top2" wx:if="{{worker_type === 10}}">
         <view class="title title-lag">店长工具</view>
         <view class="list-box">
           <view class="item" bindtap="mendianshuju">

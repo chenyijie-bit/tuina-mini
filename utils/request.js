@@ -23,9 +23,7 @@ function request(method, url, data) {
         })
         str = str.slice(0,str.length-1)
         str+='a286d0'
-        console.log(str);
         objSign.sign = md5.hexMD5(str)
-        console.log(objSign.sign);
         wx.request({
             url: baseURL + url,
             method: method,

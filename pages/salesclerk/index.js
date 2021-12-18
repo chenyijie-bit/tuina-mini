@@ -178,7 +178,6 @@ Page({
   /////需要加个判断就是首页拿到手机号的时候就不用在授权了
   // 而且还要看sessionkey是否过期  过期就要先登录 login
   getPhoneNumber (e) {
-    console.log(this.data.currentTab);
     
     if(e.detail.errMsg && e.detail.errMsg.indexOf('fail')>0){
       // 说明拒绝授权手机号
@@ -218,8 +217,8 @@ Page({
               let qingjiaList = res.data.punch_clock_list || res.data.data.punch_clock_list || []
               let qingjiaListFormat = qingjiaList.map(e=>{
                 let obj = {}
-                obj.s_date = e.s_date.split(' ')[0] + ' 00:00:00'
-                obj.e_date = e.e_date.split(' ')[0] + ' 23:59:59'
+                obj.s_date = e.s_date.replace(/-/g,'/').split(' ')[0] + ' 00:00:00'
+                obj.e_date = e.e_date.replace(/-/g,'/').split(' ')[0] + ' 23:59:59'
                 return obj
               })
               let arr = []
@@ -239,7 +238,7 @@ Page({
               }
               //要写两遍
               let future_listTime =  longDateList.map(e=>{
-                e = e + ' 12:00:00'
+                e = e.replace(/-/g,'/')  + ' 12:00:00'
                 return e
               })
               let isShowArr = []
@@ -254,7 +253,6 @@ Page({
               isShowArr.map((e,i)=>{
                 arr[e].isShow = false
               })
-              console.log(arr);
               this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
               // this.changeTabGetTime()
               let tabIndex = this.data.currentTab
@@ -283,7 +281,6 @@ Page({
               })
               let resData = []
               resData[this.data.currentTab] = timeSelectModel
-              console.log(resData);
               this.setData({
                 timeSelectModelBox: resData
               })
@@ -303,7 +300,6 @@ Page({
     })
   },
   getPhoneNumber2(e){
-    console.log(this.data.currentTab);
     this.setData({
       appointmentType:e.currentTarget.dataset.type
     })
@@ -330,8 +326,8 @@ Page({
           let qingjiaList = res.data.data.punch_clock_list || []
           let qingjiaListFormat = qingjiaList.map(e=>{
             let obj = {}
-            obj.s_date = e.s_date.split(' ')[0] + ' 00:00:00'
-            obj.e_date = e.e_date.split(' ')[0] + ' 23:59:59'
+            obj.s_date = e.s_date.replace(/-/g,'/').split(' ')[0] + ' 00:00:00'
+            obj.e_date = e.e_date.replace(/-/g,'/').split(' ')[0] + ' 23:59:59'
             return obj
           })
           let arr = []
@@ -351,19 +347,18 @@ Page({
           }
           //要写两遍
           let future_listTime =  longDateList.map(e=>{
-            e = e + ' 12:00:00'
+            e = e.replace(/-/g,'/') + ' 12:00:00'
             return e
           })
           let isShowArr = []
           future_listTime.map((e,i)=>{
             qingjiaListFormat.map(s =>{
               if(s && e){
-                if((new Date(s.s_date).getTime() < new Date(e).getTime()) && (new Date(e).getTime() < new Date(s.e_date).getTime())){
+                if((new Date(s.s_date).getTime() < new Date(e).getTime()) && (new Date(s.e_date).getTime() > new Date(e).getTime())){
                   isShowArr.push(i)                }
               }
             })
           })
-          console.log(isShowArr);
           isShowArr.map((e,i)=>{
             arr[e].isShow = false
             if(arr[0].isShow === false){
@@ -376,7 +371,6 @@ Page({
               })
             }
           })
-          console.log(future_listTime);
           this.setData({dateTit : arr,longDateList:longDateList,quedateList:quedateList})
           let tabIndex = this.data.currentTab
           if(this.data.dateTit[tabIndex] && this.data.dateTit[tabIndex].isShow === false){

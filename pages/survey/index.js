@@ -338,7 +338,6 @@ Component({
           let resData
           if(res.data.data){
             let data = res.data.data
-            console.log(data);
             let arr = []
             let nouserArrObj = {}
             let nouserArr = []
@@ -388,8 +387,6 @@ Component({
                 }
               }
               hasDataArrList = topArr.concat(lastArr)
-              console.log(hasDataArrList);
-              
               if(e.list && e.list.length){
                 e.list.map(s=>{
                   if(i==0){
@@ -428,9 +425,6 @@ Component({
               nouserArrObj: nouserArrObj
             })
             //这里是为了把今天之后的数据顺序排列 从今天到明天后天  今天之前的数据就按倒序就行  昨天前天  因为要展示今天之前和之后的数据
-            console.log(arr);
-            
-            console.log(arr);
             resData = JSON.parse(JSON.stringify(arr))
           }
           // for (let index = 0; index < resData.length; index++) {
