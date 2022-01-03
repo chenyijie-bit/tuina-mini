@@ -156,6 +156,8 @@ const API = {
     // 会员卡
     // 添加
     workerVipSet:(data)=>request(POST, `/worker/vip/set`,data),
+    // 删除
+    workerVipDel:(data)=>request(POST, `/worker/vip/del`,data),
     // 列表
     workerVipList:(data)=>request(POST, `/vip/list`,data),
     // 购买

@@ -1,6 +1,7 @@
 // pages/huiyuankaika/index.js
 let app = getApp();
 const $api = require('../../utils/request').API;
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Page({
 
   /**
@@ -83,6 +84,47 @@ Page({
     let id = e.currentTarget.dataset.id
     let status = 200
     this.setHuiyuanka(id,status)
+  },
+  shanchu(e){
+    let id = e.currentTarget.dataset.id
+    Dialog.confirm({
+      message: '确认删除吗',
+    })
+      .then(() => {
+        $api.workerVipDel({
+          openid: app.globalData.openId,
+          id
+        }).then(res=>{
+          console.log(res);
+          if(res.data && res.data.code == 200){
+            //说明成功了
+            wx.showToast({
+              title: '已删除',
+            })
+            this.initData(this.data.status)
+          }else{
+            wx.showToast({
+              title: res.data.msg || res.data.data || '删除失败',
+            })
+          }
+        })
+        // defaultReq({
+        // openid:app.globalData.openId,
+        // order_id:this.data.dataid,
+        //   }).then(res=>{
+        //     if(res.data && res.data.code == 200){
+        //       //说明退款成功了
+        //       wx.showToast({
+        //         title: '退款成功',
+        //       })
+        //       _this.searchOrder()
+        //     }
+        //   })
+      })
+      .catch(() => {
+        // on cancel
+      });
+    
   },
   /**
    * 生命周期函数--监听页面加载

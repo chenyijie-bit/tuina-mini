@@ -16,6 +16,11 @@
   <view  class="list-box" wx:if="{{itemList.length}}">
     <view wx:if="{{radio == '1'}}">
       <view wx:for="{{itemList}}" wx:key="index"  class="list-box-item">
+        <view wx:if="{{item.marketing}}">
+          <view>项目名称：{{item.marketing.name || '-'}}</view>
+          <view>项目描述：{{item.marketing.desc || '-'}}</view>
+          <view>项目价格：{{item.marketing.price || '-'}}</view>
+        </view>
         <view>创建时间：{{item.create_time}}</view>
         <view wx:if="{{item.is_pay == 1}}" >是否付款：<text class="yifukuan">已付款</text></view>
         <view wx:else>是否付款：<text class="weifukuan">未付款</text></view>

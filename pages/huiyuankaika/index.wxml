@@ -19,8 +19,10 @@
         <van-button  class="but-but" size="small" plain type="info" data-id="{{item.id}}"  bindtap="guanbi">已启用</van-button>
       </view>
       <view wx:else style="text-align:right;">
+        <van-button  class="but-but-del but-but-red" size="small" plain type="info" data-id="{{item.id}}" bindtap="shanchu">删除</van-button>
         <van-button class="but-but-red" size="small" plain type="info"  data-id="{{item.id}}"  bindtap="kaiqi">已禁用</van-button>
       </view>
     </view>
   </view>
+  <van-dialog id="van-dialog" />
 </view>
